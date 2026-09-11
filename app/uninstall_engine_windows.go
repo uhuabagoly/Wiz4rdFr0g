@@ -4,6 +4,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"strings"
 
 	catalogpkg "wiz4rdfr0g.local/fullcatalog/internal/catalog"
@@ -24,6 +25,7 @@ func executeInstalledUninstall(ctx context.Context, app appDef, pkg installedPac
 		return uninstallAttemptCode(app, runWingetUninstallScoped(ctx, app, pkg, true, scope))
 	}
 	strategy := installedUninstallStrategy(app, pkg)
+	workerLog("INFO", fmt.Sprintf("%s: uninstall target id=%q name=%q scope=%q strategy=%q registry=%q", app.Name, pkg.ID, pkg.Name, scope, strategy, pkg.RegistryKey))
 	if scope == "user" && elevated {
 		return uninstallCodeWrongElevation
 	}
@@ -45,6 +47,7 @@ func executeInstalledUninstall(ctx context.Context, app appDef, pkg installedPac
 			}
 		}
 		if strings.TrimSpace(pkg.ID) != "" {
+			workerLog("REPAIR", app.Name+": registered/MSI uninstall path failed; retrying the same exact target through Winget ID.")
 			return uninstallAttemptCode(app, runWingetUninstallScoped(ctx, app, pkg, true, scope))
 		}
 		return uninstallCodeFailed
@@ -57,6 +60,7 @@ func executeInstalledUninstall(ctx context.Context, app appDef, pkg installedPac
 			}
 		}
 		if strings.TrimSpace(pkg.ID) != "" {
+			workerLog("REPAIR", app.Name+": registered vendor uninstall path failed; retrying the same exact target through Winget ID.")
 			return uninstallAttemptCode(app, runWingetUninstallScoped(ctx, app, pkg, true, scope))
 		}
 		return uninstallCodeFailed
@@ -67,6 +71,7 @@ func executeInstalledUninstall(ctx context.Context, app appDef, pkg installedPac
 			return code
 		}
 		if reg, ok := resolveRegistryForInstalled(app, pkg, registryPackages); ok {
+			workerLog("REPAIR", app.Name+": exact Winget uninstall failed; retrying the matched registered uninstaller for the same detected application.")
 			return uninstallAttemptCode(app, runRegisteredUninstaller(ctx, app, reg))
 		}
 		return uninstallCodeFailed
@@ -83,5 +88,6 @@ func uninstallAttemptCode(app appDef, attempt uninstallAttempt) int {
 	if verifyProgramRemoved(app) {
 		return uninstallCodeOK
 	}
+	workerLog("WARN", app.Name+": uninstall command reported success but independent detector still finds the target.")
 	return uninstallCodeFailed
 }

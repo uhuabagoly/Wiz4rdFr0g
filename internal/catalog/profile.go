@@ -64,6 +64,7 @@ type Profile struct {
 	PackageResolutionSafe               bool              `json:"package_resolution_safe"`
 	PhysicalTestRequired                bool              `json:"physical_test_required"`
 	DefaultInstallLocationInformational bool              `json:"default_install_location_informational"`
+	License                             LicenseMetadata   `json:"license"`
 }
 
 var RegistryVariantTokens = []string{"beta", "alpha", "nightly", "canary", "dev", "preview", "cli", "runtime", "updater", "update", "helper", "extension", "sdk", "server", "client", "viewer", "agent", "driver", "portable"}
@@ -531,6 +532,7 @@ func ProfileFor(app AppDef) Profile {
 	if p.SystemComponent || p.UninstallStrategy == StrategyManualOnly {
 		p.PhysicalTestRequired = false
 	}
+	p.License = LicenseFor(app, p.SystemComponent)
 	if app.ID != "" {
 		if verifiedHardcodedIDs[app.ID] {
 			p.ResolutionStatus = ResolutionHardcodedVerified

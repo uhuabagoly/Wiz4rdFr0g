@@ -26,6 +26,10 @@ const (
 	RootPackageUnavailable      RootCause = "PackageUnavailable"
 	RootDetectionFalsePositive  RootCause = "DetectionFalsePositive"
 	RootDetectionFalseNegative  RootCause = "DetectionFalseNegative"
+	RootLicensePolicy           RootCause = "LicensePolicyBlocked"
+	RootTimeout                 RootCause = "Timeout"
+	RootTransientPackageManager RootCause = "TransientPackageManager"
+	RootUninstallRepairFailed   RootCause = "UninstallRepairFailed"
 	RootOther                   RootCause = "Other"
 
 	CoverageVerifiedFull        CoverageStatus = "VERIFIED_FULL"
@@ -55,6 +59,18 @@ func ClassifyRootCause(f ResultFacts) RootCause {
 	}
 	if status == "SYSTEM_COMPONENT" || strings.Contains(text, "system component") || strings.Contains(text, "rendszerkomponens") {
 		return RootSystemComponent
+	}
+	if status == "LICENSE_REQUIRED" || strings.Contains(text, "license policy") || strings.Contains(text, "licence policy") {
+		return RootLicensePolicy
+	}
+	if strings.Contains(status, "TIMEOUT") || strings.Contains(text, "context deadline exceeded") || strings.Contains(text, "timed out") || strings.Contains(text, "timeout") {
+		return RootTimeout
+	}
+	if strings.Contains(text, "transient package") || strings.Contains(text, "temporary source") || strings.Contains(text, "network retry") {
+		return RootTransientPackageManager
+	}
+	if status == "UNINSTALL_REPAIR_FAILED" || strings.Contains(text, "repair attempts exhausted") {
+		return RootUninstallRepairFailed
 	}
 	if status == "SKIPPED_REBOOT_REQUIRED" || strings.Contains(text, "reboot") || strings.Contains(text, "restart required") || strings.Contains(text, "újraindítás") {
 		return RootRebootRequired

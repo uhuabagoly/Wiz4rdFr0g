@@ -1132,9 +1132,17 @@ func enrichInstalledPackages(packages []installedPackage, registryPackages []reg
 	return packages
 }
 
-func bestRegistryMatch(name string, packages []registryPackage) (registryPackage, bool) {
+type registryMatchState string
+
+const (
+	registryMatchNone      registryMatchState = "none"
+	registryMatchFound     registryMatchState = "found"
+	registryMatchAmbiguous registryMatchState = "ambiguous"
+)
+
+func bestRegistryMatchDetailed(name string, packages []registryPackage) (registryPackage, registryMatchState) {
 	if normalizeSearch(name) == "" {
-		return registryPackage{}, false
+		return registryPackage{}, registryMatchNone
 	}
 	bestScore := 0
 	best := registryPackage{}
@@ -1152,7 +1160,18 @@ func bestRegistryMatch(name string, packages []registryPackage) (registryPackage
 			ambiguous = true
 		}
 	}
-	return best, bestScore >= 96 && !ambiguous
+	if bestScore < 96 {
+		return registryPackage{}, registryMatchNone
+	}
+	if ambiguous {
+		return registryPackage{}, registryMatchAmbiguous
+	}
+	return best, registryMatchFound
+}
+
+func bestRegistryMatch(name string, packages []registryPackage) (registryPackage, bool) {
+	p, state := bestRegistryMatchDetailed(name, packages)
+	return p, state == registryMatchFound
 }
 
 func deriveRegistryInstallLocation(p registryPackage) string {
@@ -1476,6 +1495,7 @@ func uninstallCatalogProgram(idx int) {
 func executeUninstallWorkerFlow(ctx context.Context, self string, idx int) (int, bool, error) {
 	app := catalog[idx]
 	code, _, err := runDirectProcess(ctx, self, []string{"--uninstall-worker-user", strconv.Itoa(idx)})
+	code, err = normalizeWorkerExecution(code, err)
 	elevated := false
 	if err == nil && code == uninstallCodeNeedElevation {
 		uiDo(func() { appendLog("SYSTEM", app.Name+": gépszintű eltávolításhoz UAC szükséges.") })
@@ -1487,6 +1507,7 @@ func executeUninstallWorkerFlow(ctx context.Context, self string, idx int) (int,
 			appendLog("INFO", app.Name+": felhasználói hatókör újrapróbálása normál jogosultsággal.")
 		})
 		code, _, err = runDirectProcess(ctx, self, []string{"--uninstall-worker-user", strconv.Itoa(idx)})
+		code, err = normalizeWorkerExecution(code, err)
 		elevated = false
 	}
 	return code, elevated, err
@@ -1715,11 +1736,19 @@ func resolveExactWingetPackage(app appDef, packages []installedPackage) (install
 	return installedPackage{}, false
 }
 
-func resolveInstalledPackage(app appDef, packages []installedPackage, registryPackages []registryPackage) (installedPackage, bool) {
+type installedResolveState string
+
+const (
+	installedResolveNone      installedResolveState = "none"
+	installedResolveFound     installedResolveState = "found"
+	installedResolveAmbiguous installedResolveState = "ambiguous"
+)
+
+func resolveInstalledPackageDetailed(app appDef, packages []installedPackage, registryPackages []registryPackage) (installedPackage, installedResolveState) {
 	for _, wantID := range catalogIDs(app) {
 		for _, p := range packages {
 			if strings.EqualFold(strings.TrimSpace(p.ID), strings.TrimSpace(wantID)) {
-				return p, true
+				return p, installedResolveFound
 			}
 		}
 	}
@@ -1733,7 +1762,7 @@ func resolveInstalledPackage(app appDef, packages []installedPackage, registryPa
 			}
 			key := strings.ToLower(strings.TrimSpace(p.ID))
 			if key == "" {
-				key = strings.ToLower(strings.TrimSpace(p.Name)) + "|" + strings.ToLower(strings.TrimSpace(p.Version))
+				key = strings.ToLower(strings.TrimSpace(p.Name)) + "|" + strings.ToLower(strings.TrimSpace(p.Version)) + "|" + strings.ToLower(strings.TrimSpace(p.Scope))
 			}
 			if !seenIDs[key] {
 				seenIDs[key] = true
@@ -1741,18 +1770,27 @@ func resolveInstalledPackage(app appDef, packages []installedPackage, registryPa
 			}
 		}
 		if len(matches) == 1 {
-			return matches[0], true
+			return matches[0], installedResolveFound
 		}
 		if len(matches) > 1 {
-			return installedPackage{}, false
+			return installedPackage{}, installedResolveAmbiguous
 		}
 	}
 	for _, q := range candidateQueries(app.Name) {
-		if reg, ok := bestRegistryMatch(q, registryPackages); ok {
-			return installedPackage{Name: reg.DisplayName, Version: reg.DisplayVersion, InstallLocation: deriveRegistryInstallLocation(reg), UninstallString: reg.UninstallString, QuietUninstallString: reg.QuietUninstallString, RegistryKey: reg.RegistryKey, Scope: reg.Scope, WindowsInstaller: reg.WindowsInstaller != 0}, true
+		reg, state := bestRegistryMatchDetailed(q, registryPackages)
+		switch state {
+		case registryMatchFound:
+			return installedPackage{Name: reg.DisplayName, Version: reg.DisplayVersion, InstallLocation: deriveRegistryInstallLocation(reg), UninstallString: reg.UninstallString, QuietUninstallString: reg.QuietUninstallString, RegistryKey: reg.RegistryKey, Scope: reg.Scope, WindowsInstaller: reg.WindowsInstaller != 0}, installedResolveFound
+		case registryMatchAmbiguous:
+			return installedPackage{}, installedResolveAmbiguous
 		}
 	}
-	return installedPackage{}, false
+	return installedPackage{}, installedResolveNone
+}
+
+func resolveInstalledPackage(app appDef, packages []installedPackage, registryPackages []registryPackage) (installedPackage, bool) {
+	p, state := resolveInstalledPackageDetailed(app, packages, registryPackages)
+	return p, state == installedResolveFound
 }
 
 func resolveRegistryForInstalled(app appDef, pkg installedPackage, registryPackages []registryPackage) (registryPackage, bool) {

@@ -26,6 +26,15 @@ func fixture(t *testing.T) (releaseproof.BuildManifest, []catalogpkg.AuditEntry,
 	m.BuildID = releaseproof.BuildID(m.AppVersion, m.GitCommit, m.CatalogFingerprint, hash, m.EvidenceSchemaVersion)
 	return m, entries, key, time.Now().UTC()
 }
+func firstEligibleIndex(entries []catalogpkg.AuditEntry) int {
+	for i, e := range entries {
+		if e.PhysicalTestRequired && e.LicensePolicyOK {
+			return i
+		}
+	}
+	panic("no physical-test-eligible catalog entry")
+}
+
 func makeResult(t *testing.T, m releaseproof.BuildManifest, e catalogpkg.AuditEntry, key []byte, now time.Time) Result {
 	t.Helper()
 	s := releaseproof.EvidenceStatement{SchemaVersion: releaseproof.EvidenceSchemaVersion, BuildID: m.BuildID, AppVersion: m.AppVersion, GitCommit: m.GitCommit, CatalogFingerprint: m.CatalogFingerprint, ArtifactSHA256: m.Artifacts[releaseproof.PrimaryWindowsArtifactKey].SHA256, TestRunID: "run", CatalogIndex: e.Index, CatalogAppID: releaseproof.CatalogAppID(e), CatalogAppName: e.Name, StartedAt: now.Add(-time.Second).Format(time.RFC3339Nano), FinishedAt: now.Format(time.RFC3339Nano), MachineID: "vm", FinalStatus: "FULL_PASS", InstallVerified: true, UninstallVerified: true, DurationSeconds: 1}
@@ -48,7 +57,7 @@ func writeResult(t *testing.T, dir, name string, r Result) {
 func TestValidResultAccepted(t *testing.T) {
 	m, e, key, now := fixture(t)
 	dir := t.TempDir()
-	writeResult(t, dir, "0000.json", makeResult(t, m, e[0], key, now))
+	writeResult(t, dir, "0000.json", makeResult(t, m, e[firstEligibleIndex(e)], key, now))
 	rs := LoadAndValidateResults(dir, m, e, now, key)
 	if len(rs.Valid) != 1 || len(rs.Issues) != 0 {
 		t.Fatalf("unexpected: %+v", rs)
@@ -57,7 +66,7 @@ func TestValidResultAccepted(t *testing.T) {
 func TestCopiedEvidenceRejected(t *testing.T) {
 	m, e, key, now := fixture(t)
 	dir := t.TempDir()
-	r := makeResult(t, m, e[0], key, now)
+	r := makeResult(t, m, e[firstEligibleIndex(e)], key, now)
 	writeResult(t, dir, "a.json", r)
 	writeResult(t, dir, "b.json", r)
 	rs := LoadAndValidateResults(dir, m, e, now, key)
@@ -68,7 +77,7 @@ func TestCopiedEvidenceRejected(t *testing.T) {
 func TestTamperedEvidenceRejected(t *testing.T) {
 	m, e, key, now := fixture(t)
 	dir := t.TempDir()
-	r := makeResult(t, m, e[0], key, now)
+	r := makeResult(t, m, e[firstEligibleIndex(e)], key, now)
 	r.TestRunID = "tampered"
 	writeResult(t, dir, "x.json", r)
 	rs := LoadAndValidateResults(dir, m, e, now, key)
@@ -102,5 +111,28 @@ func TestArtifactPathCannotEscapeProjectRoot(t *testing.T) {
 	}
 	if !found {
 		t.Fatalf("unsafe artifact path was accepted: %+v", issues)
+	}
+}
+
+func TestPolicyBlockedEntryCannotClaimFullPass(t *testing.T) {
+	m, entries, key, now := fixture(t)
+	var blocked catalogpkg.AuditEntry
+	found := false
+	for _, e := range entries {
+		if e.PhysicalTestRequired && !e.LicensePolicyOK {
+			blocked = e
+			found = true
+			break
+		}
+	}
+	if !found {
+		t.Fatal("missing policy-blocked fixture entry")
+	}
+	dir := t.TempDir()
+	r := makeResult(t, m, blocked, key, now)
+	writeResult(t, dir, "blocked.json", r)
+	rs := LoadAndValidateResults(dir, m, entries, now, key)
+	if len(rs.Valid) != 0 || rs.Invalid == 0 {
+		t.Fatalf("policy-blocked FULL_PASS was accepted: %+v", rs)
 	}
 }

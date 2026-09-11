@@ -8,8 +8,17 @@ func TestCatalogAuditCoverage(t *testing.T) {
 		t.Fatalf("catalog entries = %d, want 723", len(entries))
 	}
 	s := Summarize(entries)
-	if !s.Pass {
-		t.Fatalf("catalog audit failed: %v", s.ValidationErrors)
+	if !s.SafetyPass {
+		t.Fatalf("catalog safety audit failed: %v", s.ValidationErrors)
+	}
+	if s.LicensePolicyPass {
+		t.Fatal("license policy unexpectedly passed before all 723 entries have official-source classification")
+	}
+	if s.LicenseCommercial != 4 {
+		t.Fatalf("commercial license entries=%d, want 4", s.LicenseCommercial)
+	}
+	if s.LicensePolicyEligible < 3 {
+		t.Fatalf("policy eligible entries=%d, want at least the source-verified open-source seed set", s.LicensePolicyEligible)
 	}
 	if s.DuplicateNames != 0 {
 		t.Fatalf("duplicate names = %d", s.DuplicateNames)

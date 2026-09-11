@@ -263,6 +263,12 @@ func ValidateEvidence(statement EvidenceStatement, signature string, manifest Bu
 	if entry.UninstallStrategy == catalogpkg.StrategyManualOnly && statement.FinalStatus != "MANUAL_ONLY" {
 		add("invalid_manual_only_status", "manual-only evidence must use MANUAL_ONLY status")
 	}
+	if !entry.SystemComponent && entry.UninstallStrategy != catalogpkg.StrategyManualOnly && !entry.LicensePolicyOK && statement.FinalStatus != "LICENSE_REQUIRED" {
+		add("invalid_license_policy_status", "policy-blocked catalog entry evidence must use LICENSE_REQUIRED status")
+	}
+	if entry.LicensePolicyOK && statement.FinalStatus == "LICENSE_REQUIRED" {
+		add("unexpected_license_policy_status", "policy-eligible catalog entry cannot use LICENSE_REQUIRED status")
+	}
 	if statement.DurationSeconds < 0 {
 		add("negative_duration", "duration_seconds is negative")
 	}

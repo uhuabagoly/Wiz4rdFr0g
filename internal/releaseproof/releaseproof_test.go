@@ -28,7 +28,13 @@ func testManifest(t *testing.T) (BuildManifest, catalogpkg.AuditEntry) {
 		WindowsSigningStatus:  "unsigned",
 	}
 	m.BuildID = BuildID(m.AppVersion, m.GitCommit, m.CatalogFingerprint, art, m.EvidenceSchemaVersion)
-	return m, entries[0]
+	for _, e := range entries {
+		if e.PhysicalTestRequired && e.LicensePolicyOK {
+			return m, e
+		}
+	}
+	t.Fatal("eligible physical-test fixture not found")
+	return m, catalogpkg.AuditEntry{}
 }
 
 func validStatement(t *testing.T, m BuildManifest, e catalogpkg.AuditEntry, now time.Time, key []byte) (EvidenceStatement, string) {

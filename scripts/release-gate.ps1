@@ -30,9 +30,12 @@ if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 Remove-Item Env:GOOS, Env:GOARCH, Env:CGO_ENABLED -ErrorAction SilentlyContinue
 
 go run ./cmd/catalog-audit -out ./audit
-if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+$auditCode = $LASTEXITCODE
+if ($auditCode -ne 0 -and $auditCode -ne 1) { exit $auditCode }
 New-Item -ItemType Directory -Force ./test/windows-vm/results | Out-Null
 New-Item -ItemType Directory -Force ./release | Out-Null
+go run ./cmd/campaign-plan ./test/windows-vm
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 go run ./cmd/vm-test-report ./test/windows-vm/results
 $gate = Join-Path $env:TEMP "wiz4rdfr0g-release-gate.exe"
 go build -o $gate ./cmd/release-gate

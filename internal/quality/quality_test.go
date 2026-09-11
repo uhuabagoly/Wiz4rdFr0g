@@ -32,3 +32,19 @@ func TestCoverageNeverFabricatesVerifiedFull(t *testing.T) {
 		t.Fatalf("verified physical result coverage=%s", got)
 	}
 }
+
+func TestClassifyNewPhase3RootCauses(t *testing.T) {
+	cases := []struct {
+		facts ResultFacts
+		want  RootCause
+	}{
+		{ResultFacts{FinalStatus: "LICENSE_REQUIRED", Failure: "license policy blocked"}, RootLicensePolicy},
+		{ResultFacts{FinalStatus: "UNINSTALL_TIMEOUT", Failure: "context deadline exceeded"}, RootTimeout},
+		{ResultFacts{FinalStatus: "UNINSTALL_REPAIR_FAILED", Failure: "repair attempts exhausted"}, RootUninstallRepairFailed},
+	}
+	for _, tc := range cases {
+		if got := ClassifyRootCause(tc.facts); got != tc.want {
+			t.Fatalf("ClassifyRootCause(%+v)=%s want %s", tc.facts, got, tc.want)
+		}
+	}
+}

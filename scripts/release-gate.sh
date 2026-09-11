@@ -6,8 +6,11 @@ go run ./cmd/release-build ./release/build_manifest.json
 go test ./...
 go vet ./...
 GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go vet ./app ./installer
-go run ./cmd/catalog-audit -out ./audit
+audit_rc=0
+go run ./cmd/catalog-audit -out ./audit || audit_rc=$?
+if [[ $audit_rc -ne 0 && $audit_rc -ne 1 ]]; then exit $audit_rc; fi
 mkdir -p ./test/windows-vm/results ./release
+go run ./cmd/campaign-plan ./test/windows-vm
 go run ./cmd/vm-test-report ./test/windows-vm/results || true
 tmp="$(mktemp)"
 trap 'rm -f "$tmp"' EXIT

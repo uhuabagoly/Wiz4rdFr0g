@@ -80,7 +80,7 @@ func TestAdversarialEvidenceMatrix(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			m := baseManifest
 			dir := t.TempDir()
-			r := makeResult(t, m, entries[0], key, now)
+			r := makeResult(t, m, entries[firstEligibleIndex(entries)], key, now)
 			if tc.raw != nil {
 				tc.raw(t, dir, r)
 			} else {
@@ -95,7 +95,7 @@ func TestAdversarialEvidenceMatrix(t *testing.T) {
 func TestCopiedEvidenceAttackRejected(t *testing.T) {
 	m, entries, key, now := fixture(t)
 	dir := t.TempDir()
-	r := makeResult(t, m, entries[0], key, now)
+	r := makeResult(t, m, entries[firstEligibleIndex(entries)], key, now)
 	writeResult(t, dir, "0000.json", r)
 	writeResult(t, dir, "copy.json", r)
 	rs := assertRejected(t, dir, m, entries, now, key)
@@ -107,7 +107,7 @@ func TestCopiedEvidenceAttackRejected(t *testing.T) {
 func TestDuplicateEvidenceRejected(t *testing.T) {
 	m, entries, key, now := fixture(t)
 	dir := t.TempDir()
-	first := makeResult(t, m, entries[0], key, now)
+	first := makeResult(t, m, entries[firstEligibleIndex(entries)], key, now)
 	second := first
 	second.TestRunID = "independent-second-run"
 	resign(t, &second, key)
@@ -122,7 +122,7 @@ func TestDuplicateEvidenceRejected(t *testing.T) {
 func TestConflictingPassFailEvidenceRejected(t *testing.T) {
 	m, entries, key, now := fixture(t)
 	dir := t.TempDir()
-	pass := makeResult(t, m, entries[0], key, now)
+	pass := makeResult(t, m, entries[firstEligibleIndex(entries)], key, now)
 	fail := pass
 	fail.FinalStatus = "UNINSTALL_FAIL"
 	fail.UninstallVerified = false
@@ -140,7 +140,7 @@ func TestConflictingPassFailEvidenceRejected(t *testing.T) {
 func TestValidEvidencePositiveFixture(t *testing.T) {
 	m, entries, key, now := fixture(t)
 	dir := t.TempDir()
-	r := makeResult(t, m, entries[0], key, now)
+	r := makeResult(t, m, entries[firstEligibleIndex(entries)], key, now)
 	writeResult(t, dir, "0000.json", r)
 	rs := LoadAndValidateResults(dir, m, entries, now, key)
 	if len(rs.Valid) != 1 || len(rs.Issues) != 0 {

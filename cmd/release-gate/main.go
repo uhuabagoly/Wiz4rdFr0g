@@ -59,8 +59,23 @@ type gateReport struct {
 	WindowsSigningStatus    string            `json:"windows_signing_status,omitempty"`
 	CatalogTotal            int               `json:"catalog_total"`
 	PhysicalTestRequired    int               `json:"physical_test_required"`
+	PhysicalTestEligible    int               `json:"physical_test_eligible"`
+	PhysicalExecuted        int               `json:"physical_executed"`
+	InstallFailures         int               `json:"install_failures"`
+	UninstallFailures       int               `json:"uninstall_failures"`
+	VerifyFailures          int               `json:"verify_failures"`
+	Ambiguous               int               `json:"ambiguous"`
+	Unsupported             int               `json:"unsupported"`
+	NotExecuted             int               `json:"not_executed"`
 	CatalogAuditPass        bool              `json:"catalog_audit_pass"`
 	UnsafeResolutionEntries int               `json:"unsafe_resolution_entries"`
+	CatalogSafetyPass       bool              `json:"catalog_safety_pass"`
+	LicensePolicyPass       bool              `json:"license_policy_pass"`
+	LicensePolicyEligible   int               `json:"license_policy_eligible"`
+	LicensePolicyBlocked    int               `json:"license_policy_blocked"`
+	LicenseUnknown          int               `json:"license_unknown"`
+	LicenseCommercial       int               `json:"license_commercial"`
+	LicenseEvidenceMissing  int               `json:"license_evidence_missing"`
 	PhysicalResultFiles     int               `json:"physical_result_files"`
 	ValidPhysicalResults    int               `json:"valid_physical_results"`
 	InvalidEvidence         int               `json:"invalid_evidence"`
@@ -104,7 +119,12 @@ func main() {
 	auditSummary := catalogpkg.Summarize(auditEntries)
 	fingerprint, fpErr := releaseproof.CatalogFingerprint(auditEntries)
 
-	report := gateReport{GeneratedAt: time.Now().UTC().Format(time.RFC3339Nano), CatalogTotal: len(auditEntries), PhysicalTestRequired: auditSummary.PhysicalTestRequired, CatalogAuditPass: auditSummary.Pass, UnsafeResolutionEntries: auditSummary.UnsafeResolutionEntries, RootCauseCounts: map[string]int{}, ArtifactHashes: map[string]string{}}
+	report := gateReport{GeneratedAt: time.Now().UTC().Format(time.RFC3339Nano), CatalogTotal: len(auditEntries), PhysicalTestRequired: auditSummary.PhysicalTestRequired, CatalogAuditPass: auditSummary.Pass, CatalogSafetyPass: auditSummary.SafetyPass, LicensePolicyPass: auditSummary.LicensePolicyPass, LicensePolicyEligible: auditSummary.LicensePolicyEligible, LicensePolicyBlocked: auditSummary.LicensePolicyBlocked, LicenseUnknown: auditSummary.LicenseUnknown, LicenseCommercial: auditSummary.LicenseCommercial, LicenseEvidenceMissing: auditSummary.LicenseEvidenceMissing, UnsafeResolutionEntries: auditSummary.UnsafeResolutionEntries, RootCauseCounts: map[string]int{}, ArtifactHashes: map[string]string{}}
+	for _, a := range auditEntries {
+		if a.PhysicalTestRequired && a.LicensePolicyOK {
+			report.PhysicalTestEligible++
+		}
+	}
 	if fpErr != nil {
 		report.Blockers = append(report.Blockers, "catalog fingerprint failed: "+fpErr.Error())
 	}
@@ -190,7 +210,26 @@ func main() {
 			row.Coverage = quality.CoverageManualUninstall
 			row.RootCause = quality.RootUnsupportedAutomation
 			row.Evidence = "catalog profile explicitly requires manual uninstall"
+		} else if !a.LicensePolicyOK {
+			row.Coverage = quality.CoverageLicenseBlocked
+			row.RootCause = quality.RootLicensePolicy
+			row.Evidence = fmt.Sprintf("license policy blocks physical execution: class=%s source=%s", a.LicenseClass, a.LicenseSourceURL)
 		} else if r, ok := rs.Valid[a.Index]; ok {
+			report.PhysicalExecuted++
+			switch strings.ToUpper(strings.TrimSpace(r.FinalStatus)) {
+			case "INSTALL_FAIL":
+				report.InstallFailures++
+			case "UNINSTALL_FAIL", "UNINSTALL_REPAIR_FAILED":
+				report.UninstallFailures++
+			case "VERIFY_FAIL", "INSTALL_VERIFY_FAIL", "UNINSTALL_VERIFY_FAIL":
+				report.VerifyFailures++
+			case "AMBIGUOUS":
+				report.Ambiguous++
+			case "UNSUPPORTED":
+				report.Unsupported++
+			case "NOT_EXECUTED":
+				report.NotExecuted++
+			}
 			if r.InstallVerified {
 				report.VerifiedInstall++
 			}
@@ -211,8 +250,9 @@ func main() {
 			if row.Coverage == quality.CoverageVerifiedFull {
 				regressionRows = append(regressionRows, regressionRow{Index: a.Index, Name: a.Name, Evidence: row.Evidence, BuildState: "authenticated physical install+detect+uninstall+verify PASS"})
 			}
-		} else if a.PhysicalTestRequired {
+		} else if a.PhysicalTestRequired && a.LicensePolicyOK {
 			report.MissingPhysicalEvidence++
+			report.NotExecuted++
 		}
 		rows = append(rows, row)
 		report.RootCauseCounts[string(row.RootCause)]++
@@ -234,8 +274,11 @@ func main() {
 		}
 	}
 
-	if !report.CatalogAuditPass {
-		report.Blockers = append(report.Blockers, "catalog audit failed")
+	if !report.CatalogSafetyPass {
+		report.Blockers = append(report.Blockers, "catalog safety audit failed")
+	}
+	if !report.LicensePolicyPass {
+		report.Blockers = append(report.Blockers, fmt.Sprintf("catalog license policy failed: blocked=%d unknown=%d commercial=%d evidence_missing=%d", report.LicensePolicyBlocked, report.LicenseUnknown, report.LicenseCommercial, report.LicenseEvidenceMissing))
 	}
 	if report.UnsafeResolutionEntries != 0 {
 		report.Blockers = append(report.Blockers, fmt.Sprintf("unsafe package resolution entries: %d", report.UnsafeResolutionEntries))
@@ -256,7 +299,7 @@ func main() {
 		report.Blockers = append(report.Blockers, fmt.Sprintf("license-blocked packages require explicit disposition: %d", report.LicenseBlocked))
 	}
 	for cause, count := range report.RootCauseCounts {
-		if count == 0 || cause == string(quality.RootNone) || cause == string(quality.RootSystemComponent) || cause == string(quality.RootUnsupportedAutomation) {
+		if count == 0 || cause == string(quality.RootNone) || cause == string(quality.RootSystemComponent) || cause == string(quality.RootUnsupportedAutomation) || cause == string(quality.RootLicensePolicy) {
 			continue
 		}
 		report.Blockers = append(report.Blockers, fmt.Sprintf("unresolved physical root cause %s: %d", cause, count))
@@ -273,7 +316,7 @@ func main() {
 		known = append(json.RawMessage(nil), b...)
 	}
 	writeJSON(filepath.Join(outputDir, "regression_corpus.json"), regressionCorpus{PhysicalVerified: regressionRows, KnownRegressions: known})
-	fmt.Printf("catalog=%d physical_files=%d valid_physical=%d verified_full=%d unresolved=%d invalid=%d mismatched=%d duplicates=%d release_ready=%v\n", report.CatalogTotal, report.PhysicalResultFiles, report.ValidPhysicalResults, report.VerifiedFull, report.Unresolved, report.InvalidEvidence, report.MismatchedEvidence, report.DuplicateEvidence, report.ReleaseReady)
+	fmt.Printf("catalog=%d policy_eligible=%d policy_blocked=%d physical_candidates=%d physical_eligible=%d physical_files=%d valid_physical=%d verified_full=%d unresolved=%d invalid=%d mismatched=%d duplicates=%d release_ready=%v\n", report.CatalogTotal, report.LicensePolicyEligible, report.LicensePolicyBlocked, report.PhysicalTestRequired, report.PhysicalTestEligible, report.PhysicalResultFiles, report.ValidPhysicalResults, report.VerifiedFull, report.Unresolved, report.InvalidEvidence, report.MismatchedEvidence, report.DuplicateEvidence, report.ReleaseReady)
 	for _, b := range report.Blockers {
 		fmt.Println("BLOCK:", b)
 	}

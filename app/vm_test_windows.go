@@ -37,49 +37,53 @@ type vmDetected struct {
 }
 
 type vmTestResult struct {
-	SchemaVersion        int           `json:"schema_version"`
-	BuildID              string        `json:"build_id"`
-	AppVersion           string        `json:"app_version"`
-	GitCommit            string        `json:"git_commit"`
-	CatalogFingerprint   string        `json:"catalog_fingerprint"`
-	ArtifactSHA256       string        `json:"artifact_sha256"`
-	TestRunID            string        `json:"test_run_id"`
-	CatalogIndex         int           `json:"catalog_index"`
-	CatalogAppID         string        `json:"catalog_app_id"`
-	CatalogAppName       string        `json:"catalog_app_name"`
-	Name                 string        `json:"name"`
-	Category             string        `json:"category"`
-	Profile              any           `json:"profile"`
-	StartedAt            string        `json:"started_at"`
-	FinishedAt           string        `json:"finished_at"`
-	DurationSeconds      float64       `json:"duration_seconds"`
-	VMID                 string        `json:"vm_id"`
-	MachineID            string        `json:"machine_id"`
-	Executor             string        `json:"executor"`
-	Precheck             string        `json:"precheck"`
-	ResolvedID           string        `json:"resolved_id,omitempty"`
-	ResolvedSource       string        `json:"resolved_source,omitempty"`
-	ResolutionError      string        `json:"resolution_error,omitempty"`
-	DownloadExitCode     int           `json:"download_exit_code,omitempty"`
-	DownloadOK           bool          `json:"download_ok"`
-	DownloadArtifact     bool          `json:"download_artifact_present"`
-	InstallExitCode      int           `json:"install_exit_code,omitempty"`
-	InstallOK            bool          `json:"install_ok"`
-	InstallVerified      bool          `json:"install_verified"`
-	DetectedAfterInstall vmDetected    `json:"detected_after_install"`
-	UninstallAttempted   bool          `json:"uninstall_attempted"`
-	UninstallExitCode    int           `json:"uninstall_exit_code,omitempty"`
-	UninstallOK          bool          `json:"uninstall_ok"`
-	UninstallVerified    bool          `json:"uninstall_verified"`
-	FinalStatus          string        `json:"final_status"`
-	RootCause            string        `json:"root_cause"`
-	CoverageStatus       string        `json:"coverage_status"`
-	SkipReason           string        `json:"skip_reason,omitempty"`
-	FailureStage         string        `json:"failure_stage,omitempty"`
-	Failure              string        `json:"failure,omitempty"`
-	RebootRequired       bool          `json:"reboot_required"`
-	Events               []vmTestEvent `json:"events"`
-	Signature            string        `json:"signature"`
+	SchemaVersion        int                        `json:"schema_version"`
+	BuildID              string                     `json:"build_id"`
+	AppVersion           string                     `json:"app_version"`
+	GitCommit            string                     `json:"git_commit"`
+	CatalogFingerprint   string                     `json:"catalog_fingerprint"`
+	ArtifactSHA256       string                     `json:"artifact_sha256"`
+	TestRunID            string                     `json:"test_run_id"`
+	CatalogIndex         int                        `json:"catalog_index"`
+	CatalogAppID         string                     `json:"catalog_app_id"`
+	CatalogAppName       string                     `json:"catalog_app_name"`
+	Name                 string                     `json:"name"`
+	Category             string                     `json:"category"`
+	Profile              any                        `json:"profile"`
+	StartedAt            string                     `json:"started_at"`
+	FinishedAt           string                     `json:"finished_at"`
+	DurationSeconds      float64                    `json:"duration_seconds"`
+	VMID                 string                     `json:"vm_id"`
+	MachineID            string                     `json:"machine_id"`
+	Executor             string                     `json:"executor"`
+	Precheck             string                     `json:"precheck"`
+	ResolvedID           string                     `json:"resolved_id,omitempty"`
+	ResolvedSource       string                     `json:"resolved_source,omitempty"`
+	ResolutionError      string                     `json:"resolution_error,omitempty"`
+	DownloadExitCode     int                        `json:"download_exit_code,omitempty"`
+	DownloadRetryCount   int                        `json:"download_retry_count"`
+	DownloadOK           bool                       `json:"download_ok"`
+	DownloadArtifact     bool                       `json:"download_artifact_present"`
+	InstallExitCode      int                        `json:"install_exit_code,omitempty"`
+	InstallRetryCount    int                        `json:"install_retry_count"`
+	InstallOK            bool                       `json:"install_ok"`
+	InstallVerified      bool                       `json:"install_verified"`
+	DetectedAfterInstall vmDetected                 `json:"detected_after_install"`
+	UninstallAttempted   bool                       `json:"uninstall_attempted"`
+	UninstallExitCode    int                        `json:"uninstall_exit_code,omitempty"`
+	UninstallOK          bool                       `json:"uninstall_ok"`
+	UninstallVerified    bool                       `json:"uninstall_verified"`
+	UninstallDiagnosis   string                     `json:"uninstall_diagnosis,omitempty"`
+	UninstallAttempts    []vmUninstallAttemptRecord `json:"uninstall_attempts,omitempty"`
+	FinalStatus          string                     `json:"final_status"`
+	RootCause            string                     `json:"root_cause"`
+	CoverageStatus       string                     `json:"coverage_status"`
+	SkipReason           string                     `json:"skip_reason,omitempty"`
+	FailureStage         string                     `json:"failure_stage,omitempty"`
+	Failure              string                     `json:"failure,omitempty"`
+	RebootRequired       bool                       `json:"reboot_required"`
+	Events               []vmTestEvent              `json:"events"`
+	Signature            string                     `json:"signature"`
 }
 
 func (r vmTestResult) evidenceStatement() releaseproof.EvidenceStatement {
@@ -284,8 +288,13 @@ func resumeVMTestOne(idx int, resultPath string) vmTestResult {
 		return finish("VERIFY_FAIL")
 	}
 	r.InstallVerified = true
-	detected, found := vmDetectInstalled(app)
-	if !found {
+	detected, detectState := vmDetectInstalledState(app)
+	if detectState == vmDetectionAmbiguous {
+		r.FailureStage = "DETECTION_AFTER_REBOOT"
+		r.Failure = "post-reboot detection is ambiguous; destructive uninstall is refused"
+		return finish("AMBIGUOUS")
+	}
+	if detectState != vmDetectionFound {
 		r.FailureStage = "DETECTION_AFTER_REBOOT"
 		r.Failure = "production detector failed after reboot"
 		return finish("DETECTION_FAIL")
@@ -296,47 +305,32 @@ func resumeVMTestOne(idx int, resultPath string) vmTestResult {
 		return finish("MANUAL_ONLY")
 	}
 	r.UninstallAttempted = true
-	uctx, cancel := context.WithTimeout(context.Background(), 25*time.Minute)
+	uctx, cancel := context.WithTimeout(context.Background(), campaignDurationFromEnv("WIZ4RDFR0G_UNINSTALL_TOTAL_TIMEOUT_MINUTES", 55*time.Minute, 5*time.Minute, 180*time.Minute))
 	defer cancel()
-	scope := strings.ToLower(strings.TrimSpace(detected.Scope))
-	var code int
-	switch scope {
-	case "user":
-		if vmProcessElevated() {
-			r.SkipReason = "user-scope uninstall must run with a standard user token; current executor is elevated"
-			return finish("SKIPPED_PRIVILEGE_ENVIRONMENT")
-		}
-		code = uninstallInContext(uctx, app, false)
-	case "machine":
-		if !vmProcessElevated() {
-			r.SkipReason = "machine-scope uninstall requires an elevated VM test process"
-			return finish("SKIPPED_PRIVILEGE_ENVIRONMENT")
-		}
-		code = uninstallInContext(uctx, app, true)
-	default:
-		code = uninstallInContext(uctx, app, false)
-		if code == 10 {
-			if !vmProcessElevated() {
-				r.SkipReason = "dynamic-scope package requires elevation but current executor is not elevated"
-				return finish("SKIPPED_PRIVILEGE_ENVIRONMENT")
-			}
-			code = uninstallInContext(uctx, app, true)
-		}
+	uout := vmExecuteUninstallWithRepair(uctx, app, detected, log)
+	r.UninstallExitCode = uout.Code
+	r.UninstallOK = uout.Success
+	r.UninstallVerified = uout.VerifiedRemoval
+	r.UninstallDiagnosis = uout.Diagnosis
+	r.UninstallAttempts = append(r.UninstallAttempts, uout.Attempts...)
+	if uout.RebootRequired {
+		r.RebootRequired = true
+		r.SkipReason = "uninstall still requires another Windows restart"
+		return finish("SKIPPED_REBOOT_REQUIRED")
 	}
-	r.UninstallExitCode = code
-	r.UninstallOK = code == 0
-	if !r.UninstallOK {
+	if uout.PrivilegeBlocked {
+		r.SkipReason = uout.SkipReason
+		return finish("SKIPPED_PRIVILEGE_ENVIRONMENT")
+	}
+	if !uout.Success {
 		r.FailureStage = "UNINSTALL"
-		r.Failure = fmt.Sprintf("production uninstall flow returned code %d", code)
+		r.Failure = uout.Diagnosis
+		if len(uout.Attempts) > 1 {
+			return finish("UNINSTALL_REPAIR_FAILED")
+		}
 		return finish("UNINSTALL_FAIL")
 	}
-	r.UninstallVerified = verifyProgramRemoved(app)
-	if !r.UninstallVerified {
-		r.FailureStage = "UNINSTALL_VERIFY"
-		r.Failure = "uninstall returned success but production detector still finds the program"
-		return finish("VERIFY_FAIL")
-	}
-	log("PASS", "post-reboot uninstall verified")
+	log("PASS", fmt.Sprintf("post-reboot uninstall verified after %d attempt(s)", len(uout.Attempts)))
 	return finish("FULL_PASS")
 }
 
@@ -384,6 +378,12 @@ func runVMTestOne(idx int, workRoot string) vmTestResult {
 		log("SKIP", r.SkipReason)
 		return finish("MANUAL_ONLY")
 	}
+	if !profile.License.PolicyOK {
+		r.Precheck = "LICENSE_POLICY"
+		r.SkipReason = fmt.Sprintf("license policy blocks physical installation until official-source review passes: class=%s source=%q", profile.License.Class, profile.License.SourceURL)
+		log("SKIP", r.SkipReason)
+		return finish("LICENSE_REQUIRED")
+	}
 	if _, err := exec.LookPath("winget.exe"); err != nil {
 		r.Precheck = "NO_WINGET"
 		r.SkipReason = "winget.exe is unavailable in this Windows executor"
@@ -391,8 +391,15 @@ func runVMTestOne(idx int, workRoot string) vmTestResult {
 		return finish("UNAVAILABLE")
 	}
 
-	pre, found := vmDetectInstalled(app)
-	if found {
+	pre, preState := vmDetectInstalledState(app)
+	if preState == vmDetectionAmbiguous {
+		r.Precheck = "AMBIGUOUS"
+		r.FailureStage = "PRECHECK"
+		r.Failure = "multiple equally valid installed identities were detected; destructive testing is refused"
+		log("ERROR", r.Failure)
+		return finish("AMBIGUOUS")
+	}
+	if preState == vmDetectionFound {
 		r.Precheck = "PREEXISTING"
 		r.SkipReason = "program already existed before the test; harness refuses to remove pre-existing software"
 		r.DetectedAfterInstall = pre
@@ -428,13 +435,15 @@ func runVMTestOne(idx int, workRoot string) vmTestResult {
 	downloadDir := filepath.Join(workRoot, "download")
 	_ = os.MkdirAll(downloadDir, 0755)
 
-	ctx, cancel := context.WithTimeout(context.Background(), 35*time.Minute)
+	ctx, cancel := context.WithTimeout(context.Background(), campaignDurationFromEnv("WIZ4RDFR0G_INSTALL_TIMEOUT_MINUTES", 35*time.Minute, 5*time.Minute, 120*time.Minute))
 	defer cancel()
 
 	dargs := []string{"download", "--id", id, "--exact", "--source", source, "--download-directory", downloadDir, "--accept-package-agreements", "--accept-source-agreements", "--disable-interactivity"}
 	log("CMD", formatCommand("winget.exe", dargs))
-	dcode, dout, derr := runDirectProcess(ctx, "winget.exe", dargs)
+	drun := vmRunCommandWithTransientRetry(ctx, "winget.exe", dargs, campaignRetryLimitFromEnv("WIZ4RDFR0G_PACKAGE_RETRIES", 1), nil, log)
+	dcode, dout, derr := drun.ExitCode, drun.Output, drun.Err
 	r.DownloadExitCode = dcode
+	r.DownloadRetryCount = drun.Retries
 	r.DownloadArtifact = downloadedArtifactExists(downloadDir)
 	r.DownloadOK = derr == nil && dcode == 0 && r.DownloadArtifact
 	if !r.DownloadOK {
@@ -445,8 +454,10 @@ func runVMTestOne(idx int, workRoot string) vmTestResult {
 
 	iargs := []string{"install", "--id", id, "--exact", "--source", source, "--silent", "--accept-package-agreements", "--accept-source-agreements", "--disable-interactivity"}
 	log("CMD", formatCommand("winget.exe", iargs))
-	icode, iout, ierr := runDirectProcess(ctx, "winget.exe", iargs)
+	irun := vmRunCommandWithTransientRetry(ctx, "winget.exe", iargs, campaignRetryLimitFromEnv("WIZ4RDFR0G_PACKAGE_RETRIES", 1), func() bool { return !verifyProgramInstalled(app) }, log)
+	icode, iout, ierr := irun.ExitCode, irun.Output, irun.Err
 	r.InstallExitCode = icode
+	r.InstallRetryCount = irun.Retries
 	if icode == 1641 || icode == 3010 {
 		r.RebootRequired = true
 	}
@@ -472,8 +483,14 @@ func runVMTestOne(idx int, workRoot string) vmTestResult {
 	}
 	log("PASS", "installation verified by production detector")
 
-	detected, found := vmDetectInstalled(app)
-	if !found {
+	detected, detectState := vmDetectInstalledState(app)
+	if detectState == vmDetectionAmbiguous {
+		r.FailureStage = "DETECTION"
+		r.Failure = "post-install detection is ambiguous; multiple equally valid target identities exist"
+		log("ERROR", r.Failure)
+		return finish("AMBIGUOUS")
+	}
+	if detectState != vmDetectionFound {
 		r.FailureStage = "DETECTION"
 		r.Failure = "production detector failed after installation"
 		log("ERROR", r.Failure)
@@ -489,57 +506,48 @@ func runVMTestOne(idx int, workRoot string) vmTestResult {
 	}
 
 	r.UninstallAttempted = true
-	uctx, ucancel := context.WithTimeout(context.Background(), 25*time.Minute)
+	uctx, ucancel := context.WithTimeout(context.Background(), campaignDurationFromEnv("WIZ4RDFR0G_UNINSTALL_TOTAL_TIMEOUT_MINUTES", 55*time.Minute, 5*time.Minute, 180*time.Minute))
 	defer ucancel()
-	scope := strings.ToLower(strings.TrimSpace(detected.Scope))
-	var ucode int
-	switch scope {
-	case "user":
-		if vmProcessElevated() {
-			r.SkipReason = "user-scope uninstall must run with a standard user token; current executor is elevated"
-			log("SKIP", r.SkipReason)
-			return finish("SKIPPED_PRIVILEGE_ENVIRONMENT")
-		}
-		ucode = uninstallInContext(uctx, app, false)
-	case "machine":
-		if !vmProcessElevated() {
-			r.SkipReason = "machine-scope uninstall requires an elevated VM test process"
-			log("SKIP", r.SkipReason)
-			return finish("SKIPPED_PRIVILEGE_ENVIRONMENT")
-		}
-		ucode = uninstallInContext(uctx, app, true)
-	default:
-		ucode = uninstallInContext(uctx, app, false)
-		if ucode == 10 {
-			if !vmProcessElevated() {
-				r.SkipReason = "dynamic-scope package requires elevation but current executor is not elevated"
-				log("SKIP", r.SkipReason)
-				return finish("SKIPPED_PRIVILEGE_ENVIRONMENT")
-			}
-			ucode = uninstallInContext(uctx, app, true)
-		}
+	uout := vmExecuteUninstallWithRepair(uctx, app, detected, log)
+	r.UninstallExitCode = uout.Code
+	r.UninstallOK = uout.Success
+	r.UninstallVerified = uout.VerifiedRemoval
+	r.UninstallDiagnosis = uout.Diagnosis
+	r.UninstallAttempts = append(r.UninstallAttempts, uout.Attempts...)
+	if uout.RebootRequired {
+		r.RebootRequired = true
+		r.SkipReason = "uninstaller reported a required Windows restart; physical PASS is blocked until the test is resumed after reboot"
+		log("SKIP", r.SkipReason)
+		return finish("SKIPPED_REBOOT_REQUIRED")
 	}
-	r.UninstallExitCode = ucode
-	r.UninstallOK = ucode == 0
-	if !r.UninstallOK {
+	if uout.PrivilegeBlocked {
+		r.SkipReason = uout.SkipReason
+		log("SKIP", r.SkipReason)
+		return finish("SKIPPED_PRIVILEGE_ENVIRONMENT")
+	}
+	if !uout.Success {
 		r.FailureStage = "UNINSTALL"
-		r.Failure = fmt.Sprintf("production uninstall flow returned code %d", ucode)
+		r.Failure = uout.Diagnosis
+		if len(uout.Attempts) > 1 {
+			log("ERROR", "uninstall repair attempts exhausted: "+r.Failure)
+			return finish("UNINSTALL_REPAIR_FAILED")
+		}
 		log("ERROR", r.Failure)
 		return finish("UNINSTALL_FAIL")
 	}
-
-	r.UninstallVerified = verifyProgramRemoved(app)
-	if !r.UninstallVerified {
-		r.FailureStage = "UNINSTALL_VERIFY"
-		r.Failure = "uninstall returned success but production detector still finds the program"
-		log("ERROR", r.Failure)
-		return finish("VERIFY_FAIL")
-	}
-	log("PASS", "uninstall verified; production detector no longer finds the program")
+	log("PASS", fmt.Sprintf("uninstall verified after %d attempt(s); production detector no longer finds the program", len(uout.Attempts)))
 	return finish("FULL_PASS")
 }
 
-func vmDetectInstalled(app appDef) (vmDetected, bool) {
+type vmDetectionState string
+
+const (
+	vmDetectionAbsent    vmDetectionState = "absent"
+	vmDetectionFound     vmDetectionState = "found"
+	vmDetectionAmbiguous vmDetectionState = "ambiguous"
+)
+
+func vmDetectInstalledState(app appDef) (vmDetected, vmDetectionState) {
 	ctx, cancel := context.WithTimeout(context.Background(), 75*time.Second)
 	defer cancel()
 	regs := scanRegistryPackages()
@@ -547,17 +555,34 @@ func vmDetectInstalled(app appDef) (vmDetected, bool) {
 	machineRegs := registryPackagesByScope(regs, "machine")
 	userPkgs := listInstalledPackagesForScope(ctx, "user")
 	machinePkgs := listInstalledPackagesForScope(ctx, "machine")
-	if pkg, ok := resolveInstalledPackage(app, userPkgs, userRegs); ok {
-		return vmDetectedFrom(app, pkg, "user"), true
+	upkg, ustate := resolveInstalledPackageDetailed(app, userPkgs, userRegs)
+	mpkg, mstate := resolveInstalledPackageDetailed(app, machinePkgs, machineRegs)
+	if ustate == installedResolveAmbiguous || mstate == installedResolveAmbiguous {
+		return vmDetected{}, vmDetectionAmbiguous
 	}
-	if pkg, ok := resolveInstalledPackage(app, machinePkgs, machineRegs); ok {
-		return vmDetectedFrom(app, pkg, "machine"), true
+	if ustate == installedResolveFound && mstate == installedResolveFound {
+		return vmDetected{}, vmDetectionAmbiguous
+	}
+	if ustate == installedResolveFound {
+		return vmDetectedFrom(app, upkg, "user"), vmDetectionFound
+	}
+	if mstate == installedResolveFound {
+		return vmDetectedFrom(app, mpkg, "machine"), vmDetectionFound
 	}
 	allPkgs := append(append([]installedPackage(nil), userPkgs...), machinePkgs...)
-	if pkg, ok := resolveInstalledPackage(app, allPkgs, regs); ok {
-		return vmDetectedFrom(app, pkg, pkg.Scope), true
+	pkg, state := resolveInstalledPackageDetailed(app, allPkgs, regs)
+	if state == installedResolveAmbiguous {
+		return vmDetected{}, vmDetectionAmbiguous
 	}
-	return vmDetected{}, false
+	if state == installedResolveFound {
+		return vmDetectedFrom(app, pkg, pkg.Scope), vmDetectionFound
+	}
+	return vmDetected{}, vmDetectionAbsent
+}
+
+func vmDetectInstalled(app appDef) (vmDetected, bool) {
+	d, state := vmDetectInstalledState(app)
+	return d, state == vmDetectionFound
 }
 
 func vmDetectedFrom(app appDef, pkg installedPackage, scope string) vmDetected {

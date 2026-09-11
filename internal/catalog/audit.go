@@ -35,6 +35,11 @@ type AuditEntry struct {
 	PhysicalTestRequired       bool              `json:"physical_test_required"`
 	DefaultLocationInformative bool              `json:"default_install_location_informational"`
 	UnresolvedReason           string            `json:"unresolved_reason,omitempty"`
+	LicenseClass               LicenseClass      `json:"license_class"`
+	LicenseSourceURL           string            `json:"license_source_url,omitempty"`
+	LicenseCheckedAt           string            `json:"license_checked_at,omitempty"`
+	LicenseNote                string            `json:"license_note,omitempty"`
+	LicensePolicyOK            bool              `json:"license_policy_ok"`
 }
 
 type AuditSummary struct {
@@ -56,6 +61,18 @@ type AuditSummary struct {
 	Unresolved                   int            `json:"unresolved"`
 	PhysicalTestRequired         int            `json:"physical_test_required"`
 	UnsafeResolutionEntries      int            `json:"unsafe_resolution_entries"`
+	LicenseOpenSource            int            `json:"license_open_source"`
+	LicenseFreeware              int            `json:"license_freeware"`
+	LicenseFreeTier              int            `json:"license_free_tier"`
+	LicenseTrial                 int            `json:"license_trial"`
+	LicenseCommercial            int            `json:"license_commercial"`
+	LicenseUnknown               int            `json:"license_unknown"`
+	LicenseSystemComponent       int            `json:"license_system_component"`
+	LicenseEvidenceMissing       int            `json:"license_evidence_missing"`
+	LicensePolicyEligible        int            `json:"license_policy_eligible"`
+	LicensePolicyBlocked         int            `json:"license_policy_blocked"`
+	SafetyPass                   bool           `json:"safety_pass"`
+	LicensePolicyPass            bool           `json:"license_policy_pass"`
 	StrategyCounts               map[string]int `json:"strategy_counts"`
 	ResolutionCounts             map[string]int `json:"resolution_counts"`
 	ValidationErrors             []string       `json:"validation_errors"`
@@ -101,6 +118,11 @@ func BuildAuditEntries() []AuditEntry {
 			SystemComponent:            p.SystemComponent,
 			PhysicalTestRequired:       p.PhysicalTestRequired,
 			DefaultLocationInformative: p.DefaultInstallLocationInformational,
+			LicenseClass:               p.License.Class,
+			LicenseSourceURL:           p.License.SourceURL,
+			LicenseCheckedAt:           p.License.CheckedAt,
+			LicenseNote:                p.License.Note,
+			LicensePolicyOK:            p.License.PolicyOK,
 		}
 		if p.ResolutionStatus == ResolutionHardcodedUnverified {
 			e.UnresolvedReason = "hardcoded package ID requires exact runtime revalidation"
@@ -175,6 +197,30 @@ func Summarize(entries []AuditEntry) AuditSummary {
 		if !e.PackageResolutionSafe {
 			s.UnsafeResolutionEntries++
 		}
+		switch e.LicenseClass {
+		case LicenseOpenSource:
+			s.LicenseOpenSource++
+		case LicenseFreeware:
+			s.LicenseFreeware++
+		case LicenseFreeTier:
+			s.LicenseFreeTier++
+		case LicenseTrial:
+			s.LicenseTrial++
+		case LicenseCommercial:
+			s.LicenseCommercial++
+		case LicenseSystemComponent:
+			s.LicenseSystemComponent++
+		default:
+			s.LicenseUnknown++
+		}
+		if LicenseRequiresEvidence(e.LicenseClass) && (strings.TrimSpace(e.LicenseSourceURL) == "" || strings.TrimSpace(e.LicenseCheckedAt) == "") {
+			s.LicenseEvidenceMissing++
+		}
+		if e.LicensePolicyOK {
+			s.LicensePolicyEligible++
+		} else if !e.SystemComponent {
+			s.LicensePolicyBlocked++
+		}
 		s.StrategyCounts[string(e.UninstallStrategy)]++
 		s.ResolutionCounts[string(e.ResolutionStatus)]++
 	}
@@ -189,7 +235,9 @@ func Summarize(entries []AuditEntry) AuditSummary {
 	s.UniqueHardcodedIDs = len(idCounts)
 	s.VerifiedUniqueHardcodedIDs = len(verifiedIDs)
 	s.ValidationErrors = ValidateCatalog(entries)
-	s.Pass = len(s.ValidationErrors) == 0 && s.UnsafeResolutionEntries == 0
+	s.SafetyPass = len(s.ValidationErrors) == 0 && s.UnsafeResolutionEntries == 0
+	s.LicensePolicyPass = s.LicensePolicyBlocked == 0 && s.LicenseEvidenceMissing == 0
+	s.Pass = s.SafetyPass && s.LicensePolicyPass
 	return s
 }
 

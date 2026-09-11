@@ -12,6 +12,13 @@ Wiz4rd Fr0g is a cross-platform program installer and remover for Windows and Li
 
 The curated catalog contains 723 entries. Package resolution is exact-only: known package IDs are preferred, exact display-name resolution is used where verified, and ambiguous fuzzy results are rejected.
 
+
+## Catalog license policy
+
+Catalog license state is explicit and machine-checkable. Entries are classified as `open_source`, `freeware`, `free_tier`, `trial`, `commercial`, `system_component` or `unknown`. Only source-verified `open_source` and `freeware` entries satisfy the normal free-application policy. `free_tier`, `trial`, `commercial` and `unknown` entries are release-blocking until their disposition is resolved; Windows-managed system components are kept outside the normal application license policy.
+
+A positive license classification requires an official source URL and review date. Winget availability, package-manager presence or a product name is never treated as proof that software is free. Unreviewed entries remain `unknown` rather than being guessed into an allowed class. `cmd/campaign-plan` creates `test/windows-vm/physical_test_plan.json` and `batches.json` so policy-blocked entries cannot silently disappear from the catalog denominator.
+
 ## Windows install verification
 
 A successful installer exit code is not enough. After installation Wiz4rd Fr0g re-runs the production detector and verifies the installed instance through Winget and/or Windows uninstall metadata before marking the application installed.
@@ -52,6 +59,17 @@ Physical PASS is emitted only when all four verification points succeed. Tests m
 
 The current execution host does not expose a Windows VM, Wine, Winget or a Windows CI executor. Therefore no physical package result is fabricated. The repository includes the GitHub Actions Windows test workflow and resumable local VM scripts for real execution.
 
+
+## Physical uninstall diagnosis and repair
+
+A non-zero uninstall worker exit code is an application result, not a process-launch failure. The GUI preserves that protocol status and displays the detailed uninstall result instead of collapsing it into a generic `exit status 1` launch error.
+
+The Windows VM campaign records the exact detected identity, scope, uninstall strategy, worker log, exit code and post-uninstall detection state for every attempt. A failed uninstall may receive a small bounded repair/retest cycle. Repair is limited to safe operations: re-detection, existing exact-ID/registered/MSI fallback paths, and termination of running processes only when their executable path is proven to be inside the detected install root. Ambiguous identity immediately stops destructive retry.
+
+Install and uninstall success are independently verified from post-state. Exit code zero alone is not a PASS. A command failure followed by disappearance is also retained as a failure rather than being rewritten to `FULL_PASS`, because the command result and state transition were inconsistent. Network/package-source retries are bounded and only apply to narrowly classified transient failures.
+
+Campaign resume is authenticated. An existing result is skipped only when its HMAC, build ID, Git commit, catalog fingerprint and artifact hash match the current release, and only for a terminal disposition. Failed results are re-tested instead of blindly skipped.
+
 ## Root-cause classification
 
 Physical failures are classified into explicit root-cause categories such as WrongPackageId, AmbiguousMatch, WrongRegistryMatch, WrongScope, UserScopeElevated, MachineScopeNotElevated, BrokenUninstallString, BrokenQuotedPath, MSIProductCode, MSIXStore, RebootRequired, RunningProcess, SystemComponent, UnsupportedAutomation, InstallerChanged, PackageUnavailable, DetectionFalsePositive and DetectionFalseNegative.
@@ -76,7 +94,7 @@ Windows code signing is an explicit release state. Without signing configuration
 
 Every physical result records the build ID, Git commit, catalog fingerprint, exact tested executable SHA256, test-run ID, catalog-entry ID, machine ID and timestamps. Release-decision fields are signed before the result is written. Reboot-resume checkpoints are validated before they are trusted. Old-build, old-schema, wrong-catalog, wrong-artifact, unsigned, corrupt, duplicated and conflicting evidence is release-blocking rather than ignored.
 
-The gate runs the controlled build, unit tests, static analysis, catalog audit, artifact-integrity validation, authenticated physical-evidence validation and coverage validation. Release is blocked if package resolution is unsafe, artifact identity does not match the manifest, evidence is invalid or stale, or any required catalog entry still lacks physical install/detect/uninstall/verify evidence.
+The gate runs the controlled build, unit tests, static analysis, catalog audit, deterministic campaign-plan generation, artifact-integrity validation, authenticated physical-evidence validation and coverage validation. Release is blocked if package resolution is unsafe, artifact identity does not match the manifest, evidence is invalid or stale, or any required catalog entry still lacks physical install/detect/uninstall/verify evidence.
 
 The generated audit material includes `release/build_manifest.json`, `release/artifact_issues.json`, `release/evidence_issues.json`, `release/coverage.json`, `release/root_causes.json`, `release/regression_corpus.json` and `release/release_gate.json`.
 
