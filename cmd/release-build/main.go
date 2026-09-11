@@ -69,7 +69,7 @@ func buildRelease(manifestPath string) error {
 
 	winApp := filepath.FromSlash("dist/Wiz4rdFr0g.exe")
 	ld := "-H windowsgui -X main.buildGitCommit=" + gitCommit
-	if err := runEnv([]string{"GOOS=windows", "GOARCH=amd64", "CGO_ENABLED=0"}, "go", "build", "-trimpath", "-ldflags="+ld, "-o", winApp, "./app"); err != nil {
+	if err := runEnv([]string{"GOOS=windows", "GOARCH=amd64", "CGO_ENABLED=0"}, "go", "build", "-buildvcs=false", "-trimpath", "-ldflags="+ld, "-o", winApp, "./app"); err != nil {
 		return fmt.Errorf("build Windows app: %w", err)
 	}
 
@@ -91,12 +91,12 @@ func buildRelease(manifestPath string) error {
 	}
 
 	winSetup := filepath.FromSlash("dist/Wiz4rd_Fr0g_Setup.exe")
-	if err := runEnv([]string{"GOOS=windows", "GOARCH=amd64", "CGO_ENABLED=0"}, "go", "build", "-trimpath", "-ldflags=-H windowsgui", "-o", winSetup, "./installer"); err != nil {
+	if err := runEnv([]string{"GOOS=windows", "GOARCH=amd64", "CGO_ENABLED=0"}, "go", "build", "-buildvcs=false", "-trimpath", "-ldflags=-H windowsgui", "-o", winSetup, "./installer"); err != nil {
 		return fmt.Errorf("build Windows setup: %w", err)
 	}
 
 	linuxApp := filepath.FromSlash("dist-linux/Wiz4rdFr0g")
-	if err := runEnv(nil, "go", "build", "-trimpath", "-o", linuxApp, "./linux"); err != nil {
+	if err := runEnv(nil, "go", "build", "-buildvcs=false", "-trimpath", "-o", linuxApp, "./linux"); err != nil {
 		return fmt.Errorf("build Linux app: %w", err)
 	}
 
