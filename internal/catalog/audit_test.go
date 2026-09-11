@@ -82,3 +82,16 @@ func TestDBeaverCurrentAndHistoricalIDs(t *testing.T) {
 	}
 	t.Fatal("DBeaver missing from catalog")
 }
+
+func TestPhysicalTestRequiredExcludesSystemAndManualOnly(t *testing.T) {
+	entries := BuildAuditEntries()
+	summary := Summarize(entries)
+	if summary.PhysicalTestRequired != 719 {
+		t.Fatalf("physical test required=%d, want 719", summary.PhysicalTestRequired)
+	}
+	for _, e := range entries {
+		if (e.SystemComponent || e.UninstallStrategy == StrategyManualOnly) && e.PhysicalTestRequired {
+			t.Fatalf("non-automatable entry %q is incorrectly marked physical-test-required", e.Name)
+		}
+	}
+}

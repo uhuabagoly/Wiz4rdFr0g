@@ -251,6 +251,12 @@ func ValidateEvidence(statement EvidenceStatement, signature string, manifest Bu
 	if statement.FinalStatus == "FULL_PASS" && (!statement.InstallVerified || !statement.UninstallVerified) {
 		add("invalid_full_pass", "FULL_PASS requires install_verified=true and uninstall_verified=true")
 	}
+	if entry.SystemComponent && statement.FinalStatus != "SYSTEM_COMPONENT" {
+		add("invalid_system_component_status", "system component evidence must use SYSTEM_COMPONENT status")
+	}
+	if entry.UninstallStrategy == catalogpkg.StrategyManualOnly && statement.FinalStatus != "MANUAL_ONLY" {
+		add("invalid_manual_only_status", "manual-only evidence must use MANUAL_ONLY status")
+	}
 	if statement.DurationSeconds < 0 {
 		add("negative_duration", "duration_seconds is negative")
 	}

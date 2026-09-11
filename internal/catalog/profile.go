@@ -528,6 +528,9 @@ func ProfileFor(app AppDef) Profile {
 		p.UninstallStrategy = StrategyManualOnly
 		p.UninstallSupport = SupportManual
 	}
+	if p.SystemComponent || p.UninstallStrategy == StrategyManualOnly {
+		p.PhysicalTestRequired = false
+	}
 	if app.ID != "" {
 		if verifiedHardcodedIDs[app.ID] {
 			p.ResolutionStatus = ResolutionHardcodedVerified

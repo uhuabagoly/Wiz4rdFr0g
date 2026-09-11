@@ -135,3 +135,33 @@ func TestManifestValidation(t *testing.T) {
 		t.Fatal("invalid manifest accepted")
 	}
 }
+
+func TestSystemComponentCannotClaimFullPass(t *testing.T) {
+	m, _ := testManifest(t)
+	entries := catalogpkg.BuildAuditEntries()
+	var system catalogpkg.AuditEntry
+	found := false
+	for _, e := range entries {
+		if e.SystemComponent {
+			system = e
+			found = true
+			break
+		}
+	}
+	if !found {
+		t.Fatal("system component fixture not found")
+	}
+	key := []byte(strings.Repeat("k", 32))
+	now := time.Now().UTC()
+	s, sig := validStatement(t, m, system, now, key)
+	issues := ValidateEvidence(s, sig, m, system, now, key)
+	foundIssue := false
+	for _, issue := range issues {
+		if issue.Code == "invalid_system_component_status" {
+			foundIssue = true
+		}
+	}
+	if !foundIssue {
+		t.Fatalf("system component FULL_PASS was accepted: %+v", issues)
+	}
+}

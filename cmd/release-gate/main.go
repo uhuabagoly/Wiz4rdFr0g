@@ -172,7 +172,15 @@ func main() {
 	regressionRows := []regressionRow{}
 	for _, a := range auditEntries {
 		row := coverageRow{Index: a.Index, Name: a.Name, Category: a.Category, CatalogAppID: releaseproof.CatalogAppID(a), Coverage: quality.CoverageUnresolved, RootCause: quality.RootNone, Evidence: "physical Windows install/detect/uninstall/verify result is pending"}
-		if r, ok := rs.Valid[a.Index]; ok {
+		if a.SystemComponent {
+			row.Coverage = quality.CoverageSystemComponent
+			row.RootCause = quality.RootSystemComponent
+			row.Evidence = "catalog profile explicitly marks a Windows-managed system component"
+		} else if a.UninstallStrategy == catalogpkg.StrategyManualOnly {
+			row.Coverage = quality.CoverageManualUninstall
+			row.RootCause = quality.RootUnsupportedAutomation
+			row.Evidence = "catalog profile explicitly requires manual uninstall"
+		} else if r, ok := rs.Valid[a.Index]; ok {
 			if r.InstallVerified {
 				report.VerifiedInstall++
 			}
@@ -193,14 +201,6 @@ func main() {
 			if row.Coverage == quality.CoverageVerifiedFull {
 				regressionRows = append(regressionRows, regressionRow{Index: a.Index, Name: a.Name, Evidence: row.Evidence, BuildState: "authenticated physical install+detect+uninstall+verify PASS"})
 			}
-		} else if a.SystemComponent {
-			row.Coverage = quality.CoverageSystemComponent
-			row.RootCause = quality.RootSystemComponent
-			row.Evidence = "catalog profile explicitly marks a Windows-managed system component"
-		} else if a.UninstallStrategy == catalogpkg.StrategyManualOnly {
-			row.Coverage = quality.CoverageManualUninstall
-			row.RootCause = quality.RootUnsupportedAutomation
-			row.Evidence = "catalog profile explicitly requires manual uninstall"
 		} else if a.PhysicalTestRequired {
 			report.MissingPhysicalEvidence++
 		}
