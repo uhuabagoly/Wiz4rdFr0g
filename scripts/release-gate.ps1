@@ -3,6 +3,21 @@ $ErrorActionPreference = "Stop"
 go run ./cmd/release-build ./release/build_manifest.json
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
+Get-Content ./dist-linux/SHA256SUMS | ForEach-Object {
+    if ($_ -notmatch '^([0-9a-fA-F]{64})  (.+)$') {
+        throw "Invalid SHA256SUMS entry: $_"
+    }
+    $expected = $Matches[1].ToLowerInvariant()
+    $path = Join-Path ./dist-linux $Matches[2]
+    if (-not (Test-Path -LiteralPath $path)) {
+        throw "Missing Linux release payload: $path"
+    }
+    $actual = (Get-FileHash -Algorithm SHA256 -LiteralPath $path).Hash.ToLowerInvariant()
+    if ($actual -ne $expected) {
+        throw "SHA256 mismatch for $path"
+    }
+}
+
 go test ./...
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 go vet ./...

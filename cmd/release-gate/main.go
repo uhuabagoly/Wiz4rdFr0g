@@ -56,6 +56,7 @@ type gateReport struct {
 	GitCommit               string            `json:"git_commit,omitempty"`
 	CatalogFingerprint      string            `json:"catalog_fingerprint,omitempty"`
 	ArtifactHashes          map[string]string `json:"artifact_hashes,omitempty"`
+	WindowsSigningStatus    string            `json:"windows_signing_status,omitempty"`
 	CatalogTotal            int               `json:"catalog_total"`
 	PhysicalTestRequired    int               `json:"physical_test_required"`
 	CatalogAuditPass        bool              `json:"catalog_audit_pass"`
@@ -123,6 +124,7 @@ func main() {
 			report.Blockers = append(report.Blockers, fmt.Sprintf("build manifest git_commit %s does not match current checkout %s", manifest.GitCommit, currentGitCommit))
 		}
 		report.CatalogFingerprint = manifest.CatalogFingerprint
+		report.WindowsSigningStatus = manifest.WindowsSigningStatus
 		for k, a := range manifest.Artifacts {
 			report.ArtifactHashes[k] = a.SHA256
 		}

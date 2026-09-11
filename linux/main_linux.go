@@ -91,12 +91,13 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"regexp"
 	"sort"
 	"strings"
 	"sync"
 	"time"
 	"unsafe"
+
+	"wiz4rdfr0g.local/fullcatalog/internal/linuxpkg"
 )
 
 const (
@@ -112,6 +113,7 @@ const (
 	idCancel   = 105
 	idFinish   = 106
 	idClose    = 107
+	idRemove   = 108
 )
 
 type linuxCandidate struct {
@@ -140,7 +142,7 @@ type appState struct {
 	Loading  bool
 }
 
-type installResult struct {
+type operationResult struct {
 	OK  bool
 	Err string
 }
@@ -255,23 +257,24 @@ var candidates = []linuxCandidate{
 }
 
 var (
-	window, page1, page2, page3                                     unsafe.Pointer
-	searchEntry, countLabel, prevBtn, nextBtn, nextPageBtn          unsafe.Pointer
-	summaryView, logView, backBtn, installBtn, cancelBtn, finishBtn unsafe.Pointer
-	finishView, closeBtn                                            unsafe.Pointer
-	rows                                                            []*rowUI
-	apps                                                            []linuxApp
-	states                                                          []appState
-	filtered                                                        []int
-	page                                                            int
-	distroName, packageManager                                      string
-	packageSet                                                      map[string]bool
-	flatpakSet                                                      map[string]string
-	uiMu                                                            sync.Mutex
-	uiQueue                                                         []func()
-	opMu                                                            sync.Mutex
-	opCancel                                                        context.CancelFunc
-	installResults                                                  map[int]installResult
+	window, page1, page2, page3                                                unsafe.Pointer
+	searchEntry, countLabel, prevBtn, nextBtn, nextPageBtn                     unsafe.Pointer
+	summaryView, logView, backBtn, installBtn, removeBtn, cancelBtn, finishBtn unsafe.Pointer
+	finishView, closeBtn                                                       unsafe.Pointer
+	rows                                                                       []*rowUI
+	apps                                                                       []linuxApp
+	states                                                                     []appState
+	filtered                                                                   []int
+	page                                                                       int
+	distroName, packageManager                                                 string
+	packageSet                                                                 map[string]bool
+	flatpakSet                                                                 map[string]string
+	uiMu                                                                       sync.Mutex
+	uiQueue                                                                    []func()
+	opMu                                                                       sync.Mutex
+	opCancel                                                                   context.CancelFunc
+	operationResults                                                           map[int]operationResult
+	currentOperation                                                           string
 )
 
 func cstr(s string) *C.char { return C.CString(s) }
@@ -342,7 +345,9 @@ func goClicked(id C.int) {
 	case idBack:
 		showPage(1)
 	case idInstall:
-		startInstall()
+		startOperation(false)
+	case idRemove:
+		startOperation(true)
 	case idCancel:
 		cancelInstall()
 	case idFinish:
@@ -364,7 +369,8 @@ func main() {
 	apps = resolveLinuxApps()
 	sort.Slice(apps, func(i, j int) bool { return strings.ToLower(apps[i].Name) < strings.ToLower(apps[j].Name) })
 	states = make([]appState, len(apps))
-	installResults = map[int]installResult{}
+	operationResults = map[int]operationResult{}
+	currentOperation = "install"
 	for i := range states {
 		states[i].Version = "Legújabb"
 		states[i].Versions = []string{"Legújabb"}
@@ -662,7 +668,7 @@ func buildPage1() unsafe.Pointer {
 }
 func buildPage2() unsafe.Pointer {
 	box := unsafe.Pointer(C.gtk_box_new(1, 8))
-	C.gtk_box_pack_start(box, label("Telepítésre váró programok"), 0, 0, 0)
+	C.gtk_box_pack_start(box, label("Kiválasztott programok"), 0, 0, 0)
 	summaryView = unsafe.Pointer(C.gtk_text_view_new())
 	C.gtk_text_view_set_editable(summaryView, 0)
 	C.gtk_text_view_set_cursor_visible(summaryView, 0)
@@ -681,10 +687,12 @@ func buildPage2() unsafe.Pointer {
 	nav := unsafe.Pointer(C.gtk_box_new(0, 8))
 	backBtn = button("Vissza", idBack)
 	installBtn = button("Telepít", idInstall)
+	removeBtn = button("Eltávolít", idRemove)
 	cancelBtn = button("Megszakítás", idCancel)
 	finishBtn = button("Tovább", idFinish)
 	C.gtk_box_pack_start(nav, backBtn, 0, 0, 0)
 	C.gtk_box_pack_start(nav, installBtn, 0, 0, 0)
+	C.gtk_box_pack_start(nav, removeBtn, 0, 0, 0)
 	C.gtk_box_pack_start(nav, cancelBtn, 0, 0, 0)
 	C.gtk_box_pack_end(nav, finishBtn, 0, 0, 0)
 	C.gtk_box_pack_end(box, nav, 0, 0, 0)
@@ -902,10 +910,11 @@ func buildSummary() {
 	setTextView(summaryView, b.String())
 	setTextView(logView, fmt.Sprintf("[INFO] OS: Linux - %s\n[INFO] Csomagkezelő: %s\n", distroName, packageManager))
 	C.gtk_widget_set_sensitive(installBtn, C.gboolean(boolInt(count > 0)))
+	C.gtk_widget_set_sensitive(removeBtn, C.gboolean(boolInt(count > 0)))
 	C.gtk_widget_set_sensitive(finishBtn, 0)
 }
 
-func startInstall() {
+func startOperation(remove bool) {
 	opMu.Lock()
 	if opCancel != nil {
 		opMu.Unlock()
@@ -914,20 +923,51 @@ func startInstall() {
 	ctx, cancel := context.WithCancel(context.Background())
 	opCancel = cancel
 	opMu.Unlock()
+	operationResults = map[int]operationResult{}
+	if remove {
+		currentOperation = "remove"
+	} else {
+		currentOperation = "install"
+	}
 	C.gtk_widget_set_sensitive(installBtn, 0)
+	C.gtk_widget_set_sensitive(removeBtn, 0)
 	C.gtk_widget_set_sensitive(backBtn, 0)
 	C.gtk_widget_set_sensitive(finishBtn, 0)
-	appendLog("[INFO] Telepítés indítása...")
+	if remove {
+		appendLog("[INFO] Eltávolítás indítása...")
+	} else {
+		appendLog("[INFO] Telepítés indítása...")
+	}
 	go func() {
 		for i, a := range apps {
 			if !states[i].Selected {
 				continue
 			}
 			appendLog(fmt.Sprintf("[INFO] %s", a.Name))
-			args, cmdName := installCommand(a, states[i].Version)
+			if remove {
+				installed, err := isInstalledExact(ctx, a)
+				if err != nil {
+					operationResults[i] = operationResult{false, "Telepítettség ellenőrzése sikertelen: " + err.Error()}
+					appendLog("[ERROR] Telepítettség ellenőrzése sikertelen: " + err.Error())
+					continue
+				}
+				if !installed {
+					operationResults[i] = operationResult{false, "A pontos csomagazonosító nincs telepítve; eltávolítás nem indult"}
+					appendLog("[WARN] A pontos csomagazonosító nincs telepítve; eltávolítás nem indult")
+					continue
+				}
+			}
+
+			spec, err := operationSpec(a, states[i].Version, remove)
+			if err != nil {
+				operationResults[i] = operationResult{false, err.Error()}
+				appendLog("[ERROR] " + err.Error())
+				continue
+			}
+			args, cmdName := executableSpec(spec)
 			if cmdName == "" {
-				installResults[i] = installResult{false, "Nincs támogatott telepítési mód"}
-				appendLog("[ERROR] Nincs támogatott telepítési mód")
+				operationResults[i] = operationResult{false, "Nincs használható jogosultság-emelési mód"}
+				appendLog("[ERROR] Nincs használható jogosultság-emelési mód")
 				continue
 			}
 			appendLog("[CMD] " + cmdName + " " + strings.Join(args, " "))
@@ -935,7 +975,7 @@ func startInstall() {
 			stdout, _ := cmd.StdoutPipe()
 			stderr, _ := cmd.StderrPipe()
 			if err := cmd.Start(); err != nil {
-				installResults[i] = installResult{false, err.Error()}
+				operationResults[i] = operationResult{false, err.Error()}
 				appendLog("[ERROR] " + err.Error())
 				continue
 			}
@@ -949,14 +989,24 @@ func startInstall() {
 			}
 			go scan(bufio.NewScanner(stdout), "[OUT]")
 			go scan(bufio.NewScanner(stderr), "[STDERR]")
-			err := cmd.Wait()
+			err = cmd.Wait()
 			wg.Wait()
 			if err != nil {
-				installResults[i] = installResult{false, err.Error()}
+				operationResults[i] = operationResult{false, err.Error()}
 				appendLog("[ERROR] " + a.Name + ": " + err.Error())
+				continue
+			}
+			wantInstalled := !remove
+			if err := verifyInstalledState(ctx, a, wantInstalled); err != nil {
+				operationResults[i] = operationResult{false, err.Error()}
+				appendLog("[ERROR] " + a.Name + ": " + err.Error())
+				continue
+			}
+			operationResults[i] = operationResult{true, ""}
+			if remove {
+				appendLog("[SUCCESS] " + a.Name + " eltávolítva és az eltűnés ellenőrizve")
 			} else {
-				installResults[i] = installResult{true, ""}
-				appendLog("[SUCCESS] " + a.Name)
+				appendLog("[SUCCESS] " + a.Name + " telepítve és jelenlét ellenőrizve")
 			}
 		}
 		opMu.Lock()
@@ -965,7 +1015,11 @@ func startInstall() {
 		queueUI(func() {
 			C.gtk_widget_set_sensitive(backBtn, 1)
 			C.gtk_widget_set_sensitive(finishBtn, 1)
-			appendLog("[INFO] Telepítési folyamat véget ért.")
+			if remove {
+				appendLog("[INFO] Eltávolítási folyamat véget ért.")
+			} else {
+				appendLog("[INFO] Telepítési folyamat véget ért.")
+			}
 		})
 	}()
 }
@@ -985,39 +1039,62 @@ func privilegedCommand(args ...string) ([]string, string) {
 	return nil, ""
 }
 
-func installCommand(a linuxApp, version string) ([]string, string) {
-	if version != "" && version != "Legújabb" && !safeVersion.MatchString(version) {
-		return nil, ""
+func operationSpec(a linuxApp, version string, remove bool) (linuxpkg.Spec, error) {
+	if remove {
+		return linuxpkg.Remove(a.Provider, a.Package, a.FlatpakRemote)
 	}
-	switch a.Provider {
-	case "apt-get":
-		pkg := a.Package
-		if version != "" && version != "Legújabb" {
-			pkg += "=" + version
-		}
-		return privilegedCommand("apt-get", "install", "-y", pkg)
-	case "dnf":
-		pkg := a.Package
-		if version != "" && version != "Legújabb" {
-			pkg += "-" + version
-		}
-		return privilegedCommand("dnf", "install", "-y", pkg)
-	case "pacman":
-		return privilegedCommand("pacman", "-S", "--noconfirm", a.Package)
-	case "zypper":
-		pkg := a.Package
-		if version != "" && version != "Legújabb" {
-			pkg += "=" + version
-		}
-		return privilegedCommand("zypper", "--non-interactive", "install", pkg)
-	case "flatpak":
-		remote := a.FlatpakRemote
-		if remote == "" {
-			return nil, ""
-		}
-		return []string{"install", "--user", "-y", remote, a.Package}, "flatpak"
+	return linuxpkg.Install(a.Provider, a.Package, a.FlatpakRemote, version)
+}
+
+func executableSpec(spec linuxpkg.Spec) ([]string, string) {
+	if !spec.NeedsRoot {
+		return spec.Args, spec.Name
 	}
-	return nil, ""
+	all := append([]string{spec.Name}, spec.Args...)
+	return privilegedCommand(all...)
+}
+
+func isInstalledExact(ctx context.Context, a linuxApp) (bool, error) {
+	spec, err := linuxpkg.Detect(a.Provider, a.Package, a.FlatpakRemote)
+	if err != nil {
+		return false, err
+	}
+	cmd := exec.CommandContext(ctx, spec.Name, spec.Args...)
+	out, err := cmd.CombinedOutput()
+	if ctx.Err() != nil {
+		return false, ctx.Err()
+	}
+	if err != nil {
+		if _, ok := err.(*exec.ExitError); ok {
+			return false, nil
+		}
+		return false, err
+	}
+	return linuxpkg.DetectionSuccess(a.Provider, out, true), nil
+}
+
+func verifyInstalledState(ctx context.Context, a linuxApp, wantInstalled bool) error {
+	deadline := time.Now().Add(12 * time.Second)
+	for {
+		installed, err := isInstalledExact(ctx, a)
+		if err != nil {
+			return err
+		}
+		if installed == wantInstalled {
+			return nil
+		}
+		if time.Now().After(deadline) {
+			if wantInstalled {
+				return fmt.Errorf("a telepítő sikeresen kilépett, de a pontos csomagazonosító nem észlelhető")
+			}
+			return fmt.Errorf("az eltávolító sikeresen kilépett, de a pontos csomagazonosító továbbra is telepítve van")
+		}
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case <-time.After(500 * time.Millisecond):
+		}
+	}
 }
 
 func cancelInstall() {
@@ -1036,7 +1113,7 @@ func buildFinish() {
 		if !states[i].Selected {
 			continue
 		}
-		r, has := installResults[i]
+		r, has := operationResults[i]
 		if has && r.OK {
 			ok++
 			fmt.Fprintf(&b, "✔ %s\n", a.Name)
@@ -1049,11 +1126,13 @@ func buildFinish() {
 			fmt.Fprintf(&b, "✖ %s - %s\n", a.Name, err)
 		}
 	}
-	fmt.Fprintf(&b, "\nSikeres: %d\nSikertelen: %d\n", ok, fail)
+	operationName := "Telepítés"
+	if currentOperation == "remove" {
+		operationName = "Eltávolítás"
+	}
+	fmt.Fprintf(&b, "\n%s - sikeres: %d\n%s - sikertelen: %d\n", operationName, ok, operationName, fail)
 	setTextView(finishView, b.String())
 }
-
-var safeVersion = regexp.MustCompile(`^[A-Za-z0-9.+:~_\-]+$`)
 
 var genericCatalog = []struct{ Name, Category string }{
 	{"Google Chrome", "BÖNGÉSZŐK"},

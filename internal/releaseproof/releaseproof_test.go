@@ -25,6 +25,7 @@ func testManifest(t *testing.T) (BuildManifest, catalogpkg.AuditEntry) {
 		EvidenceSchemaVersion: EvidenceSchemaVersion,
 		Artifacts:             map[string]Artifact{PrimaryWindowsArtifactKey: {Path: "dist/Wiz4rdFr0g.exe", SHA256: art, Size: 123}},
 		PayloadConsistent:     true,
+		WindowsSigningStatus:  "unsigned",
 	}
 	m.BuildID = BuildID(m.AppVersion, m.GitCommit, m.CatalogFingerprint, art, m.EvidenceSchemaVersion)
 	return m, entries[0]

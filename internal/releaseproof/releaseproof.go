@@ -20,7 +20,7 @@ import (
 const (
 	AppVersion                  = "0.6.23-release-gate"
 	EvidenceSchemaVersion       = 2
-	BuildManifestSchemaVersion  = 1
+	BuildManifestSchemaVersion  = 2
 	EvidenceKeyEnvironment      = "WIZ4RDFR0G_EVIDENCE_HMAC_KEY"
 	MinimumEvidenceKeyBytes     = 32
 	PrimaryWindowsArtifactKey   = "windows_app"
@@ -48,6 +48,7 @@ type BuildManifest struct {
 	BuildID               string              `json:"build_id"`
 	Artifacts             map[string]Artifact `json:"artifacts"`
 	PayloadConsistent     bool                `json:"payload_consistent"`
+	WindowsSigningStatus  string              `json:"windows_signing_status"`
 }
 
 type EvidenceStatement struct {
@@ -196,6 +197,11 @@ func ValidateManifest(m BuildManifest, currentCatalogFingerprint string) []Valid
 	}
 	if !m.PayloadConsistent {
 		add("payload_inconsistent", "installer payload was not proven equal to the Windows application artifact")
+	}
+	switch m.WindowsSigningStatus {
+	case "unsigned", "signed_unverified", "signed_verified":
+	default:
+		add("invalid_signing_status", fmt.Sprintf("windows_signing_status=%q is not a supported state", m.WindowsSigningStatus))
 	}
 	sort.Slice(issues, func(i, j int) bool {
 		if issues[i].Code == issues[j].Code {

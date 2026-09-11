@@ -10,6 +10,19 @@ if [[ "$(uname -s)" != "Linux" ]]; then
   exit 1
 fi
 
+if ! command -v sha256sum >/dev/null 2>&1; then
+  echo "A csomag integritásának ellenőrzéséhez sha256sum szükséges."
+  exit 3
+fi
+if [[ ! -f "$SCRIPT_DIR/SHA256SUMS" ]]; then
+  echo "Hiányzik a SHA256SUMS fájl; a telepítés biztonsági okból megszakadt."
+  exit 4
+fi
+if ! (cd "$SCRIPT_DIR" && sha256sum -c SHA256SUMS); then
+  echo "A kiadási csomag integritás-ellenőrzése sikertelen."
+  exit 5
+fi
+
 if ! ldconfig -p 2>/dev/null | grep -F 'libgtk-3.so.0' >/dev/null; then
   echo "A Wiz4rd Fr0g Linux GUI-jához GTK3 szükséges (libgtk-3.so.0)."
   echo "A program nem telepít automatikusan extra runtime-ot."
@@ -43,6 +56,11 @@ if command -v update-desktop-database >/dev/null 2>&1; then
 fi
 if command -v gtk-update-icon-cache >/dev/null 2>&1; then
   gtk-update-icon-cache -f -t "$HOME/.local/share/icons/hicolor" >/dev/null 2>&1 || true
+fi
+
+if [[ ! -x "$INSTALL_DIR/$BIN_NAME" || ! -f "$APP_DIR/wiz4rd-fr0g.desktop" || ! -f "$ICON_DIR/wiz4rd-fr0g.png" ]]; then
+  echo "A telepítés utóellenőrzése sikertelen."
+  exit 6
 fi
 
 echo "$APP_NAME telepítve."

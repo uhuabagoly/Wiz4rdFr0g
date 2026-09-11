@@ -2,6 +2,7 @@
 set -euo pipefail
 
 go run ./cmd/release-build ./release/build_manifest.json
+(cd ./dist-linux && sha256sum -c SHA256SUMS)
 go test ./...
 go vet ./...
 GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go vet ./app ./installer

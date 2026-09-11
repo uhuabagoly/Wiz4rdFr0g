@@ -17,6 +17,18 @@ import (
 	"wiz4rdfr0g.local/fullcatalog/internal/releaseproof"
 )
 
+const (
+	signingToolEnv       = "WIZ4RDFR0G_SIGNTOOL"
+	signingArgsEnv       = "WIZ4RDFR0G_SIGN_ARGS_JSON"
+	signingVerifyArgsEnv = "WIZ4RDFR0G_SIGN_VERIFY_ARGS_JSON"
+)
+
+type signingConfig struct {
+	Tool       string
+	SignArgs   []string
+	VerifyArgs []string
+}
+
 var generatedPrefixes = []string{
 	"audit/",
 	"dist/",
@@ -68,9 +80,18 @@ func buildRelease(manifestPath string) error {
 	}
 
 	winApp := filepath.FromSlash("dist/Wiz4rdFr0g.exe")
-	ld := "-H windowsgui -X main.buildGitCommit=" + gitCommit
+	ld := "-H windowsgui -s -w -X main.buildGitCommit=" + gitCommit
 	if err := runEnv([]string{"GOOS=windows", "GOARCH=amd64", "CGO_ENABLED=0"}, "go", "build", "-buildvcs=false", "-trimpath", "-ldflags="+ld, "-o", winApp, "./app"); err != nil {
 		return fmt.Errorf("build Windows app: %w", err)
+	}
+	signing, err := loadSigningConfig()
+	if err != nil {
+		return err
+	}
+	if signing.Tool != "" {
+		if err := signArtifact(signing, winApp); err != nil {
+			return fmt.Errorf("sign Windows app: %w", err)
+		}
 	}
 
 	payload := filepath.FromSlash("installer/payload/Wiz4rdFr0g.exe")
@@ -91,21 +112,48 @@ func buildRelease(manifestPath string) error {
 	}
 
 	winSetup := filepath.FromSlash("dist/Wiz4rd_Fr0g_Setup.exe")
-	if err := runEnv([]string{"GOOS=windows", "GOARCH=amd64", "CGO_ENABLED=0"}, "go", "build", "-buildvcs=false", "-trimpath", "-ldflags=-H windowsgui", "-o", winSetup, "./installer"); err != nil {
+	if err := runEnv([]string{"GOOS=windows", "GOARCH=amd64", "CGO_ENABLED=0"}, "go", "build", "-buildvcs=false", "-trimpath", "-ldflags=-H windowsgui -s -w", "-o", winSetup, "./installer"); err != nil {
 		return fmt.Errorf("build Windows setup: %w", err)
+	}
+	if signing.Tool != "" {
+		if err := signArtifact(signing, winSetup); err != nil {
+			return fmt.Errorf("sign Windows setup: %w", err)
+		}
+	}
+	windowsSigningStatus := "unsigned"
+	if signing.Tool != "" {
+		windowsSigningStatus = "signed_unverified"
+		if len(signing.VerifyArgs) != 0 {
+			if err := verifySignedArtifact(signing, winApp); err != nil {
+				return fmt.Errorf("verify Windows app signature: %w", err)
+			}
+			if err := verifySignedArtifact(signing, winSetup); err != nil {
+				return fmt.Errorf("verify Windows setup signature: %w", err)
+			}
+			windowsSigningStatus = "signed_verified"
+		}
 	}
 
 	linuxApp := filepath.FromSlash("dist-linux/Wiz4rdFr0g")
-	if err := runEnv(nil, "go", "build", "-buildvcs=false", "-trimpath", "-o", linuxApp, "./linux"); err != nil {
+	if err := runEnv(nil, "go", "build", "-buildvcs=false", "-trimpath", "-ldflags=-s -w", "-o", linuxApp, "./linux"); err != nil {
 		return fmt.Errorf("build Linux app: %w", err)
 	}
-
-	linuxPackage := "Wiz4rd_Fr0g_Linux_x64.tar.gz"
-	packageFiles := []string{
+	linuxPayloadFiles := []string{
 		filepath.FromSlash("dist-linux/Wiz4rdFr0g"),
 		filepath.FromSlash("dist-linux/Wiz4rdFr0g_icon.png"),
 		filepath.FromSlash("dist-linux/install.sh"),
 		filepath.FromSlash("dist-linux/uninstall.sh"),
+	}
+	if err := writeSHA256Sums(filepath.FromSlash("dist-linux/SHA256SUMS"), linuxPayloadFiles); err != nil {
+		return fmt.Errorf("write Linux SHA256SUMS: %w", err)
+	}
+
+	linuxPackage := "Wiz4rd_Fr0g_Linux_x64.tar.gz"
+	packageFiles := []string{
+		linuxPayloadFiles[0],
+		linuxPayloadFiles[1],
+		linuxPayloadFiles[2],
+		linuxPayloadFiles[3],
 		filepath.FromSlash("dist-linux/SHA256SUMS"),
 	}
 	if err := createTarGz(linuxPackage, packageFiles); err != nil {
@@ -139,7 +187,8 @@ func buildRelease(manifestPath string) error {
 			releaseproof.LinuxAppArtifactKey:         {Path: filepath.ToSlash(linuxApp), SHA256: linuxHash, Size: linuxSize},
 			releaseproof.LinuxPackageArtifactKey:     {Path: filepath.ToSlash(linuxPackage), SHA256: packageHash, Size: packageSize},
 		},
-		PayloadConsistent: payloadConsistent,
+		PayloadConsistent:    payloadConsistent,
+		WindowsSigningStatus: windowsSigningStatus,
 	}
 	manifest.BuildID = releaseproof.BuildID(manifest.AppVersion, manifest.GitCommit, manifest.CatalogFingerprint, appHash, manifest.EvidenceSchemaVersion)
 
@@ -154,8 +203,51 @@ func buildRelease(manifestPath string) error {
 	if err := os.Rename(tmp, manifestPath); err != nil {
 		return err
 	}
-	fmt.Printf("build_id=%s git=%s catalog=%s windows_app_sha256=%s payload_consistent=%v\n", manifest.BuildID, manifest.GitCommit, manifest.CatalogFingerprint, appHash, payloadConsistent)
+	fmt.Printf("build_id=%s git=%s catalog=%s windows_app_sha256=%s payload_consistent=%v windows_signing=%s\n", manifest.BuildID, manifest.GitCommit, manifest.CatalogFingerprint, appHash, payloadConsistent, windowsSigningStatus)
 	return nil
+}
+
+func loadSigningConfig() (signingConfig, error) {
+	tool := strings.TrimSpace(os.Getenv(signingToolEnv))
+	if tool == "" {
+		return signingConfig{}, nil
+	}
+	parseArgs := func(envName string, required bool) ([]string, error) {
+		raw := strings.TrimSpace(os.Getenv(envName))
+		if raw == "" {
+			if required {
+				return nil, fmt.Errorf("%s is required when %s is configured", envName, signingToolEnv)
+			}
+			return nil, nil
+		}
+		var args []string
+		if err := json.Unmarshal([]byte(raw), &args); err != nil {
+			return nil, fmt.Errorf("%s must be a JSON string array: %w", envName, err)
+		}
+		if len(args) == 0 && required {
+			return nil, fmt.Errorf("%s must not be empty", envName)
+		}
+		return args, nil
+	}
+	signArgs, err := parseArgs(signingArgsEnv, true)
+	if err != nil {
+		return signingConfig{}, err
+	}
+	verifyArgs, err := parseArgs(signingVerifyArgsEnv, false)
+	if err != nil {
+		return signingConfig{}, err
+	}
+	return signingConfig{Tool: tool, SignArgs: signArgs, VerifyArgs: verifyArgs}, nil
+}
+
+func signArtifact(cfg signingConfig, path string) error {
+	args := append(append([]string{}, cfg.SignArgs...), path)
+	return runEnv(nil, cfg.Tool, args...)
+}
+
+func verifySignedArtifact(cfg signingConfig, path string) error {
+	args := append(append([]string{}, cfg.VerifyArgs...), path)
+	return runEnv(nil, cfg.Tool, args...)
 }
 
 func resolveGitCommit() (string, error) {
@@ -230,6 +322,22 @@ func copyFile(src, dst string, mode os.FileMode) error {
 		return err
 	}
 	return os.WriteFile(dst, b, mode)
+}
+
+func writeSHA256Sums(outPath string, files []string) error {
+	var b strings.Builder
+	for _, file := range files {
+		hash, _, err := releaseproof.FileSHA256(file)
+		if err != nil {
+			return err
+		}
+		fmt.Fprintf(&b, "%s  %s\n", hash, filepath.Base(file))
+	}
+	tmp := outPath + ".tmp"
+	if err := os.WriteFile(tmp, []byte(b.String()), 0644); err != nil {
+		return err
+	}
+	return os.Rename(tmp, outPath)
 }
 
 func createTarGz(outPath string, files []string) error {

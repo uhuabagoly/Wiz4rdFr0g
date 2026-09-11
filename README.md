@@ -28,6 +28,20 @@ If an uninstaller reports that the application is running, Wiz4rd Fr0g only cons
 
 Microsoft Edge is never confused with WebView2 Runtime, updater or helper components. Edge automatic removal is attempted only when the exact `Microsoft.Edge` package is exposed by Windows as an uninstallable package; otherwise the program does not use Registry/MSI force-removal fallbacks.
 
+## Wiz4rd Fr0g self-install and self-uninstall
+
+The Windows Setup installs a dedicated `Uninstall.exe` and registers both `UninstallString` and `QuietUninstallString` under the standard machine-wide Windows uninstall registry key. Interactive removal asks for confirmation; quiet removal is unattended. The installed application process is stopped only when its kernel-reported executable path exactly matches the Wiz4rd Fr0g installation path, so a same-named executable from another directory is not terminated.
+
+Machine-wide work (`Program Files`, HKLM and self-uninstall cleanup) runs elevated. Start-menu shortcut and per-user installer metadata are created or removed by the original non-elevated process after the machine operation completes. This prevents a standard user's files from being written into a different administrator profile when alternate UAC credentials are supplied. Personal settings are intentionally preserved during self-uninstall.
+
+## Linux install and removal
+
+The Linux GUI supports both installation and removal for resolved native-package and Flatpak entries. Destructive operations use the exact resolved package identifier only; no fuzzy name-based package removal is used. Before removal the package is independently detected, and after either install or removal the package state is checked again before the operation is reported successful.
+
+Supported native removal backends are APT, DNF/RPM, Pacman and Zypper, plus exact user-scope Flatpak application IDs. If a package identity cannot be resolved safely, the operation is rejected instead of falling back to a fuzzy uninstall.
+
+The standalone Linux `uninstall.sh` only removes Wiz4rd Fr0g-owned installation artifacts from the current user profile and preserves personal settings. Linux release packages include `SHA256SUMS`; `install.sh` verifies the binary, icon and both lifecycle scripts before installation.
+
 ## Physical Windows package tests
 
 The Windows VM harness executes the production flow:
@@ -57,6 +71,8 @@ or on Windows:
 Physical VM evidence is authenticated with HMAC-SHA256. Before executing physical tests and before running the release gate, set `WIZ4RDFR0G_EVIDENCE_HMAC_KEY` to the same secret value with at least 32 characters. The secret is not stored in the repository or release report. GitHub Actions expects it as the `WIZ4RDFR0G_EVIDENCE_HMAC_KEY` repository secret.
 
 The pipeline first creates controlled release artifacts and `release/build_manifest.json`. The manifest binds the release to the application version, Git commit SHA, deterministic catalog fingerprint, evidence schema version and SHA256 of the exact Windows executable used for physical testing. It also records hashes for the Windows Setup, installer payload, Linux executable and Linux package. The Setup payload must match the Windows application artifact byte-for-byte.
+
+Windows code signing is an explicit release state. Without signing configuration the manifest reports `unsigned`; a configured signing tool without verification reports `signed_unverified`; only a successful configured verification stage reports `signed_verified`. The build never claims a verified signature merely because a signing command was requested. Signing can be wired in with `WIZ4RDFR0G_SIGNTOOL`, JSON-array arguments in `WIZ4RDFR0G_SIGN_ARGS_JSON`, and optional verification arguments in `WIZ4RDFR0G_SIGN_VERIFY_ARGS_JSON`.
 
 Every physical result records the build ID, Git commit, catalog fingerprint, exact tested executable SHA256, test-run ID, catalog-entry ID, machine ID and timestamps. Release-decision fields are signed before the result is written. Reboot-resume checkpoints are validated before they are trusted. Old-build, old-schema, wrong-catalog, wrong-artifact, unsigned, corrupt, duplicated and conflicting evidence is release-blocking rather than ignored.
 
