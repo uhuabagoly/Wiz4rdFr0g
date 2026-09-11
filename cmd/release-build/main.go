@@ -37,10 +37,12 @@ var generatedPrefixes = []string{
 }
 
 var generatedExact = map[string]bool{
-	"dist-linux/Wiz4rdFr0g":            true,
-	"dist-linux/SHA256SUMS":            true,
-	"installer/payload/Wiz4rdFr0g.exe": true,
-	"Wiz4rd_Fr0g_Linux_x64.tar.gz":     true,
+	"dist-linux/Wiz4rdFr0g":                   true,
+	"dist-linux/SHA256SUMS":                   true,
+	"installer/payload/Wiz4rdFr0g.exe":        true,
+	"Wiz4rd_Fr0g_Linux_x64.tar.gz":            true,
+	"test/windows-vm/physical_test_plan.json": true,
+	"test/windows-vm/batches.json":            true,
 }
 
 func main() {
