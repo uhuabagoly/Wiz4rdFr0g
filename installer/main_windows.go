@@ -91,26 +91,40 @@ func main() {
 
 func runInstall(opts cliOptions) int {
 	if !opts.Elevated {
-		code, err := elevateSelf("--elevated")
+		args := []string{"--elevated"}
+		if opts.Quiet {
+			args = append(args, "--quiet")
+		}
+		code, err := elevateSelf(args...)
 		if err != nil {
-			messageBox(appName+" telepítő", "A telepítéshez rendszergazdai jogosultság szükséges.\n\n"+err.Error(), 0x10)
+			if !opts.Quiet {
+				messageBox(appName+" telepítő", "A telepítéshez rendszergazdai jogosultság szükséges.\n\n"+err.Error(), 0x10)
+			}
 			return 1
 		}
 		if code != 0 {
-			messageBox(appName+" telepítő", fmt.Sprintf("A telepítés nem fejeződött be sikeresen. Kilépési kód: %d", code), 0x10)
+			if !opts.Quiet {
+				messageBox(appName+" telepítő", fmt.Sprintf("A telepítés nem fejeződött be sikeresen. Kilépési kód: %d", code), 0x10)
+			}
 			return code
 		}
 		if err := finalizeOriginalUserInstall(); err != nil {
-			messageBox(appName+" telepítő", "A gépszintű telepítés elkészült, de a felhasználói profil beállítása sikertelen:\n\n"+err.Error(), 0x10)
+			if !opts.Quiet {
+				messageBox(appName+" telepítő", "A gépszintű telepítés elkészült, de a felhasználói profil beállítása sikertelen:\n\n"+err.Error(), 0x10)
+			}
 			return 2
 		}
-		if err := launchInstalledApp(); err != nil {
-			messageBox(appName, "A telepítés elkészült, de az alkalmazás automatikus indítása nem sikerült.\n\n"+err.Error()+"\n\nA Start menüből elindítható.", 0x30)
+		if !opts.Quiet {
+			if err := launchInstalledApp(); err != nil {
+				messageBox(appName, "A telepítés elkészült, de az alkalmazás automatikus indítása nem sikerült.\n\n"+err.Error()+"\n\nA Start menüből elindítható.", 0x30)
+			}
 		}
 		return 0
 	}
 	if err := installMachineScope(); err != nil {
-		messageBox(appName+" telepítő", "A telepítés sikertelen:\n\n"+err.Error(), 0x10)
+		if !opts.Quiet {
+			messageBox(appName+" telepítő", "A telepítés sikertelen:\n\n"+err.Error(), 0x10)
+		}
 		return 1
 	}
 	return 0
