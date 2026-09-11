@@ -46,7 +46,7 @@ Known user-reported regressions for Firefox scope handling, Edge/WebView2 safety
 
 ## Release gate
 
-Run:
+Run from a Git checkout with no uncommitted source changes:
 
 `./scripts/release-gate.sh`
 
@@ -54,9 +54,15 @@ or on Windows:
 
 `powershell -ExecutionPolicy Bypass -File .\scripts\release-gate.ps1`
 
-The gate runs unit tests, static analysis, the catalog audit, physical-result aggregation and coverage validation. Release is blocked if package resolution is unsafe, if a previously tested physical result regresses, or if automatable catalog entries still lack physical install/detect/uninstall/verify evidence.
+Physical VM evidence is authenticated with HMAC-SHA256. Before executing physical tests and before running the release gate, set `WIZ4RDFR0G_EVIDENCE_HMAC_KEY` to the same secret value with at least 32 characters. The secret is not stored in the repository or release report. GitHub Actions expects it as the `WIZ4RDFR0G_EVIDENCE_HMAC_KEY` repository secret.
 
-The generated evidence is stored in `release/coverage.json`, `release/root_causes.json`, `release/regression_corpus.json` and `release/release_gate.json`.
+The pipeline first creates controlled release artifacts and `release/build_manifest.json`. The manifest binds the release to the application version, Git commit SHA, deterministic catalog fingerprint, evidence schema version and SHA256 of the exact Windows executable used for physical testing. It also records hashes for the Windows Setup, installer payload, Linux executable and Linux package. The Setup payload must match the Windows application artifact byte-for-byte.
+
+Every physical result records the build ID, Git commit, catalog fingerprint, exact tested executable SHA256, test-run ID, catalog-entry ID, machine ID and timestamps. Release-decision fields are signed before the result is written. Reboot-resume checkpoints are validated before they are trusted. Old-build, old-schema, wrong-catalog, wrong-artifact, unsigned, corrupt, duplicated and conflicting evidence is release-blocking rather than ignored.
+
+The gate runs the controlled build, unit tests, static analysis, catalog audit, artifact-integrity validation, authenticated physical-evidence validation and coverage validation. Release is blocked if package resolution is unsafe, artifact identity does not match the manifest, evidence is invalid or stale, or any required catalog entry still lacks physical install/detect/uninstall/verify evidence.
+
+The generated audit material includes `release/build_manifest.json`, `release/artifact_issues.json`, `release/evidence_issues.json`, `release/coverage.json`, `release/root_causes.json`, `release/regression_corpus.json` and `release/release_gate.json`.
 
 ## Publisher metadata
 

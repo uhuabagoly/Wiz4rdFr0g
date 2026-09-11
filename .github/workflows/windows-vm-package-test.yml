@@ -51,13 +51,15 @@ jobs:
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force dist | Out-Null
-          go build -trimpath -ldflags="-H windowsgui" -o dist/Wiz4rdFr0g.exe ./app
+          go build -trimpath -ldflags="-H windowsgui -X main.buildGitCommit=${{ github.sha }}" -o dist/Wiz4rdFr0g.exe ./app
       - name: Execute isolated physical package test
         id: physical
         shell: pwsh
         env:
           WIZ4RDFR0G_VM_TEST: "1"
           WIZ4RDFR0G_VM_ID: github-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.index }}
+          WIZ4RDFR0G_TEST_RUN_ID: github-${{ github.run_id }}-${{ github.run_attempt }}
+          WIZ4RDFR0G_EVIDENCE_HMAC_KEY: ${{ secrets.WIZ4RDFR0G_EVIDENCE_HMAC_KEY }}
         run: |
           New-Item -ItemType Directory -Force test/windows-vm/results | Out-Null
           $p = "test/windows-vm/results/{0:D4}.json" -f [int]"${{ matrix.index }}"

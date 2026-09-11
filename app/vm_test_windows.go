@@ -14,6 +14,7 @@ import (
 
 	catalogpkg "wiz4rdfr0g.local/fullcatalog/internal/catalog"
 	"wiz4rdfr0g.local/fullcatalog/internal/quality"
+	"wiz4rdfr0g.local/fullcatalog/internal/releaseproof"
 )
 
 type vmTestEvent struct {
@@ -37,8 +38,15 @@ type vmDetected struct {
 
 type vmTestResult struct {
 	SchemaVersion        int           `json:"schema_version"`
+	BuildID              string        `json:"build_id"`
 	AppVersion           string        `json:"app_version"`
+	GitCommit            string        `json:"git_commit"`
+	CatalogFingerprint   string        `json:"catalog_fingerprint"`
+	ArtifactSHA256       string        `json:"artifact_sha256"`
+	TestRunID            string        `json:"test_run_id"`
 	CatalogIndex         int           `json:"catalog_index"`
+	CatalogAppID         string        `json:"catalog_app_id"`
+	CatalogAppName       string        `json:"catalog_app_name"`
 	Name                 string        `json:"name"`
 	Category             string        `json:"category"`
 	Profile              any           `json:"profile"`
@@ -46,6 +54,7 @@ type vmTestResult struct {
 	FinishedAt           string        `json:"finished_at"`
 	DurationSeconds      float64       `json:"duration_seconds"`
 	VMID                 string        `json:"vm_id"`
+	MachineID            string        `json:"machine_id"`
 	Executor             string        `json:"executor"`
 	Precheck             string        `json:"precheck"`
 	ResolvedID           string        `json:"resolved_id,omitempty"`
@@ -70,6 +79,101 @@ type vmTestResult struct {
 	Failure              string        `json:"failure,omitempty"`
 	RebootRequired       bool          `json:"reboot_required"`
 	Events               []vmTestEvent `json:"events"`
+	Signature            string        `json:"signature"`
+}
+
+func (r vmTestResult) evidenceStatement() releaseproof.EvidenceStatement {
+	return releaseproof.EvidenceStatement{
+		SchemaVersion: r.SchemaVersion, BuildID: r.BuildID, AppVersion: r.AppVersion, GitCommit: r.GitCommit,
+		CatalogFingerprint: r.CatalogFingerprint, ArtifactSHA256: r.ArtifactSHA256, TestRunID: r.TestRunID,
+		CatalogIndex: r.CatalogIndex, CatalogAppID: r.CatalogAppID, CatalogAppName: r.CatalogAppName,
+		StartedAt: r.StartedAt, FinishedAt: r.FinishedAt, MachineID: r.MachineID, FinalStatus: r.FinalStatus,
+		FailureStage: r.FailureStage, Failure: r.Failure, SkipReason: r.SkipReason,
+		InstallVerified: r.InstallVerified, UninstallVerified: r.UninstallVerified, DurationSeconds: r.DurationSeconds,
+	}
+}
+
+func runtimeBuildManifest() (releaseproof.BuildManifest, error) {
+	if !releaseproof.ValidGitCommit(buildGitCommit) {
+		return releaseproof.BuildManifest{}, fmt.Errorf("build git commit is not embedded")
+	}
+	fingerprint, err := releaseproof.CurrentCatalogFingerprint()
+	if err != nil {
+		return releaseproof.BuildManifest{}, fmt.Errorf("catalog fingerprint: %w", err)
+	}
+	exe, err := os.Executable()
+	if err != nil {
+		return releaseproof.BuildManifest{}, fmt.Errorf("executable path: %w", err)
+	}
+	hash, size, err := releaseproof.FileSHA256(exe)
+	if err != nil {
+		return releaseproof.BuildManifest{}, fmt.Errorf("executable sha256: %w", err)
+	}
+	m := releaseproof.BuildManifest{
+		SchemaVersion: releaseproof.BuildManifestSchemaVersion, AppVersion: appVersion,
+		GitCommit: buildGitCommit, CatalogFingerprint: fingerprint, EvidenceSchemaVersion: releaseproof.EvidenceSchemaVersion,
+		Artifacts:         map[string]releaseproof.Artifact{releaseproof.PrimaryWindowsArtifactKey: {Path: exe, SHA256: hash, Size: size}},
+		PayloadConsistent: true,
+	}
+	m.BuildID = releaseproof.BuildID(m.AppVersion, m.GitCommit, m.CatalogFingerprint, hash, m.EvidenceSchemaVersion)
+	return m, nil
+}
+
+func attachPhysicalEvidence(r *vmTestResult) error {
+	if r == nil || r.CatalogIndex < 0 || r.CatalogIndex >= len(catalog) {
+		return fmt.Errorf("invalid catalog index for evidence")
+	}
+	manifest, err := runtimeBuildManifest()
+	if err != nil {
+		return err
+	}
+	entries := catalogpkg.BuildAuditEntries()
+	entry := entries[r.CatalogIndex]
+	r.SchemaVersion = releaseproof.EvidenceSchemaVersion
+	r.BuildID = manifest.BuildID
+	r.AppVersion = manifest.AppVersion
+	r.GitCommit = manifest.GitCommit
+	r.CatalogFingerprint = manifest.CatalogFingerprint
+	r.ArtifactSHA256 = manifest.Artifacts[releaseproof.PrimaryWindowsArtifactKey].SHA256
+	r.TestRunID = strings.TrimSpace(os.Getenv("WIZ4RDFR0G_TEST_RUN_ID"))
+	r.CatalogAppID = releaseproof.CatalogAppID(entry)
+	r.CatalogAppName = entry.Name
+	r.Name = entry.Name
+	r.MachineID = strings.TrimSpace(os.Getenv("WIZ4RDFR0G_VM_ID"))
+	r.VMID = r.MachineID
+	if strings.TrimSpace(r.StartedAt) == "" {
+		r.StartedAt = time.Now().UTC().Format(time.RFC3339Nano)
+	}
+	if strings.TrimSpace(r.FinishedAt) == "" {
+		r.FinishedAt = time.Now().UTC().Format(time.RFC3339Nano)
+	}
+	key := []byte(os.Getenv(releaseproof.EvidenceKeyEnvironment))
+	sig, err := releaseproof.EvidenceSignature(r.evidenceStatement(), key)
+	if err != nil {
+		return err
+	}
+	r.Signature = sig
+	return nil
+}
+
+func validateResumeCheckpoint(r vmTestResult, idx int) error {
+	manifest, err := runtimeBuildManifest()
+	if err != nil {
+		return err
+	}
+	entries := catalogpkg.BuildAuditEntries()
+	if idx < 0 || idx >= len(entries) {
+		return fmt.Errorf("invalid checkpoint catalog index")
+	}
+	issues := releaseproof.ValidateEvidence(r.evidenceStatement(), r.Signature, manifest, entries[idx], time.Now().UTC(), []byte(os.Getenv(releaseproof.EvidenceKeyEnvironment)))
+	if len(issues) != 0 {
+		parts := make([]string, 0, len(issues))
+		for _, issue := range issues {
+			parts = append(parts, issue.Code+": "+issue.Message)
+		}
+		return fmt.Errorf("checkpoint evidence validation failed: %s", strings.Join(parts, "; "))
+	}
+	return nil
 }
 
 func vmTestRequested() bool {
@@ -79,6 +183,15 @@ func vmTestRequested() bool {
 func runVMTestFromArgs() int {
 	if os.Getenv("WIZ4RDFR0G_VM_TEST") != "1" || strings.TrimSpace(os.Getenv("WIZ4RDFR0G_VM_ID")) == "" {
 		return 90
+	}
+	if strings.TrimSpace(os.Getenv("WIZ4RDFR0G_TEST_RUN_ID")) == "" {
+		return 95
+	}
+	if err := releaseproof.ValidateEvidenceKey([]byte(os.Getenv(releaseproof.EvidenceKeyEnvironment))); err != nil {
+		return 96
+	}
+	if !releaseproof.ValidGitCommit(buildGitCommit) {
+		return 97
 	}
 	idx, err := strconvAtoiStrict(os.Args[2])
 	if err != nil || idx < 0 || idx >= len(catalog) {
@@ -104,9 +217,19 @@ func runVMTestFromArgs() int {
 	if err := os.MkdirAll(filepath.Dir(resultPath), 0755); err != nil {
 		return 93
 	}
+	if err := attachPhysicalEvidence(&result); err != nil {
+		result.FinalStatus = "EVIDENCE_FAIL"
+		result.FailureStage = "EVIDENCE"
+		result.Failure = err.Error()
+		result.FinishedAt = time.Now().UTC().Format(time.RFC3339Nano)
+		// Write the failed result for diagnostics; an unsigned/invalid result can never pass the release gate.
+	}
 	b, _ := json.MarshalIndent(result, "", "  ")
 	if err := os.WriteFile(resultPath, append(b, '\n'), 0644); err != nil {
 		return 94
+	}
+	if result.FinalStatus == "EVIDENCE_FAIL" {
+		return 98
 	}
 	if result.FinalStatus == "FULL_PASS" || strings.HasPrefix(result.FinalStatus, "SKIPPED_") || result.FinalStatus == "SYSTEM_COMPONENT" || result.FinalStatus == "MANUAL_ONLY" || result.FinalStatus == "LICENSE_REQUIRED" || result.FinalStatus == "UNAVAILABLE" {
 		return 0
@@ -118,11 +241,18 @@ func resumeVMTestOne(idx int, resultPath string) vmTestResult {
 	app := catalog[idx]
 	b, err := os.ReadFile(resultPath)
 	if err != nil {
-		return vmTestResult{SchemaVersion: 1, AppVersion: appVersion, CatalogIndex: idx, Name: app.Name, Category: app.Category, FinalStatus: "RESUME_FAIL", FailureStage: "RESUME", Failure: err.Error(), FinishedAt: time.Now().UTC().Format(time.RFC3339)}
+		return vmTestResult{SchemaVersion: releaseproof.EvidenceSchemaVersion, AppVersion: appVersion, CatalogIndex: idx, Name: app.Name, Category: app.Category, FinalStatus: "RESUME_FAIL", FailureStage: "RESUME", Failure: err.Error(), FinishedAt: time.Now().UTC().Format(time.RFC3339)}
 	}
 	var r vmTestResult
 	if err := json.Unmarshal(b, &r); err != nil {
-		return vmTestResult{SchemaVersion: 1, AppVersion: appVersion, CatalogIndex: idx, Name: app.Name, Category: app.Category, FinalStatus: "RESUME_FAIL", FailureStage: "RESUME", Failure: err.Error(), FinishedAt: time.Now().UTC().Format(time.RFC3339)}
+		return vmTestResult{SchemaVersion: releaseproof.EvidenceSchemaVersion, AppVersion: appVersion, CatalogIndex: idx, Name: app.Name, Category: app.Category, FinalStatus: "RESUME_FAIL", FailureStage: "RESUME", Failure: err.Error(), FinishedAt: time.Now().UTC().Format(time.RFC3339Nano)}
+	}
+	if err := validateResumeCheckpoint(r, idx); err != nil {
+		r.FinalStatus = "RESUME_FAIL"
+		r.FailureStage = "RESUME_EVIDENCE"
+		r.Failure = err.Error()
+		r.FinishedAt = time.Now().UTC().Format(time.RFC3339Nano)
+		return r
 	}
 	if r.CatalogIndex != idx || r.Name != app.Name || r.FinalStatus != "SKIPPED_REBOOT_REQUIRED" {
 		r.FinalStatus = "RESUME_FAIL"
@@ -215,7 +345,7 @@ func runVMTestOne(idx int, workRoot string) vmTestResult {
 	app := catalog[idx]
 	profile := catalogpkg.ProfileFor(app)
 	r := vmTestResult{
-		SchemaVersion:     1,
+		SchemaVersion:     releaseproof.EvidenceSchemaVersion,
 		AppVersion:        appVersion,
 		CatalogIndex:      idx,
 		Name:              app.Name,

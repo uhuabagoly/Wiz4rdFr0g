@@ -22,6 +22,8 @@ import (
 	"syscall"
 	"time"
 	"unsafe"
+
+	"wiz4rdfr0g.local/fullcatalog/internal/releaseproof"
 )
 
 type appState struct {
@@ -158,7 +160,7 @@ var (
 
 const (
 	appTitle               = "Wiz4rd Fr0g"
-	appVersion             = "0.6.23-release-gate"
+	appVersion             = releaseproof.AppVersion
 	publisher              = "https://github.com/uhuabagoly"
 	packageResolverVersion = 2
 
