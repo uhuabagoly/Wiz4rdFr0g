@@ -1,0 +1,13 @@
+{
+  "catalog_entries": 723,
+  "physical_tests_executed_here": 0,
+  "full_pass": 0,
+  "pending_windows_executor": 723,
+  "fake_passes": 0,
+  "harness_build": "PASS",
+  "windows_cross_build": "PASS",
+  "unit_tests": "PASS",
+  "catalog_audit": "PASS",
+  "unsafe_resolution_entries": 0,
+  "next_execution": "Run .github/workflows/windows-vm-package-test.yml in 29 isolated batches or run test/windows-vm/run-one.ps1 on a clean Windows VM."
+}

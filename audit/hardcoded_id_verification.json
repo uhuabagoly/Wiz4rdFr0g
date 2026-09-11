@@ -1,0 +1,586 @@
+{
+  "verified_at": "2026-09-06",
+  "source": "microsoft/winget-pkgs current master manifest directories",
+  "unique_ids": 72,
+  "verified_unique_ids": 72,
+  "entries": [
+    {
+      "package_id": "7zip.7zip",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/7/7zip/7zip",
+      "catalog_names": [
+        "7-Zip"
+      ]
+    },
+    {
+      "package_id": "Anysphere.Cursor",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/a/Anysphere/Cursor",
+      "catalog_names": [
+        "Cursor"
+      ]
+    },
+    {
+      "package_id": "Audacity.Audacity",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/a/Audacity/Audacity",
+      "catalog_names": [
+        "Audacity"
+      ]
+    },
+    {
+      "package_id": "Axosoft.GitKraken",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/a/Axosoft/GitKraken",
+      "catalog_names": [
+        "GitKraken"
+      ]
+    },
+    {
+      "package_id": "Balena.Etcher",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/b/Balena/Etcher",
+      "catalog_names": [
+        "balenaEtcher"
+      ]
+    },
+    {
+      "package_id": "BlenderFoundation.Blender",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/b/BlenderFoundation/Blender",
+      "catalog_names": [
+        "Blender"
+      ]
+    },
+    {
+      "package_id": "Brave.Brave",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/b/Brave/Brave",
+      "catalog_names": [
+        "Brave"
+      ]
+    },
+    {
+      "package_id": "DBeaver.DBeaver.Community",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/d/DBeaver/DBeaver/Community",
+      "catalog_names": [
+        "DBeaver"
+      ]
+    },
+    {
+      "package_id": "Discord.Discord",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/d/Discord/Discord",
+      "catalog_names": [
+        "Discord"
+      ]
+    },
+    {
+      "package_id": "DominikReichl.KeePass",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/d/DominikReichl/KeePass",
+      "catalog_names": [
+        "KeePass 2",
+        "KeePass"
+      ]
+    },
+    {
+      "package_id": "dotPDN.PaintDotNet",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/d/dotPDN/PaintDotNet",
+      "catalog_names": [
+        "Paint.NET"
+      ]
+    },
+    {
+      "package_id": "Dropbox.Dropbox",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/d/Dropbox/Dropbox",
+      "catalog_names": [
+        "Dropbox"
+      ]
+    },
+    {
+      "package_id": "ElementLabs.LMStudio",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/e/ElementLabs/LMStudio",
+      "catalog_names": [
+        "LM Studio"
+      ]
+    },
+    {
+      "package_id": "EpicGames.EpicGamesLauncher",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/e/EpicGames/EpicGamesLauncher",
+      "catalog_names": [
+        "Epic Games Launcher"
+      ]
+    },
+    {
+      "package_id": "GIMP.GIMP",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/g/GIMP/GIMP",
+      "catalog_names": [
+        "GIMP"
+      ]
+    },
+    {
+      "package_id": "Giorgiotani.Peazip",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/g/Giorgiotani/Peazip",
+      "catalog_names": [
+        "PeaZip"
+      ]
+    },
+    {
+      "package_id": "Git.Git",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/g/Git/Git",
+      "catalog_names": [
+        "Git"
+      ]
+    },
+    {
+      "package_id": "GitHub.cli",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/g/GitHub/cli",
+      "catalog_names": [
+        "GitHub CLI"
+      ]
+    },
+    {
+      "package_id": "GitHub.GitHubDesktop",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/g/GitHub/GitHubDesktop",
+      "catalog_names": [
+        "GitHub Desktop"
+      ]
+    },
+    {
+      "package_id": "GodotEngine.GodotEngine",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/g/GodotEngine/GodotEngine",
+      "catalog_names": [
+        "Godot Engine"
+      ]
+    },
+    {
+      "package_id": "Google.AndroidStudio",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/g/Google/AndroidStudio",
+      "catalog_names": [
+        "Android Studio"
+      ]
+    },
+    {
+      "package_id": "Google.Chrome",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/g/Google/Chrome",
+      "catalog_names": [
+        "Google Chrome"
+      ]
+    },
+    {
+      "package_id": "Google.GoogleDrive",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/g/Google/GoogleDrive",
+      "catalog_names": [
+        "Google Drive for Desktop"
+      ]
+    },
+    {
+      "package_id": "Greenshot.Greenshot",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/g/Greenshot/Greenshot",
+      "catalog_names": [
+        "Greenshot"
+      ]
+    },
+    {
+      "package_id": "Gyan.FFmpeg",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/g/Gyan/FFmpeg",
+      "catalog_names": [
+        "FFmpeg"
+      ]
+    },
+    {
+      "package_id": "HandBrake.HandBrake",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/h/HandBrake/HandBrake",
+      "catalog_names": [
+        "HandBrake"
+      ]
+    },
+    {
+      "package_id": "Inkscape.Inkscape",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/i/Inkscape/Inkscape",
+      "catalog_names": [
+        "Inkscape"
+      ]
+    },
+    {
+      "package_id": "Insecure.Nmap",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/i/Insecure/Nmap",
+      "catalog_names": [
+        "Nmap"
+      ]
+    },
+    {
+      "package_id": "JetBrains.IntelliJIDEA.Community",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/j/JetBrains/IntelliJIDEA/Community",
+      "catalog_names": [
+        "IntelliJ IDEA Community"
+      ]
+    },
+    {
+      "package_id": "JetBrains.Toolbox",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/j/JetBrains/Toolbox",
+      "catalog_names": [
+        "JetBrains Toolbox App"
+      ]
+    },
+    {
+      "package_id": "KDE.Kdenlive",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/k/KDE/Kdenlive",
+      "catalog_names": [
+        "Kdenlive"
+      ]
+    },
+    {
+      "package_id": "KDE.Krita",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/k/KDE/Krita",
+      "catalog_names": [
+        "Krita"
+      ]
+    },
+    {
+      "package_id": "KeePassXCTeam.KeePassXC",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/k/KeePassXCTeam/KeePassXC",
+      "catalog_names": [
+        "KeePassXC"
+      ]
+    },
+    {
+      "package_id": "Kitware.CMake",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/k/Kitware/CMake",
+      "catalog_names": [
+        "CMake"
+      ]
+    },
+    {
+      "package_id": "Malwarebytes.Malwarebytes",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/m/Malwarebytes/Malwarebytes",
+      "catalog_names": [
+        "Malwarebytes"
+      ]
+    },
+    {
+      "package_id": "Meltytech.Shotcut",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/m/Meltytech/Shotcut",
+      "catalog_names": [
+        "Shotcut"
+      ]
+    },
+    {
+      "package_id": "Microsoft.Edge",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/m/Microsoft/Edge",
+      "catalog_names": [
+        "Microsoft Edge"
+      ]
+    },
+    {
+      "package_id": "Microsoft.OneDrive",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/m/Microsoft/OneDrive",
+      "catalog_names": [
+        "Microsoft OneDrive"
+      ]
+    },
+    {
+      "package_id": "Microsoft.PowerToys",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/m/Microsoft/PowerToys",
+      "catalog_names": [
+        "Microsoft PowerToys"
+      ]
+    },
+    {
+      "package_id": "Microsoft.Teams",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/m/Microsoft/Teams",
+      "catalog_names": [
+        "Microsoft Teams"
+      ]
+    },
+    {
+      "package_id": "Microsoft.VisualStudio.2022.Community",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/m/Microsoft/VisualStudio/2022/Community",
+      "catalog_names": [
+        "Visual Studio Community"
+      ]
+    },
+    {
+      "package_id": "Microsoft.VisualStudioCode",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/m/Microsoft/VisualStudioCode",
+      "catalog_names": [
+        "Visual Studio Code"
+      ]
+    },
+    {
+      "package_id": "Microsoft.WindowsTerminal",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/m/Microsoft/WindowsTerminal",
+      "catalog_names": [
+        "Windows Terminal"
+      ]
+    },
+    {
+      "package_id": "Mozilla.Firefox",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/m/Mozilla/Firefox",
+      "catalog_names": [
+        "Mozilla Firefox"
+      ]
+    },
+    {
+      "package_id": "Mozilla.Thunderbird",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/m/Mozilla/Thunderbird",
+      "catalog_names": [
+        "Mozilla Thunderbird"
+      ]
+    },
+    {
+      "package_id": "Notepad++.Notepad++",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/n/Notepad++/Notepad++",
+      "catalog_names": [
+        "Notepad++"
+      ]
+    },
+    {
+      "package_id": "OBSProject.OBSStudio",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/OBSProject/OBSStudio",
+      "catalog_names": [
+        "OBS Studio"
+      ]
+    },
+    {
+      "package_id": "Ollama.Ollama",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Ollama/Ollama",
+      "catalog_names": [
+        "Ollama"
+      ]
+    },
+    {
+      "package_id": "OpenJS.NodeJS.LTS",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/OpenJS/NodeJS/LTS",
+      "catalog_names": [
+        "Node.js"
+      ]
+    },
+    {
+      "package_id": "OpenShot.OpenShot",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/OpenShot/OpenShot",
+      "catalog_names": [
+        "OpenShot"
+      ]
+    },
+    {
+      "package_id": "Opera.Opera",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Opera/Opera",
+      "catalog_names": [
+        "Opera"
+      ]
+    },
+    {
+      "package_id": "Oracle.VirtualBox",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Oracle/VirtualBox",
+      "catalog_names": [
+        "VirtualBox"
+      ]
+    },
+    {
+      "package_id": "Piriform.CCleaner",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/p/Piriform/CCleaner",
+      "catalog_names": [
+        "CCleaner"
+      ]
+    },
+    {
+      "package_id": "Postman.Postman",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/p/Postman/Postman",
+      "catalog_names": [
+        "Postman"
+      ]
+    },
+    {
+      "package_id": "PuTTY.PuTTY",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/p/PuTTY/PuTTY",
+      "catalog_names": [
+        "PuTTY"
+      ]
+    },
+    {
+      "package_id": "Python.Python.3.13",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/p/Python/Python/3/13",
+      "catalog_names": [
+        "Python 3",
+        "Python"
+      ]
+    },
+    {
+      "package_id": "qBittorrent.qBittorrent",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/q/qBittorrent/qBittorrent",
+      "catalog_names": [
+        "qBittorrent"
+      ]
+    },
+    {
+      "package_id": "Rufus.Rufus",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/r/Rufus/Rufus",
+      "catalog_names": [
+        "Rufus"
+      ]
+    },
+    {
+      "package_id": "ShareX.ShareX",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/s/ShareX/ShareX",
+      "catalog_names": [
+        "ShareX"
+      ]
+    },
+    {
+      "package_id": "Spotify.Spotify",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/s/Spotify/Spotify",
+      "catalog_names": [
+        "Spotify"
+      ]
+    },
+    {
+      "package_id": "SumatraPDF.SumatraPDF",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/s/SumatraPDF/SumatraPDF",
+      "catalog_names": [
+        "SumatraPDF"
+      ]
+    },
+    {
+      "package_id": "Telegram.TelegramDesktop",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/t/Telegram/TelegramDesktop",
+      "catalog_names": [
+        "Telegram Desktop"
+      ]
+    },
+    {
+      "package_id": "TheDocumentFoundation.LibreOffice",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/t/TheDocumentFoundation/LibreOffice",
+      "catalog_names": [
+        "LibreOffice"
+      ]
+    },
+    {
+      "package_id": "Valve.Steam",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/v/Valve/Steam",
+      "catalog_names": [
+        "Steam"
+      ]
+    },
+    {
+      "package_id": "Ventoy.Ventoy",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/v/Ventoy/Ventoy",
+      "catalog_names": [
+        "Ventoy"
+      ]
+    },
+    {
+      "package_id": "VideoLAN.VLC",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/v/VideoLAN/VLC",
+      "catalog_names": [
+        "VLC Media Player"
+      ]
+    },
+    {
+      "package_id": "Vivaldi.Vivaldi",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/v/Vivaldi/Vivaldi",
+      "catalog_names": [
+        "Vivaldi"
+      ]
+    },
+    {
+      "package_id": "voidtools.Everything",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/v/voidtools/Everything",
+      "catalog_names": [
+        "Everything"
+      ]
+    },
+    {
+      "package_id": "WinDirStat.WinDirStat",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/w/WinDirStat/WinDirStat",
+      "catalog_names": [
+        "WinDirStat"
+      ]
+    },
+    {
+      "package_id": "WinSCP.WinSCP",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/w/WinSCP/WinSCP",
+      "catalog_names": [
+        "WinSCP"
+      ]
+    },
+    {
+      "package_id": "WiresharkFoundation.Wireshark",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/w/WiresharkFoundation/Wireshark",
+      "catalog_names": [
+        "Wireshark"
+      ]
+    },
+    {
+      "package_id": "Zoom.Zoom",
+      "verified": true,
+      "manifest_url": "https://github.com/microsoft/winget-pkgs/tree/master/manifests/z/Zoom/Zoom",
+      "catalog_names": [
+        "Zoom"
+      ]
+    }
+  ]
+}

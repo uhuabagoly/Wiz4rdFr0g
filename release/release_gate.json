@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-09-06T12:31:45Z",
+  "catalog_total": 723,
+  "catalog_audit_pass": true,
+  "unsafe_resolution_entries": 0,
+  "physical_results": 0,
+  "verified_full": 0,
+  "verified_install_only": 0,
+  "manual_uninstall": 1,
+  "system_component": 3,
+  "license_blocked": 0,
+  "unavailable": 0,
+  "unresolved": 719,
+  "root_cause_counts": {
+    "None": 719,
+    "SystemComponent": 3,
+    "UnsupportedAutomation": 1
+  },
+  "release_ready": false,
+  "blockers": [
+    "physical verification unresolved: 719"
+  ]
+}

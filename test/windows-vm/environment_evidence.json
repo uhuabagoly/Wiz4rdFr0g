@@ -1,0 +1,22 @@
+{
+  "generated_at": "2026-09-06T11:52:20.616198+00:00",
+  "host_os": "linux",
+  "host_release": "6.18.35",
+  "host_machine": "x86_64",
+  "windows_executor_available": false,
+  "local_tools": {
+    "wine": null,
+    "wine64": null,
+    "qemu-system-x86_64": null,
+    "virsh": null,
+    "VBoxManage": null,
+    "docker": null,
+    "podman": null,
+    "powershell": null,
+    "pwsh": null,
+    "winget": null
+  },
+  "dev_kvm": false,
+  "github_actions_environment": "",
+  "reason": "Current execution host is Linux and exposes no Wine, Windows VM hypervisor, /dev/kvm, Windows shell, Winget, or active Windows CI runner. Physical Windows results are therefore left pending rather than fabricated."
+}

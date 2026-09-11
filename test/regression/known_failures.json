@@ -1,0 +1,26 @@
+[
+  {
+    "case": "Firefox user-scope uninstall elevated",
+    "root_cause": "UserScopeElevated",
+    "source": "user_reported",
+    "production_fix": "scope-aware uninstall worker selects standard user context for user-scope packages",
+    "regression_test": "TestUninstallWrongElevationFirefoxMessage",
+    "physical_status": "PENDING_WINDOWS_VM"
+  },
+  {
+    "case": "Microsoft Edge confused with uninstall fallback / system component",
+    "root_cause": "SystemComponent",
+    "source": "user_reported",
+    "production_fix": "Edge is system-component protected and WebView2/runtime aliases are excluded from matching",
+    "regression_test": "TestSystemComponentsAreNotAutomaticUninstall + TestRegistryNegativeMatching",
+    "physical_status": "PENDING_WINDOWS_VM"
+  },
+  {
+    "case": "Quoted or space-containing vendor UninstallString",
+    "root_cause": "BrokenQuotedPath",
+    "source": "user_reported",
+    "production_fix": "registered executable path and argv are parsed separately and launched directly instead of cmd string concatenation",
+    "regression_test": "TestSplitRegisteredCommandQuoted + TestSplitRegisteredCommandUnquotedPathWithSpaces",
+    "physical_status": "PENDING_WINDOWS_VM"
+  }
+]

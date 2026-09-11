@@ -1,0 +1,18 @@
+{
+  "total_results": 0,
+  "tested": 0,
+  "full_pass": 0,
+  "install_fail": 0,
+  "detection_fail": 0,
+  "uninstall_fail": 0,
+  "verify_fail": 0,
+  "manual_only": 0,
+  "system_component": 0,
+  "license_required": 0,
+  "unavailable": 0,
+  "other_skipped": 0,
+  "other": 0,
+  "status_counts": {},
+  "root_cause_counts": {},
+  "coverage_counts": {}
+}

@@ -1,0 +1,101 @@
+name: Windows package install-uninstall VM test
+on:
+  workflow_dispatch:
+    inputs:
+      start:
+        description: Catalog start index
+        required: true
+        default: "0"
+      count:
+        description: Number of isolated package jobs, 1-25
+        required: true
+        default: "25"
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+      - id: matrix
+        shell: python
+        env:
+          START: ${{ inputs.start }}
+          COUNT: ${{ inputs.count }}
+        run: |
+          import json, os
+          start=int(os.environ['START'])
+          count=int(os.environ['COUNT'])
+          if start < 0 or count < 1 or count > 25 or start + count > 723:
+              raise SystemExit('invalid start/count')
+          with open(os.environ['GITHUB_OUTPUT'],'a',encoding='utf-8') as f:
+              f.write('matrix='+json.dumps(list(range(start,start+count)))+'\n')
+
+  package-test:
+    needs: plan
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        index: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.23.x"
+      - name: Unit and catalog tests
+        shell: pwsh
+        run: go test ./...
+      - name: Build production Windows executable
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force dist | Out-Null
+          go build -trimpath -ldflags="-H windowsgui" -o dist/Wiz4rdFr0g.exe ./app
+      - name: Execute isolated physical package test
+        id: physical
+        shell: pwsh
+        env:
+          WIZ4RDFR0G_VM_TEST: "1"
+          WIZ4RDFR0G_VM_ID: github-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.index }}
+        run: |
+          New-Item -ItemType Directory -Force test/windows-vm/results | Out-Null
+          $p = "test/windows-vm/results/{0:D4}.json" -f [int]"${{ matrix.index }}"
+          & .\dist\Wiz4rdFr0g.exe --vm-test-one "${{ matrix.index }}" $p
+          $code = $LASTEXITCODE
+          "exit_code=$code" >> $env:GITHUB_OUTPUT
+          if (-not (Test-Path $p)) { throw "missing result file" }
+          Get-Content $p
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wf-package-${{ matrix.index }}
+          path: test/windows-vm/results/*.json
+      - name: Enforce physical result
+        if: always()
+        shell: pwsh
+        run: |
+          if ("${{ steps.physical.outputs.exit_code }}" -ne "0") { exit 1 }
+
+  aggregate:
+    if: always()
+    needs: package-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.23.x"
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: wf-package-*
+          path: test/windows-vm/results
+          merge-multiple: true
+      - name: Aggregate physical evidence
+        run: go run ./cmd/vm-test-report ./test/windows-vm/results
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wf-batch-summary-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            test/windows-vm/results/summary.json
+            test/windows-vm/results/summary.csv

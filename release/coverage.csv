@@ -1,0 +1,724 @@
+index,name,category,coverage_status,root_cause,physical_result,evidence
+0,Google Chrome,BÖNGÉSZŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+1,Mozilla Firefox,BÖNGÉSZŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+2,Microsoft Edge,BÖNGÉSZŐK,SYSTEM_COMPONENT,SystemComponent,,catalog profile explicitly marks a Windows-managed system component
+3,Brave,BÖNGÉSZŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+4,Opera,BÖNGÉSZŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+5,Vivaldi,BÖNGÉSZŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+6,Zoom,KOMMUNIKÁCIÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+7,Discord,KOMMUNIKÁCIÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+8,Microsoft Teams,KOMMUNIKÁCIÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+9,Pidgin,KOMMUNIKÁCIÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+10,Mozilla Thunderbird,KOMMUNIKÁCIÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+11,Trillian,KOMMUNIKÁCIÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+12,Telegram Desktop,KOMMUNIKÁCIÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+13,iTunes,MÉDIA / ZENE / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+14,VLC Media Player,MÉDIA / ZENE / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+15,AIMP,MÉDIA / ZENE / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+16,foobar2000,MÉDIA / ZENE / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+17,Winamp,MÉDIA / ZENE / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+18,MusicBee,MÉDIA / ZENE / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+19,Audacity,MÉDIA / ZENE / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+20,K-Lite Codec Pack,MÉDIA / ZENE / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+21,GOM Player,MÉDIA / ZENE / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+22,Spotify,MÉDIA / ZENE / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+23,Combined Community Codec Pack (CCCP),MÉDIA / ZENE / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+24,MediaMonkey,MÉDIA / ZENE / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+25,HandBrake,MÉDIA / ZENE / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+26,Krita,GRAFIKA / KÉP / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+27,Blender,GRAFIKA / KÉP / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+28,Paint.NET,GRAFIKA / KÉP / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+29,GIMP,GRAFIKA / KÉP / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+30,IrfanView,GRAFIKA / KÉP / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+31,XnView,GRAFIKA / KÉP / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+32,Inkscape,GRAFIKA / KÉP / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+33,FastStone Image Viewer,GRAFIKA / KÉP / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+34,Greenshot,GRAFIKA / KÉP / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+35,ShareX,GRAFIKA / KÉP / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+36,OBS Studio,GRAFIKA / KÉP / VIDEÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+37,Foxit Reader,DOKUMENTUMOK / PDF / IRODA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+38,LibreOffice,DOKUMENTUMOK / PDF / IRODA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+39,SumatraPDF,DOKUMENTUMOK / PDF / IRODA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+40,CutePDF,DOKUMENTUMOK / PDF / IRODA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+41,OpenOffice,DOKUMENTUMOK / PDF / IRODA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+42,Adobe Acrobat Reader,DOKUMENTUMOK / PDF / IRODA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+43,Malwarebytes,BIZTONSÁG,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+44,Avast,BIZTONSÁG,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+45,AVG,BIZTONSÁG,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+46,Spybot 2,BIZTONSÁG,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+47,Avira,BIZTONSÁG,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+48,SUPERAntiSpyware,BIZTONSÁG,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+49,qBittorrent,FÁJLMEGOSZTÁS / TORRENT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+50,Dropbox,FELHŐ / SZINKRONIZÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+51,Google Drive for Desktop,FELHŐ / SZINKRONIZÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+52,Microsoft OneDrive,FELHŐ / SZINKRONIZÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+53,SugarSync,FELHŐ / SZINKRONIZÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+54,Steam,JÁTÉK / ÁLTALÁNOS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+55,Epic Games Launcher,JÁTÉK / ÁLTALÁNOS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+56,Evernote,JÁTÉK / ÁLTALÁNOS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+57,Google Earth,JÁTÉK / ÁLTALÁNOS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+58,KeePass 2,JÁTÉK / ÁLTALÁNOS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+59,Everything,JÁTÉK / ÁLTALÁNOS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+60,NV Access,JÁTÉK / ÁLTALÁNOS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+61,AnyDesk,SEGÉDPROGRAMOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+62,TeamViewer 15,SEGÉDPROGRAMOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+63,ImgBurn,SEGÉDPROGRAMOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+64,RealVNC Server,SEGÉDPROGRAMOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+65,RealVNC Viewer,SEGÉDPROGRAMOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+66,TightVNC,SEGÉDPROGRAMOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+67,TeraCopy,SEGÉDPROGRAMOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+68,CDBurnerXP,SEGÉDPROGRAMOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+69,Revo Uninstaller,SEGÉDPROGRAMOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+70,Launchy,SEGÉDPROGRAMOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+71,WinDirStat,SEGÉDPROGRAMOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+72,WizTree,SEGÉDPROGRAMOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+73,Glary Utilities,SEGÉDPROGRAMOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+74,InfraRecorder,SEGÉDPROGRAMOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+75,Open-Shell,SEGÉDPROGRAMOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+76,CCleaner,SEGÉDPROGRAMOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+77,Microsoft PowerToys,SEGÉDPROGRAMOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+78,Rufus,SEGÉDPROGRAMOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+79,balenaEtcher,SEGÉDPROGRAMOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+80,TreeSize Free,SEGÉDPROGRAMOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+81,Windows Terminal,SEGÉDPROGRAMOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+82,7-Zip,TÖMÖRÍTÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+83,PeaZip,TÖMÖRÍTÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+84,WinRAR,TÖMÖRÍTÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+85,Python 3,FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+86,Python 2 / Legacy Python,FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+87,Git,FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+88,GitHub Desktop,FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+89,Node.js,FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+90,FileZilla,FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+91,Notepad++,FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+92,WinSCP,FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+93,PuTTY,FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+94,WinMerge,FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+95,Eclipse,FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+96,Visual Studio Code,FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+97,Cursor,FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+98,Docker Desktop,FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+99,Postman,FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+100,DBeaver,FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+101,MySQL Workbench,FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+102,Visual Studio Community,FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+103,IntelliJ IDEA Community,FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+104,Android Studio,FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+105,GitKraken,FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+106,Adoptium / AdoptOpenJDK JDK 8,JAVA / JDK / JRE,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+107,Adoptium / AdoptOpenJDK JDK 11,JAVA / JDK / JRE,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+108,Adoptium / AdoptOpenJDK JDK 17,JAVA / JDK / JRE,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+109,Adoptium / AdoptOpenJDK JDK 21,JAVA / JDK / JRE,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+110,Adoptium / AdoptOpenJDK JDK 25,JAVA / JDK / JRE,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+111,Amazon Corretto JDK 8,JAVA / JDK / JRE,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+112,Amazon Corretto JDK 11,JAVA / JDK / JRE,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+113,Amazon Corretto JDK 17,JAVA / JDK / JRE,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+114,Amazon Corretto JDK 21,JAVA / JDK / JRE,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+115,Amazon Corretto JDK 25,JAVA / JDK / JRE,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+116,Amazon Corretto JRE 8,JAVA / JDK / JRE,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+117,.NET Framework 4.8.1,.NET RUNTIME-OK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+118,.NET Desktop Runtime 8,.NET RUNTIME-OK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+119,.NET Desktop Runtime 9,.NET RUNTIME-OK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+120,.NET Desktop Runtime 10,.NET RUNTIME-OK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+121,ASP.NET Core Runtime 8,.NET RUNTIME-OK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+122,ASP.NET Core Runtime 9,.NET RUNTIME-OK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+123,ASP.NET Core Runtime 10,.NET RUNTIME-OK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+124,Microsoft Visual C++ Redistributable 2015+,MICROSOFT VISUAL C++ REDISTRIBUTABLE,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+125,Microsoft Visual C++ Redistributable 2013,MICROSOFT VISUAL C++ REDISTRIBUTABLE,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+126,Microsoft Visual C++ Redistributable 2012,MICROSOFT VISUAL C++ REDISTRIBUTABLE,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+127,Microsoft Visual C++ Redistributable 2010,MICROSOFT VISUAL C++ REDISTRIBUTABLE,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+128,Microsoft Visual C++ Redistributable 2008,MICROSOFT VISUAL C++ REDISTRIBUTABLE,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+129,Microsoft Visual C++ Redistributable 2005,MICROSOFT VISUAL C++ REDISTRIBUTABLE,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+130,CPU-Z,RENDSZERINFORMÁCIÓ / HARDVER / TESZT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+131,HWiNFO,RENDSZERINFORMÁCIÓ / HARDVER / TESZT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+132,CrystalDiskInfo,RENDSZERINFORMÁCIÓ / HARDVER / TESZT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+133,CrystalDiskMark,RENDSZERINFORMÁCIÓ / HARDVER / TESZT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+134,FanControl,RENDSZERINFORMÁCIÓ / HARDVER / TESZT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+135,MSI Afterburner,RENDSZERINFORMÁCIÓ / HARDVER / TESZT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+136,iLok License Manager,AUDIO / ZENE / HANGSZER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+137,Focusrite Control 2,AUDIO / ZENE / HANGSZER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+138,Softube Central,AUDIO / ZENE / HANGSZER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+139,Amped Roots Free,AUDIO / ZENE / HANGSZER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+140,Neural Amp Modeler,AUDIO / ZENE / HANGSZER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+141,Tonocracy,AUDIO / ZENE / HANGSZER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+142,TDR Nova,AUDIO / ZENE / HANGSZER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+143,Vital,AUDIO / ZENE / HANGSZER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+144,Spitfire LABS,AUDIO / ZENE / HANGSZER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+145,ASIO4ALL,AUDIO / ZENE / HANGSZER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+146,REAPER,AUDIO / ZENE / HANGSZER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+147,FL Studio,AUDIO / ZENE / HANGSZER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+148,Cubase,AUDIO / ZENE / HANGSZER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+149,Archetype: Gojira X,AUDIO / ZENE / HANGSZER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+150,Unity Hub,GAME DEVELOPMENT / 3D,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+151,Unity Editor / Unity Personal,GAME DEVELOPMENT / 3D,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+152,Unreal Engine,GAME DEVELOPMENT / 3D,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+153,Godot Engine,GAME DEVELOPMENT / 3D,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+154,CMake,FEJLESZTÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+155,Cisco Packet Tracer,HÁLÓZAT / IT / LABOR,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+156,Wireshark,HÁLÓZAT / IT / LABOR,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+157,Nmap,HÁLÓZAT / IT / LABOR,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+158,VirtualBox,HÁLÓZAT / IT / LABOR,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+159,VMware Workstation,HÁLÓZAT / IT / LABOR,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+160,Ventoy,HÁLÓZAT / IT / LABOR,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+161,Pentablet driver / kezelőszoftver,HARDVER / PERIFÉRIA,MANUAL_UNINSTALL,UnsupportedAutomation,,catalog profile explicitly requires manual uninstall
+162,Microsoft Word,MICROSOFT OFFICE / FIZETŐS ALKALMAZÁSOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+163,Microsoft Excel,MICROSOFT OFFICE / FIZETŐS ALKALMAZÁSOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+164,Microsoft PowerPoint,MICROSOFT OFFICE / FIZETŐS ALKALMAZÁSOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+165,Microsoft Access,MICROSOFT OFFICE / FIZETŐS ALKALMAZÁSOK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+166,GOG GALAXY,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+167,EA app,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+168,Ubisoft Connect,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+169,Battle.net,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+170,Riot Client,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+171,Rockstar Games Launcher,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+172,itch.io App,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+173,Amazon Games App,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+174,Xbox App,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+175,Minecraft Launcher,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+176,Prism Launcher,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+177,MultiMC,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+178,CurseForge,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+179,Modrinth App,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+180,Nexus Mods / Vortex,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+181,Overwolf,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+182,Playnite,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+183,Heroic Games Launcher,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+184,Lutris,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+185,GeForce NOW,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+186,Moonlight,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+187,Sunshine,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+188,Parsec,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+189,Antstream Arcade,JÁTÉKPLATFORMOK / LAUNCHEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+190,LogMeIn Hamachi,VIRTUÁLIS HÁLÓZAT / VPN / LAN,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+191,Tailscale,VIRTUÁLIS HÁLÓZAT / VPN / LAN,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+192,ZeroTier,VIRTUÁLIS HÁLÓZAT / VPN / LAN,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+193,WireGuard,VIRTUÁLIS HÁLÓZAT / VPN / LAN,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+194,OpenVPN Connect,VIRTUÁLIS HÁLÓZAT / VPN / LAN,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+195,SoftEther VPN Client,VIRTUÁLIS HÁLÓZAT / VPN / LAN,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+196,Proton VPN,VIRTUÁLIS HÁLÓZAT / VPN / LAN,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+197,Mullvad VPN,VIRTUÁLIS HÁLÓZAT / VPN / LAN,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+198,Windscribe,VIRTUÁLIS HÁLÓZAT / VPN / LAN,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+199,Cloudflare WARP,VIRTUÁLIS HÁLÓZAT / VPN / LAN,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+200,TunnelBear,VIRTUÁLIS HÁLÓZAT / VPN / LAN,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+201,NordVPN,VIRTUÁLIS HÁLÓZAT / VPN / LAN,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+202,Surfshark,VIRTUÁLIS HÁLÓZAT / VPN / LAN,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+203,Private Internet Access,VIRTUÁLIS HÁLÓZAT / VPN / LAN,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+204,NetBird,VIRTUÁLIS HÁLÓZAT / VPN / LAN,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+205,Headscale,VIRTUÁLIS HÁLÓZAT / VPN / LAN,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+206,Nebula,VIRTUÁLIS HÁLÓZAT / VPN / LAN,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+207,Radmin VPN,VIRTUÁLIS HÁLÓZAT / VPN / LAN,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+208,GameRanger,VIRTUÁLIS HÁLÓZAT / VPN / LAN,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+209,TeamViewer,TÁVOLI ELÉRÉS / REMOTE DESKTOP,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+210,RustDesk,TÁVOLI ELÉRÉS / REMOTE DESKTOP,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+211,UltraVNC,TÁVOLI ELÉRÉS / REMOTE DESKTOP,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+212,Chrome Remote Desktop,TÁVOLI ELÉRÉS / REMOTE DESKTOP,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+213,Microsoft Remote Desktop,TÁVOLI ELÉRÉS / REMOTE DESKTOP,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+214,mRemoteNG,TÁVOLI ELÉRÉS / REMOTE DESKTOP,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+215,MobaXterm,TÁVOLI ELÉRÉS / REMOTE DESKTOP,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+216,Termius,TÁVOLI ELÉRÉS / REMOTE DESKTOP,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+217,NoMachine,TÁVOLI ELÉRÉS / REMOTE DESKTOP,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+218,Splashtop,TÁVOLI ELÉRÉS / REMOTE DESKTOP,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+219,DWService,TÁVOLI ELÉRÉS / REMOTE DESKTOP,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+220,Ollama,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+221,LM Studio,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+222,Jan,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+223,GPT4All,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+224,AnythingLLM,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+225,Open WebUI,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+226,llama.cpp,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+227,KoboldCpp,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+228,text-generation-webui,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+229,LocalAI,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+230,vLLM,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+231,OpenLLM,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+232,Pinokio,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+233,Open Interpreter,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+234,Continue,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+235,Aider,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+236,Cline,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+237,Roo Code,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+238,Claude Code,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+239,Codex CLI,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+240,OpenHands,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+241,Dify,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+242,Flowise,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+243,Langflow,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+244,AnythingLLM Desktop,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+245,PrivateGPT,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+246,Chatbox,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+247,Msty,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+248,Cherry Studio,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+249,Perplexica,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+250,Khoj,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+251,LibreChat,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+252,SillyTavern,LOKÁLIS AI / LLM / CHAT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+253,ComfyUI,AI KÉPGENERÁLÁS / STABLE DIFFUSION,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+254,AUTOMATIC1111 Stable Diffusion WebUI,AI KÉPGENERÁLÁS / STABLE DIFFUSION,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+255,Forge WebUI,AI KÉPGENERÁLÁS / STABLE DIFFUSION,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+256,Fooocus,AI KÉPGENERÁLÁS / STABLE DIFFUSION,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+257,InvokeAI,AI KÉPGENERÁLÁS / STABLE DIFFUSION,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+258,SwarmUI,AI KÉPGENERÁLÁS / STABLE DIFFUSION,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+259,DiffusionBee,AI KÉPGENERÁLÁS / STABLE DIFFUSION,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+260,Stable Diffusion WebUI Forge,AI KÉPGENERÁLÁS / STABLE DIFFUSION,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+261,Easy Diffusion,AI KÉPGENERÁLÁS / STABLE DIFFUSION,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+262,Krita AI Diffusion plugin,AI KÉPGENERÁLÁS / STABLE DIFFUSION,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+263,Draw Things,AI KÉPGENERÁLÁS / STABLE DIFFUSION,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+264,Upscayl,AI KÉPGENERÁLÁS / STABLE DIFFUSION,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+265,Real-ESRGAN,AI KÉPGENERÁLÁS / STABLE DIFFUSION,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+266,Topaz Photo AI,AI KÉPGENERÁLÁS / STABLE DIFFUSION,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+267,Topaz Gigapixel AI,AI KÉPGENERÁLÁS / STABLE DIFFUSION,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+268,Windsurf,AI FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+269,GitHub Copilot,AI FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+270,Tabby,AI FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+271,Sourcegraph Cody,AI FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+272,JetBrains AI Assistant,AI FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+273,Amazon Q Developer,AI FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+274,Pieces for Developers,AI FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+275,Codeium / Windsurf plugin,AI FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+276,Continue.dev,AI FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+277,Tabnine,AI FEJLESZTŐI ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+278,XAMPP,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+279,WampServer,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+280,Laragon,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+281,MAMP,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+282,LocalWP,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+283,DDEV,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+284,Devilbox,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+285,Lando,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+286,Podman Desktop,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+287,Rancher Desktop,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+288,WSL,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+289,WSL2,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+290,Apache HTTP Server,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+291,Nginx,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+292,Caddy,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+293,IIS Express,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+294,PHP,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+295,Composer,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+296,npm,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+297,pnpm,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+298,Yarn,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+299,Bun,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+300,Deno,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+301,Python,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+302,pip,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+303,Ruby,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+304,Ruby on Rails,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+305,Go,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+306,Rust,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+307,Java JDK,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+308,.NET SDK,WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+309,MySQL,ADATBÁZIS SZERVEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+310,MariaDB,ADATBÁZIS SZERVEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+311,PostgreSQL,ADATBÁZIS SZERVEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+312,SQLite,ADATBÁZIS SZERVEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+313,MongoDB Community Server,ADATBÁZIS SZERVEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+314,Redis,ADATBÁZIS SZERVEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+315,Memcached,ADATBÁZIS SZERVEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+316,Microsoft SQL Server Express,ADATBÁZIS SZERVEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+317,Microsoft SQL Server Developer,ADATBÁZIS SZERVEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+318,Oracle Database Free,ADATBÁZIS SZERVEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+319,CockroachDB,ADATBÁZIS SZERVEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+320,CouchDB,ADATBÁZIS SZERVEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+321,Neo4j Community,ADATBÁZIS SZERVEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+322,InfluxDB,ADATBÁZIS SZERVEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+323,TimescaleDB,ADATBÁZIS SZERVEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+324,ClickHouse,ADATBÁZIS SZERVEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+325,DuckDB,ADATBÁZIS SZERVEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+326,HeidiSQL,ADATBÁZIS KEZELŐK / SQL GUI,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+327,pgAdmin,ADATBÁZIS KEZELŐK / SQL GUI,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+328,SQL Server Management Studio,ADATBÁZIS KEZELŐK / SQL GUI,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+329,Azure Data Studio,ADATBÁZIS KEZELŐK / SQL GUI,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+330,SQLiteStudio,ADATBÁZIS KEZELŐK / SQL GUI,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+331,DB Browser for SQLite,ADATBÁZIS KEZELŐK / SQL GUI,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+332,MongoDB Compass,ADATBÁZIS KEZELŐK / SQL GUI,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+333,RedisInsight,ADATBÁZIS KEZELŐK / SQL GUI,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+334,JetBrains DataGrip,ADATBÁZIS KEZELŐK / SQL GUI,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+335,TablePlus,ADATBÁZIS KEZELŐK / SQL GUI,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+336,Beekeeper Studio,ADATBÁZIS KEZELŐK / SQL GUI,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+337,Navicat,ADATBÁZIS KEZELŐK / SQL GUI,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+338,DbGate,ADATBÁZIS KEZELŐK / SQL GUI,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+339,RazorSQL,ADATBÁZIS KEZELŐK / SQL GUI,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+340,SQuirreL SQL,ADATBÁZIS KEZELŐK / SQL GUI,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+341,Adminer,ADATBÁZIS KEZELŐK / SQL GUI,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+342,phpMyAdmin,ADATBÁZIS KEZELŐK / SQL GUI,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+343,Insomnia,API / BACKEND / TESZTELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+344,Bruno,API / BACKEND / TESZTELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+345,Hoppscotch,API / BACKEND / TESZTELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+346,HTTPie,API / BACKEND / TESZTELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+347,curl,API / BACKEND / TESZTELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+348,wget,API / BACKEND / TESZTELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+349,SoapUI,API / BACKEND / TESZTELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+350,Fiddler Classic,API / BACKEND / TESZTELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+351,Fiddler Everywhere,API / BACKEND / TESZTELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+352,Charles Proxy,API / BACKEND / TESZTELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+353,mitmproxy,API / BACKEND / TESZTELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+354,Burp Suite Community Edition,API / BACKEND / TESZTELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+355,OWASP ZAP,API / BACKEND / TESZTELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+356,k6,API / BACKEND / TESZTELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+357,Apache JMeter,API / BACKEND / TESZTELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+358,Locust,API / BACKEND / TESZTELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+359,Swagger Editor,API / BACKEND / TESZTELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+360,Swagger UI,API / BACKEND / TESZTELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+361,Stoplight Studio,API / BACKEND / TESZTELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+362,Yaak,API / BACKEND / TESZTELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+363,Paw / RapidAPI Client,API / BACKEND / TESZTELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+364,VSCodium,IDE-K / KÓDSZERKESZTŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+365,Visual Studio Professional,IDE-K / KÓDSZERKESZTŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+366,Visual Studio Enterprise,IDE-K / KÓDSZERKESZTŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+367,Sublime Text,IDE-K / KÓDSZERKESZTŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+368,Zed,IDE-K / KÓDSZERKESZTŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+369,Eclipse IDE,IDE-K / KÓDSZERKESZTŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+370,Apache NetBeans,IDE-K / KÓDSZERKESZTŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+371,Code::Blocks,IDE-K / KÓDSZERKESZTŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+372,Geany,IDE-K / KÓDSZERKESZTŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+373,Kate,IDE-K / KÓDSZERKESZTŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+374,Lite XL,IDE-K / KÓDSZERKESZTŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+375,Neovim,IDE-K / KÓDSZERKESZTŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+376,Vim,IDE-K / KÓDSZERKESZTŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+377,Emacs,IDE-K / KÓDSZERKESZTŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+378,Lapce,IDE-K / KÓDSZERKESZTŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+379,Helix,IDE-K / KÓDSZERKESZTŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+380,Pulsar,IDE-K / KÓDSZERKESZTŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+381,Nova,IDE-K / KÓDSZERKESZTŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+382,TextMate,IDE-K / KÓDSZERKESZTŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+383,JetBrains Toolbox App,JETBRAINS IDE-K / ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+384,IntelliJ IDEA Ultimate,JETBRAINS IDE-K / ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+385,PyCharm Community,JETBRAINS IDE-K / ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+386,PyCharm Professional,JETBRAINS IDE-K / ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+387,WebStorm,JETBRAINS IDE-K / ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+388,PhpStorm,JETBRAINS IDE-K / ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+389,Rider,JETBRAINS IDE-K / ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+390,CLion,JETBRAINS IDE-K / ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+391,DataGrip,JETBRAINS IDE-K / ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+392,GoLand,JETBRAINS IDE-K / ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+393,RubyMine,JETBRAINS IDE-K / ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+394,RustRover,JETBRAINS IDE-K / ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+395,DataSpell,JETBRAINS IDE-K / ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+396,Aqua,JETBRAINS IDE-K / ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+397,Fleet,JETBRAINS IDE-K / ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+398,ReSharper,JETBRAINS IDE-K / ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+399,ReSharper C++,JETBRAINS IDE-K / ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+400,dotPeek,JETBRAINS IDE-K / ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+401,dotCover,JETBRAINS IDE-K / ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+402,dotTrace,JETBRAINS IDE-K / ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+403,dotMemory,JETBRAINS IDE-K / ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+404,TeamCity,JETBRAINS IDE-K / ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+405,YouTrack,JETBRAINS IDE-K / ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+406,Fork,VERZIÓKEZELÉS / GIT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+407,Sourcetree,VERZIÓKEZELÉS / GIT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+408,TortoiseGit,VERZIÓKEZELÉS / GIT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+409,TortoiseSVN,VERZIÓKEZELÉS / GIT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+410,Git Extensions,VERZIÓKEZELÉS / GIT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+411,Lazygit,VERZIÓKEZELÉS / GIT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+412,GitHub CLI,VERZIÓKEZELÉS / GIT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+413,GitLab CLI,VERZIÓKEZELÉS / GIT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+414,Gitea,VERZIÓKEZELÉS / GIT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+415,Gitea Actions runner,VERZIÓKEZELÉS / GIT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+416,SmartGit,VERZIÓKEZELÉS / GIT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+417,Tower,VERZIÓKEZELÉS / GIT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+418,Sublime Merge,VERZIÓKEZELÉS / GIT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+419,Plastic SCM / Unity Version Control,VERZIÓKEZELÉS / GIT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+420,Photopea,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+421,Clip Studio Paint,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+422,Corel Painter,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+423,MediBang Paint,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+424,FireAlpaca,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+425,Affinity Photo,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+426,Affinity Designer,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+427,Affinity Publisher,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+428,Adobe Photoshop,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+429,Adobe Illustrator,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+430,Adobe Lightroom,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+431,Adobe Fresco,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+432,Adobe Creative Cloud,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+433,Sketchbook,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+434,ArtRage,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+435,Rebelle,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+436,PaintTool SAI,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+437,MyPaint,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+438,Pinta,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+439,Concepts,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+440,ibis Paint,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+441,Leonardo,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+442,Kleki,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+443,Pixlr,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+444,Fotor,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+445,Canva Desktop,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+446,PhotoScape X,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+447,PhotoFiltre,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+448,PhotoDemon,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+449,LazPaint,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+450,Krita Gemini / kapcsolódó Krita eszközök,GRAFIKA / DIGITÁLIS RAJZ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+451,Aseprite,PIXEL ART / SPRITE / 2D GAME ART,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+452,LibreSprite,PIXEL ART / SPRITE / 2D GAME ART,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+453,Pixelorama,PIXEL ART / SPRITE / 2D GAME ART,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+454,Piskel,PIXEL ART / SPRITE / 2D GAME ART,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+455,GraphicsGale,PIXEL ART / SPRITE / 2D GAME ART,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+456,Pyxel Edit,PIXEL ART / SPRITE / 2D GAME ART,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+457,Pro Motion NG,PIXEL ART / SPRITE / 2D GAME ART,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+458,Tilesetter,PIXEL ART / SPRITE / 2D GAME ART,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+459,Tiled Map Editor,PIXEL ART / SPRITE / 2D GAME ART,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+460,LDtk,PIXEL ART / SPRITE / 2D GAME ART,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+461,TexturePacker,PIXEL ART / SPRITE / 2D GAME ART,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+462,Shoebox,PIXEL ART / SPRITE / 2D GAME ART,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+463,SpriteIlluminator,PIXEL ART / SPRITE / 2D GAME ART,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+464,Ogmo Editor,PIXEL ART / SPRITE / 2D GAME ART,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+465,CrocoTile 3D,PIXEL ART / SPRITE / 2D GAME ART,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+466,PixelOver,PIXEL ART / SPRITE / 2D GAME ART,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+467,Resprite,PIXEL ART / SPRITE / 2D GAME ART,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+468,Lospec Pixel Editor,PIXEL ART / SPRITE / 2D GAME ART,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+469,FreeCAD,3D / MODELLEZÉS / CAD,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+470,OpenSCAD,3D / MODELLEZÉS / CAD,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+471,SketchUp,3D / MODELLEZÉS / CAD,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+472,Autodesk Fusion,3D / MODELLEZÉS / CAD,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+473,Autodesk Maya,3D / MODELLEZÉS / CAD,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+474,Autodesk 3ds Max,3D / MODELLEZÉS / CAD,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+475,Cinema 4D,3D / MODELLEZÉS / CAD,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+476,ZBrush,3D / MODELLEZÉS / CAD,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+477,Nomad Sculpt,3D / MODELLEZÉS / CAD,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+478,MeshLab,3D / MODELLEZÉS / CAD,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+479,Meshmixer,3D / MODELLEZÉS / CAD,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+480,Substance 3D Painter,3D / MODELLEZÉS / CAD,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+481,Substance 3D Designer,3D / MODELLEZÉS / CAD,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+482,Marvelous Designer,3D / MODELLEZÉS / CAD,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+483,Houdini,3D / MODELLEZÉS / CAD,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+484,Rhino,3D / MODELLEZÉS / CAD,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+485,Solid Edge Community Edition,3D / MODELLEZÉS / CAD,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+486,SolveSpace,3D / MODELLEZÉS / CAD,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+487,BRL-CAD,3D / MODELLEZÉS / CAD,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+488,Wings 3D,3D / MODELLEZÉS / CAD,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+489,MagicaVoxel,3D / MODELLEZÉS / CAD,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+490,Unity Editor,GAME DEVELOPMENT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+491,GameMaker,GAME DEVELOPMENT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+492,Construct 3,GAME DEVELOPMENT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+493,GDevelop,GAME DEVELOPMENT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+494,Defold,GAME DEVELOPMENT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+495,RPG Maker,GAME DEVELOPMENT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+496,Ren'Py,GAME DEVELOPMENT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+497,MonoGame,GAME DEVELOPMENT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+498,Cocos Creator,GAME DEVELOPMENT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+499,CryEngine,GAME DEVELOPMENT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+500,Stride,GAME DEVELOPMENT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+501,Panda3D,GAME DEVELOPMENT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+502,Love2D,GAME DEVELOPMENT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+503,darktable,FOTÓ / RAW / KÉPKEZELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+504,RawTherapee,FOTÓ / RAW / KÉPKEZELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+505,digiKam,FOTÓ / RAW / KÉPKEZELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+506,XnView MP,FOTÓ / RAW / KÉPKEZELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+507,ImageGlass,FOTÓ / RAW / KÉPKEZELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+508,nomacs,FOTÓ / RAW / KÉPKEZELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+509,JPEGView,FOTÓ / RAW / KÉPKEZELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+510,ExifTool,FOTÓ / RAW / KÉPKEZELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+511,Hugin,FOTÓ / RAW / KÉPKEZELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+512,Luminance HDR,FOTÓ / RAW / KÉPKEZELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+513,Photivo,FOTÓ / RAW / KÉPKEZELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+514,Capture One,FOTÓ / RAW / KÉPKEZELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+515,ON1 Photo RAW,FOTÓ / RAW / KÉPKEZELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+516,ACDSee Photo Studio,FOTÓ / RAW / KÉPKEZELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+517,Luminar Neo,FOTÓ / RAW / KÉPKEZELÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+518,Flameshot,SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+519,Lightshot,SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+520,Snipping Tool,SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+521,Streamlabs Desktop,SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+522,Bandicam,SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+523,Camtasia,SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+524,ScreenToGif,SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+525,Gyazo,SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+526,LICEcap,SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+527,NVIDIA App / ShadowPlay,SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+528,AMD Software Adrenalin Recording,SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+529,Xbox Game Bar,SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+530,Action!,SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+531,XSplit Broadcaster,SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+532,Elgato 4K Capture Utility,SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+533,Elgato Stream Deck,SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+534,DaVinci Resolve,VIDEÓVÁGÁS / KONVERTÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+535,Kdenlive,VIDEÓVÁGÁS / KONVERTÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+536,Shotcut,VIDEÓVÁGÁS / KONVERTÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+537,OpenShot,VIDEÓVÁGÁS / KONVERTÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+538,FFmpeg,VIDEÓVÁGÁS / KONVERTÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+539,Avidemux,VIDEÓVÁGÁS / KONVERTÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+540,LosslessCut,VIDEÓVÁGÁS / KONVERTÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+541,Shutter Encoder,VIDEÓVÁGÁS / KONVERTÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+542,CapCut Desktop,VIDEÓVÁGÁS / KONVERTÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+543,VEGAS Pro,VIDEÓVÁGÁS / KONVERTÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+544,Adobe Premiere Pro,VIDEÓVÁGÁS / KONVERTÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+545,Adobe After Effects,VIDEÓVÁGÁS / KONVERTÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+546,HitFilm,VIDEÓVÁGÁS / KONVERTÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+547,Lightworks,VIDEÓVÁGÁS / KONVERTÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+548,Olive Video Editor,VIDEÓVÁGÁS / KONVERTÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+549,VSDC Free Video Editor,VIDEÓVÁGÁS / KONVERTÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+550,Filmora,VIDEÓVÁGÁS / KONVERTÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+551,Ableton Live,AUDIO / ZENE / DAW,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+552,Studio One,AUDIO / ZENE / DAW,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+553,Cakewalk,AUDIO / ZENE / DAW,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+554,Waveform Free,AUDIO / ZENE / DAW,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+555,LMMS,AUDIO / ZENE / DAW,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+556,Ardour,AUDIO / ZENE / DAW,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+557,MuseScore,AUDIO / ZENE / DAW,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+558,Equalizer APO,AUDIO / ZENE / DAW,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+559,Peace Equalizer,AUDIO / ZENE / DAW,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+560,Voicemeeter,AUDIO / ZENE / DAW,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+561,VB-CABLE,AUDIO / ZENE / DAW,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+562,Mixxx,AUDIO / ZENE / DAW,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+563,Ocenaudio,AUDIO / ZENE / DAW,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+564,Tenacity,AUDIO / ZENE / DAW,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+565,Native Access,GITÁR / AUDIO PLUGIN / HARDVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+566,IK Product Manager,GITÁR / AUDIO PLUGIN / HARDVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+567,Arturia Software Center,GITÁR / AUDIO PLUGIN / HARDVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+568,Waves Central,GITÁR / AUDIO PLUGIN / HARDVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+569,Neural DSP,GITÁR / AUDIO PLUGIN / HARDVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+570,AmpliTube,GITÁR / AUDIO PLUGIN / HARDVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+571,Guitar Rig,GITÁR / AUDIO PLUGIN / HARDVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+572,ToneX,GITÁR / AUDIO PLUGIN / HARDVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+573,NAM Universal,GITÁR / AUDIO PLUGIN / HARDVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+574,ReaPlugs,GITÁR / AUDIO PLUGIN / HARDVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+575,Helix Native,GITÁR / AUDIO PLUGIN / HARDVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+576,TH-U,GITÁR / AUDIO PLUGIN / HARDVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+577,BIAS FX,GITÁR / AUDIO PLUGIN / HARDVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+578,Positive Grid Spark app,GITÁR / AUDIO PLUGIN / HARDVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+579,Line 6 Central,GITÁR / AUDIO PLUGIN / HARDVER,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+580,Apache OpenOffice,OFFICE / PDF / JEGYZET,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+581,Microsoft 365 / Office,OFFICE / PDF / JEGYZET,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+582,OnlyOffice Desktop Editors,OFFICE / PDF / JEGYZET,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+583,WPS Office,OFFICE / PDF / JEGYZET,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+584,FreeOffice,OFFICE / PDF / JEGYZET,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+585,PDF24 Creator,OFFICE / PDF / JEGYZET,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+586,Foxit PDF Reader,OFFICE / PDF / JEGYZET,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+587,Okular,OFFICE / PDF / JEGYZET,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+588,Xournal++,OFFICE / PDF / JEGYZET,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+589,Obsidian,OFFICE / PDF / JEGYZET,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+590,Notion,OFFICE / PDF / JEGYZET,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+591,Joplin,OFFICE / PDF / JEGYZET,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+592,Logseq,OFFICE / PDF / JEGYZET,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+593,Zotero,OFFICE / PDF / JEGYZET,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+594,Mendeley Reference Manager,OFFICE / PDF / JEGYZET,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+595,Typora,OFFICE / PDF / JEGYZET,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+596,MarkText,OFFICE / PDF / JEGYZET,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+597,Trilium Notes,OFFICE / PDF / JEGYZET,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+598,Standard Notes,OFFICE / PDF / JEGYZET,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+599,NanaZip,FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+600,Bandizip,FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+601,Listary,FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+602,Total Commander,FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+603,Double Commander,FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+604,FreeCommander,FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+605,Files App,FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+606,Directory Opus,FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+607,FastCopy,FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+608,Bulk Rename Utility,FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+609,SpaceSniffer,FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+610,OneCommander,FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+611,Sysinternals Suite,RENDSZER / HARDVER / DIAGNOSZTIKA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+612,Process Explorer,RENDSZER / HARDVER / DIAGNOSZTIKA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+613,Process Monitor,RENDSZER / HARDVER / DIAGNOSZTIKA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+614,Autoruns,RENDSZER / HARDVER / DIAGNOSZTIKA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+615,TCPView,RENDSZER / HARDVER / DIAGNOSZTIKA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+616,GPU-Z,RENDSZER / HARDVER / DIAGNOSZTIKA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+617,HWMonitor,RENDSZER / HARDVER / DIAGNOSZTIKA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+618,Speccy,RENDSZER / HARDVER / DIAGNOSZTIKA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+619,Hard Disk Sentinel,RENDSZER / HARDVER / DIAGNOSZTIKA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+620,RivaTuner Statistics Server,RENDSZER / HARDVER / DIAGNOSZTIKA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+621,OCCT,RENDSZER / HARDVER / DIAGNOSZTIKA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+622,Prime95,RENDSZER / HARDVER / DIAGNOSZTIKA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+623,Cinebench,RENDSZER / HARDVER / DIAGNOSZTIKA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+624,MemTest86,RENDSZER / HARDVER / DIAGNOSZTIKA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+625,Victoria HDD/SSD,RENDSZER / HARDVER / DIAGNOSZTIKA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+626,AIDA64,RENDSZER / HARDVER / DIAGNOSZTIKA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+627,Core Temp,RENDSZER / HARDVER / DIAGNOSZTIKA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+628,Open Hardware Monitor,RENDSZER / HARDVER / DIAGNOSZTIKA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+629,Libre Hardware Monitor,RENDSZER / HARDVER / DIAGNOSZTIKA,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+630,UNetbootin,WINDOWS TELEPÍTÉS / USB / ISO,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+631,YUMI,WINDOWS TELEPÍTÉS / USB / ISO,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+632,Win32 Disk Imager,WINDOWS TELEPÍTÉS / USB / ISO,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+633,PowerISO,WINDOWS TELEPÍTÉS / USB / ISO,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+634,AnyBurn,WINDOWS TELEPÍTÉS / USB / ISO,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+635,WinCDEmu,WINDOWS TELEPÍTÉS / USB / ISO,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+636,Virtual CloneDrive,WINDOWS TELEPÍTÉS / USB / ISO,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+637,Media Creation Tool,WINDOWS TELEPÍTÉS / USB / ISO,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+638,Windows Installation Assistant,WINDOWS TELEPÍTÉS / USB / ISO,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+639,NTLite,WINDOWS TELEPÍTÉS / USB / ISO,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+640,Hyper-V,VIRTUALIZÁCIÓ / KONTAINEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+641,WSL2 disztribúciók,VIRTUALIZÁCIÓ / KONTAINEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+642,QEMU,VIRTUALIZÁCIÓ / KONTAINEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+643,Vagrant,VIRTUALIZÁCIÓ / KONTAINEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+644,Multipass,VIRTUALIZÁCIÓ / KONTAINEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+645,Minikube,VIRTUALIZÁCIÓ / KONTAINEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+646,Kubernetes kubectl,VIRTUALIZÁCIÓ / KONTAINEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+647,kind,VIRTUALIZÁCIÓ / KONTAINEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+648,k3d,VIRTUALIZÁCIÓ / KONTAINEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+649,Portainer Desktop / kapcsolódó kliensek,VIRTUALIZÁCIÓ / KONTAINEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+650,GNS3,HÁLÓZATI / CISCO / IT ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+651,EVE-NG Client Pack,HÁLÓZATI / CISCO / IT ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+652,KiTTY,HÁLÓZATI / CISCO / IT ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+653,Angry IP Scanner,HÁLÓZATI / CISCO / IT ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+654,Advanced IP Scanner,HÁLÓZATI / CISCO / IT ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+655,PortQry,HÁLÓZATI / CISCO / IT ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+656,iperf3,HÁLÓZATI / CISCO / IT ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+657,OpenSpeedTest,HÁLÓZATI / CISCO / IT ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+658,Netcat / Ncat,HÁLÓZATI / CISCO / IT ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+659,Solar-PuTTY,HÁLÓZATI / CISCO / IT ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+660,Bitvise SSH Client,HÁLÓZATI / CISCO / IT ESZKÖZÖK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+661,OpenSSH for Windows,HÁLÓZATI / CISCO / IT ESZKÖZÖK,SYSTEM_COMPONENT,SystemComponent,,catalog profile explicitly marks a Windows-managed system component
+662,MEGA Desktop App,FELHŐ / SZINKRONIZÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+663,Proton Drive,FELHŐ / SZINKRONIZÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+664,pCloud Drive,FELHŐ / SZINKRONIZÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+665,Nextcloud Desktop,FELHŐ / SZINKRONIZÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+666,Syncthing,FELHŐ / SZINKRONIZÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+667,Resilio Sync,FELHŐ / SZINKRONIZÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+668,rclone,FELHŐ / SZINKRONIZÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+669,Cyberduck,FELHŐ / SZINKRONIZÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+670,Mountain Duck,FELHŐ / SZINKRONIZÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+671,Box Drive,FELHŐ / SZINKRONIZÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+672,Koofr,FELHŐ / SZINKRONIZÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+673,Seafile Client,FELHŐ / SZINKRONIZÁLÁS,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+674,Bitwarden,JELSZÓ / 2FA / BIZTONSÁG,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+675,1Password,JELSZÓ / 2FA / BIZTONSÁG,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+676,KeePass,JELSZÓ / 2FA / BIZTONSÁG,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+677,KeePassXC,JELSZÓ / 2FA / BIZTONSÁG,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+678,Proton Pass,JELSZÓ / 2FA / BIZTONSÁG,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+679,Enpass,JELSZÓ / 2FA / BIZTONSÁG,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+680,Authy,JELSZÓ / 2FA / BIZTONSÁG,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+681,2FAS,JELSZÓ / 2FA / BIZTONSÁG,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+682,Aegis (mobil),JELSZÓ / 2FA / BIZTONSÁG,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+683,Yubico Authenticator,JELSZÓ / 2FA / BIZTONSÁG,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+684,Windows Defender,JELSZÓ / 2FA / BIZTONSÁG,SYSTEM_COMPONENT,SystemComponent,,catalog profile explicitly marks a Windows-managed system component
+685,ESET,JELSZÓ / 2FA / BIZTONSÁG,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+686,Sophos Home,JELSZÓ / 2FA / BIZTONSÁG,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+687,GlassWire,JELSZÓ / 2FA / BIZTONSÁG,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+688,SimpleWall,JELSZÓ / 2FA / BIZTONSÁG,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+689,Portmaster,JELSZÓ / 2FA / BIZTONSÁG,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+690,Slack,EMAIL / KOMMUNIKÁCIÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+691,Signal Desktop,EMAIL / KOMMUNIKÁCIÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+692,WhatsApp Desktop,EMAIL / KOMMUNIKÁCIÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+693,Viber,EMAIL / KOMMUNIKÁCIÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+694,Element,EMAIL / KOMMUNIKÁCIÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+695,Mattermost Desktop,EMAIL / KOMMUNIKÁCIÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+696,Rocket.Chat Desktop,EMAIL / KOMMUNIKÁCIÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+697,Thunderbird,EMAIL / KOMMUNIKÁCIÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+698,Mailspring,EMAIL / KOMMUNIKÁCIÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+699,eM Client,EMAIL / KOMMUNIKÁCIÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+700,Spark Desktop,EMAIL / KOMMUNIKÁCIÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+701,Proton Mail Bridge,EMAIL / KOMMUNIKÁCIÓ,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+702,LibreWolf,BÖNGÉSZŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+703,Floorp,BÖNGÉSZŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+704,Waterfox,BÖNGÉSZŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+705,Tor Browser,BÖNGÉSZŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+706,Arc,BÖNGÉSZŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+707,Zen Browser,BÖNGÉSZŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+708,Chromium,BÖNGÉSZŐK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+709,Free Download Manager,DOWNLOAD MANAGEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+710,JDownloader 2,DOWNLOAD MANAGEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+711,Internet Download Manager,DOWNLOAD MANAGEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+712,Xtreme Download Manager,DOWNLOAD MANAGEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+713,Motrix,DOWNLOAD MANAGEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+714,aria2,DOWNLOAD MANAGEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+715,Persepolis Download Manager,DOWNLOAD MANAGEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+716,yt-dlp,DOWNLOAD MANAGEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+717,Gallery-dl,DOWNLOAD MANAGEREK,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+718,Transmission,TORRENT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+719,Deluge,TORRENT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+720,BiglyBT,TORRENT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+721,Tixati,TORRENT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending
+722,Tribler,TORRENT,UNRESOLVED,None,,physical Windows install/detect/uninstall/verify result is pending

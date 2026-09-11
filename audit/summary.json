@@ -1,0 +1,33 @@
+{
+  "catalog_entries": 723,
+  "canonical_programs": 721,
+  "catalog_aliases": 2,
+  "unique_names": 723,
+  "duplicate_names": 0,
+  "hardcoded_id_entries": 74,
+  "unique_hardcoded_ids": 72,
+  "verified_hardcoded_id_entries": 74,
+  "verified_unique_hardcoded_ids": 72,
+  "unverified_hardcoded_id_entries": 0,
+  "exact_name_verified_entries": 228,
+  "runtime_exact_required_entries": 421,
+  "system_components": 3,
+  "msix_store": 3,
+  "manual_only": 1,
+  "unresolved": 421,
+  "physical_test_required": 723,
+  "unsafe_resolution_entries": 0,
+  "strategy_counts": {
+    "MSIXStore": 3,
+    "ManualOnly": 1,
+    "RuntimeDetect": 716,
+    "SystemComponentUnsupported": 3
+  },
+  "resolution_counts": {
+    "exact_name_verified": 228,
+    "hardcoded_id_verified": 74,
+    "runtime_exact_required": 421
+  },
+  "validation_errors": null,
+  "pass": true
+}

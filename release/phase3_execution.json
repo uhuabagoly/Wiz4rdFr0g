@@ -1,0 +1,31 @@
+{
+  "generated_at": "2026-09-06T12:31:14.274822+00:00",
+  "version": "0.6.23",
+  "host_os": "linux",
+  "windows_executor_available": false,
+  "physical_windows_results_consumed": 0,
+  "changes": [
+    "root-cause classifier and coverage statuses added to physical VM results",
+    "uninstall execution changed to explicit strategy/provider dispatch",
+    "MSI ProductCode strategy is preferred before generic fallback",
+    "MSIX/Store uninstall uses a dedicated exact-package branch without Registry/MSI fallback",
+    "running-process failures are detected; only exact real-install-path processes can be offered for approved termination",
+    "default catalog install path is not used as process/uninstall identity evidence",
+    "reboot-required uninstall status is preserved instead of reported as a generic failure",
+    "release gate blocks unsafe or physically unverified release coverage",
+    "known Firefox scope, Edge/WebView2 and quoted UninstallString regressions remain covered by unit regression tests"
+  ],
+  "validation": {
+    "go_test_all": "PASS",
+    "go_vet_all": "PASS",
+    "go_vet_windows_app_installer": "PASS",
+    "windows_test_binary_compile": "PASS",
+    "windows_app_build": "PASS",
+    "windows_setup_build": "PASS",
+    "linux_build": "PASS",
+    "catalog_audit": "PASS",
+    "unsafe_resolution_entries": 0,
+    "release_gate": "BLOCKED_EXPECTED",
+    "release_gate_reason": "719 automatable catalog entries have no real Windows install/detect/uninstall/verify evidence on this host"
+  }
+}

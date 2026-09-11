@@ -1,0 +1,5786 @@
+[
+  {
+    "index": 0,
+    "name": "Google Chrome",
+    "category": "BÖNGÉSZŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 1,
+    "name": "Mozilla Firefox",
+    "category": "BÖNGÉSZŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 2,
+    "name": "Microsoft Edge",
+    "category": "BÖNGÉSZŐK",
+    "coverage_status": "SYSTEM_COMPONENT",
+    "root_cause": "SystemComponent",
+    "evidence": "catalog profile explicitly marks a Windows-managed system component"
+  },
+  {
+    "index": 3,
+    "name": "Brave",
+    "category": "BÖNGÉSZŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 4,
+    "name": "Opera",
+    "category": "BÖNGÉSZŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 5,
+    "name": "Vivaldi",
+    "category": "BÖNGÉSZŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 6,
+    "name": "Zoom",
+    "category": "KOMMUNIKÁCIÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 7,
+    "name": "Discord",
+    "category": "KOMMUNIKÁCIÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 8,
+    "name": "Microsoft Teams",
+    "category": "KOMMUNIKÁCIÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 9,
+    "name": "Pidgin",
+    "category": "KOMMUNIKÁCIÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 10,
+    "name": "Mozilla Thunderbird",
+    "category": "KOMMUNIKÁCIÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 11,
+    "name": "Trillian",
+    "category": "KOMMUNIKÁCIÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 12,
+    "name": "Telegram Desktop",
+    "category": "KOMMUNIKÁCIÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 13,
+    "name": "iTunes",
+    "category": "MÉDIA / ZENE / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 14,
+    "name": "VLC Media Player",
+    "category": "MÉDIA / ZENE / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 15,
+    "name": "AIMP",
+    "category": "MÉDIA / ZENE / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 16,
+    "name": "foobar2000",
+    "category": "MÉDIA / ZENE / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 17,
+    "name": "Winamp",
+    "category": "MÉDIA / ZENE / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 18,
+    "name": "MusicBee",
+    "category": "MÉDIA / ZENE / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 19,
+    "name": "Audacity",
+    "category": "MÉDIA / ZENE / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 20,
+    "name": "K-Lite Codec Pack",
+    "category": "MÉDIA / ZENE / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 21,
+    "name": "GOM Player",
+    "category": "MÉDIA / ZENE / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 22,
+    "name": "Spotify",
+    "category": "MÉDIA / ZENE / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 23,
+    "name": "Combined Community Codec Pack (CCCP)",
+    "category": "MÉDIA / ZENE / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 24,
+    "name": "MediaMonkey",
+    "category": "MÉDIA / ZENE / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 25,
+    "name": "HandBrake",
+    "category": "MÉDIA / ZENE / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 26,
+    "name": "Krita",
+    "category": "GRAFIKA / KÉP / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 27,
+    "name": "Blender",
+    "category": "GRAFIKA / KÉP / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 28,
+    "name": "Paint.NET",
+    "category": "GRAFIKA / KÉP / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 29,
+    "name": "GIMP",
+    "category": "GRAFIKA / KÉP / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 30,
+    "name": "IrfanView",
+    "category": "GRAFIKA / KÉP / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 31,
+    "name": "XnView",
+    "category": "GRAFIKA / KÉP / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 32,
+    "name": "Inkscape",
+    "category": "GRAFIKA / KÉP / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 33,
+    "name": "FastStone Image Viewer",
+    "category": "GRAFIKA / KÉP / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 34,
+    "name": "Greenshot",
+    "category": "GRAFIKA / KÉP / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 35,
+    "name": "ShareX",
+    "category": "GRAFIKA / KÉP / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 36,
+    "name": "OBS Studio",
+    "category": "GRAFIKA / KÉP / VIDEÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 37,
+    "name": "Foxit Reader",
+    "category": "DOKUMENTUMOK / PDF / IRODA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 38,
+    "name": "LibreOffice",
+    "category": "DOKUMENTUMOK / PDF / IRODA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 39,
+    "name": "SumatraPDF",
+    "category": "DOKUMENTUMOK / PDF / IRODA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 40,
+    "name": "CutePDF",
+    "category": "DOKUMENTUMOK / PDF / IRODA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 41,
+    "name": "OpenOffice",
+    "category": "DOKUMENTUMOK / PDF / IRODA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 42,
+    "name": "Adobe Acrobat Reader",
+    "category": "DOKUMENTUMOK / PDF / IRODA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 43,
+    "name": "Malwarebytes",
+    "category": "BIZTONSÁG",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 44,
+    "name": "Avast",
+    "category": "BIZTONSÁG",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 45,
+    "name": "AVG",
+    "category": "BIZTONSÁG",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 46,
+    "name": "Spybot 2",
+    "category": "BIZTONSÁG",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 47,
+    "name": "Avira",
+    "category": "BIZTONSÁG",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 48,
+    "name": "SUPERAntiSpyware",
+    "category": "BIZTONSÁG",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 49,
+    "name": "qBittorrent",
+    "category": "FÁJLMEGOSZTÁS / TORRENT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 50,
+    "name": "Dropbox",
+    "category": "FELHŐ / SZINKRONIZÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 51,
+    "name": "Google Drive for Desktop",
+    "category": "FELHŐ / SZINKRONIZÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 52,
+    "name": "Microsoft OneDrive",
+    "category": "FELHŐ / SZINKRONIZÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 53,
+    "name": "SugarSync",
+    "category": "FELHŐ / SZINKRONIZÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 54,
+    "name": "Steam",
+    "category": "JÁTÉK / ÁLTALÁNOS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 55,
+    "name": "Epic Games Launcher",
+    "category": "JÁTÉK / ÁLTALÁNOS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 56,
+    "name": "Evernote",
+    "category": "JÁTÉK / ÁLTALÁNOS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 57,
+    "name": "Google Earth",
+    "category": "JÁTÉK / ÁLTALÁNOS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 58,
+    "name": "KeePass 2",
+    "category": "JÁTÉK / ÁLTALÁNOS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 59,
+    "name": "Everything",
+    "category": "JÁTÉK / ÁLTALÁNOS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 60,
+    "name": "NV Access",
+    "category": "JÁTÉK / ÁLTALÁNOS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 61,
+    "name": "AnyDesk",
+    "category": "SEGÉDPROGRAMOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 62,
+    "name": "TeamViewer 15",
+    "category": "SEGÉDPROGRAMOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 63,
+    "name": "ImgBurn",
+    "category": "SEGÉDPROGRAMOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 64,
+    "name": "RealVNC Server",
+    "category": "SEGÉDPROGRAMOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 65,
+    "name": "RealVNC Viewer",
+    "category": "SEGÉDPROGRAMOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 66,
+    "name": "TightVNC",
+    "category": "SEGÉDPROGRAMOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 67,
+    "name": "TeraCopy",
+    "category": "SEGÉDPROGRAMOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 68,
+    "name": "CDBurnerXP",
+    "category": "SEGÉDPROGRAMOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 69,
+    "name": "Revo Uninstaller",
+    "category": "SEGÉDPROGRAMOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 70,
+    "name": "Launchy",
+    "category": "SEGÉDPROGRAMOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 71,
+    "name": "WinDirStat",
+    "category": "SEGÉDPROGRAMOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 72,
+    "name": "WizTree",
+    "category": "SEGÉDPROGRAMOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 73,
+    "name": "Glary Utilities",
+    "category": "SEGÉDPROGRAMOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 74,
+    "name": "InfraRecorder",
+    "category": "SEGÉDPROGRAMOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 75,
+    "name": "Open-Shell",
+    "category": "SEGÉDPROGRAMOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 76,
+    "name": "CCleaner",
+    "category": "SEGÉDPROGRAMOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 77,
+    "name": "Microsoft PowerToys",
+    "category": "SEGÉDPROGRAMOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 78,
+    "name": "Rufus",
+    "category": "SEGÉDPROGRAMOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 79,
+    "name": "balenaEtcher",
+    "category": "SEGÉDPROGRAMOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 80,
+    "name": "TreeSize Free",
+    "category": "SEGÉDPROGRAMOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 81,
+    "name": "Windows Terminal",
+    "category": "SEGÉDPROGRAMOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 82,
+    "name": "7-Zip",
+    "category": "TÖMÖRÍTÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 83,
+    "name": "PeaZip",
+    "category": "TÖMÖRÍTÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 84,
+    "name": "WinRAR",
+    "category": "TÖMÖRÍTÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 85,
+    "name": "Python 3",
+    "category": "FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 86,
+    "name": "Python 2 / Legacy Python",
+    "category": "FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 87,
+    "name": "Git",
+    "category": "FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 88,
+    "name": "GitHub Desktop",
+    "category": "FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 89,
+    "name": "Node.js",
+    "category": "FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 90,
+    "name": "FileZilla",
+    "category": "FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 91,
+    "name": "Notepad++",
+    "category": "FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 92,
+    "name": "WinSCP",
+    "category": "FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 93,
+    "name": "PuTTY",
+    "category": "FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 94,
+    "name": "WinMerge",
+    "category": "FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 95,
+    "name": "Eclipse",
+    "category": "FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 96,
+    "name": "Visual Studio Code",
+    "category": "FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 97,
+    "name": "Cursor",
+    "category": "FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 98,
+    "name": "Docker Desktop",
+    "category": "FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 99,
+    "name": "Postman",
+    "category": "FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 100,
+    "name": "DBeaver",
+    "category": "FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 101,
+    "name": "MySQL Workbench",
+    "category": "FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 102,
+    "name": "Visual Studio Community",
+    "category": "FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 103,
+    "name": "IntelliJ IDEA Community",
+    "category": "FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 104,
+    "name": "Android Studio",
+    "category": "FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 105,
+    "name": "GitKraken",
+    "category": "FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 106,
+    "name": "Adoptium / AdoptOpenJDK JDK 8",
+    "category": "JAVA / JDK / JRE",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 107,
+    "name": "Adoptium / AdoptOpenJDK JDK 11",
+    "category": "JAVA / JDK / JRE",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 108,
+    "name": "Adoptium / AdoptOpenJDK JDK 17",
+    "category": "JAVA / JDK / JRE",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 109,
+    "name": "Adoptium / AdoptOpenJDK JDK 21",
+    "category": "JAVA / JDK / JRE",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 110,
+    "name": "Adoptium / AdoptOpenJDK JDK 25",
+    "category": "JAVA / JDK / JRE",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 111,
+    "name": "Amazon Corretto JDK 8",
+    "category": "JAVA / JDK / JRE",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 112,
+    "name": "Amazon Corretto JDK 11",
+    "category": "JAVA / JDK / JRE",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 113,
+    "name": "Amazon Corretto JDK 17",
+    "category": "JAVA / JDK / JRE",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 114,
+    "name": "Amazon Corretto JDK 21",
+    "category": "JAVA / JDK / JRE",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 115,
+    "name": "Amazon Corretto JDK 25",
+    "category": "JAVA / JDK / JRE",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 116,
+    "name": "Amazon Corretto JRE 8",
+    "category": "JAVA / JDK / JRE",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 117,
+    "name": ".NET Framework 4.8.1",
+    "category": ".NET RUNTIME-OK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 118,
+    "name": ".NET Desktop Runtime 8",
+    "category": ".NET RUNTIME-OK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 119,
+    "name": ".NET Desktop Runtime 9",
+    "category": ".NET RUNTIME-OK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 120,
+    "name": ".NET Desktop Runtime 10",
+    "category": ".NET RUNTIME-OK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 121,
+    "name": "ASP.NET Core Runtime 8",
+    "category": ".NET RUNTIME-OK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 122,
+    "name": "ASP.NET Core Runtime 9",
+    "category": ".NET RUNTIME-OK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 123,
+    "name": "ASP.NET Core Runtime 10",
+    "category": ".NET RUNTIME-OK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 124,
+    "name": "Microsoft Visual C++ Redistributable 2015+",
+    "category": "MICROSOFT VISUAL C++ REDISTRIBUTABLE",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 125,
+    "name": "Microsoft Visual C++ Redistributable 2013",
+    "category": "MICROSOFT VISUAL C++ REDISTRIBUTABLE",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 126,
+    "name": "Microsoft Visual C++ Redistributable 2012",
+    "category": "MICROSOFT VISUAL C++ REDISTRIBUTABLE",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 127,
+    "name": "Microsoft Visual C++ Redistributable 2010",
+    "category": "MICROSOFT VISUAL C++ REDISTRIBUTABLE",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 128,
+    "name": "Microsoft Visual C++ Redistributable 2008",
+    "category": "MICROSOFT VISUAL C++ REDISTRIBUTABLE",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 129,
+    "name": "Microsoft Visual C++ Redistributable 2005",
+    "category": "MICROSOFT VISUAL C++ REDISTRIBUTABLE",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 130,
+    "name": "CPU-Z",
+    "category": "RENDSZERINFORMÁCIÓ / HARDVER / TESZT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 131,
+    "name": "HWiNFO",
+    "category": "RENDSZERINFORMÁCIÓ / HARDVER / TESZT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 132,
+    "name": "CrystalDiskInfo",
+    "category": "RENDSZERINFORMÁCIÓ / HARDVER / TESZT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 133,
+    "name": "CrystalDiskMark",
+    "category": "RENDSZERINFORMÁCIÓ / HARDVER / TESZT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 134,
+    "name": "FanControl",
+    "category": "RENDSZERINFORMÁCIÓ / HARDVER / TESZT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 135,
+    "name": "MSI Afterburner",
+    "category": "RENDSZERINFORMÁCIÓ / HARDVER / TESZT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 136,
+    "name": "iLok License Manager",
+    "category": "AUDIO / ZENE / HANGSZER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 137,
+    "name": "Focusrite Control 2",
+    "category": "AUDIO / ZENE / HANGSZER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 138,
+    "name": "Softube Central",
+    "category": "AUDIO / ZENE / HANGSZER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 139,
+    "name": "Amped Roots Free",
+    "category": "AUDIO / ZENE / HANGSZER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 140,
+    "name": "Neural Amp Modeler",
+    "category": "AUDIO / ZENE / HANGSZER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 141,
+    "name": "Tonocracy",
+    "category": "AUDIO / ZENE / HANGSZER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 142,
+    "name": "TDR Nova",
+    "category": "AUDIO / ZENE / HANGSZER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 143,
+    "name": "Vital",
+    "category": "AUDIO / ZENE / HANGSZER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 144,
+    "name": "Spitfire LABS",
+    "category": "AUDIO / ZENE / HANGSZER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 145,
+    "name": "ASIO4ALL",
+    "category": "AUDIO / ZENE / HANGSZER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 146,
+    "name": "REAPER",
+    "category": "AUDIO / ZENE / HANGSZER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 147,
+    "name": "FL Studio",
+    "category": "AUDIO / ZENE / HANGSZER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 148,
+    "name": "Cubase",
+    "category": "AUDIO / ZENE / HANGSZER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 149,
+    "name": "Archetype: Gojira X",
+    "category": "AUDIO / ZENE / HANGSZER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 150,
+    "name": "Unity Hub",
+    "category": "GAME DEVELOPMENT / 3D",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 151,
+    "name": "Unity Editor / Unity Personal",
+    "category": "GAME DEVELOPMENT / 3D",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 152,
+    "name": "Unreal Engine",
+    "category": "GAME DEVELOPMENT / 3D",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 153,
+    "name": "Godot Engine",
+    "category": "GAME DEVELOPMENT / 3D",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 154,
+    "name": "CMake",
+    "category": "FEJLESZTÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 155,
+    "name": "Cisco Packet Tracer",
+    "category": "HÁLÓZAT / IT / LABOR",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 156,
+    "name": "Wireshark",
+    "category": "HÁLÓZAT / IT / LABOR",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 157,
+    "name": "Nmap",
+    "category": "HÁLÓZAT / IT / LABOR",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 158,
+    "name": "VirtualBox",
+    "category": "HÁLÓZAT / IT / LABOR",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 159,
+    "name": "VMware Workstation",
+    "category": "HÁLÓZAT / IT / LABOR",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 160,
+    "name": "Ventoy",
+    "category": "HÁLÓZAT / IT / LABOR",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 161,
+    "name": "Pentablet driver / kezelőszoftver",
+    "category": "HARDVER / PERIFÉRIA",
+    "coverage_status": "MANUAL_UNINSTALL",
+    "root_cause": "UnsupportedAutomation",
+    "evidence": "catalog profile explicitly requires manual uninstall"
+  },
+  {
+    "index": 162,
+    "name": "Microsoft Word",
+    "category": "MICROSOFT OFFICE / FIZETŐS ALKALMAZÁSOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 163,
+    "name": "Microsoft Excel",
+    "category": "MICROSOFT OFFICE / FIZETŐS ALKALMAZÁSOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 164,
+    "name": "Microsoft PowerPoint",
+    "category": "MICROSOFT OFFICE / FIZETŐS ALKALMAZÁSOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 165,
+    "name": "Microsoft Access",
+    "category": "MICROSOFT OFFICE / FIZETŐS ALKALMAZÁSOK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 166,
+    "name": "GOG GALAXY",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 167,
+    "name": "EA app",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 168,
+    "name": "Ubisoft Connect",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 169,
+    "name": "Battle.net",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 170,
+    "name": "Riot Client",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 171,
+    "name": "Rockstar Games Launcher",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 172,
+    "name": "itch.io App",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 173,
+    "name": "Amazon Games App",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 174,
+    "name": "Xbox App",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 175,
+    "name": "Minecraft Launcher",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 176,
+    "name": "Prism Launcher",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 177,
+    "name": "MultiMC",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 178,
+    "name": "CurseForge",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 179,
+    "name": "Modrinth App",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 180,
+    "name": "Nexus Mods / Vortex",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 181,
+    "name": "Overwolf",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 182,
+    "name": "Playnite",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 183,
+    "name": "Heroic Games Launcher",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 184,
+    "name": "Lutris",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 185,
+    "name": "GeForce NOW",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 186,
+    "name": "Moonlight",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 187,
+    "name": "Sunshine",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 188,
+    "name": "Parsec",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 189,
+    "name": "Antstream Arcade",
+    "category": "JÁTÉKPLATFORMOK / LAUNCHEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 190,
+    "name": "LogMeIn Hamachi",
+    "category": "VIRTUÁLIS HÁLÓZAT / VPN / LAN",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 191,
+    "name": "Tailscale",
+    "category": "VIRTUÁLIS HÁLÓZAT / VPN / LAN",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 192,
+    "name": "ZeroTier",
+    "category": "VIRTUÁLIS HÁLÓZAT / VPN / LAN",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 193,
+    "name": "WireGuard",
+    "category": "VIRTUÁLIS HÁLÓZAT / VPN / LAN",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 194,
+    "name": "OpenVPN Connect",
+    "category": "VIRTUÁLIS HÁLÓZAT / VPN / LAN",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 195,
+    "name": "SoftEther VPN Client",
+    "category": "VIRTUÁLIS HÁLÓZAT / VPN / LAN",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 196,
+    "name": "Proton VPN",
+    "category": "VIRTUÁLIS HÁLÓZAT / VPN / LAN",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 197,
+    "name": "Mullvad VPN",
+    "category": "VIRTUÁLIS HÁLÓZAT / VPN / LAN",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 198,
+    "name": "Windscribe",
+    "category": "VIRTUÁLIS HÁLÓZAT / VPN / LAN",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 199,
+    "name": "Cloudflare WARP",
+    "category": "VIRTUÁLIS HÁLÓZAT / VPN / LAN",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 200,
+    "name": "TunnelBear",
+    "category": "VIRTUÁLIS HÁLÓZAT / VPN / LAN",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 201,
+    "name": "NordVPN",
+    "category": "VIRTUÁLIS HÁLÓZAT / VPN / LAN",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 202,
+    "name": "Surfshark",
+    "category": "VIRTUÁLIS HÁLÓZAT / VPN / LAN",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 203,
+    "name": "Private Internet Access",
+    "category": "VIRTUÁLIS HÁLÓZAT / VPN / LAN",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 204,
+    "name": "NetBird",
+    "category": "VIRTUÁLIS HÁLÓZAT / VPN / LAN",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 205,
+    "name": "Headscale",
+    "category": "VIRTUÁLIS HÁLÓZAT / VPN / LAN",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 206,
+    "name": "Nebula",
+    "category": "VIRTUÁLIS HÁLÓZAT / VPN / LAN",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 207,
+    "name": "Radmin VPN",
+    "category": "VIRTUÁLIS HÁLÓZAT / VPN / LAN",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 208,
+    "name": "GameRanger",
+    "category": "VIRTUÁLIS HÁLÓZAT / VPN / LAN",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 209,
+    "name": "TeamViewer",
+    "category": "TÁVOLI ELÉRÉS / REMOTE DESKTOP",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 210,
+    "name": "RustDesk",
+    "category": "TÁVOLI ELÉRÉS / REMOTE DESKTOP",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 211,
+    "name": "UltraVNC",
+    "category": "TÁVOLI ELÉRÉS / REMOTE DESKTOP",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 212,
+    "name": "Chrome Remote Desktop",
+    "category": "TÁVOLI ELÉRÉS / REMOTE DESKTOP",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 213,
+    "name": "Microsoft Remote Desktop",
+    "category": "TÁVOLI ELÉRÉS / REMOTE DESKTOP",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 214,
+    "name": "mRemoteNG",
+    "category": "TÁVOLI ELÉRÉS / REMOTE DESKTOP",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 215,
+    "name": "MobaXterm",
+    "category": "TÁVOLI ELÉRÉS / REMOTE DESKTOP",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 216,
+    "name": "Termius",
+    "category": "TÁVOLI ELÉRÉS / REMOTE DESKTOP",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 217,
+    "name": "NoMachine",
+    "category": "TÁVOLI ELÉRÉS / REMOTE DESKTOP",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 218,
+    "name": "Splashtop",
+    "category": "TÁVOLI ELÉRÉS / REMOTE DESKTOP",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 219,
+    "name": "DWService",
+    "category": "TÁVOLI ELÉRÉS / REMOTE DESKTOP",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 220,
+    "name": "Ollama",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 221,
+    "name": "LM Studio",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 222,
+    "name": "Jan",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 223,
+    "name": "GPT4All",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 224,
+    "name": "AnythingLLM",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 225,
+    "name": "Open WebUI",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 226,
+    "name": "llama.cpp",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 227,
+    "name": "KoboldCpp",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 228,
+    "name": "text-generation-webui",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 229,
+    "name": "LocalAI",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 230,
+    "name": "vLLM",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 231,
+    "name": "OpenLLM",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 232,
+    "name": "Pinokio",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 233,
+    "name": "Open Interpreter",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 234,
+    "name": "Continue",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 235,
+    "name": "Aider",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 236,
+    "name": "Cline",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 237,
+    "name": "Roo Code",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 238,
+    "name": "Claude Code",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 239,
+    "name": "Codex CLI",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 240,
+    "name": "OpenHands",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 241,
+    "name": "Dify",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 242,
+    "name": "Flowise",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 243,
+    "name": "Langflow",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 244,
+    "name": "AnythingLLM Desktop",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 245,
+    "name": "PrivateGPT",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 246,
+    "name": "Chatbox",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 247,
+    "name": "Msty",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 248,
+    "name": "Cherry Studio",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 249,
+    "name": "Perplexica",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 250,
+    "name": "Khoj",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 251,
+    "name": "LibreChat",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 252,
+    "name": "SillyTavern",
+    "category": "LOKÁLIS AI / LLM / CHAT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 253,
+    "name": "ComfyUI",
+    "category": "AI KÉPGENERÁLÁS / STABLE DIFFUSION",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 254,
+    "name": "AUTOMATIC1111 Stable Diffusion WebUI",
+    "category": "AI KÉPGENERÁLÁS / STABLE DIFFUSION",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 255,
+    "name": "Forge WebUI",
+    "category": "AI KÉPGENERÁLÁS / STABLE DIFFUSION",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 256,
+    "name": "Fooocus",
+    "category": "AI KÉPGENERÁLÁS / STABLE DIFFUSION",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 257,
+    "name": "InvokeAI",
+    "category": "AI KÉPGENERÁLÁS / STABLE DIFFUSION",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 258,
+    "name": "SwarmUI",
+    "category": "AI KÉPGENERÁLÁS / STABLE DIFFUSION",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 259,
+    "name": "DiffusionBee",
+    "category": "AI KÉPGENERÁLÁS / STABLE DIFFUSION",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 260,
+    "name": "Stable Diffusion WebUI Forge",
+    "category": "AI KÉPGENERÁLÁS / STABLE DIFFUSION",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 261,
+    "name": "Easy Diffusion",
+    "category": "AI KÉPGENERÁLÁS / STABLE DIFFUSION",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 262,
+    "name": "Krita AI Diffusion plugin",
+    "category": "AI KÉPGENERÁLÁS / STABLE DIFFUSION",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 263,
+    "name": "Draw Things",
+    "category": "AI KÉPGENERÁLÁS / STABLE DIFFUSION",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 264,
+    "name": "Upscayl",
+    "category": "AI KÉPGENERÁLÁS / STABLE DIFFUSION",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 265,
+    "name": "Real-ESRGAN",
+    "category": "AI KÉPGENERÁLÁS / STABLE DIFFUSION",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 266,
+    "name": "Topaz Photo AI",
+    "category": "AI KÉPGENERÁLÁS / STABLE DIFFUSION",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 267,
+    "name": "Topaz Gigapixel AI",
+    "category": "AI KÉPGENERÁLÁS / STABLE DIFFUSION",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 268,
+    "name": "Windsurf",
+    "category": "AI FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 269,
+    "name": "GitHub Copilot",
+    "category": "AI FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 270,
+    "name": "Tabby",
+    "category": "AI FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 271,
+    "name": "Sourcegraph Cody",
+    "category": "AI FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 272,
+    "name": "JetBrains AI Assistant",
+    "category": "AI FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 273,
+    "name": "Amazon Q Developer",
+    "category": "AI FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 274,
+    "name": "Pieces for Developers",
+    "category": "AI FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 275,
+    "name": "Codeium / Windsurf plugin",
+    "category": "AI FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 276,
+    "name": "Continue.dev",
+    "category": "AI FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 277,
+    "name": "Tabnine",
+    "category": "AI FEJLESZTŐI ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 278,
+    "name": "XAMPP",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 279,
+    "name": "WampServer",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 280,
+    "name": "Laragon",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 281,
+    "name": "MAMP",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 282,
+    "name": "LocalWP",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 283,
+    "name": "DDEV",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 284,
+    "name": "Devilbox",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 285,
+    "name": "Lando",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 286,
+    "name": "Podman Desktop",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 287,
+    "name": "Rancher Desktop",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 288,
+    "name": "WSL",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 289,
+    "name": "WSL2",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 290,
+    "name": "Apache HTTP Server",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 291,
+    "name": "Nginx",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 292,
+    "name": "Caddy",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 293,
+    "name": "IIS Express",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 294,
+    "name": "PHP",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 295,
+    "name": "Composer",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 296,
+    "name": "npm",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 297,
+    "name": "pnpm",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 298,
+    "name": "Yarn",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 299,
+    "name": "Bun",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 300,
+    "name": "Deno",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 301,
+    "name": "Python",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 302,
+    "name": "pip",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 303,
+    "name": "Ruby",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 304,
+    "name": "Ruby on Rails",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 305,
+    "name": "Go",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 306,
+    "name": "Rust",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 307,
+    "name": "Java JDK",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 308,
+    "name": ".NET SDK",
+    "category": "WEBFEJLESZTŐI STACK / LOKÁLIS SZERVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 309,
+    "name": "MySQL",
+    "category": "ADATBÁZIS SZERVEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 310,
+    "name": "MariaDB",
+    "category": "ADATBÁZIS SZERVEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 311,
+    "name": "PostgreSQL",
+    "category": "ADATBÁZIS SZERVEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 312,
+    "name": "SQLite",
+    "category": "ADATBÁZIS SZERVEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 313,
+    "name": "MongoDB Community Server",
+    "category": "ADATBÁZIS SZERVEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 314,
+    "name": "Redis",
+    "category": "ADATBÁZIS SZERVEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 315,
+    "name": "Memcached",
+    "category": "ADATBÁZIS SZERVEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 316,
+    "name": "Microsoft SQL Server Express",
+    "category": "ADATBÁZIS SZERVEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 317,
+    "name": "Microsoft SQL Server Developer",
+    "category": "ADATBÁZIS SZERVEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 318,
+    "name": "Oracle Database Free",
+    "category": "ADATBÁZIS SZERVEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 319,
+    "name": "CockroachDB",
+    "category": "ADATBÁZIS SZERVEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 320,
+    "name": "CouchDB",
+    "category": "ADATBÁZIS SZERVEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 321,
+    "name": "Neo4j Community",
+    "category": "ADATBÁZIS SZERVEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 322,
+    "name": "InfluxDB",
+    "category": "ADATBÁZIS SZERVEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 323,
+    "name": "TimescaleDB",
+    "category": "ADATBÁZIS SZERVEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 324,
+    "name": "ClickHouse",
+    "category": "ADATBÁZIS SZERVEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 325,
+    "name": "DuckDB",
+    "category": "ADATBÁZIS SZERVEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 326,
+    "name": "HeidiSQL",
+    "category": "ADATBÁZIS KEZELŐK / SQL GUI",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 327,
+    "name": "pgAdmin",
+    "category": "ADATBÁZIS KEZELŐK / SQL GUI",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 328,
+    "name": "SQL Server Management Studio",
+    "category": "ADATBÁZIS KEZELŐK / SQL GUI",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 329,
+    "name": "Azure Data Studio",
+    "category": "ADATBÁZIS KEZELŐK / SQL GUI",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 330,
+    "name": "SQLiteStudio",
+    "category": "ADATBÁZIS KEZELŐK / SQL GUI",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 331,
+    "name": "DB Browser for SQLite",
+    "category": "ADATBÁZIS KEZELŐK / SQL GUI",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 332,
+    "name": "MongoDB Compass",
+    "category": "ADATBÁZIS KEZELŐK / SQL GUI",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 333,
+    "name": "RedisInsight",
+    "category": "ADATBÁZIS KEZELŐK / SQL GUI",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 334,
+    "name": "JetBrains DataGrip",
+    "category": "ADATBÁZIS KEZELŐK / SQL GUI",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 335,
+    "name": "TablePlus",
+    "category": "ADATBÁZIS KEZELŐK / SQL GUI",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 336,
+    "name": "Beekeeper Studio",
+    "category": "ADATBÁZIS KEZELŐK / SQL GUI",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 337,
+    "name": "Navicat",
+    "category": "ADATBÁZIS KEZELŐK / SQL GUI",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 338,
+    "name": "DbGate",
+    "category": "ADATBÁZIS KEZELŐK / SQL GUI",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 339,
+    "name": "RazorSQL",
+    "category": "ADATBÁZIS KEZELŐK / SQL GUI",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 340,
+    "name": "SQuirreL SQL",
+    "category": "ADATBÁZIS KEZELŐK / SQL GUI",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 341,
+    "name": "Adminer",
+    "category": "ADATBÁZIS KEZELŐK / SQL GUI",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 342,
+    "name": "phpMyAdmin",
+    "category": "ADATBÁZIS KEZELŐK / SQL GUI",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 343,
+    "name": "Insomnia",
+    "category": "API / BACKEND / TESZTELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 344,
+    "name": "Bruno",
+    "category": "API / BACKEND / TESZTELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 345,
+    "name": "Hoppscotch",
+    "category": "API / BACKEND / TESZTELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 346,
+    "name": "HTTPie",
+    "category": "API / BACKEND / TESZTELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 347,
+    "name": "curl",
+    "category": "API / BACKEND / TESZTELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 348,
+    "name": "wget",
+    "category": "API / BACKEND / TESZTELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 349,
+    "name": "SoapUI",
+    "category": "API / BACKEND / TESZTELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 350,
+    "name": "Fiddler Classic",
+    "category": "API / BACKEND / TESZTELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 351,
+    "name": "Fiddler Everywhere",
+    "category": "API / BACKEND / TESZTELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 352,
+    "name": "Charles Proxy",
+    "category": "API / BACKEND / TESZTELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 353,
+    "name": "mitmproxy",
+    "category": "API / BACKEND / TESZTELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 354,
+    "name": "Burp Suite Community Edition",
+    "category": "API / BACKEND / TESZTELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 355,
+    "name": "OWASP ZAP",
+    "category": "API / BACKEND / TESZTELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 356,
+    "name": "k6",
+    "category": "API / BACKEND / TESZTELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 357,
+    "name": "Apache JMeter",
+    "category": "API / BACKEND / TESZTELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 358,
+    "name": "Locust",
+    "category": "API / BACKEND / TESZTELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 359,
+    "name": "Swagger Editor",
+    "category": "API / BACKEND / TESZTELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 360,
+    "name": "Swagger UI",
+    "category": "API / BACKEND / TESZTELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 361,
+    "name": "Stoplight Studio",
+    "category": "API / BACKEND / TESZTELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 362,
+    "name": "Yaak",
+    "category": "API / BACKEND / TESZTELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 363,
+    "name": "Paw / RapidAPI Client",
+    "category": "API / BACKEND / TESZTELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 364,
+    "name": "VSCodium",
+    "category": "IDE-K / KÓDSZERKESZTŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 365,
+    "name": "Visual Studio Professional",
+    "category": "IDE-K / KÓDSZERKESZTŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 366,
+    "name": "Visual Studio Enterprise",
+    "category": "IDE-K / KÓDSZERKESZTŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 367,
+    "name": "Sublime Text",
+    "category": "IDE-K / KÓDSZERKESZTŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 368,
+    "name": "Zed",
+    "category": "IDE-K / KÓDSZERKESZTŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 369,
+    "name": "Eclipse IDE",
+    "category": "IDE-K / KÓDSZERKESZTŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 370,
+    "name": "Apache NetBeans",
+    "category": "IDE-K / KÓDSZERKESZTŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 371,
+    "name": "Code::Blocks",
+    "category": "IDE-K / KÓDSZERKESZTŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 372,
+    "name": "Geany",
+    "category": "IDE-K / KÓDSZERKESZTŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 373,
+    "name": "Kate",
+    "category": "IDE-K / KÓDSZERKESZTŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 374,
+    "name": "Lite XL",
+    "category": "IDE-K / KÓDSZERKESZTŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 375,
+    "name": "Neovim",
+    "category": "IDE-K / KÓDSZERKESZTŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 376,
+    "name": "Vim",
+    "category": "IDE-K / KÓDSZERKESZTŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 377,
+    "name": "Emacs",
+    "category": "IDE-K / KÓDSZERKESZTŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 378,
+    "name": "Lapce",
+    "category": "IDE-K / KÓDSZERKESZTŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 379,
+    "name": "Helix",
+    "category": "IDE-K / KÓDSZERKESZTŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 380,
+    "name": "Pulsar",
+    "category": "IDE-K / KÓDSZERKESZTŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 381,
+    "name": "Nova",
+    "category": "IDE-K / KÓDSZERKESZTŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 382,
+    "name": "TextMate",
+    "category": "IDE-K / KÓDSZERKESZTŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 383,
+    "name": "JetBrains Toolbox App",
+    "category": "JETBRAINS IDE-K / ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 384,
+    "name": "IntelliJ IDEA Ultimate",
+    "category": "JETBRAINS IDE-K / ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 385,
+    "name": "PyCharm Community",
+    "category": "JETBRAINS IDE-K / ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 386,
+    "name": "PyCharm Professional",
+    "category": "JETBRAINS IDE-K / ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 387,
+    "name": "WebStorm",
+    "category": "JETBRAINS IDE-K / ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 388,
+    "name": "PhpStorm",
+    "category": "JETBRAINS IDE-K / ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 389,
+    "name": "Rider",
+    "category": "JETBRAINS IDE-K / ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 390,
+    "name": "CLion",
+    "category": "JETBRAINS IDE-K / ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 391,
+    "name": "DataGrip",
+    "category": "JETBRAINS IDE-K / ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 392,
+    "name": "GoLand",
+    "category": "JETBRAINS IDE-K / ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 393,
+    "name": "RubyMine",
+    "category": "JETBRAINS IDE-K / ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 394,
+    "name": "RustRover",
+    "category": "JETBRAINS IDE-K / ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 395,
+    "name": "DataSpell",
+    "category": "JETBRAINS IDE-K / ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 396,
+    "name": "Aqua",
+    "category": "JETBRAINS IDE-K / ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 397,
+    "name": "Fleet",
+    "category": "JETBRAINS IDE-K / ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 398,
+    "name": "ReSharper",
+    "category": "JETBRAINS IDE-K / ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 399,
+    "name": "ReSharper C++",
+    "category": "JETBRAINS IDE-K / ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 400,
+    "name": "dotPeek",
+    "category": "JETBRAINS IDE-K / ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 401,
+    "name": "dotCover",
+    "category": "JETBRAINS IDE-K / ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 402,
+    "name": "dotTrace",
+    "category": "JETBRAINS IDE-K / ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 403,
+    "name": "dotMemory",
+    "category": "JETBRAINS IDE-K / ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 404,
+    "name": "TeamCity",
+    "category": "JETBRAINS IDE-K / ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 405,
+    "name": "YouTrack",
+    "category": "JETBRAINS IDE-K / ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 406,
+    "name": "Fork",
+    "category": "VERZIÓKEZELÉS / GIT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 407,
+    "name": "Sourcetree",
+    "category": "VERZIÓKEZELÉS / GIT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 408,
+    "name": "TortoiseGit",
+    "category": "VERZIÓKEZELÉS / GIT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 409,
+    "name": "TortoiseSVN",
+    "category": "VERZIÓKEZELÉS / GIT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 410,
+    "name": "Git Extensions",
+    "category": "VERZIÓKEZELÉS / GIT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 411,
+    "name": "Lazygit",
+    "category": "VERZIÓKEZELÉS / GIT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 412,
+    "name": "GitHub CLI",
+    "category": "VERZIÓKEZELÉS / GIT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 413,
+    "name": "GitLab CLI",
+    "category": "VERZIÓKEZELÉS / GIT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 414,
+    "name": "Gitea",
+    "category": "VERZIÓKEZELÉS / GIT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 415,
+    "name": "Gitea Actions runner",
+    "category": "VERZIÓKEZELÉS / GIT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 416,
+    "name": "SmartGit",
+    "category": "VERZIÓKEZELÉS / GIT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 417,
+    "name": "Tower",
+    "category": "VERZIÓKEZELÉS / GIT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 418,
+    "name": "Sublime Merge",
+    "category": "VERZIÓKEZELÉS / GIT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 419,
+    "name": "Plastic SCM / Unity Version Control",
+    "category": "VERZIÓKEZELÉS / GIT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 420,
+    "name": "Photopea",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 421,
+    "name": "Clip Studio Paint",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 422,
+    "name": "Corel Painter",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 423,
+    "name": "MediBang Paint",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 424,
+    "name": "FireAlpaca",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 425,
+    "name": "Affinity Photo",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 426,
+    "name": "Affinity Designer",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 427,
+    "name": "Affinity Publisher",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 428,
+    "name": "Adobe Photoshop",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 429,
+    "name": "Adobe Illustrator",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 430,
+    "name": "Adobe Lightroom",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 431,
+    "name": "Adobe Fresco",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 432,
+    "name": "Adobe Creative Cloud",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 433,
+    "name": "Sketchbook",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 434,
+    "name": "ArtRage",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 435,
+    "name": "Rebelle",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 436,
+    "name": "PaintTool SAI",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 437,
+    "name": "MyPaint",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 438,
+    "name": "Pinta",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 439,
+    "name": "Concepts",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 440,
+    "name": "ibis Paint",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 441,
+    "name": "Leonardo",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 442,
+    "name": "Kleki",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 443,
+    "name": "Pixlr",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 444,
+    "name": "Fotor",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 445,
+    "name": "Canva Desktop",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 446,
+    "name": "PhotoScape X",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 447,
+    "name": "PhotoFiltre",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 448,
+    "name": "PhotoDemon",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 449,
+    "name": "LazPaint",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 450,
+    "name": "Krita Gemini / kapcsolódó Krita eszközök",
+    "category": "GRAFIKA / DIGITÁLIS RAJZ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 451,
+    "name": "Aseprite",
+    "category": "PIXEL ART / SPRITE / 2D GAME ART",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 452,
+    "name": "LibreSprite",
+    "category": "PIXEL ART / SPRITE / 2D GAME ART",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 453,
+    "name": "Pixelorama",
+    "category": "PIXEL ART / SPRITE / 2D GAME ART",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 454,
+    "name": "Piskel",
+    "category": "PIXEL ART / SPRITE / 2D GAME ART",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 455,
+    "name": "GraphicsGale",
+    "category": "PIXEL ART / SPRITE / 2D GAME ART",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 456,
+    "name": "Pyxel Edit",
+    "category": "PIXEL ART / SPRITE / 2D GAME ART",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 457,
+    "name": "Pro Motion NG",
+    "category": "PIXEL ART / SPRITE / 2D GAME ART",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 458,
+    "name": "Tilesetter",
+    "category": "PIXEL ART / SPRITE / 2D GAME ART",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 459,
+    "name": "Tiled Map Editor",
+    "category": "PIXEL ART / SPRITE / 2D GAME ART",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 460,
+    "name": "LDtk",
+    "category": "PIXEL ART / SPRITE / 2D GAME ART",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 461,
+    "name": "TexturePacker",
+    "category": "PIXEL ART / SPRITE / 2D GAME ART",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 462,
+    "name": "Shoebox",
+    "category": "PIXEL ART / SPRITE / 2D GAME ART",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 463,
+    "name": "SpriteIlluminator",
+    "category": "PIXEL ART / SPRITE / 2D GAME ART",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 464,
+    "name": "Ogmo Editor",
+    "category": "PIXEL ART / SPRITE / 2D GAME ART",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 465,
+    "name": "CrocoTile 3D",
+    "category": "PIXEL ART / SPRITE / 2D GAME ART",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 466,
+    "name": "PixelOver",
+    "category": "PIXEL ART / SPRITE / 2D GAME ART",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 467,
+    "name": "Resprite",
+    "category": "PIXEL ART / SPRITE / 2D GAME ART",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 468,
+    "name": "Lospec Pixel Editor",
+    "category": "PIXEL ART / SPRITE / 2D GAME ART",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 469,
+    "name": "FreeCAD",
+    "category": "3D / MODELLEZÉS / CAD",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 470,
+    "name": "OpenSCAD",
+    "category": "3D / MODELLEZÉS / CAD",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 471,
+    "name": "SketchUp",
+    "category": "3D / MODELLEZÉS / CAD",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 472,
+    "name": "Autodesk Fusion",
+    "category": "3D / MODELLEZÉS / CAD",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 473,
+    "name": "Autodesk Maya",
+    "category": "3D / MODELLEZÉS / CAD",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 474,
+    "name": "Autodesk 3ds Max",
+    "category": "3D / MODELLEZÉS / CAD",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 475,
+    "name": "Cinema 4D",
+    "category": "3D / MODELLEZÉS / CAD",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 476,
+    "name": "ZBrush",
+    "category": "3D / MODELLEZÉS / CAD",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 477,
+    "name": "Nomad Sculpt",
+    "category": "3D / MODELLEZÉS / CAD",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 478,
+    "name": "MeshLab",
+    "category": "3D / MODELLEZÉS / CAD",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 479,
+    "name": "Meshmixer",
+    "category": "3D / MODELLEZÉS / CAD",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 480,
+    "name": "Substance 3D Painter",
+    "category": "3D / MODELLEZÉS / CAD",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 481,
+    "name": "Substance 3D Designer",
+    "category": "3D / MODELLEZÉS / CAD",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 482,
+    "name": "Marvelous Designer",
+    "category": "3D / MODELLEZÉS / CAD",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 483,
+    "name": "Houdini",
+    "category": "3D / MODELLEZÉS / CAD",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 484,
+    "name": "Rhino",
+    "category": "3D / MODELLEZÉS / CAD",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 485,
+    "name": "Solid Edge Community Edition",
+    "category": "3D / MODELLEZÉS / CAD",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 486,
+    "name": "SolveSpace",
+    "category": "3D / MODELLEZÉS / CAD",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 487,
+    "name": "BRL-CAD",
+    "category": "3D / MODELLEZÉS / CAD",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 488,
+    "name": "Wings 3D",
+    "category": "3D / MODELLEZÉS / CAD",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 489,
+    "name": "MagicaVoxel",
+    "category": "3D / MODELLEZÉS / CAD",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 490,
+    "name": "Unity Editor",
+    "category": "GAME DEVELOPMENT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 491,
+    "name": "GameMaker",
+    "category": "GAME DEVELOPMENT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 492,
+    "name": "Construct 3",
+    "category": "GAME DEVELOPMENT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 493,
+    "name": "GDevelop",
+    "category": "GAME DEVELOPMENT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 494,
+    "name": "Defold",
+    "category": "GAME DEVELOPMENT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 495,
+    "name": "RPG Maker",
+    "category": "GAME DEVELOPMENT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 496,
+    "name": "Ren'Py",
+    "category": "GAME DEVELOPMENT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 497,
+    "name": "MonoGame",
+    "category": "GAME DEVELOPMENT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 498,
+    "name": "Cocos Creator",
+    "category": "GAME DEVELOPMENT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 499,
+    "name": "CryEngine",
+    "category": "GAME DEVELOPMENT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 500,
+    "name": "Stride",
+    "category": "GAME DEVELOPMENT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 501,
+    "name": "Panda3D",
+    "category": "GAME DEVELOPMENT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 502,
+    "name": "Love2D",
+    "category": "GAME DEVELOPMENT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 503,
+    "name": "darktable",
+    "category": "FOTÓ / RAW / KÉPKEZELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 504,
+    "name": "RawTherapee",
+    "category": "FOTÓ / RAW / KÉPKEZELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 505,
+    "name": "digiKam",
+    "category": "FOTÓ / RAW / KÉPKEZELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 506,
+    "name": "XnView MP",
+    "category": "FOTÓ / RAW / KÉPKEZELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 507,
+    "name": "ImageGlass",
+    "category": "FOTÓ / RAW / KÉPKEZELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 508,
+    "name": "nomacs",
+    "category": "FOTÓ / RAW / KÉPKEZELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 509,
+    "name": "JPEGView",
+    "category": "FOTÓ / RAW / KÉPKEZELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 510,
+    "name": "ExifTool",
+    "category": "FOTÓ / RAW / KÉPKEZELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 511,
+    "name": "Hugin",
+    "category": "FOTÓ / RAW / KÉPKEZELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 512,
+    "name": "Luminance HDR",
+    "category": "FOTÓ / RAW / KÉPKEZELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 513,
+    "name": "Photivo",
+    "category": "FOTÓ / RAW / KÉPKEZELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 514,
+    "name": "Capture One",
+    "category": "FOTÓ / RAW / KÉPKEZELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 515,
+    "name": "ON1 Photo RAW",
+    "category": "FOTÓ / RAW / KÉPKEZELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 516,
+    "name": "ACDSee Photo Studio",
+    "category": "FOTÓ / RAW / KÉPKEZELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 517,
+    "name": "Luminar Neo",
+    "category": "FOTÓ / RAW / KÉPKEZELÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 518,
+    "name": "Flameshot",
+    "category": "SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 519,
+    "name": "Lightshot",
+    "category": "SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 520,
+    "name": "Snipping Tool",
+    "category": "SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 521,
+    "name": "Streamlabs Desktop",
+    "category": "SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 522,
+    "name": "Bandicam",
+    "category": "SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 523,
+    "name": "Camtasia",
+    "category": "SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 524,
+    "name": "ScreenToGif",
+    "category": "SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 525,
+    "name": "Gyazo",
+    "category": "SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 526,
+    "name": "LICEcap",
+    "category": "SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 527,
+    "name": "NVIDIA App / ShadowPlay",
+    "category": "SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 528,
+    "name": "AMD Software Adrenalin Recording",
+    "category": "SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 529,
+    "name": "Xbox Game Bar",
+    "category": "SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 530,
+    "name": "Action!",
+    "category": "SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 531,
+    "name": "XSplit Broadcaster",
+    "category": "SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 532,
+    "name": "Elgato 4K Capture Utility",
+    "category": "SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 533,
+    "name": "Elgato Stream Deck",
+    "category": "SCREENSHOT / KÉPERNYŐRÖGZÍTÉS / STREAM",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 534,
+    "name": "DaVinci Resolve",
+    "category": "VIDEÓVÁGÁS / KONVERTÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 535,
+    "name": "Kdenlive",
+    "category": "VIDEÓVÁGÁS / KONVERTÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 536,
+    "name": "Shotcut",
+    "category": "VIDEÓVÁGÁS / KONVERTÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 537,
+    "name": "OpenShot",
+    "category": "VIDEÓVÁGÁS / KONVERTÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 538,
+    "name": "FFmpeg",
+    "category": "VIDEÓVÁGÁS / KONVERTÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 539,
+    "name": "Avidemux",
+    "category": "VIDEÓVÁGÁS / KONVERTÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 540,
+    "name": "LosslessCut",
+    "category": "VIDEÓVÁGÁS / KONVERTÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 541,
+    "name": "Shutter Encoder",
+    "category": "VIDEÓVÁGÁS / KONVERTÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 542,
+    "name": "CapCut Desktop",
+    "category": "VIDEÓVÁGÁS / KONVERTÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 543,
+    "name": "VEGAS Pro",
+    "category": "VIDEÓVÁGÁS / KONVERTÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 544,
+    "name": "Adobe Premiere Pro",
+    "category": "VIDEÓVÁGÁS / KONVERTÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 545,
+    "name": "Adobe After Effects",
+    "category": "VIDEÓVÁGÁS / KONVERTÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 546,
+    "name": "HitFilm",
+    "category": "VIDEÓVÁGÁS / KONVERTÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 547,
+    "name": "Lightworks",
+    "category": "VIDEÓVÁGÁS / KONVERTÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 548,
+    "name": "Olive Video Editor",
+    "category": "VIDEÓVÁGÁS / KONVERTÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 549,
+    "name": "VSDC Free Video Editor",
+    "category": "VIDEÓVÁGÁS / KONVERTÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 550,
+    "name": "Filmora",
+    "category": "VIDEÓVÁGÁS / KONVERTÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 551,
+    "name": "Ableton Live",
+    "category": "AUDIO / ZENE / DAW",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 552,
+    "name": "Studio One",
+    "category": "AUDIO / ZENE / DAW",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 553,
+    "name": "Cakewalk",
+    "category": "AUDIO / ZENE / DAW",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 554,
+    "name": "Waveform Free",
+    "category": "AUDIO / ZENE / DAW",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 555,
+    "name": "LMMS",
+    "category": "AUDIO / ZENE / DAW",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 556,
+    "name": "Ardour",
+    "category": "AUDIO / ZENE / DAW",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 557,
+    "name": "MuseScore",
+    "category": "AUDIO / ZENE / DAW",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 558,
+    "name": "Equalizer APO",
+    "category": "AUDIO / ZENE / DAW",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 559,
+    "name": "Peace Equalizer",
+    "category": "AUDIO / ZENE / DAW",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 560,
+    "name": "Voicemeeter",
+    "category": "AUDIO / ZENE / DAW",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 561,
+    "name": "VB-CABLE",
+    "category": "AUDIO / ZENE / DAW",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 562,
+    "name": "Mixxx",
+    "category": "AUDIO / ZENE / DAW",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 563,
+    "name": "Ocenaudio",
+    "category": "AUDIO / ZENE / DAW",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 564,
+    "name": "Tenacity",
+    "category": "AUDIO / ZENE / DAW",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 565,
+    "name": "Native Access",
+    "category": "GITÁR / AUDIO PLUGIN / HARDVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 566,
+    "name": "IK Product Manager",
+    "category": "GITÁR / AUDIO PLUGIN / HARDVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 567,
+    "name": "Arturia Software Center",
+    "category": "GITÁR / AUDIO PLUGIN / HARDVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 568,
+    "name": "Waves Central",
+    "category": "GITÁR / AUDIO PLUGIN / HARDVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 569,
+    "name": "Neural DSP",
+    "category": "GITÁR / AUDIO PLUGIN / HARDVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 570,
+    "name": "AmpliTube",
+    "category": "GITÁR / AUDIO PLUGIN / HARDVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 571,
+    "name": "Guitar Rig",
+    "category": "GITÁR / AUDIO PLUGIN / HARDVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 572,
+    "name": "ToneX",
+    "category": "GITÁR / AUDIO PLUGIN / HARDVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 573,
+    "name": "NAM Universal",
+    "category": "GITÁR / AUDIO PLUGIN / HARDVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 574,
+    "name": "ReaPlugs",
+    "category": "GITÁR / AUDIO PLUGIN / HARDVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 575,
+    "name": "Helix Native",
+    "category": "GITÁR / AUDIO PLUGIN / HARDVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 576,
+    "name": "TH-U",
+    "category": "GITÁR / AUDIO PLUGIN / HARDVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 577,
+    "name": "BIAS FX",
+    "category": "GITÁR / AUDIO PLUGIN / HARDVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 578,
+    "name": "Positive Grid Spark app",
+    "category": "GITÁR / AUDIO PLUGIN / HARDVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 579,
+    "name": "Line 6 Central",
+    "category": "GITÁR / AUDIO PLUGIN / HARDVER",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 580,
+    "name": "Apache OpenOffice",
+    "category": "OFFICE / PDF / JEGYZET",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 581,
+    "name": "Microsoft 365 / Office",
+    "category": "OFFICE / PDF / JEGYZET",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 582,
+    "name": "OnlyOffice Desktop Editors",
+    "category": "OFFICE / PDF / JEGYZET",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 583,
+    "name": "WPS Office",
+    "category": "OFFICE / PDF / JEGYZET",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 584,
+    "name": "FreeOffice",
+    "category": "OFFICE / PDF / JEGYZET",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 585,
+    "name": "PDF24 Creator",
+    "category": "OFFICE / PDF / JEGYZET",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 586,
+    "name": "Foxit PDF Reader",
+    "category": "OFFICE / PDF / JEGYZET",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 587,
+    "name": "Okular",
+    "category": "OFFICE / PDF / JEGYZET",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 588,
+    "name": "Xournal++",
+    "category": "OFFICE / PDF / JEGYZET",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 589,
+    "name": "Obsidian",
+    "category": "OFFICE / PDF / JEGYZET",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 590,
+    "name": "Notion",
+    "category": "OFFICE / PDF / JEGYZET",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 591,
+    "name": "Joplin",
+    "category": "OFFICE / PDF / JEGYZET",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 592,
+    "name": "Logseq",
+    "category": "OFFICE / PDF / JEGYZET",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 593,
+    "name": "Zotero",
+    "category": "OFFICE / PDF / JEGYZET",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 594,
+    "name": "Mendeley Reference Manager",
+    "category": "OFFICE / PDF / JEGYZET",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 595,
+    "name": "Typora",
+    "category": "OFFICE / PDF / JEGYZET",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 596,
+    "name": "MarkText",
+    "category": "OFFICE / PDF / JEGYZET",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 597,
+    "name": "Trilium Notes",
+    "category": "OFFICE / PDF / JEGYZET",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 598,
+    "name": "Standard Notes",
+    "category": "OFFICE / PDF / JEGYZET",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 599,
+    "name": "NanaZip",
+    "category": "FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 600,
+    "name": "Bandizip",
+    "category": "FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 601,
+    "name": "Listary",
+    "category": "FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 602,
+    "name": "Total Commander",
+    "category": "FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 603,
+    "name": "Double Commander",
+    "category": "FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 604,
+    "name": "FreeCommander",
+    "category": "FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 605,
+    "name": "Files App",
+    "category": "FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 606,
+    "name": "Directory Opus",
+    "category": "FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 607,
+    "name": "FastCopy",
+    "category": "FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 608,
+    "name": "Bulk Rename Utility",
+    "category": "FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 609,
+    "name": "SpaceSniffer",
+    "category": "FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 610,
+    "name": "OneCommander",
+    "category": "FÁJLKEZELÉS / KERESÉS / TÖMÖRÍTÉS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 611,
+    "name": "Sysinternals Suite",
+    "category": "RENDSZER / HARDVER / DIAGNOSZTIKA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 612,
+    "name": "Process Explorer",
+    "category": "RENDSZER / HARDVER / DIAGNOSZTIKA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 613,
+    "name": "Process Monitor",
+    "category": "RENDSZER / HARDVER / DIAGNOSZTIKA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 614,
+    "name": "Autoruns",
+    "category": "RENDSZER / HARDVER / DIAGNOSZTIKA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 615,
+    "name": "TCPView",
+    "category": "RENDSZER / HARDVER / DIAGNOSZTIKA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 616,
+    "name": "GPU-Z",
+    "category": "RENDSZER / HARDVER / DIAGNOSZTIKA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 617,
+    "name": "HWMonitor",
+    "category": "RENDSZER / HARDVER / DIAGNOSZTIKA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 618,
+    "name": "Speccy",
+    "category": "RENDSZER / HARDVER / DIAGNOSZTIKA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 619,
+    "name": "Hard Disk Sentinel",
+    "category": "RENDSZER / HARDVER / DIAGNOSZTIKA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 620,
+    "name": "RivaTuner Statistics Server",
+    "category": "RENDSZER / HARDVER / DIAGNOSZTIKA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 621,
+    "name": "OCCT",
+    "category": "RENDSZER / HARDVER / DIAGNOSZTIKA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 622,
+    "name": "Prime95",
+    "category": "RENDSZER / HARDVER / DIAGNOSZTIKA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 623,
+    "name": "Cinebench",
+    "category": "RENDSZER / HARDVER / DIAGNOSZTIKA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 624,
+    "name": "MemTest86",
+    "category": "RENDSZER / HARDVER / DIAGNOSZTIKA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 625,
+    "name": "Victoria HDD/SSD",
+    "category": "RENDSZER / HARDVER / DIAGNOSZTIKA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 626,
+    "name": "AIDA64",
+    "category": "RENDSZER / HARDVER / DIAGNOSZTIKA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 627,
+    "name": "Core Temp",
+    "category": "RENDSZER / HARDVER / DIAGNOSZTIKA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 628,
+    "name": "Open Hardware Monitor",
+    "category": "RENDSZER / HARDVER / DIAGNOSZTIKA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 629,
+    "name": "Libre Hardware Monitor",
+    "category": "RENDSZER / HARDVER / DIAGNOSZTIKA",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 630,
+    "name": "UNetbootin",
+    "category": "WINDOWS TELEPÍTÉS / USB / ISO",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 631,
+    "name": "YUMI",
+    "category": "WINDOWS TELEPÍTÉS / USB / ISO",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 632,
+    "name": "Win32 Disk Imager",
+    "category": "WINDOWS TELEPÍTÉS / USB / ISO",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 633,
+    "name": "PowerISO",
+    "category": "WINDOWS TELEPÍTÉS / USB / ISO",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 634,
+    "name": "AnyBurn",
+    "category": "WINDOWS TELEPÍTÉS / USB / ISO",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 635,
+    "name": "WinCDEmu",
+    "category": "WINDOWS TELEPÍTÉS / USB / ISO",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 636,
+    "name": "Virtual CloneDrive",
+    "category": "WINDOWS TELEPÍTÉS / USB / ISO",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 637,
+    "name": "Media Creation Tool",
+    "category": "WINDOWS TELEPÍTÉS / USB / ISO",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 638,
+    "name": "Windows Installation Assistant",
+    "category": "WINDOWS TELEPÍTÉS / USB / ISO",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 639,
+    "name": "NTLite",
+    "category": "WINDOWS TELEPÍTÉS / USB / ISO",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 640,
+    "name": "Hyper-V",
+    "category": "VIRTUALIZÁCIÓ / KONTAINEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 641,
+    "name": "WSL2 disztribúciók",
+    "category": "VIRTUALIZÁCIÓ / KONTAINEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 642,
+    "name": "QEMU",
+    "category": "VIRTUALIZÁCIÓ / KONTAINEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 643,
+    "name": "Vagrant",
+    "category": "VIRTUALIZÁCIÓ / KONTAINEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 644,
+    "name": "Multipass",
+    "category": "VIRTUALIZÁCIÓ / KONTAINEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 645,
+    "name": "Minikube",
+    "category": "VIRTUALIZÁCIÓ / KONTAINEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 646,
+    "name": "Kubernetes kubectl",
+    "category": "VIRTUALIZÁCIÓ / KONTAINEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 647,
+    "name": "kind",
+    "category": "VIRTUALIZÁCIÓ / KONTAINEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 648,
+    "name": "k3d",
+    "category": "VIRTUALIZÁCIÓ / KONTAINEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 649,
+    "name": "Portainer Desktop / kapcsolódó kliensek",
+    "category": "VIRTUALIZÁCIÓ / KONTAINEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 650,
+    "name": "GNS3",
+    "category": "HÁLÓZATI / CISCO / IT ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 651,
+    "name": "EVE-NG Client Pack",
+    "category": "HÁLÓZATI / CISCO / IT ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 652,
+    "name": "KiTTY",
+    "category": "HÁLÓZATI / CISCO / IT ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 653,
+    "name": "Angry IP Scanner",
+    "category": "HÁLÓZATI / CISCO / IT ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 654,
+    "name": "Advanced IP Scanner",
+    "category": "HÁLÓZATI / CISCO / IT ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 655,
+    "name": "PortQry",
+    "category": "HÁLÓZATI / CISCO / IT ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 656,
+    "name": "iperf3",
+    "category": "HÁLÓZATI / CISCO / IT ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 657,
+    "name": "OpenSpeedTest",
+    "category": "HÁLÓZATI / CISCO / IT ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 658,
+    "name": "Netcat / Ncat",
+    "category": "HÁLÓZATI / CISCO / IT ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 659,
+    "name": "Solar-PuTTY",
+    "category": "HÁLÓZATI / CISCO / IT ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 660,
+    "name": "Bitvise SSH Client",
+    "category": "HÁLÓZATI / CISCO / IT ESZKÖZÖK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 661,
+    "name": "OpenSSH for Windows",
+    "category": "HÁLÓZATI / CISCO / IT ESZKÖZÖK",
+    "coverage_status": "SYSTEM_COMPONENT",
+    "root_cause": "SystemComponent",
+    "evidence": "catalog profile explicitly marks a Windows-managed system component"
+  },
+  {
+    "index": 662,
+    "name": "MEGA Desktop App",
+    "category": "FELHŐ / SZINKRONIZÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 663,
+    "name": "Proton Drive",
+    "category": "FELHŐ / SZINKRONIZÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 664,
+    "name": "pCloud Drive",
+    "category": "FELHŐ / SZINKRONIZÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 665,
+    "name": "Nextcloud Desktop",
+    "category": "FELHŐ / SZINKRONIZÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 666,
+    "name": "Syncthing",
+    "category": "FELHŐ / SZINKRONIZÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 667,
+    "name": "Resilio Sync",
+    "category": "FELHŐ / SZINKRONIZÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 668,
+    "name": "rclone",
+    "category": "FELHŐ / SZINKRONIZÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 669,
+    "name": "Cyberduck",
+    "category": "FELHŐ / SZINKRONIZÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 670,
+    "name": "Mountain Duck",
+    "category": "FELHŐ / SZINKRONIZÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 671,
+    "name": "Box Drive",
+    "category": "FELHŐ / SZINKRONIZÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 672,
+    "name": "Koofr",
+    "category": "FELHŐ / SZINKRONIZÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 673,
+    "name": "Seafile Client",
+    "category": "FELHŐ / SZINKRONIZÁLÁS",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 674,
+    "name": "Bitwarden",
+    "category": "JELSZÓ / 2FA / BIZTONSÁG",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 675,
+    "name": "1Password",
+    "category": "JELSZÓ / 2FA / BIZTONSÁG",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 676,
+    "name": "KeePass",
+    "category": "JELSZÓ / 2FA / BIZTONSÁG",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 677,
+    "name": "KeePassXC",
+    "category": "JELSZÓ / 2FA / BIZTONSÁG",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 678,
+    "name": "Proton Pass",
+    "category": "JELSZÓ / 2FA / BIZTONSÁG",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 679,
+    "name": "Enpass",
+    "category": "JELSZÓ / 2FA / BIZTONSÁG",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 680,
+    "name": "Authy",
+    "category": "JELSZÓ / 2FA / BIZTONSÁG",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 681,
+    "name": "2FAS",
+    "category": "JELSZÓ / 2FA / BIZTONSÁG",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 682,
+    "name": "Aegis (mobil)",
+    "category": "JELSZÓ / 2FA / BIZTONSÁG",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 683,
+    "name": "Yubico Authenticator",
+    "category": "JELSZÓ / 2FA / BIZTONSÁG",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 684,
+    "name": "Windows Defender",
+    "category": "JELSZÓ / 2FA / BIZTONSÁG",
+    "coverage_status": "SYSTEM_COMPONENT",
+    "root_cause": "SystemComponent",
+    "evidence": "catalog profile explicitly marks a Windows-managed system component"
+  },
+  {
+    "index": 685,
+    "name": "ESET",
+    "category": "JELSZÓ / 2FA / BIZTONSÁG",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 686,
+    "name": "Sophos Home",
+    "category": "JELSZÓ / 2FA / BIZTONSÁG",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 687,
+    "name": "GlassWire",
+    "category": "JELSZÓ / 2FA / BIZTONSÁG",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 688,
+    "name": "SimpleWall",
+    "category": "JELSZÓ / 2FA / BIZTONSÁG",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 689,
+    "name": "Portmaster",
+    "category": "JELSZÓ / 2FA / BIZTONSÁG",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 690,
+    "name": "Slack",
+    "category": "EMAIL / KOMMUNIKÁCIÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 691,
+    "name": "Signal Desktop",
+    "category": "EMAIL / KOMMUNIKÁCIÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 692,
+    "name": "WhatsApp Desktop",
+    "category": "EMAIL / KOMMUNIKÁCIÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 693,
+    "name": "Viber",
+    "category": "EMAIL / KOMMUNIKÁCIÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 694,
+    "name": "Element",
+    "category": "EMAIL / KOMMUNIKÁCIÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 695,
+    "name": "Mattermost Desktop",
+    "category": "EMAIL / KOMMUNIKÁCIÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 696,
+    "name": "Rocket.Chat Desktop",
+    "category": "EMAIL / KOMMUNIKÁCIÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 697,
+    "name": "Thunderbird",
+    "category": "EMAIL / KOMMUNIKÁCIÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 698,
+    "name": "Mailspring",
+    "category": "EMAIL / KOMMUNIKÁCIÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 699,
+    "name": "eM Client",
+    "category": "EMAIL / KOMMUNIKÁCIÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 700,
+    "name": "Spark Desktop",
+    "category": "EMAIL / KOMMUNIKÁCIÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 701,
+    "name": "Proton Mail Bridge",
+    "category": "EMAIL / KOMMUNIKÁCIÓ",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 702,
+    "name": "LibreWolf",
+    "category": "BÖNGÉSZŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 703,
+    "name": "Floorp",
+    "category": "BÖNGÉSZŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 704,
+    "name": "Waterfox",
+    "category": "BÖNGÉSZŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 705,
+    "name": "Tor Browser",
+    "category": "BÖNGÉSZŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 706,
+    "name": "Arc",
+    "category": "BÖNGÉSZŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 707,
+    "name": "Zen Browser",
+    "category": "BÖNGÉSZŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 708,
+    "name": "Chromium",
+    "category": "BÖNGÉSZŐK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 709,
+    "name": "Free Download Manager",
+    "category": "DOWNLOAD MANAGEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 710,
+    "name": "JDownloader 2",
+    "category": "DOWNLOAD MANAGEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 711,
+    "name": "Internet Download Manager",
+    "category": "DOWNLOAD MANAGEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 712,
+    "name": "Xtreme Download Manager",
+    "category": "DOWNLOAD MANAGEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 713,
+    "name": "Motrix",
+    "category": "DOWNLOAD MANAGEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 714,
+    "name": "aria2",
+    "category": "DOWNLOAD MANAGEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 715,
+    "name": "Persepolis Download Manager",
+    "category": "DOWNLOAD MANAGEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 716,
+    "name": "yt-dlp",
+    "category": "DOWNLOAD MANAGEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 717,
+    "name": "Gallery-dl",
+    "category": "DOWNLOAD MANAGEREK",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 718,
+    "name": "Transmission",
+    "category": "TORRENT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 719,
+    "name": "Deluge",
+    "category": "TORRENT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 720,
+    "name": "BiglyBT",
+    "category": "TORRENT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 721,
+    "name": "Tixati",
+    "category": "TORRENT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  },
+  {
+    "index": 722,
+    "name": "Tribler",
+    "category": "TORRENT",
+    "coverage_status": "UNRESOLVED",
+    "root_cause": "None",
+    "evidence": "physical Windows install/detect/uninstall/verify result is pending"
+  }
+]
