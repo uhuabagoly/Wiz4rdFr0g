@@ -74,10 +74,13 @@ func ValidateArtifactFiles(m releaseproof.BuildManifest, projectRoot string) []I
 			issues = append(issues, Issue{Code: "missing_artifact", Message: "build manifest missing artifact " + key})
 			continue
 		}
-		path := art.Path
-		if !filepath.IsAbs(path) {
-			path = filepath.Join(projectRoot, filepath.FromSlash(path))
+		rawPath := filepath.FromSlash(strings.TrimSpace(art.Path))
+		cleanPath := filepath.Clean(rawPath)
+		if rawPath == "" || filepath.IsAbs(rawPath) || cleanPath == ".." || strings.HasPrefix(cleanPath, ".."+string(filepath.Separator)) {
+			issues = append(issues, Issue{Path: art.Path, Code: "unsafe_artifact_path", Message: "artifact path must be relative and remain inside the project root"})
+			continue
 		}
+		path := filepath.Join(projectRoot, cleanPath)
 		hash, size, err := releaseproof.FileSHA256(path)
 		if err != nil {
 			issues = append(issues, Issue{Path: path, Code: "artifact_unreadable", Message: err.Error()})

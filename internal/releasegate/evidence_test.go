@@ -86,3 +86,21 @@ func TestMissingAndCorruptEvidenceRejected(t *testing.T) {
 		t.Fatalf("expected invalid results: %+v", rs)
 	}
 }
+
+func TestArtifactPathCannotEscapeProjectRoot(t *testing.T) {
+	m, _, _, _ := fixture(t)
+	m.Artifacts[releaseproof.WindowsSetupArtifactKey] = releaseproof.Artifact{Path: "../outside.exe", SHA256: strings.Repeat("a", 64), Size: 1}
+	m.Artifacts[releaseproof.InstallerPayloadArtifactKey] = releaseproof.Artifact{Path: "payload.exe", SHA256: m.Artifacts[releaseproof.PrimaryWindowsArtifactKey].SHA256, Size: 1}
+	m.Artifacts[releaseproof.LinuxAppArtifactKey] = releaseproof.Artifact{Path: "linux", SHA256: strings.Repeat("a", 64), Size: 1}
+	m.Artifacts[releaseproof.LinuxPackageArtifactKey] = releaseproof.Artifact{Path: "linux.tar.gz", SHA256: strings.Repeat("a", 64), Size: 1}
+	issues := ValidateArtifactFiles(m, t.TempDir())
+	found := false
+	for _, issue := range issues {
+		if issue.Code == "unsafe_artifact_path" {
+			found = true
+		}
+	}
+	if !found {
+		t.Fatalf("unsafe artifact path was accepted: %+v", issues)
+	}
+}

@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"sort"
 	"strconv"
@@ -108,12 +109,19 @@ func main() {
 	}
 
 	manifest, manifestErr := releasegate.LoadManifest(manifestPath)
+	currentGitCommit, currentGitErr := resolveCurrentGitCommit()
+	if currentGitErr != nil {
+		report.Blockers = append(report.Blockers, "current Git commit unavailable: "+currentGitErr.Error())
+	}
 	if manifestErr != nil {
 		report.Blockers = append(report.Blockers, "build manifest unavailable or invalid: "+manifestErr.Error())
 	} else {
 		report.BuildID = manifest.BuildID
 		report.AppVersion = manifest.AppVersion
 		report.GitCommit = manifest.GitCommit
+		if currentGitErr == nil && !strings.EqualFold(manifest.GitCommit, currentGitCommit) {
+			report.Blockers = append(report.Blockers, fmt.Sprintf("build manifest git_commit %s does not match current checkout %s", manifest.GitCommit, currentGitCommit))
+		}
 		report.CatalogFingerprint = manifest.CatalogFingerprint
 		for k, a := range manifest.Artifacts {
 			report.ArtifactHashes[k] = a.SHA256
@@ -270,6 +278,24 @@ func main() {
 	if !report.ReleaseReady {
 		os.Exit(2)
 	}
+}
+
+func resolveCurrentGitCommit() (string, error) {
+	if v := strings.TrimSpace(os.Getenv("WIZ4RDFR0G_GIT_COMMIT")); v != "" {
+		if !releaseproof.ValidGitCommit(v) {
+			return "", fmt.Errorf("WIZ4RDFR0G_GIT_COMMIT must be a 40-hex Git commit SHA")
+		}
+		return strings.ToLower(v), nil
+	}
+	out, err := exec.Command("git", "rev-parse", "HEAD").Output()
+	if err != nil {
+		return "", fmt.Errorf("git rev-parse HEAD: %w", err)
+	}
+	v := strings.TrimSpace(string(out))
+	if !releaseproof.ValidGitCommit(v) {
+		return "", fmt.Errorf("git rev-parse HEAD did not return a 40-hex commit SHA")
+	}
+	return strings.ToLower(v), nil
 }
 
 func writeJSON(path string, v any) {
