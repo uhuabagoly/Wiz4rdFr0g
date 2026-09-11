@@ -65,8 +65,11 @@ type gateReport struct {
 	MismatchedEvidence      int               `json:"mismatched_or_stale_evidence"`
 	DuplicateEvidence       int               `json:"duplicate_evidence"`
 	ConflictingEvidence     int               `json:"conflicting_evidence"`
+	VerifiedInstall         int               `json:"verified_install"`
+	VerifiedUninstall       int               `json:"verified_uninstall"`
 	VerifiedFull            int               `json:"verified_full"`
 	VerifiedInstallOnly     int               `json:"verified_install_only"`
+	FailedPhysical          int               `json:"failed_physical"`
 	ManualUninstall         int               `json:"manual_uninstall"`
 	SystemComponent         int               `json:"system_component"`
 	LicenseBlocked          int               `json:"license_blocked"`
@@ -170,6 +173,15 @@ func main() {
 	for _, a := range auditEntries {
 		row := coverageRow{Index: a.Index, Name: a.Name, Category: a.Category, CatalogAppID: releaseproof.CatalogAppID(a), Coverage: quality.CoverageUnresolved, RootCause: quality.RootNone, Evidence: "physical Windows install/detect/uninstall/verify result is pending"}
 		if r, ok := rs.Valid[a.Index]; ok {
+			if r.InstallVerified {
+				report.VerifiedInstall++
+			}
+			if r.UninstallVerified {
+				report.VerifiedUninstall++
+			}
+			if a.PhysicalTestRequired && r.FinalStatus != "FULL_PASS" {
+				report.FailedPhysical++
+			}
 			facts := quality.ResultFacts{FinalStatus: r.FinalStatus, FailureStage: r.FailureStage, Failure: r.Failure, SkipReason: r.SkipReason, InstallVerified: r.InstallVerified, UninstallVerified: r.UninstallVerified}
 			row.Coverage = quality.CoverageFor(facts)
 			row.RootCause = quality.ClassifyRootCause(facts)

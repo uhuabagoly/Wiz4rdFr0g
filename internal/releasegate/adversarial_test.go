@@ -92,7 +92,7 @@ func TestAdversarialEvidenceMatrix(t *testing.T) {
 	}
 }
 
-func TestDuplicateAndCopiedEvidenceRejected(t *testing.T) {
+func TestCopiedEvidenceAttackRejected(t *testing.T) {
 	m, entries, key, now := fixture(t)
 	dir := t.TempDir()
 	r := makeResult(t, m, entries[0], key, now)
@@ -101,6 +101,21 @@ func TestDuplicateAndCopiedEvidenceRejected(t *testing.T) {
 	rs := assertRejected(t, dir, m, entries, now, key)
 	if rs.Duplicates == 0 {
 		t.Fatalf("copy was not classified as duplicate: %+v", rs)
+	}
+}
+
+func TestDuplicateEvidenceRejected(t *testing.T) {
+	m, entries, key, now := fixture(t)
+	dir := t.TempDir()
+	first := makeResult(t, m, entries[0], key, now)
+	second := first
+	second.TestRunID = "independent-second-run"
+	resign(t, &second, key)
+	writeResult(t, dir, "first.json", first)
+	writeResult(t, dir, "second.json", second)
+	rs := assertRejected(t, dir, m, entries, now, key)
+	if rs.Duplicates == 0 {
+		t.Fatalf("duplicate evidence was not classified: %+v", rs)
 	}
 }
 
