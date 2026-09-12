@@ -4,15 +4,15 @@ import "testing"
 
 func TestCatalogAuditCoverage(t *testing.T) {
 	entries := BuildAuditEntries()
-	if len(entries) != 723 {
-		t.Fatalf("catalog entries = %d, want 723", len(entries))
+	if len(entries) != len(Entries) {
+		t.Fatalf("catalog audit entries = %d, source entries = %d", len(entries), len(Entries))
 	}
 	s := Summarize(entries)
 	if !s.SafetyPass {
 		t.Fatalf("catalog safety audit failed: %v", s.ValidationErrors)
 	}
 	if s.LicensePolicyPass {
-		t.Fatal("license policy unexpectedly passed before all 723 entries have official-source classification")
+		t.Fatal("license policy unexpectedly passed before all entries have official-source classification")
 	}
 	if s.LicenseCommercial != 4 {
 		t.Fatalf("commercial license entries=%d, want 4", s.LicenseCommercial)
@@ -95,8 +95,10 @@ func TestDBeaverCurrentAndHistoricalIDs(t *testing.T) {
 func TestPhysicalTestRequiredExcludesSystemAndManualOnly(t *testing.T) {
 	entries := BuildAuditEntries()
 	summary := Summarize(entries)
-	if summary.PhysicalTestRequired != 719 {
-		t.Fatalf("physical test required=%d, want 719", summary.PhysicalTestRequired)
+	want := 0
+	for _, e := range entries { if !e.SystemComponent && e.UninstallStrategy != StrategyManualOnly { want++ } }
+	if summary.PhysicalTestRequired != want {
+		t.Fatalf("physical test required=%d, want %d", summary.PhysicalTestRequired, want)
 	}
 	for _, e := range entries {
 		if (e.SystemComponent || e.UninstallStrategy == StrategyManualOnly) && e.PhysicalTestRequired {

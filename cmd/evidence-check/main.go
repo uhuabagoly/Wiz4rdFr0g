@@ -50,6 +50,7 @@ func main() {
 		os.Exit(8)
 	}
 	key := []byte(os.Getenv(releaseproof.EvidenceKeyEnvironment))
+	if err := releaseproof.ValidatePhysicalDocument(b, key); err != nil { fmt.Fprintln(os.Stderr, err); os.Exit(9) }
 	issues := releaseproof.ValidateEvidence(r.EvidenceStatement, r.Signature, manifest, entries[r.CatalogIndex], time.Now().UTC(), key)
 	if len(issues) != 0 {
 		for _, issue := range issues {

@@ -1,0 +1,44 @@
+{
+  "generated_at": "2026-09-12T12:13:47.3054126Z",
+  "status": "BLOCKED_ENVIRONMENT",
+  "source_commit": "ea521521709b3003eb58cd9983901409449b8089",
+  "catalog_entries_counted_from_source": 723,
+  "counting_method": "AppDef literal lines in internal/catalog/catalog.go; Go generator not executed",
+  "windows_11_x64": "UNVERIFIED: CIM access denied",
+  "disposable_vm": "UNVERIFIED",
+  "clean_snapshot_per_program": "UNVERIFIED",
+  "vm_id": null,
+  "physical_run_id": null,
+  "go": "NOT_FOUND_IN_PATH; C:/Program Files/Go/bin/go.exe absent; go.mod requires 1.23",
+  "winget_version_exit_code": -1978335231,
+  "winget_version_output": "",
+  "network_and_sources": "NOT_CHECKED: safety prerequisites failed",
+  "physical_tests_run": 0,
+  "baseline": [
+    {
+      "status": "NOT_RUN_GO_UNAVAILABLE",
+      "exit_code": null,
+      "command": "go test ./..."
+    },
+    {
+      "status": "NOT_RUN_GO_UNAVAILABLE",
+      "exit_code": null,
+      "command": "go vet ./..."
+    },
+    {
+      "status": "NOT_RUN_GO_UNAVAILABLE",
+      "exit_code": null,
+      "command": "GOOS=windows GOARCH=amd64 go build ./app"
+    },
+    {
+      "status": "NOT_RUN_GO_UNAVAILABLE",
+      "exit_code": null,
+      "command": "GOOS=linux GOARCH=amd64 go build ./linux"
+    },
+    {
+      "status": "NOT_RUN_GO_UNAVAILABLE_AND_WRITES_EXISTING_MODIFIED_ARTIFACTS",
+      "exit_code": null,
+      "command": "./scripts/release-gate.ps1"
+    }
+  ]
+}

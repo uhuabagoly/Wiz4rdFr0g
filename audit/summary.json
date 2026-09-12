@@ -15,8 +15,20 @@
   "msix_store": 3,
   "manual_only": 1,
   "unresolved": 421,
-  "physical_test_required": 723,
+  "physical_test_required": 719,
   "unsafe_resolution_entries": 0,
+  "license_open_source": 3,
+  "license_freeware": 0,
+  "license_free_tier": 0,
+  "license_trial": 0,
+  "license_commercial": 4,
+  "license_unknown": 713,
+  "license_system_component": 3,
+  "license_evidence_missing": 0,
+  "license_policy_eligible": 3,
+  "license_policy_blocked": 717,
+  "safety_pass": true,
+  "license_policy_pass": false,
   "strategy_counts": {
     "MSIXStore": 3,
     "ManualOnly": 1,
@@ -29,5 +41,5 @@
     "runtime_exact_required": 421
   },
   "validation_errors": null,
-  "pass": true
+  "pass": false
 }

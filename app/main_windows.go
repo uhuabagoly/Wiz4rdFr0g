@@ -2358,7 +2358,7 @@ func startInstall() {
 
 			installOK := false
 			if resolvedID != "" && (resolvedSource == "winget" || resolvedSource == "msstore") {
-				iargs := []string{"install", "--id", resolvedID, "--exact", "--source", resolvedSource, "--silent", "--accept-package-agreements", "--accept-source-agreements", "--disable-interactivity"}
+				iargs := packageInstallArgs(resolvedID, resolvedSource)
 				if it.Version != "" && resolvedSource == "winget" {
 					iargs = append(iargs, "--version", it.Version)
 				}

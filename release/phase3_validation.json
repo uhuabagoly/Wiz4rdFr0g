@@ -1,0 +1,154 @@
+{
+  "phase": "phase3_catalog_policy_and_physical_campaign",
+  "implementation_complete": true,
+  "windows_physical_campaign_executed": false,
+  "windows_physical_campaign_reason": "Current execution host is Linux and has no Wine, PowerShell, Winget or Windows VM executor; physical Windows application tests were not fabricated.",
+  "host": {
+    "os": "linux",
+    "arch": "x86_64"
+  },
+  "build": {
+    "git_commit": "ea521521709b3003eb58cd9983901409449b8089",
+    "build_id": "sha256:4b186baef24cdf3c868be31c5be50db735e44e7721baf925858f144ce743d38d",
+    "catalog_fingerprint": "8406e2a5958088e72a5e1eacd5ec9a3bd053fa137e1e834c1d356924581ce5cd",
+    "windows_signing_status": "unsigned",
+    "artifacts": {
+      "installer_payload": {
+        "path": "installer/payload/Wiz4rdFr0g.exe",
+        "sha256": "b689f091bfb972670b8f0632dfee46963efc3b1734719c8b50d57e68bd8baa18",
+        "size": 3153920
+      },
+      "linux_app": {
+        "path": "dist-linux/Wiz4rdFr0g",
+        "sha256": "f13a38d1986ad77b7d944198a592f60ff1168516c1a6f14e451ce571b16a13eb",
+        "size": 2305600
+      },
+      "linux_package": {
+        "path": "Wiz4rd_Fr0g_Linux_x64.tar.gz",
+        "sha256": "69783b688f18c4f75e0e199c319faad648d11a10cdb48ed6d2d11546208c5ba5",
+        "size": 1269618
+      },
+      "windows_app": {
+        "path": "dist/Wiz4rdFr0g.exe",
+        "sha256": "b689f091bfb972670b8f0632dfee46963efc3b1734719c8b50d57e68bd8baa18",
+        "size": 3153920
+      },
+      "windows_setup": {
+        "path": "dist/Wiz4rd_Fr0g_Setup.exe",
+        "sha256": "712c459ade56517e0d9714b93c1790066b3cb5b3ac4021e7b77fc17de2f8bbcc",
+        "size": 5373440
+      }
+    },
+    "payload_consistent": true,
+    "deterministic_double_build": true
+  },
+  "catalog": {
+    "total": 723,
+    "physical_candidates": 719,
+    "physical_eligible_now": 3,
+    "policy_blocked_disposition": 716,
+    "system_components": 3,
+    "manual_only": 1,
+    "license_open_source": 3,
+    "license_freeware": 0,
+    "license_commercial": 4,
+    "license_unknown": 713,
+    "license_policy_eligible": 3,
+    "license_policy_blocked": 717,
+    "catalog_safety_pass": true,
+    "license_policy_pass": false
+  },
+  "uninstall_repair": {
+    "gui_exit_status_transport_bug_fixed": true,
+    "detailed_attempt_logging": true,
+    "bounded_safe_retry": true,
+    "exact_identity_redetection": true,
+    "ambiguous_identity_fail_closed": true,
+    "post_uninstall_independent_verification": true,
+    "authenticated_resume": true,
+    "stale_failed_results_retested": true
+  },
+  "tests": {
+    "go_test_all": "PASS",
+    "go_vet_all": "PASS",
+    "race_targeted": "PASS",
+    "windows_cross_vet": "PASS",
+    "windows_test_compile_only": "PASS",
+    "windows_app_cross_build": "PASS",
+    "windows_setup_cross_build": "PASS",
+    "release_evidence_adversarial": "PASS",
+    "policy_blocked_full_pass_rejected": "PASS",
+    "gui_exit_status_regression": "PASS",
+    "linux_checksum": "PASS",
+    "linux_isolated_install_diagnose_uninstall": "PASS",
+    "linux_second_uninstall": "PASS",
+    "linux_tamper_rejected_exit_code": 5,
+    "windows_physical_install_uninstall": "NOT_EXECUTED"
+  },
+  "release_gate": {
+    "generated_at": "2026-09-11T08:40:14.418211356Z",
+    "build_id": "sha256:4b186baef24cdf3c868be31c5be50db735e44e7721baf925858f144ce743d38d",
+    "app_version": "0.6.23-release-gate",
+    "git_commit": "ea521521709b3003eb58cd9983901409449b8089",
+    "catalog_fingerprint": "8406e2a5958088e72a5e1eacd5ec9a3bd053fa137e1e834c1d356924581ce5cd",
+    "artifact_hashes": {
+      "installer_payload": "b689f091bfb972670b8f0632dfee46963efc3b1734719c8b50d57e68bd8baa18",
+      "linux_app": "f13a38d1986ad77b7d944198a592f60ff1168516c1a6f14e451ce571b16a13eb",
+      "linux_package": "69783b688f18c4f75e0e199c319faad648d11a10cdb48ed6d2d11546208c5ba5",
+      "windows_app": "b689f091bfb972670b8f0632dfee46963efc3b1734719c8b50d57e68bd8baa18",
+      "windows_setup": "712c459ade56517e0d9714b93c1790066b3cb5b3ac4021e7b77fc17de2f8bbcc"
+    },
+    "windows_signing_status": "unsigned",
+    "catalog_total": 723,
+    "physical_test_required": 719,
+    "physical_test_eligible": 3,
+    "physical_executed": 0,
+    "install_failures": 0,
+    "uninstall_failures": 0,
+    "verify_failures": 0,
+    "ambiguous": 0,
+    "unsupported": 0,
+    "not_executed": 3,
+    "catalog_audit_pass": false,
+    "unsafe_resolution_entries": 0,
+    "catalog_safety_pass": true,
+    "license_policy_pass": false,
+    "license_policy_eligible": 3,
+    "license_policy_blocked": 717,
+    "license_unknown": 713,
+    "license_commercial": 4,
+    "license_evidence_missing": 0,
+    "physical_result_files": 0,
+    "valid_physical_results": 0,
+    "invalid_evidence": 0,
+    "mismatched_or_stale_evidence": 0,
+    "duplicate_evidence": 0,
+    "conflicting_evidence": 0,
+    "verified_install": 0,
+    "verified_uninstall": 0,
+    "verified_full": 0,
+    "verified_install_only": 0,
+    "failed_physical": 0,
+    "manual_uninstall": 1,
+    "system_component": 3,
+    "license_blocked": 716,
+    "unavailable": 0,
+    "unresolved": 3,
+    "missing_physical_evidence": 3,
+    "root_cause_counts": {
+      "LicensePolicyBlocked": 716,
+      "None": 3,
+      "SystemComponent": 3,
+      "UnsupportedAutomation": 1
+    },
+    "release_ready": false,
+    "blockers": [
+      "catalog license policy failed: blocked=717 unknown=713 commercial=4 evidence_missing=0",
+      "license-blocked packages require explicit disposition: 716",
+      "physical verification unresolved: 3",
+      "required physical evidence missing: 3"
+    ]
+  },
+  "final_status": "implementation_complete_physical_validation_pending",
+  "release_ready": false
+}

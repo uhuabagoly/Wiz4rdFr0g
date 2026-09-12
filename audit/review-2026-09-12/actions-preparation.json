@@ -1,0 +1,76 @@
+{
+  "status": "REMOTE_EXECUTION_REQUIRED",
+  "generated_at": "2026-09-12T12:41:45.2189753Z",
+  "reason": "No Git remote configured; no workflow dispatched",
+  "source_commit": "ea521521709b3003eb58cd9983901409449b8089",
+  "source_changes_committed": false,
+  "physical_jobs_executed": 0,
+  "physical_passes": 0,
+  "modified_files": [
+    ".github/workflows/windows-vm-package-test.yml",
+    "app/main_windows.go",
+    "app/vm_test_windows.go",
+    "app/package_commands.go",
+    "app/vm_checkpoint.go",
+    "app/vm_checkpoint_test.go",
+    "app/vm_independent_windows.go",
+    "app/vm_probe.go",
+    "app/vm_probe_test.go",
+    "cmd/actions-gate/main.go",
+    "cmd/campaign-plan/main.go",
+    "cmd/campaign-plan/main_test.go",
+    "cmd/evidence-check/main.go",
+    "cmd/release-gate/main.go",
+    "internal/catalog/license.go",
+    "internal/catalog/audit_test.go",
+    "internal/releasegate/evidence.go",
+    "internal/releasegate/evidence_test.go",
+    "internal/releaseproof/releaseproof.go",
+    "internal/releaseproof/document.go",
+    "internal/releaseproof/document_test.go",
+    "internal/releaseproof/physical.go",
+    "internal/releaseproof/plan.go",
+    "test/windows-vm/actions-plan.py",
+    "test/windows-vm/actions-preflight.ps1",
+    "test/windows-vm/ACTIONS.md",
+    "audit/review-2026-09-12/actions-preparation.json"
+  ],
+  "local_checks": [
+    {
+      "check": "Python AST actions-plan.py",
+      "exit_code": 0
+    },
+    {
+      "check": "PowerShell Parser actions-preflight.ps1",
+      "exit_code": 0
+    },
+    {
+      "check": "git diff --check for changed tracked source",
+      "exit_code": 0
+    },
+    {
+      "check": "Five pilot names uniquely match nonempty source IDs",
+      "exit_code": 0
+    },
+    {
+      "check": "YAML library parsing",
+      "status": "NOT_RUN_PARSER_UNAVAILABLE; workflow manually inspected"
+    }
+  ],
+  "pending_actions_checks": [
+    "go test ./... on Linux and Windows",
+    "go vet ./... on Linux and Windows",
+    "Windows cross-vet",
+    "production Windows app/installer and Linux builds",
+    "full catalog plan generation and fingerprint",
+    "empty-result negative Release Gate control",
+    "five isolated physical lifecycles",
+    "current-run signed pilot aggregation"
+  ],
+  "run_policy": "Re-run all jobs; do not reuse results or restore another job VM",
+  "limitations": [
+    "windows-latest is the approved Windows Server runner, not Windows 11 client certification",
+    "Hosted runner reboot continuation is not supported; reboot is blocking",
+    "Pilot success never means full-catalog release readiness"
+  ]
+}

@@ -1,1 +1,1 @@
-catalog_index,name,resolved_id,install_ok,install_verified,uninstall_ok,uninstall_verified,final_status,coverage_status,root_cause,failure_stage,failure,skip_reason
+catalog_index,name,resolved_id,download_retries,install_retries,uninstall_attempts,uninstall_diagnosis,install_ok,install_verified,uninstall_ok,uninstall_verified,final_status,coverage_status,root_cause,failure_stage,failure,skip_reason

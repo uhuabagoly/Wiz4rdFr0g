@@ -143,6 +143,9 @@ func LoadAndValidateResults(dir string, manifest releaseproof.BuildManifest, ent
 			continue
 		}
 		vissues := releaseproof.ValidateEvidence(r.EvidenceStatement, r.Signature, manifest, entries[r.CatalogIndex], now, key)
+		if err := releaseproof.ValidatePhysicalDocument(b, key); err != nil {
+			vissues = append(vissues, releaseproof.ValidationIssue{Code: "physical_document_invalid", Message: err.Error()})
+		}
 		if len(vissues) != 0 {
 			for _, vi := range vissues {
 				issue := Issue{Path: path, CatalogIndex: r.CatalogIndex, Code: vi.Code, Message: vi.Message}

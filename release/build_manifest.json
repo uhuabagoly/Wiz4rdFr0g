@@ -1,0 +1,38 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-09-11T08:40:13.090989896Z",
+  "app_version": "0.6.23-release-gate",
+  "git_commit": "ea521521709b3003eb58cd9983901409449b8089",
+  "catalog_fingerprint": "8406e2a5958088e72a5e1eacd5ec9a3bd053fa137e1e834c1d356924581ce5cd",
+  "evidence_schema_version": 2,
+  "build_id": "sha256:4b186baef24cdf3c868be31c5be50db735e44e7721baf925858f144ce743d38d",
+  "artifacts": {
+    "installer_payload": {
+      "path": "installer/payload/Wiz4rdFr0g.exe",
+      "sha256": "b689f091bfb972670b8f0632dfee46963efc3b1734719c8b50d57e68bd8baa18",
+      "size": 3153920
+    },
+    "linux_app": {
+      "path": "dist-linux/Wiz4rdFr0g",
+      "sha256": "f13a38d1986ad77b7d944198a592f60ff1168516c1a6f14e451ce571b16a13eb",
+      "size": 2305600
+    },
+    "linux_package": {
+      "path": "Wiz4rd_Fr0g_Linux_x64.tar.gz",
+      "sha256": "69783b688f18c4f75e0e199c319faad648d11a10cdb48ed6d2d11546208c5ba5",
+      "size": 1269618
+    },
+    "windows_app": {
+      "path": "dist/Wiz4rdFr0g.exe",
+      "sha256": "b689f091bfb972670b8f0632dfee46963efc3b1734719c8b50d57e68bd8baa18",
+      "size": 3153920
+    },
+    "windows_setup": {
+      "path": "dist/Wiz4rd_Fr0g_Setup.exe",
+      "sha256": "712c459ade56517e0d9714b93c1790066b3cb5b3ac4021e7b77fc17de2f8bbcc",
+      "size": 5373440
+    }
+  },
+  "payload_consistent": true,
+  "windows_signing_status": "unsigned"
+}

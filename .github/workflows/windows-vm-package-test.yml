@@ -1,103 +1,139 @@
 name: Windows package install-uninstall VM test
 on:
   workflow_dispatch:
-    inputs:
-      start:
-        description: Catalog start index
-        required: true
-        default: "0"
-      count:
-        description: Number of isolated package jobs, 1-25
-        required: true
-        default: "25"
+
+permissions:
+  contents: read
 
 jobs:
   plan:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     outputs:
       matrix: ${{ steps.matrix.outputs.matrix }}
     steps:
-      - id: matrix
-        shell: python
-        env:
-          START: ${{ inputs.start }}
-          COUNT: ${{ inputs.count }}
-        run: |
-          import json, os
-          start=int(os.environ['START'])
-          count=int(os.environ['COUNT'])
-          if start < 0 or count < 1 or count > 25 or start + count > 723:
-              raise SystemExit('invalid start/count')
-          with open(os.environ['GITHUB_OUTPUT'],'a',encoding='utf-8') as f:
-              f.write('matrix='+json.dumps(list(range(start,start+count)))+'\n')
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: false
+      - name: Baseline, builds, catalog plan and negative gate control
+        id: matrix
+        run: python3 test/windows-vm/actions-plan.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pilot-build-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            dist/Wiz4rdFr0g.exe
+            release/build_manifest.json
+            release/actions/baseline.json
+            release/actions/baseline-gate/
+            release/actions/pilot-indexes.json
+            test/windows-vm/physical_test_plan.json
+          retention-days: 14
 
   package-test:
     needs: plan
     runs-on: windows-latest
+    timeout-minutes: 120
     strategy:
       fail-fast: false
       max-parallel: 5
       matrix:
         index: ${{ fromJson(needs.plan.outputs.matrix) }}
+    env:
+      WIZ4RDFR0G_VM_TEST: '1'
+      WIZ4RDFR0G_VM_ID: github-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.index }}
+      WIZ4RDFR0G_TEST_RUN_ID: github-${{ github.run_id }}-${{ github.run_attempt }}
+      WIZ4RDFR0G_ENVIRONMENT_EVIDENCE: ${{ github.workspace }}/release/actions/diagnostics/${{ matrix.index }}/environment.json
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-go@v5
         with:
-          go-version: "1.23.x"
-      - name: Unit and catalog tests
-        shell: pwsh
-        run: go test ./...
-      - name: Build production Windows executable
-        shell: pwsh
-        run: |
-          New-Item -ItemType Directory -Force dist | Out-Null
-          go build -buildvcs=false -trimpath -ldflags="-H windowsgui -X main.buildGitCommit=${{ github.sha }}" -o dist/Wiz4rdFr0g.exe ./app
-      - name: Execute isolated physical package test
-        id: physical
-        shell: pwsh
-        env:
-          WIZ4RDFR0G_VM_TEST: "1"
-          WIZ4RDFR0G_VM_ID: github-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.index }}
-          WIZ4RDFR0G_TEST_RUN_ID: github-${{ github.run_id }}-${{ github.run_attempt }}
-          WIZ4RDFR0G_EVIDENCE_HMAC_KEY: ${{ secrets.WIZ4RDFR0G_EVIDENCE_HMAC_KEY }}
-        run: |
-          New-Item -ItemType Directory -Force test/windows-vm/results | Out-Null
-          $p = "test/windows-vm/results/{0:D4}.json" -f [int]"${{ matrix.index }}"
-          & .\dist\Wiz4rdFr0g.exe --vm-test-one "${{ matrix.index }}" $p
-          $code = $LASTEXITCODE
-          "exit_code=$code" >> $env:GITHUB_OUTPUT
-          if (-not (Test-Path $p)) { throw "missing result file" }
-          Get-Content $p
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: wf-package-${{ matrix.index }}
-          path: test/windows-vm/results/*.json
-      - name: Enforce physical result
-        if: always()
-        shell: pwsh
-        run: |
-          if ("${{ steps.physical.outputs.exit_code }}" -ne "0") { exit 1 }
-
-  aggregate:
-    if: always()
-    needs: package-test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
-        with:
-          go-version: "1.23.x"
+          go-version-file: go.mod
+          cache: false
       - uses: actions/download-artifact@v4
         with:
-          pattern: wf-package-*
-          path: test/windows-vm/results
-          merge-multiple: true
-      - name: Aggregate physical evidence
-        run: go run ./cmd/vm-test-report ./test/windows-vm/results
+          name: pilot-build-${{ github.run_id }}-${{ github.run_attempt }}
+          path: .
+      - name: Windows unit and static tests
+        shell: pwsh
+        run: |
+          go test ./...
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          go vet ./...
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Verify hosted runner and package sources
+        shell: pwsh
+        env:
+          WIZ4RDFR0G_EVIDENCE_HMAC_KEY: ${{ secrets.WIZ4RDFR0G_EVIDENCE_HMAC_KEY }}
+          CATALOG_INDEX: ${{ matrix.index }}
+        run: ./test/windows-vm/actions-preflight.ps1 -Index ([int]$env:CATALOG_INDEX)
+      - name: Execute one production lifecycle
+        shell: pwsh
+        env:
+          WIZ4RDFR0G_EVIDENCE_HMAC_KEY: ${{ secrets.WIZ4RDFR0G_EVIDENCE_HMAC_KEY }}
+          CATALOG_INDEX: ${{ matrix.index }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          New-Item -ItemType Directory -Force release/actions/results | Out-Null
+          $result = 'release/actions/results/{0:D4}.json' -f [int]$env:CATALOG_INDEX
+          $manifest = Get-Content release/build_manifest.json -Raw | ConvertFrom-Json
+          $hash = (Get-FileHash dist/Wiz4rdFr0g.exe -Algorithm SHA256).Hash.ToLowerInvariant()
+          if ($hash -ne $manifest.artifacts.windows_app.sha256 -or $manifest.git_commit -ne $env:GITHUB_SHA) { throw 'Artifact/commit mismatch' }
+          $process = Start-Process -FilePath ./dist/Wiz4rdFr0g.exe -ArgumentList @('--vm-test-one', $env:CATALOG_INDEX, $result) -WindowStyle Hidden -Wait -PassThru
+          if (-not (Test-Path -LiteralPath $result)) { throw 'Missing physical result' }
+          go run ./cmd/evidence-check $result release/build_manifest.json
+          if ($LASTEXITCODE -ne 0) { throw 'Invalid physical evidence' }
+          $record = Get-Content -LiteralPath $result -Raw | ConvertFrom-Json
+          if ($process.ExitCode -ne 0 -or $record.final_status -ne 'FULL_PASS') { throw "Physical test blocked/failed: $($record.final_status)" }
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: wf-batch-summary-${{ github.run_id }}-${{ github.run_attempt }}
+          name: wf-package-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.index }}
           path: |
-            test/windows-vm/results/summary.json
-            test/windows-vm/results/summary.csv
+            release/actions/results/
+            release/actions/diagnostics/
+          if-no-files-found: error
+          retention-days: 14
+
+  aggregate:
+    if: always() && needs.plan.result == 'success'
+    needs: [plan, package-test]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: pilot-build-${{ github.run_id }}-${{ github.run_attempt }}
+          path: .
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: wf-package-${{ github.run_id }}-${{ github.run_attempt }}-*
+          path: release/actions
+          merge-multiple: true
+      - name: Authenticate all five current-run physical results
+        env:
+          WIZ4RDFR0G_EVIDENCE_HMAC_KEY: ${{ secrets.WIZ4RDFR0G_EVIDENCE_HMAC_KEY }}
+          EXPECTED_RUN: github-${{ github.run_id }}-${{ github.run_attempt }}
+        run: |
+          set -o pipefail
+          go run ./cmd/actions-gate release/build_manifest.json test/windows-vm/physical_test_plan.json release/actions/pilot-indexes.json release/actions/results "$EXPECTED_RUN" 2>&1 | tee release/actions/pilot-gate.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pilot-report-${{ github.run_id }}-${{ github.run_attempt }}
+          path: release/actions/
+          retention-days: 14

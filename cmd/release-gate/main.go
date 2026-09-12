@@ -128,6 +128,9 @@ func main() {
 	if fpErr != nil {
 		report.Blockers = append(report.Blockers, "catalog fingerprint failed: "+fpErr.Error())
 	}
+	planBytes, planErr := os.ReadFile("test/windows-vm/physical_test_plan.json")
+	if planErr == nil { planErr = releaseproof.ValidateTestPlan(planBytes, auditEntries) }
+	if planErr != nil { report.Blockers = append(report.Blockers, "physical test plan invalid: "+planErr.Error()) }
 
 	manifest, manifestErr := releasegate.LoadManifest(manifestPath)
 	currentGitCommit, currentGitErr := resolveCurrentGitCommit()

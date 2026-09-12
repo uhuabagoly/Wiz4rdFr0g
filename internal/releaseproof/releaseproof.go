@@ -80,7 +80,9 @@ type ValidationIssue struct {
 }
 
 func CatalogFingerprint(entries []catalogpkg.AuditEntry) (string, error) {
-	// BuildAuditEntries is deterministic; encoding a slice of structs preserves field and item order.
+	// Sort a copy so caller iteration order cannot affect catalog identity.
+	entries = append([]catalogpkg.AuditEntry(nil), entries...)
+	sort.Slice(entries, func(i, j int) bool { return entries[i].Index < entries[j].Index })
 	b, err := json.Marshal(entries)
 	if err != nil {
 		return "", err

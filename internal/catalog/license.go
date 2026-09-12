@@ -26,6 +26,18 @@ type LicenseMetadata struct {
 // Every catalog item not listed here remains unknown and therefore release-blocking.
 // Do not infer license class from package availability, Winget presence or product name.
 var licenseOverrides = map[string]LicenseMetadata{
+	"Audacity": {
+		Class: LicenseOpenSource, SourceURL: "https://www.audacityteam.org/faq/", CheckedAt: "2026-09-12",
+		Note: "Official FAQ confirms free desktop software licensed under GNU GPL.",
+	},
+	"VLC Media Player": {
+		Class: LicenseOpenSource, SourceURL: "https://docs.videolan.me/vlc-user/desktop/3.0/en/support/faq/legalconcerns.html", CheckedAt: "2026-09-12",
+		Note: "Official VideoLAN documentation identifies GPL v2 licensing.",
+	},
+	"KeePass 2": {
+		Class: LicenseOpenSource, SourceURL: "https://keepass.info/help/v2/license.html", CheckedAt: "2026-09-12",
+		Note: "Official KeePass 2 license identifies GNU GPL v2 or later.",
+	},
 	"7-Zip": {
 		Class: LicenseOpenSource, SourceURL: "https://www.7-zip.org/", CheckedAt: "2026-09-11",
 		Note: "Official 7-Zip site states that 7-Zip is free software/open source and may be used without registration or payment.",

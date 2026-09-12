@@ -1,0 +1,44 @@
+{
+  "phase": "Phase 2 - Windows/Linux lifecycle hardening",
+  "generated_at": "2026-09-11T08:15:00.989824+00:00",
+  "git_commit": "8641d685bcd4d5bcafa5272d635a8e2f41bd8810",
+  "build_id": "sha256:795710fbb59e23669c4d0a2a3b975226f51f6ed3420bda49165f8a4db96ebc9a",
+  "windows_signing_status": "unsigned",
+  "requirements": {
+    "windows_self_uninstaller": "IMPLEMENTED_STATIC_AND_CROSS_BUILD_VERIFIED",
+    "windows_uninstall_string": "IMPLEMENTED_STATIC_VERIFIED",
+    "windows_quiet_uninstall": "IMPLEMENTED_STATIC_VERIFIED",
+    "windows_upgrade_lifecycle": "AUTOMATED_HARNESS_CREATED_NOT_EXECUTED_ON_THIS_HOST",
+    "windows_same_name_process_safety": "NATIVE_EXACT_PATH_IMPLEMENTED_HARNESS_CREATED_NOT_EXECUTED_ON_THIS_HOST",
+    "windows_cross_user_uac": "ARCHITECTURE_FIXED_PHYSICAL_ALTERNATE_ADMIN_TEST_PENDING",
+    "windows_physical_self_lifecycle": "NOT_EXECUTED_NO_WINDOWS_HOST",
+    "linux_catalog_remove": "IMPLEMENTED_EXACT_ID_WITH_PRE_AND_POST_VERIFICATION",
+    "linux_self_install_uninstall": "PASS_ISOLATED_HOME",
+    "linux_second_uninstall": "PASS",
+    "linux_checksum_tamper_block": "PASS_EXIT_5",
+    "release_build_determinism": "PASS_TWO_IDENTICAL_BUILDS",
+    "artifact_payload_consistency": "PASS",
+    "code_signing_pipeline": "READY_UNSIGNED_NO_CERTIFICATE_CONFIGURED"
+  },
+  "automated_validation": {
+    "go_test_all": "PASS",
+    "go_vet_all": "PASS",
+    "go_race_targeted": "PASS",
+    "windows_cross_vet": "PASS",
+    "windows_cross_build_app": "PASS",
+    "windows_cross_build_setup": "PASS",
+    "linux_build_diagnose": "PASS",
+    "linux_release_checksums": "PASS",
+    "release_gate_exit": 2,
+    "release_ready": false,
+    "physical_test_required": 719,
+    "missing_physical_evidence": 719,
+    "invalid_evidence": 0,
+    "mismatched_evidence": 0
+  },
+  "windows_physical_harness": "test/windows-installer/self-lifecycle.ps1",
+  "remaining_blockers": [
+    "physical verification unresolved: 719",
+    "required physical evidence missing: 719"
+  ]
+}

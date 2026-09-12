@@ -8,6 +8,7 @@ import (
 	"time"
 
 	catalogpkg "wiz4rdfr0g.local/fullcatalog/internal/catalog"
+	"wiz4rdfr0g.local/fullcatalog/internal/releaseproof"
 )
 
 type planEntry struct {
@@ -27,6 +28,7 @@ type batch struct {
 }
 
 type plan struct {
+	CatalogFingerprint string      `json:"catalog_fingerprint"`
 	GeneratedAt        string      `json:"generated_at"`
 	CatalogTotal       int         `json:"catalog_total"`
 	PhysicalCandidates int         `json:"physical_candidates"`
@@ -44,6 +46,9 @@ func buildPlan(batchSize int) plan {
 	}
 	entries := catalogpkg.BuildAuditEntries()
 	p := plan{GeneratedAt: time.Now().UTC().Format(time.RFC3339Nano), CatalogTotal: len(entries)}
+	var err error
+	p.CatalogFingerprint, err = releaseproof.CatalogFingerprint(entries)
+	if err != nil { panic(err) }
 	var eligible []int
 	for _, e := range entries {
 		disposition := "NOT_PHYSICAL"
