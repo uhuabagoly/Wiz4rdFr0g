@@ -89,6 +89,7 @@ foreach($shard in $shards){
    $row.pre_install_detection=if($platform -eq 'linux'){$r.pre_install_detection}else{$r.independent_before.state}
    $row.install_command_type=if($platform -eq 'linux'){$r.install_command_type}else{'winget'}
    $row.install_exit_code=$r.install_exit_code
+   $row.physical_started=if($platform -eq 'windows'){$r.download_exit_code -ne -999}else{$r.download_http_status -gt 0 -or $r.downloaded_bytes -gt 0 -or $null -ne $r.install_exit_code}
    $row.uninstall_mechanism=if($platform -eq 'linux'){$r.uninstall_mechanism}else{$r.detected_after_install.uninstall_strategy}
    $row.uninstall_exit_code=$r.uninstall_exit_code
    $row.independent_installed_detection=if($platform -eq 'linux'){$r.independent_detection}else{$r.independent_installed.state}
@@ -115,7 +116,8 @@ $matched|ConvertTo-Json -Depth 8|Set-Content (Join-Path $root 'runs.json')
 ConvertTo-Json -InputObject $output -Depth 10|Set-Content (Join-Path $root 'physical-validation.json')
 $output|Export-Csv (Join-Path $root 'physical-validation.csv') -NoTypeInformation -Encoding utf8
 $summary=@();foreach($platform in @('windows','linux')){$rows=@($output|Where-Object platform -eq $platform);$summary+=,[pscustomobject]@{platform=$platform;supported_apps=$rows.Count;download_pass=@($rows|Where-Object download_test -eq 'PASS').Count;install_pass=@($rows|Where-Object install_test -eq 'PASS').Count;detection_pass=@($rows|Where-Object detection_test -eq 'PASS').Count;uninstall_pass=@($rows|Where-Object uninstall_test -eq 'PASS').Count;full_lifecycle_pass=@($rows|Where-Object final_status -eq 'FULL_PASS').Count;fail=@($rows|Where-Object final_status -eq 'FAIL').Count;missing=@($rows|Where-Object final_status -eq 'MISSING').Count}}
-$gate=[ordered]@{generated_at=[DateTime]::UtcNow.ToString('o');platforms=$summary;expected_app_ids=@($expected.app_id);executed_app_ids=@($records.app_id|Sort-Object -Unique);missing_app_ids=@(($output|Where-Object final_status -eq 'MISSING').app_id);result=if(@($output|Where-Object final_status -ne 'FULL_PASS').Count){'RELEASE_GATE_FAIL'}else{'RELEASE_GATE_PASS'}}
+$executedIDs=@(($records|Where-Object physical_started).app_id|Sort-Object -Unique)
+$gate=[ordered]@{generated_at=[DateTime]::UtcNow.ToString('o');platforms=$summary;expected_app_ids=@($expected.app_id);processed_app_ids=@($records.app_id|Sort-Object -Unique);executed_app_ids=$executedIDs;fully_validated_app_ids=@(($output|Where-Object final_status -eq 'FULL_PASS').app_id);not_physically_started_app_ids=@(($expected|Where-Object {$_.app_id -notin $executedIDs}).app_id);missing_app_ids=@(($output|Where-Object final_status -eq 'MISSING').app_id);result=if(@($output|Where-Object final_status -ne 'FULL_PASS').Count){'RELEASE_GATE_FAIL'}else{'RELEASE_GATE_PASS'}}
 $gate|ConvertTo-Json -Depth 8|Set-Content (Join-Path $root 'release-gate.json')
 $summary|Format-Table
 $matched|Group-Object status,conclusion|Select-Object Name,Count
