@@ -156,7 +156,17 @@ func linuxLifecycle(index int, resultPath string) int {
 	}
 	defer os.RemoveAll(work)
 	version := "Legújabb"
-	if a.VendorDEB {
+	if a.Provider == "uv-python" {
+		proof, err := downloadManagedPython(ctx, a.Package, work)
+		for key, value := range proof {
+			r[key] = value
+		}
+		save()
+		if err != nil {
+			return fail(err)
+		}
+		version = proof["resolved_version"].(string)
+	} else if a.VendorDEB {
 		path, proof, err := prepareVeraCryptDeb(ctx, work)
 		for key, value := range proof {
 			r[key] = value
@@ -377,7 +387,18 @@ func linuxLifecycle(index int, resultPath string) int {
 	}
 	r["independent_detection"] = true
 	var binaries []string
-	if a.Provider == "apt-get" {
+	if a.Provider == "uv-python" {
+		path := strings.TrimSpace(observed)
+		info, err := os.Stat(path)
+		if err != nil || !filepath.IsAbs(path) || !info.Mode().IsRegular() || info.Mode()&0111 == 0 {
+			return fail(fmt.Errorf("managed Python executable not independently present"))
+		}
+		actual, _, err := run("INDEPENDENT_VERIFY_PYTHON_VERSION", path, "-I", "-c", "import sys; print('.'.join(map(str, sys.version_info[:3])))")
+		if err != nil || strings.TrimSpace(actual) != version {
+			return fail(fmt.Errorf("installed Python executable version mismatch: %s", actual))
+		}
+		binaries = append(binaries, path)
+	} else if a.Provider == "apt-get" {
 		files, _, err := run("VERIFY_EXECUTABLES", "dpkg-query", "-L", a.Package)
 		if err != nil {
 			return fail(err)
@@ -467,7 +488,14 @@ func linuxLifecycle(index int, resultPath string) int {
 	}
 	r["wiz4rd_removed_detection"] = true
 	observed, code, err = run("INDEPENDENT_VERIFY_REMOVED", probe.Name, probe.Args...)
-	if a.Provider == "apt-get" {
+	if a.Provider == "uv-python" {
+		inventory, _ := linuxpkg.Inventory(a.Provider)
+		output, exitCode, inventoryErr := run("INDEPENDENT_VERIFY_MANAGED_REGISTRATION_REMOVED", inventory.Name, inventory.Args...)
+		present, parseErr := linuxpkg.InventoryContains(a.Provider, a.Package, []byte(output), exitCode)
+		if inventoryErr != nil || parseErr != nil || present {
+			return fail(fmt.Errorf("managed Python registration removal not proven"))
+		}
+	} else if a.Provider == "apt-get" {
 		if !linuxpkg.DPKGRemoved(observed, code) {
 			return fail(fmt.Errorf("independent dpkg removal not proven: exit %d", code))
 		}

@@ -404,6 +404,19 @@ func resolveLinuxApps() []linuxApp {
 		out = append(out, a)
 	}
 	for _, c := range candidates {
+		if c.Name == "Python 3" {
+			// Manage an independent interpreter; the distribution's system
+			// Python is an OS dependency and is not an uninstallable app.
+			if _, err := exec.LookPath("uv"); err == nil {
+				ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+				rows, err := managedPythonDownloads(ctx)
+				cancel()
+				if selected, ok := newestManagedPython(rows); err == nil && ok {
+					add(linuxApp{linuxCandidate: c, Provider: "uv-python", Package: selected.Key, InstallPath: "uv által kezelt, külön Python-telepítés"})
+				}
+			}
+			continue
+		}
 		// These suite metapackages leave the application payload installed
 		// after apt remove. Prefer their complete, self-contained provider.
 		if c.Name == "VLC Media Player" || c.Name == "LibreOffice" {

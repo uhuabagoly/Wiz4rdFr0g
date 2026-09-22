@@ -1,6 +1,7 @@
 package linuxpkg
 
 import (
+	"encoding/json"
 	"fmt"
 	"regexp"
 	"strings"
@@ -29,7 +30,7 @@ func Validate(provider, packageID, remote, version string) error {
 		return fmt.Errorf("invalid Flatpak remote %q", remote)
 	}
 	switch provider {
-	case "apt-get", "dnf", "pacman", "zypper", "flatpak":
+	case "apt-get", "dnf", "pacman", "zypper", "flatpak", "uv-python":
 		return nil
 	default:
 		return fmt.Errorf("unsupported provider %q", provider)
@@ -41,6 +42,8 @@ func Install(provider, packageID, remote, version string) (Spec, error) {
 		return Spec{}, err
 	}
 	switch provider {
+	case "uv-python":
+		return Spec{Name: "uv", Args: []string{"--no-config", "python", "install", "--no-bin", packageID}}, nil
 	case "apt-get":
 		pkg := packageID
 		if version != "" && version != "Legújabb" {
@@ -75,6 +78,8 @@ func Remove(provider, packageID, remote string) (Spec, error) {
 		return Spec{}, err
 	}
 	switch provider {
+	case "uv-python":
+		return Spec{Name: "uv", Args: []string{"--no-config", "python", "uninstall", packageID}}, nil
 	case "apt-get":
 		return Spec{Name: "apt-get", Args: []string{"remove", "-y", packageID}, NeedsRoot: true}, nil
 	case "dnf":
@@ -94,6 +99,8 @@ func Detect(provider, packageID, remote string) (Spec, error) {
 		return Spec{}, err
 	}
 	switch provider {
+	case "uv-python":
+		return Spec{Name: "uv", Args: []string{"--no-config", "python", "find", "--managed-python", "--no-python-downloads", packageID}}, nil
 	case "apt-get":
 		return Spec{Name: "dpkg-query", Args: []string{"-W", "-f=${Status}", packageID}}, nil
 	case "dnf", "zypper":
@@ -120,6 +127,8 @@ func DetectionSuccess(provider string, output []byte, exitOK bool) bool {
 // lookup's nonzero status can also mean a broken database or denied access.
 func Inventory(provider string) (Spec, error) {
 	switch provider {
+	case "uv-python":
+		return Spec{Name: "uv", Args: []string{"--no-config", "python", "list", "--only-installed", "--managed-python", "--output-format", "json"}}, nil
 	case "apt-get":
 		return Spec{Name: "dpkg-query", Args: []string{"-W", "-f=${Package}\t${Status}\n"}}, nil
 	case "dnf", "zypper":
@@ -139,6 +148,21 @@ func InventoryContains(provider, packageID string, output []byte, exitCode int) 
 	}
 	if exitCode != 0 {
 		return false, fmt.Errorf("%s inventory failed (exit %d); installed state is unknown", provider, exitCode)
+	}
+	if provider == "uv-python" {
+		var rows []struct {
+			Key  string `json:"key"`
+			Path string `json:"path"`
+		}
+		if json.Unmarshal(output, &rows) != nil || !strings.HasPrefix(strings.TrimSpace(string(output)), "[") {
+			return false, fmt.Errorf("malformed managed Python inventory")
+		}
+		for _, row := range rows {
+			if row.Key == packageID && row.Path != "" {
+				return true, nil
+			}
+		}
+		return false, nil
 	}
 	found := false
 	for _, line := range strings.Split(strings.TrimSpace(string(output)), "\n") {

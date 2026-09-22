@@ -73,6 +73,7 @@ jobs:
           name: linux-physical-build-${{ github.run_id }}-${{ github.run_attempt }}
           path: physical
       - name: Prepare package sources on disposable runner
+        id: sources
         env:
           APP_INDEX: ${{ matrix.index }}
         run: |
@@ -81,6 +82,7 @@ jobs:
           sudo apt-get install -y flatpak libgtk-3-0
           flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
           APP_NAME=$(python3 -c 'import json,os;print(json.load(open("physical/selection.json"))["expected_apps"][int(os.environ["APP_INDEX"])] ["app_name"])')
+          echo "app_name=$APP_NAME" >> "$GITHUB_OUTPUT"
           case "$APP_NAME" in
             'pgAdmin 4')
               # Official instructions: https://www.pgadmin.org/download/pgadmin-4-apt/
@@ -102,6 +104,10 @@ jobs:
               sudo apt-get update
               ;;
           esac
+      - uses: astral-sh/setup-uv@v7
+        if: steps.sources.outputs.app_name == 'Python 3'
+        with:
+          enable-cache: false
       - name: Execute actual production lifecycle
         env:
           APP_INDEX: ${{ matrix.index }}
