@@ -98,6 +98,7 @@ type vmFilesystemProof struct {
 	Registration    registryPackage `json:"registration"`
 	RegistryKey     string          `json:"registry_key"`
 	BinaryPaths     []string        `json:"binary_paths"`
+	UpdaterPaths    []string        `json:"updater_paths,omitempty"`
 	RegistryPresent bool            `json:"registry_present"`
 	BinariesPresent bool            `json:"binaries_present"`
 	RegistryRemoved bool            `json:"registry_removed"`
@@ -147,6 +148,13 @@ func vmCaptureFilesystem(ctx context.Context, name string) (vmFilesystemProof, e
 					return err
 				}
 				lower := strings.ToLower(entry.Name())
+				// Squirrel.exe is the bundled updater, not the application payload.
+				// Require its registered Squirrel uninstall mechanism before treating
+				// it as auxiliary; preserve the observed path in the evidence.
+				if entry.Type().IsRegular() && lower == "squirrel.exe" && strings.Contains(strings.ToLower(reg.UninstallString), "update.exe") && strings.Contains(strings.ToLower(reg.UninstallString), "--uninstall") {
+					proof.UpdaterPaths = append(proof.UpdaterPaths, path)
+					return nil
+				}
 				if entry.Type().IsRegular() && strings.HasSuffix(lower, ".exe") && !strings.Contains(lower, "unins") && !strings.Contains(lower, "update") {
 					proof.BinaryPaths = append(proof.BinaryPaths, path)
 				}
