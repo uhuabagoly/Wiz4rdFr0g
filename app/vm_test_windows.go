@@ -37,6 +37,8 @@ type vmDetected struct {
 }
 
 type vmTestResult struct {
+	CampaignID           string                     `json:"campaign_id"`
+	CampaignAttempt      string                     `json:"attempt"`
 	DownloadProof        vmDownloadProof            `json:"download_proof"`
 	FilesystemProof      vmFilesystemProof          `json:"filesystem_proof"`
 	Phase                string                     `json:"phase"`
@@ -248,6 +250,8 @@ func runVMTestFromArgs() int {
 	} else {
 		result = runVMTestOne(idx, workRoot, resultPath)
 	}
+	result.CampaignID = os.Getenv("WIZ4RDFR0G_CAMPAIGN_ID")
+	result.CampaignAttempt = os.Getenv("WIZ4RDFR0G_CAMPAIGN_ATTEMPT")
 	result.Environment = environment
 	if err := os.MkdirAll(filepath.Dir(resultPath), 0755); err != nil {
 		return 93

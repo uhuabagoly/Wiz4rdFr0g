@@ -1,13 +1,20 @@
 name: Windows package install-uninstall VM test
+run-name: "Windows lifecycle | ${{ inputs.campaign_id || 'automatic' }} | attempt ${{ inputs.attempt || '1' }}"
 on:
-  push:
-    branches: [codex/physical-validation-20260922]
-    paths:
-      - app/**
-      - internal/catalog/**
-      - test/windows-vm/**
-      - .github/workflows/windows-vm-package-test.yml
   workflow_dispatch:
+    inputs:
+      indexes:
+        description: JSON catalog indexes for this shard; empty selects eligible entries
+        required: false
+        default: ''
+      campaign_id:
+        description: Parent full-catalog campaign identifier
+        required: false
+        default: ''
+      attempt:
+        description: Application attempt number
+        required: false
+        default: '1'
 
 permissions:
   contents: read
@@ -30,6 +37,8 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y libgtk-3-dev
       - name: Baseline, builds, catalog plan and negative gate control
         id: matrix
+        env:
+          REQUESTED_INDEXES: ${{ inputs.indexes }}
         run: python3 test/windows-vm/actions-plan.py
       - uses: actions/upload-artifact@v4
         if: always()
@@ -54,6 +63,8 @@ jobs:
       matrix:
         index: ${{ fromJson(needs.plan.outputs.matrix) }}
     env:
+      WIZ4RDFR0G_CAMPAIGN_ID: ${{ inputs.campaign_id }}
+      WIZ4RDFR0G_CAMPAIGN_ATTEMPT: ${{ inputs.attempt || '1' }}
       WIZ4RDFR0G_VM_TEST: '1'
       WIZ4RDFR0G_VM_ID: github-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.index }}
       WIZ4RDFR0G_TEST_RUN_ID: github-${{ github.run_id }}-${{ github.run_attempt }}

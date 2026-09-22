@@ -44,8 +44,10 @@ if len(entries) != plan["catalog_total"] or sorted(e["index"] for e in entries) 
 selected = [e["index"] for e in entries if e["execution_disposition"] == "PHYSICAL_REQUIRED"]
 if not selected:
     raise SystemExit("No eligible entries; catalog policy must be repaired before execution")
-if len(selected) > 256:
-    raise SystemExit("GitHub matrix limit exceeded; split into independent fresh-runner workflow partitions")
+if os.environ.get("REQUESTED_INDEXES"):
+    selected=json.loads(os.environ["REQUESTED_INDEXES"])
+    if not selected or len(set(selected))!=len(selected) or any(type(i)!=int or i<0 or i>=len(entries) for i in selected):
+        raise SystemExit("Invalid shard catalog indexes")
 (out / "pilot-indexes.json").write_text(json.dumps(selected), encoding="utf-8")
 with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
     output.write("matrix=" + json.dumps(selected) + "\n")

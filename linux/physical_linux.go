@@ -33,6 +33,8 @@ type physicalCommand struct {
 
 func linuxLifecycle(index int, resultPath string) int {
 	r := map[string]any{"test_run_id": os.Getenv("GITHUB_RUN_ID"), "attempt": os.Getenv("GITHUB_RUN_ATTEMPT"), "platform": "linux", "architecture": runtime.GOARCH, "git_commit": os.Getenv("GITHUB_SHA"), "catalog_index": index, "started_at": time.Now().UTC().Format(time.RFC3339Nano), "final_status": "FAIL", "failure_reason": "lifecycle did not complete", "download_real": false, "install_real": false, "independent_detection": false, "wiz4rd_detection": false, "uninstall_real": false, "independent_removed_detection": false, "wiz4rd_removed_detection": false, "download_http_status": nil, "expected_version": "", "resolved_version": "", "resolved_download_url": "", "downloaded_bytes": 0, "sha256": "", "file_validation": false, "install_exit_code": nil, "uninstall_exit_code": nil}
+	r["campaign_id"] = os.Getenv("WIZ4RDFR0G_CAMPAIGN_ID")
+	r["campaign_attempt"] = os.Getenv("WIZ4RDFR0G_CAMPAIGN_ATTEMPT")
 	var commands []physicalCommand
 	save := func() {
 		r["commands"] = commands

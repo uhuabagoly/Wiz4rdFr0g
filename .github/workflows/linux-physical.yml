@@ -1,18 +1,20 @@
 name: Linux physical catalog lifecycle
+run-name: "Linux lifecycle | ${{ inputs.campaign_id || 'automatic' }} | attempt ${{ inputs.attempt || '1' }}"
 on:
-  push:
-    branches: [codex/physical-validation-20260922]
-    paths:
-      - linux/**
-      - internal/linuxpkg/**
-      - internal/linuxcatalog/**
-      - .github/workflows/linux-physical.yml
   workflow_dispatch:
     inputs:
       indexes:
         description: JSON indexes to rerun; empty selects the entire current Linux catalog
         required: false
         default: ''
+      campaign_id:
+        description: Parent full-catalog campaign identifier
+        required: false
+        default: ''
+      attempt:
+        description: Application attempt number
+        required: false
+        default: '1'
 permissions:
   contents: read
 jobs:
@@ -78,6 +80,8 @@ jobs:
       - name: Execute actual production lifecycle
         env:
           APP_INDEX: ${{ matrix.index }}
+          WIZ4RDFR0G_CAMPAIGN_ID: ${{ inputs.campaign_id }}
+          WIZ4RDFR0G_CAMPAIGN_ATTEMPT: ${{ inputs.attempt || '1' }}
         run: |
           chmod +x physical/Wiz4rdFr0g
           mkdir -p evidence
