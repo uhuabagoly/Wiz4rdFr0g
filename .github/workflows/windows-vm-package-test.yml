@@ -1,5 +1,7 @@
 name: Windows package install-uninstall VM test
 on:
+  push:
+    branches: [codex/physical-validation-20260922]
   workflow_dispatch:
 
 permissions:
@@ -19,6 +21,8 @@ jobs:
         with:
           go-version-file: go.mod
           cache: false
+      - name: Install Linux build dependencies
+        run: sudo apt-get update && sudo apt-get install -y libgtk-3-dev
       - name: Baseline, builds, catalog plan and negative gate control
         id: matrix
         run: python3 test/windows-vm/actions-plan.py
@@ -124,7 +128,7 @@ jobs:
           pattern: wf-package-${{ github.run_id }}-${{ github.run_attempt }}-*
           path: release/actions
           merge-multiple: true
-      - name: Authenticate all five current-run physical results
+      - name: Authenticate every eligible current-run physical result
         env:
           WIZ4RDFR0G_EVIDENCE_HMAC_KEY: ${{ secrets.WIZ4RDFR0G_EVIDENCE_HMAC_KEY }}
           EXPECTED_RUN: github-${{ github.run_id }}-${{ github.run_attempt }}

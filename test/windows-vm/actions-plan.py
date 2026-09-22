@@ -1,4 +1,4 @@
-"""Actions baseline and five-element selection; never executes installers."""
+"""Actions baseline and complete eligible catalog selection; never executes installers."""
 import json
 import os
 from pathlib import Path
@@ -41,12 +41,11 @@ plan = json.loads(Path("test/windows-vm/physical_test_plan.json").read_text())
 entries = plan["entries"]
 if len(entries) != plan["catalog_total"] or sorted(e["index"] for e in entries) != list(range(len(entries))):
     raise SystemExit("Invalid catalog coverage")
-selected = []
-for name in ["Audacity", "VLC Media Player", "Krita", "Blender", "KeePass 2"]:
-    matches = [e for e in entries if e["name"] == name]
-    if len(matches) != 1 or matches[0]["execution_disposition"] != "PHYSICAL_REQUIRED" or not matches[0].get("winget_id"):
-        raise SystemExit(f"Pilot entry missing, ambiguous or not eligible: {name}")
-    selected.append(matches[0]["index"])
+selected = [e["index"] for e in entries if e["execution_disposition"] == "PHYSICAL_REQUIRED"]
+if not selected:
+    raise SystemExit("No eligible entries; catalog policy must be repaired before execution")
+if len(selected) > 256:
+    raise SystemExit("GitHub matrix limit exceeded; split into independent fresh-runner workflow partitions")
 (out / "pilot-indexes.json").write_text(json.dumps(selected), encoding="utf-8")
 with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
     output.write("matrix=" + json.dumps(selected) + "\n")

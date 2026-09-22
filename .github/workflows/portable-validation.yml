@@ -1,0 +1,55 @@
+name: Portable build validation
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: false
+      - name: Linux GTK dependencies
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libgtk-3-dev
+      - name: Unit tests and static analysis
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p release/validation
+          go test -json ./... > release/validation/tests.jsonl
+          go vet ./... 2>&1 | tee release/validation/vet.log
+          go run ./cmd/catalog-matrix -out release/validation/matrix
+      - name: Windows native binary
+        if: runner.os == 'Windows'
+        shell: bash
+        run: go build -trimpath -ldflags='-H windowsgui' -o release/validation/Wiz4rdFr0g.exe ./app
+      - name: Linux native binary and extracted artifact startup
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          set -euo pipefail
+          go build -trimpath -o release/validation/Wiz4rdFr0g ./linux
+          tar -czf release/validation/Wiz4rdFr0g-linux-x64.tar.gz -C release/validation Wiz4rdFr0g
+          temporary=$(mktemp -d)
+          tar -xzf release/validation/Wiz4rdFr0g-linux-x64.tar.gz -C "$temporary"
+          (cd "$temporary" && timeout 120s ./Wiz4rdFr0g --diagnose) > release/validation/linux-startup.log
+          ldd release/validation/Wiz4rdFr0g > release/validation/linux-libraries.log
+          sha256sum release/validation/Wiz4rdFr0g* > release/validation/SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: portable-validation-${{ runner.os }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: release/validation/
+          if-no-files-found: error
