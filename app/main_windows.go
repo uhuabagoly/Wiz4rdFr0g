@@ -961,64 +961,30 @@ func resolvePackage(name string) (string, string, error) {
 }
 
 func parseSearchRows(out string) []searchRow {
-	sep := false
 	var rows []searchRow
-	for _, raw := range strings.Split(strings.ReplaceAll(out, "\r\n", "\n"), "\n") {
-		t := strings.TrimSpace(raw)
-		if isSeparatorLine(t) {
-			sep = true
-			continue
-		}
-		if !sep || t == "" {
-			continue
-		}
-		cols := splitColsRe.Split(t, -1)
-		if len(cols) < 2 {
-			continue
-		}
-		id := strings.TrimSpace(cols[1])
-		if id == "" || strings.Contains(strings.ToLower(id), "id") {
-			continue
-		}
-		rows = append(rows, searchRow{Name: strings.TrimSpace(cols[0]), ID: id})
+	for _, cols := range wingetTableRows(out) {
+		rows = append(rows, searchRow{Name: cols[0], ID: cols[1]})
 	}
 	return rows
 }
 
 func parseInstalledPackages(out string) []installedPackage {
-	sep := false
 	var packages []installedPackage
-	for _, raw := range strings.Split(strings.ReplaceAll(out, "\r\n", "\n"), "\n") {
-		t := strings.TrimSpace(raw)
-		if isSeparatorLine(t) {
-			sep = true
-			continue
-		}
-		if !sep || t == "" {
-			continue
-		}
-		cols := splitColsRe.Split(t, -1)
-		if len(cols) < 3 {
-			continue
-		}
-		name := strings.TrimSpace(cols[0])
-		id := strings.TrimSpace(cols[1])
-		version := strings.TrimSpace(cols[2])
-		if name == "" || id == "" || version == "" {
+	for _, cols := range wingetTableRows(out) {
+		if len(cols) < 3 || cols[2] == "" {
 			continue
 		}
 		source := ""
 		if len(cols) >= 4 {
-			last := strings.ToLower(strings.TrimSpace(cols[len(cols)-1]))
+			last := strings.ToLower(cols[len(cols)-1])
 			if last == "winget" || last == "msstore" {
 				source = last
 			}
 		}
-		packages = append(packages, installedPackage{Name: name, ID: id, Version: version, Source: source})
+		packages = append(packages, installedPackage{Name: cols[0], ID: cols[1], Version: cols[2], Source: source})
 	}
 	return packages
 }
-
 func scanInstalledPrograms() {
 	var packages []installedPackage
 	if wingetOK {
