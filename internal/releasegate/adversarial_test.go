@@ -46,7 +46,12 @@ func TestAdversarialEvidenceMatrix(t *testing.T) {
 			r.CatalogAppID = "catalog-entry-sha256:" + strings.Repeat("0", 64)
 			resign(t, r, key)
 		}},
-		{name: "correct_app_identity_wrong_index", mutate: func(t *testing.T, r *Result, key []byte) { r.CatalogIndex = 1; resign(t, r, key) }},
+		{name: "correct_app_identity_wrong_index", mutate: func(t *testing.T, r *Result, key []byte) {
+			// The first eligible app changes as real license evidence is added.
+			// Always mutate the index instead of accidentally retaining index 1.
+			r.CatalogIndex = (r.CatalogIndex + 1) % len(entries)
+			resign(t, r, key)
+		}},
 		{name: "old_git_commit", mutate: func(t *testing.T, r *Result, key []byte) { r.GitCommit = strings.Repeat("c", 40); resign(t, r, key) }},
 		{name: "other_catalog_fingerprint", mutate: func(t *testing.T, r *Result, key []byte) {
 			r.CatalogFingerprint = strings.Repeat("d", 64)
