@@ -65,6 +65,18 @@ func executeInstalledUninstall(ctx context.Context, app appDef, pkg installedPac
 		}
 		return uninstallCodeFailed
 	case catalogpkg.StrategyWingetUser, catalogpkg.StrategyWingetMachine, catalogpkg.StrategyRuntimeDetect:
+		// User-scoped Winget uninstall can stall before invoking the vendor
+		// uninstaller. Prefer the exact registration's declared quiet command
+		// when available, while keeping the same standard-user context.
+		if scope == "user" {
+			if reg, ok := resolveRegistryForInstalled(app, pkg, registryPackages); ok && strings.TrimSpace(reg.QuietUninstallString) != "" {
+				workerLog("INFO", app.Name+": using the matched vendor QuietUninstallString in the owning user's context.")
+				code := uninstallAttemptCode(app, runRegisteredUninstaller(ctx, app, reg))
+				if code != uninstallCodeFailed && code != uninstallCodeUnsupported {
+					return code
+				}
+			}
+		}
 		attempt := runWingetUninstallScoped(ctx, app, pkg, true, scope)
 		code := uninstallAttemptCode(app, attempt)
 		if code == uninstallCodeOK || code == uninstallCodeRebootRequired || code == uninstallCodeRunningProcess || code == uninstallCodeNeedElevation || code == uninstallCodeWrongElevation {
