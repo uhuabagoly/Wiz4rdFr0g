@@ -17,7 +17,8 @@ if($LASTEXITCODE -ne 0){throw 'Catalog derivation failed'}
 $catalog=Get-Content (Join-Path $root 'catalog/matrix.json') -Raw|ConvertFrom-Json
 $prior=@()
 if($FailedOnlyReport){$prior=@(Get-Content -LiteralPath $FailedOnlyReport -Raw|ConvertFrom-Json)}
-$shards=@()
+$manifestPath=Join-Path $root "shards-attempt-$Attempt.json"
+$shards=if(Test-Path $manifestPath){@(Get-Content $manifestPath -Raw|ConvertFrom-Json)}else{@()}
 foreach($platform in $Platforms){
  $apps=@($catalog.rows|Where-Object platform -eq $platform)
  $indexes=@(0..($apps.Count-1))
@@ -40,14 +41,17 @@ foreach($platform in $Platforms){
   $request|ConvertTo-Json -Depth 6|Set-Content $body
   $record=[ordered]@{shard_id=$id;platform=$platform;attempt=$Attempt;workflow=$workflow;indexes=$selected;app_ids=@($selected|ForEach-Object{$apps[$_].app_id});request_file=$body;dispatch_status='NOT_DISPATCHED';dispatched_at=$null}
   $receipt=Join-Path $root "$id-attempt-$Attempt-receipt.json"
-  if(Test-Path $receipt){$existing=Get-Content $receipt -Raw|ConvertFrom-Json;if($existing.dispatch_status -eq 'DISPATCHED'){$record=$existing}}
+  if(Test-Path $receipt){$existing=Get-Content $receipt -Raw|ConvertFrom-Json;if($existing.dispatch_status -eq 'DISPATCHED'){
+   if(($existing.indexes -join ',') -cne ($selected -join ',')){throw 'This shard attempt was already dispatched with different indexes; choose a new attempt'}
+   $record=$existing
+  }}
   if($Dispatch -and $record.dispatch_status -ne 'DISPATCHED'){
    & "$PSScriptRoot/github-actions.ps1" -Endpoint "actions/workflows/$workflow/dispatches" -Method POST -BodyFile $body
    $record.dispatch_status='DISPATCHED';$record.dispatched_at=[DateTime]::UtcNow.ToString('o')
    $record|ConvertTo-Json -Depth 8|Set-Content $receipt
   }
-  $shards+=,[pscustomobject]$record
-  $shards|ConvertTo-Json -Depth 8|Set-Content (Join-Path $root "shards-attempt-$Attempt.json")
+  $shards=@($shards|Where-Object {$_.shard_id -cne $id})+@([pscustomobject]$record)
+  ConvertTo-Json -InputObject $shards -Depth 8|Set-Content $manifestPath
  }
 }
 $shards|Select-Object shard_id,dispatch_status,@{Name='apps';Expression={$_.indexes.Count}}
