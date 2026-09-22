@@ -139,12 +139,21 @@ func vmCaptureFilesystem(ctx context.Context, name string) (vmFilesystemProof, e
 	if len(proof.BinaryPaths) == 0 {
 		root := deriveRegistryInstallLocation(reg)
 		if filepath.IsAbs(root) && filepath.Clean(root) != filepath.VolumeName(root)+string(filepath.Separator) {
-			entries, _ := os.ReadDir(root)
-			for _, entry := range entries {
-				lower := strings.ToLower(entry.Name())
-				if !entry.IsDir() && strings.HasSuffix(lower, ".exe") && !strings.Contains(lower, "unins") && !strings.Contains(lower, "update") {
-					proof.BinaryPaths = append(proof.BinaryPaths, filepath.Join(root, entry.Name()))
+			err := filepath.WalkDir(root, func(path string, entry os.DirEntry, walkErr error) error {
+				if walkErr != nil {
+					return walkErr
 				}
+				if err := ctx.Err(); err != nil {
+					return err
+				}
+				lower := strings.ToLower(entry.Name())
+				if entry.Type().IsRegular() && strings.HasSuffix(lower, ".exe") && !strings.Contains(lower, "unins") && !strings.Contains(lower, "update") {
+					proof.BinaryPaths = append(proof.BinaryPaths, path)
+				}
+				return nil
+			})
+			if err != nil {
+				return proof, fmt.Errorf("inspect registered installation directory: %w", err)
 			}
 		}
 	}
