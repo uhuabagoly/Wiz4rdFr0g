@@ -20,3 +20,23 @@ func TestManagedPythonSelectionRejectsPrereleaseAndForeignSource(t *testing.T) {
 		t.Fatalf("wrong managed Python release: %+v", selected)
 	}
 }
+
+func TestManagedPythonAstralMirror(t *testing.T) {
+	const asset = "20260901/cpython-3.14.7%2B20260901-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz"
+	github := "https://github.com/astral-sh/python-build-standalone/releases/download/" + asset
+	mirror := "https://releases.astral.sh/github/python-build-standalone/releases/download/" + asset
+	if managedPythonSource(mirror) == "" || managedPythonSource(mirror) != managedPythonSource(github) {
+		t.Fatal("official mirror must identify the same release artifact")
+	}
+	for _, address := range []string{"https://releases.astral.sh.evil.invalid/github/python-build-standalone/releases/download/" + asset, "https://example.invalid/" + asset} {
+		if managedPythonSource(address) != "" {
+			t.Fatal("foreign source accepted")
+		}
+	}
+	var row managedPython
+	row.Key, row.Version, row.Implementation, row.Variant, row.URL = "cpython-3.14.7-linux-x86_64-gnu", "3.14.7", "cpython", "default", mirror
+	row.VersionParts.Major, row.VersionParts.Minor, row.VersionParts.Patch = 3, 14, 7
+	if selected, ok := newestManagedPython([]managedPython{row}); !ok || selected.Key != row.Key {
+		t.Fatal("current uv mirror release was not selected")
+	}
+}

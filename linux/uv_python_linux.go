@@ -39,10 +39,19 @@ func managedPythonDownloads(ctx context.Context) ([]managedPython, error) {
 	return rows, nil
 }
 
+func managedPythonSource(address string) string {
+	for _, prefix := range []string{"https://github.com/astral-sh/python-build-standalone/releases/download/", "https://releases.astral.sh/github/python-build-standalone/releases/download/"} {
+		if strings.HasPrefix(address, prefix) && len(address) > len(prefix) {
+			return strings.TrimPrefix(address, prefix)
+		}
+	}
+	return ""
+}
+
 func newestManagedPython(rows []managedPython) (managedPython, bool) {
 	var selected managedPython
 	for _, row := range rows {
-		if row.Implementation != "cpython" || row.VersionParts.Major != 3 || !regexp.MustCompile(`^3\.[0-9]+\.[0-9]+$`).MatchString(row.Version) || (row.Variant != "" && row.Variant != "default") || !strings.HasPrefix(row.URL, "https://github.com/astral-sh/python-build-standalone/releases/download/") {
+		if row.Implementation != "cpython" || row.VersionParts.Major != 3 || !regexp.MustCompile(`^3\.[0-9]+\.[0-9]+$`).MatchString(row.Version) || (row.Variant != "" && row.Variant != "default") || managedPythonSource(row.URL) == "" {
 			continue
 		}
 		if selected.Key == "" || row.VersionParts.Minor > selected.VersionParts.Minor || (row.VersionParts.Minor == selected.VersionParts.Minor && row.VersionParts.Patch > selected.VersionParts.Patch) {
@@ -104,11 +113,11 @@ func downloadManagedPython(ctx context.Context, key, directory string) (map[stri
 		return proof, err
 	}
 	entry, ok := metadata[key]
-	if !ok || entry.URL != selected.URL || !regexp.MustCompile(`^[a-f0-9]{64}$`).MatchString(entry.SHA256) {
+	if !ok || managedPythonSource(selected.URL) == "" || managedPythonSource(entry.URL) != managedPythonSource(selected.URL) || !regexp.MustCompile(`^[a-f0-9]{64}$`).MatchString(entry.SHA256) {
 		return proof, fmt.Errorf("Python source and installed uv release checksum disagree")
 	}
-	proof["checksum_source"], proof["expected_sha256"], proof["resolved_download_url"], proof["expected_version"], proof["resolved_version"] = metadataURL, entry.SHA256, entry.URL, selected.Version, selected.Version
-	resp, err = get(entry.URL)
+	proof["checksum_source"], proof["expected_sha256"], proof["resolved_download_url"], proof["expected_version"], proof["resolved_version"] = metadataURL, entry.SHA256, selected.URL, selected.Version, selected.Version
+	resp, err = get(selected.URL)
 	if err != nil {
 		return proof, err
 	}
