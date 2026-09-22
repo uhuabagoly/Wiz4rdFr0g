@@ -2,9 +2,11 @@ name: Windows catalog license source collection
 run-name: Windows official license sources
 on:
   workflow_dispatch:
-  push:
-    branches: [codex/physical-validation-20260922]
-    paths: [.github/workflows/windows-license-review.yml]
+    inputs:
+      indexes:
+        description: Optional JSON catalog indexes for unresolved source reruns
+        required: false
+        default: ''
 permissions:
   contents: read
 jobs:
@@ -21,6 +23,8 @@ jobs:
           go-version-file: go.mod
           cache: false
       - id: plan
+        env:
+          REQUESTED_INDEXES: ${{ inputs.indexes }}
         run: |
           mkdir -p review-build
           GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go build -o review-build/Wiz4rdFr0g.exe ./app
@@ -28,7 +32,10 @@ jobs:
           python3 - <<'PY'
           import json,os
           apps=[r for r in json.load(open('review-build/catalog/matrix.json'))['rows'] if r['platform']=='windows']
-          shards=[{'shard':i//32,'indexes':json.dumps(list(range(i,min(i+32,len(apps)))))} for i in range(0,len(apps),32)]
+          indexes=json.loads(os.environ['REQUESTED_INDEXES']) if os.environ.get('REQUESTED_INDEXES') else list(range(len(apps)))
+          if not indexes or len(set(indexes))!=len(indexes) or any(type(i)!=int or i<0 or i>=len(apps) for i in indexes):
+              raise SystemExit('Invalid source review selection')
+          shards=[{'shard':i//32,'indexes':json.dumps(indexes[i:i+32])} for i in range(0,len(indexes),32)]
           with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('shards='+json.dumps(shards)+'\n')
           PY
       - uses: actions/upload-artifact@v4

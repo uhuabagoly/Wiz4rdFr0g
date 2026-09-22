@@ -61,6 +61,17 @@ func collectLicenseSource(app appDef, index int, directory string, record map[st
 	record["package_source"] = source
 	if err != nil || id == "" || source != "winget" {
 		record["failure"] = fmt.Sprintf("exact production resolution: %v", err)
+		if id == "" {
+			// Discovery evidence only. Fuzzy candidates must be reviewed before
+			// becoming an explicit catalog identity; never install this result.
+			ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+			defer cancel()
+			output, searchErr := runWinget(ctx, "search", "--query", app.Name, "--source", "winget", "--accept-source-agreements", "--disable-interactivity")
+			record["candidate_search_output"] = output
+			if searchErr == nil {
+				record["unreviewed_candidates"] = parseSearchRows(output)
+			}
+		}
 		return
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 90*time.Second)
