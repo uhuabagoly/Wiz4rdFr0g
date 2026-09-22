@@ -10,6 +10,14 @@ func TestWingetSingleSpaceColumnsFromRealSearch(t *testing.T) {
 	}
 }
 
+func TestWingetProgressRedrawBeforeHeader(t *testing.T) {
+	output := "\r   - \r                                                                                                                        \rName        Id                           Version\r\n------------------------------------------------------\r\nMediaMonkey VentisMedia.MediaMonkey.2024 2024.1.0.3113\r\nMediaMonkey VentisMedia.MediaMonkey.4    4.1\r\n"
+	rows := wingetTableRows(output)
+	if len(rows) != 2 || rows[0][0] != "MediaMonkey" || rows[0][1] != "VentisMedia.MediaMonkey.2024" || rows[1][1] != "VentisMedia.MediaMonkey.4" {
+		t.Fatalf("progress output corrupted table identity: %#v", rows)
+	}
+}
+
 func TestWingetPaddedNamesAndOptionalColumns(t *testing.T) {
 	// Construct aligned data as Winget does, with the longest name using one gap.
 	output := "Name           Id                   Version Available Source\n------------------------------------------------------------\nAndroid Studio Google.AndroidStudio 1.0     2.0       winget\n"

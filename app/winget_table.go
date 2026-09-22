@@ -9,6 +9,11 @@ func wingetTableRows(output string) [][]string {
 	var starts []int
 	var rows [][]string
 	for _, raw := range strings.Split(strings.ReplaceAll(output, "\r\n", "\n"), "\n") {
+		// Progress redraws use a bare carriage return before the header.
+		// Only the final visible line determines table column positions.
+		if at := strings.LastIndex(raw, "\r"); at >= 0 {
+			raw = raw[at+1:]
+		}
 		line := strings.TrimSpace(raw)
 		if len(line) >= 3 && strings.Trim(line, "-") == "" {
 			starts = nil

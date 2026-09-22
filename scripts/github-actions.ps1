@@ -15,6 +15,10 @@ $tokenLine=@($credentialRecord | Where-Object {$_ -like 'password=*'})
 if($tokenLine.Count -ne 1){throw 'Existing GitHub credential is unavailable'}
 $accessToken=$tokenLine[0].Substring(9)
 try {
+ if($Method -eq 'GET'){
+  $separator=if($Endpoint.Contains('?')){'&'}else{'?'}
+  $Endpoint+=$separator+'fresh='+[DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds()
+ }
  $parameters=@{Uri=('https://api.github.com/repos/uhuabagoly/Wiz4rdFr0g/'+$Endpoint);Method=$Method;Headers=@{Authorization="Bearer $accessToken";Accept='application/vnd.github+json';'X-GitHub-Api-Version'='2022-11-28'};TimeoutSec=120}
  if($BodyFile){$parameters.Body=Get-Content -LiteralPath $BodyFile -Raw;$parameters.ContentType='application/json'}
  if($OutFile){$parameters.OutFile=$OutFile;Invoke-WebRequest @parameters|Out-Null}else{Invoke-RestMethod @parameters|ConvertTo-Json -Depth 30}
