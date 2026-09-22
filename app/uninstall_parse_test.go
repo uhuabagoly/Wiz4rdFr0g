@@ -35,6 +35,19 @@ func TestMSIProductCode(t *testing.T) {
 	}
 }
 
+func TestInnoGuidRegistrationIsNotMSI(t *testing.T) {
+	guid := "{53F49750-6209-4FBF-9CA8-7A333C87D1ED}"
+	if got := registeredMSIProductCode(`"C:\Users\runneradmin\AppData\Roaming\Telegram Desktop\unins000.exe"`, "", guid+"_is1", false); got != "" {
+		t.Fatalf("Inno uninstaller misidentified as MSI: %s", got)
+	}
+	if got := registeredMSIProductCode("MsiExec.exe /X"+guid, "", "", false); got != guid {
+		t.Fatalf("actual MSI command not recognized: %s", got)
+	}
+	if got := registeredMSIProductCode("", "", guid, true); got != guid {
+		t.Fatalf("WindowsInstaller registration not recognized: %s", got)
+	}
+}
+
 func TestWingetPortableRegisteredUninstaller(t *testing.T) {
 	exe, args, err := splitRegisteredCommandRaw("winget uninstall --product-code Kubernetes.kind_Microsoft.Winget.Source_8wekyb3d8bbwe")
 	if err != nil || exe != "winget.exe" || len(args) != 6 || args[2] != "Kubernetes.kind_Microsoft.Winget.Source_8wekyb3d8bbwe" {

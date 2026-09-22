@@ -89,3 +89,20 @@ func extractMSIProductCode(v string) string {
 	re := regexp.MustCompile(`\{[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}\}`)
 	return re.FindString(v)
 }
+
+func registeredMSIProductCode(uninstall, quiet, key string, windowsInstaller bool) string {
+	for _, command := range []string{uninstall, quiet} {
+		exe, _, err := splitRegisteredCommandRaw(command)
+		base := strings.ToLower(exe)
+		if at := strings.LastIndexAny(base, `/\`); at >= 0 {
+			base = base[at+1:]
+		}
+		if err == nil && base == "msiexec.exe" {
+			return extractMSIProductCode(command)
+		}
+	}
+	if windowsInstaller {
+		return extractMSIProductCode(key)
+	}
+	return ""
+}

@@ -17,7 +17,7 @@ func installedUninstallStrategy(app appDef, pkg installedPackage) catalogpkg.Uni
 		PackageID:        pkg.ID,
 		Scope:            pkg.Scope,
 		WindowsInstaller: pkg.WindowsInstaller,
-		MSIProductCode:   extractMSIProductCode(pkg.UninstallString+" "+pkg.QuietUninstallString+" "+pkg.RegistryKey) != "",
+		MSIProductCode:   registeredMSIProductCode(pkg.UninstallString, pkg.QuietUninstallString, pkg.RegistryKey, pkg.WindowsInstaller) != "",
 		HasUninstall:     strings.TrimSpace(pkg.QuietUninstallString) != "" || strings.TrimSpace(pkg.UninstallString) != "",
 	}
 	return decideUninstallStrategy(profile, facts)

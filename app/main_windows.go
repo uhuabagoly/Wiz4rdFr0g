@@ -1790,7 +1790,7 @@ func runRegisteredUninstaller(ctx context.Context, app appDef, reg registryPacka
 	if raw == "" {
 		return uninstallAttempt{ExitCode: -1, Err: fmt.Errorf("hiányzó uninstall parancs")}
 	}
-	if guid := extractMSIProductCode(raw + " " + reg.RegistryKey); guid != "" || reg.WindowsInstaller != 0 {
+	if guid := registeredMSIProductCode(reg.UninstallString, reg.QuietUninstallString, reg.RegistryKey, reg.WindowsInstaller != 0); guid != "" || reg.WindowsInstaller != 0 {
 		if guid == "" {
 			workerLog("WARN", app.Name+": MSI bejegyzéshez nem található ProductCode.")
 			return uninstallAttempt{ExitCode: -1, Err: fmt.Errorf("MSI ProductCode nem található")}
