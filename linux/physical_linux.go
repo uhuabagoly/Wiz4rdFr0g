@@ -155,9 +155,13 @@ func linuxLifecycle(index int, resultPath string) int {
 		if err != nil {
 			return fail(err)
 		}
-		match := regexp.MustCompile(`(?m)^'(https?://[^']+)'`).FindStringSubmatch(uris)
+		match := regexp.MustCompile(`(?m)^'([^']+)'`).FindStringSubmatch(uris)
 		if len(match) != 2 {
 			return fail(fmt.Errorf("APT did not produce an exact HTTP package URL"))
+		}
+		match[1], err = linuxpkg.ResolveAPTDownload(match[1], os.ReadFile)
+		if err != nil {
+			return fail(err)
 		}
 		r["resolved_download_url"] = match[1]
 		r["phase"] = "DOWNLOAD_REAL_FILE"

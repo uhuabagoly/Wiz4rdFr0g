@@ -361,7 +361,7 @@ func loadFlatpakSet() map[string]string {
 	if _, err := exec.LookPath("flatpak"); err != nil {
 		return out
 	}
-	b, err := exec.Command("flatpak", "remote-ls", "--columns=remote,application").Output()
+	b, err := exec.Command("flatpak", "remote-ls", "--user", "--app", "--columns=origin,application").Output()
 	if err != nil {
 		return out
 	}

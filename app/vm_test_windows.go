@@ -37,12 +37,14 @@ type vmDetected struct {
 }
 
 type vmTestResult struct {
-	Phase string `json:"phase"`
-	Environment json.RawMessage `json:"environment"`
-	IndependentBefore vmIndependentState `json:"independent_before"`
-	IndependentInstalled vmIndependentState `json:"independent_installed"`
-	IndependentRemoved vmIndependentState `json:"independent_removed"`
-	DocumentSignature string `json:"document_signature"`
+	DownloadProof        vmDownloadProof            `json:"download_proof"`
+	FilesystemProof      vmFilesystemProof          `json:"filesystem_proof"`
+	Phase                string                     `json:"phase"`
+	Environment          json.RawMessage            `json:"environment"`
+	IndependentBefore    vmIndependentState         `json:"independent_before"`
+	IndependentInstalled vmIndependentState         `json:"independent_installed"`
+	IndependentRemoved   vmIndependentState         `json:"independent_removed"`
+	DocumentSignature    string                     `json:"document_signature"`
 	SchemaVersion        int                        `json:"schema_version"`
 	BuildID              string                     `json:"build_id"`
 	AppVersion           string                     `json:"app_version"`
@@ -165,9 +167,13 @@ func attachPhysicalEvidence(r *vmTestResult) error {
 	}
 	r.Signature = sig
 	b, err := json.Marshal(r)
-	if err != nil { return err }
+	if err != nil {
+		return err
+	}
 	r.DocumentSignature, err = releaseproof.DocumentSignature(b, key)
-	if err != nil { return err }
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -181,9 +187,15 @@ func validateResumeCheckpoint(r vmTestResult, idx int) error {
 		return fmt.Errorf("invalid checkpoint catalog index")
 	}
 	b, err := json.Marshal(r)
-	if err != nil { return err }
-	if err := releaseproof.VerifyDocument(b, []byte(os.Getenv(releaseproof.EvidenceKeyEnvironment))); err != nil { return err }
-	if r.MachineID != os.Getenv("WIZ4RDFR0G_VM_ID") || r.TestRunID != os.Getenv("WIZ4RDFR0G_TEST_RUN_ID") { return fmt.Errorf("checkpoint belongs to another VM/run; start a clean test") }
+	if err != nil {
+		return err
+	}
+	if err := releaseproof.VerifyDocument(b, []byte(os.Getenv(releaseproof.EvidenceKeyEnvironment))); err != nil {
+		return err
+	}
+	if r.MachineID != os.Getenv("WIZ4RDFR0G_VM_ID") || r.TestRunID != os.Getenv("WIZ4RDFR0G_TEST_RUN_ID") {
+		return fmt.Errorf("checkpoint belongs to another VM/run; start a clean test")
+	}
 	issues := releaseproof.ValidateEvidence(r.evidenceStatement(), r.Signature, manifest, entries[idx], time.Now().UTC(), []byte(os.Getenv(releaseproof.EvidenceKeyEnvironment)))
 	if len(issues) != 0 {
 		parts := make([]string, 0, len(issues))
@@ -326,7 +338,9 @@ func resumeVMTestOne(idx int, resultPath string) vmTestResult {
 	}
 	r.InstallVerified = true
 	r.IndependentInstalled = vmIndependentProbe(r.ResolvedID, r.ResolvedSource)
-	if r.IndependentInstalled.State != "present" { return finish("INSTALL_VERIFY_FAIL") }
+	if r.IndependentInstalled.State != "present" {
+		return finish("INSTALL_VERIFY_FAIL")
+	}
 	detected, detectState := vmDetectInstalledState(app)
 	if detectState == vmDetectionAmbiguous {
 		r.FailureStage = "DETECTION_AFTER_REBOOT"
@@ -337,6 +351,14 @@ func resumeVMTestOne(idx int, resultPath string) vmTestResult {
 		r.FailureStage = "DETECTION_AFTER_REBOOT"
 		r.Failure = "production detector failed after reboot"
 		return finish("DETECTION_FAIL")
+	}
+	probeCtx, probeCancel := context.WithTimeout(context.Background(), time.Minute)
+	defer probeCancel()
+	r.FilesystemProof, err = vmCaptureFilesystem(probeCtx, detected.Name)
+	if err != nil {
+		r.FailureStage = "INDEPENDENT_FILESYSTEM"
+		r.Failure = err.Error()
+		return finish("INSTALL_VERIFY_FAIL")
 	}
 	r.DetectedAfterInstall = detected
 	if !strategyAllowsAutomaticUninstall(catalogpkg.UninstallStrategy(detected.Strategy)) {
@@ -372,7 +394,15 @@ func resumeVMTestOne(idx int, resultPath string) vmTestResult {
 	log("PASS", fmt.Sprintf("post-reboot uninstall verified after %d attempt(s)", len(uout.Attempts)))
 	r.IndependentRemoved = vmIndependentProbe(r.ResolvedID, r.ResolvedSource)
 	_, finalState := vmDetectInstalledState(app)
-	if r.IndependentRemoved.State != "absent" || finalState != vmDetectionAbsent { return finish("UNINSTALL_VERIFY_FAIL") }
+	if r.IndependentRemoved.State != "absent" || finalState != vmDetectionAbsent {
+		return finish("UNINSTALL_VERIFY_FAIL")
+	}
+	if err := vmVerifyFilesystemRemoved(uctx, &r.FilesystemProof); err != nil {
+		r.UninstallVerified = false
+		r.FailureStage = "UNINSTALL_VERIFY"
+		r.Failure = err.Error()
+		return finish("UNINSTALL_VERIFY_FAIL")
+	}
 	return finish("FULL_PASS")
 }
 
@@ -415,10 +445,16 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 		copy.DurationSeconds = time.Since(started).Seconds()
 		var err error
 		copy.Environment, err = vmActionsEnvironment(idx)
-		if err != nil { return err }
-		if err := attachPhysicalEvidence(&copy); err != nil { return err }
+		if err != nil {
+			return err
+		}
+		if err := attachPhysicalEvidence(&copy); err != nil {
+			return err
+		}
 		b, err := json.MarshalIndent(copy, "", "  ")
-		if err != nil { return err }
+		if err != nil {
+			return err
+		}
 		return vmAtomicWrite(resultPath, b)
 	}
 
@@ -512,7 +548,10 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 	dargs := []string{"download", "--id", id, "--exact", "--source", source, "--download-directory", downloadDir, "--accept-package-agreements", "--accept-source-agreements", "--disable-interactivity"}
 	dargs = append(dargs, "--version", r.ResolvedVersion)
 	log("CMD", formatCommand("winget.exe", dargs))
-	if err := checkpoint("DOWNLOAD_PENDING"); err != nil { r.Failure = err.Error(); return finish("CHECKPOINT_FAIL") }
+	if err := checkpoint("DOWNLOAD_PENDING"); err != nil {
+		r.Failure = err.Error()
+		return finish("CHECKPOINT_FAIL")
+	}
 	drun := vmRunCommandWithTransientRetry(ctx, "winget.exe", dargs, campaignRetryLimitFromEnv("WIZ4RDFR0G_PACKAGE_RETRIES", 1), nil, log)
 	dcode, dout, derr := drun.ExitCode, drun.Output, drun.Err
 	r.DownloadExitCode = dcode
@@ -528,10 +567,21 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 		log("PASS", "installer artifact downloaded and verified non-empty")
 	}
 
+	var proofErr error
+	r.DownloadProof, proofErr = vmVerifyHTTPDownload(ctx, id, source, r.ResolvedVersion, workRoot)
+	if proofErr != nil {
+		r.DownloadOK = false
+		r.FailureStage = "DOWNLOAD_VALIDATION"
+		r.Failure = proofErr.Error()
+		return finish("DOWNLOAD_FAIL")
+	}
 	iargs := packageInstallArgs(id, source)
 	iargs = append(iargs, "--version", r.ResolvedVersion)
 	log("CMD", formatCommand("winget.exe", iargs))
-	if err := checkpoint("INSTALL_PENDING"); err != nil { r.Failure = err.Error(); return finish("CHECKPOINT_FAIL") }
+	if err := checkpoint("INSTALL_PENDING"); err != nil {
+		r.Failure = err.Error()
+		return finish("CHECKPOINT_FAIL")
+	}
 	irun := vmRunCommandWithTransientRetry(ctx, "winget.exe", iargs, campaignRetryLimitFromEnv("WIZ4RDFR0G_PACKAGE_RETRIES", 1), func() bool { return !verifyProgramInstalled(app) }, log)
 	icode, iout, ierr := irun.ExitCode, irun.Output, irun.Err
 	r.InstallExitCode = icode
@@ -580,9 +630,18 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 		log("ERROR", r.Failure)
 		return finish("DETECTION_FAIL")
 	}
+	r.FilesystemProof, err = vmCaptureFilesystem(ctx, detected.Name)
+	if err != nil {
+		r.FailureStage = "INDEPENDENT_FILESYSTEM"
+		r.Failure = err.Error()
+		return finish("INSTALL_VERIFY_FAIL")
+	}
 	r.DetectedAfterInstall = detected
 	log("PASS", fmt.Sprintf("detected name=%q id=%q version=%q scope=%q strategy=%q", detected.Name, detected.ID, detected.Version, detected.Scope, detected.Strategy))
-	if err := checkpoint("INSTALL_VERIFIED"); err != nil { r.Failure = err.Error(); return finish("CHECKPOINT_FAIL") }
+	if err := checkpoint("INSTALL_VERIFIED"); err != nil {
+		r.Failure = err.Error()
+		return finish("CHECKPOINT_FAIL")
+	}
 
 	if !strategyAllowsAutomaticUninstall(catalogpkg.UninstallStrategy(detected.Strategy)) {
 		r.SkipReason = "installed instance has no safe automatic uninstall strategy"
@@ -591,7 +650,10 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 	}
 
 	r.UninstallAttempted = true
-	if err := checkpoint("UNINSTALL_PENDING"); err != nil { r.Failure = err.Error(); return finish("CHECKPOINT_FAIL") }
+	if err := checkpoint("UNINSTALL_PENDING"); err != nil {
+		r.Failure = err.Error()
+		return finish("CHECKPOINT_FAIL")
+	}
 	uctx, ucancel := context.WithTimeout(context.Background(), campaignDurationFromEnv("WIZ4RDFR0G_UNINSTALL_TOTAL_TIMEOUT_MINUTES", 55*time.Minute, 5*time.Minute, 180*time.Minute))
 	defer ucancel()
 	uout := vmExecuteUninstallWithRepair(uctx, app, detected, log)
@@ -628,6 +690,12 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 		r.UninstallVerified = false
 		r.FailureStage = "UNINSTALL_VERIFY"
 		r.Failure = "both detectors must confirm absence"
+		return finish("UNINSTALL_VERIFY_FAIL")
+	}
+	if err := vmVerifyFilesystemRemoved(uctx, &r.FilesystemProof); err != nil {
+		r.UninstallVerified = false
+		r.FailureStage = "UNINSTALL_VERIFY"
+		r.Failure = err.Error()
 		return finish("UNINSTALL_VERIFY_FAIL")
 	}
 	return finish("FULL_PASS")

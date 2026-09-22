@@ -52,20 +52,32 @@ func writeResult(t *testing.T, dir, name string, r Result) {
 	}
 	// Synthetic unit-test fixture only; these files never enter physical output.
 	var doc map[string]any
-	if err := json.Unmarshal(b, &doc); err != nil { t.Fatal(err) }
+	if err := json.Unmarshal(b, &doc); err != nil {
+		t.Fatal(err)
+	}
 	doc["executor"] = "github-actions/windows"
 	doc["precheck"] = "CLEAN"
 	doc["resolved_id"] = "Unit.Fixture"
 	doc["download_ok"], doc["install_ok"], doc["uninstall_ok"], doc["uninstall_attempted"] = true, true, true, true
 	doc["download_artifact_present"] = true
-	doc["environment"] = map[string]any{"status":"READY", "runner_environment":"github-hosted", "architecture":"X64", "windows_version":"unit fixture", "git_commit":r.GitCommit, "vm_id":r.MachineID}
-	doc["independent_before"] = map[string]any{"id":"Unit.Fixture", "state":"absent", "exit_code":-1978335212}
-	doc["independent_installed"] = map[string]any{"id":"Unit.Fixture", "state":"present", "exit_code":0}
-	doc["independent_removed"] = map[string]any{"id":"Unit.Fixture", "state":"absent", "exit_code":-1978335212}
-	b, err = json.Marshal(doc); if err != nil { t.Fatal(err) }
-	doc["document_signature"], err = releaseproof.DocumentSignature(b, []byte(strings.Repeat("k",32)))
-	if err != nil { t.Fatal(err) }
-	b, err = json.Marshal(doc); if err != nil { t.Fatal(err) }
+	doc["download_proof"] = map[string]any{"resolved_download_url": "https://unit.invalid/fixture.exe", "download_http_status": 200, "downloaded_bytes": 123, "sha256": strings.Repeat("a", 64), "expected_sha256": strings.Repeat("a", 64), "file_validation": true}
+	doc["filesystem_proof"] = map[string]any{"registry_key": "HKLM\\UnitFixture", "binary_paths": []string{"C:\\UnitFixture.exe"}, "registry_present": true, "binaries_present": true, "registry_removed": true, "binaries_removed": true}
+	doc["environment"] = map[string]any{"status": "READY", "runner_environment": "github-hosted", "architecture": "X64", "windows_version": "unit fixture", "git_commit": r.GitCommit, "vm_id": r.MachineID}
+	doc["independent_before"] = map[string]any{"id": "Unit.Fixture", "state": "absent", "exit_code": -1978335212}
+	doc["independent_installed"] = map[string]any{"id": "Unit.Fixture", "state": "present", "exit_code": 0}
+	doc["independent_removed"] = map[string]any{"id": "Unit.Fixture", "state": "absent", "exit_code": -1978335212}
+	b, err = json.Marshal(doc)
+	if err != nil {
+		t.Fatal(err)
+	}
+	doc["document_signature"], err = releaseproof.DocumentSignature(b, []byte(strings.Repeat("k", 32)))
+	if err != nil {
+		t.Fatal(err)
+	}
+	b, err = json.Marshal(doc)
+	if err != nil {
+		t.Fatal(err)
+	}
 	if err := os.WriteFile(filepath.Join(dir, name), b, 0644); err != nil {
 		t.Fatal(err)
 	}
