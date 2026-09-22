@@ -1,4 +1,4 @@
-param([Parameter(Mandatory=$true)][string]$Campaign,[string]$Ref='codex/physical-validation-20260922',[switch]$Download)
+param([Parameter(Mandatory=$true)][string]$Campaign,[string]$Ref='codex/physical-validation-20260922',[switch]$Download,[long[]]$RefreshRuns)
 $ErrorActionPreference='Stop'
 if($Campaign -notmatch '^[A-Za-z0-9_-]+$'){throw 'Invalid campaign'}
 $root=Join-Path 'release/physical-campaigns' $Campaign
@@ -17,14 +17,15 @@ foreach($shard in $shards){
  if(-not $run){continue}
  $matched+=,[pscustomobject]@{shard=$shard.shard_id;attempt=$shard.attempt;run_id=$run.id;url=$run.html_url;status=$run.status;conclusion=$run.conclusion;commit=$run.head_sha}
  $folder=Join-Path $root "runs/$($run.id)"
+ $refresh=$Download -and (-not $RefreshRuns.Count -or $run.id -in $RefreshRuns)
  New-Item -ItemType Directory -Force $folder|Out-Null
  $jobsPath=Join-Path $folder 'ci-jobs.json'
- if($Download -or -not(Test-Path $jobsPath)){
+ if($refresh -or -not(Test-Path $jobsPath)){
   $jobRaw=& "$PSScriptRoot/github-actions.ps1" -Endpoint "actions/runs/$($run.id)/jobs?per_page=100"
   $jobRaw|Set-Content $jobsPath
  }
  $jobs=@((Get-Content $jobsPath -Raw|ConvertFrom-Json).jobs)
- if($Download -and -not(Test-Path (Join-Path $folder 'download-complete'))){
+ if($refresh -and -not(Test-Path (Join-Path $folder 'download-complete'))){
   $artifactRaw=& "$PSScriptRoot/github-actions.ps1" -Endpoint "actions/runs/$($run.id)/artifacts?per_page=100"
   $artifacts=@(($artifactRaw|ConvertFrom-Json).artifacts)
   $reportArtifacts=@($artifacts|Where-Object{$_.name -like 'pilot-report-*' -or $_.name -like 'linux-physical-report-*'})

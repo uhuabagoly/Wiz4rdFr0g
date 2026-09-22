@@ -384,7 +384,37 @@ func linuxLifecycle(index int, resultPath string) int {
 		if err != nil {
 			return fail(err)
 		}
-		binaries = append(binaries, strings.TrimSpace(location))
+		deployment := strings.TrimSpace(location)
+		metadata, _, err := run("VERIFY_EXECUTABLE_METADATA", "flatpak", "info", "--user", "--show-metadata", a.Package)
+		if err != nil {
+			return fail(err)
+		}
+		application := false
+		command := ""
+		for _, line := range strings.Split(metadata, "\n") {
+			line = strings.TrimSpace(line)
+			if strings.HasPrefix(line, "[") {
+				application = line == "[Application]"
+				continue
+			}
+			if application && strings.HasPrefix(line, "command=") {
+				command = strings.TrimPrefix(line, "command=")
+			}
+		}
+		var executable string
+		if strings.HasPrefix(command, "/app/") {
+			executable = filepath.Join(deployment, "files", strings.TrimPrefix(command, "/app/"))
+		} else if command != "" && !strings.Contains(command, "/") {
+			executable = filepath.Join(deployment, "files", "bin", command)
+		}
+		if !filepath.IsAbs(deployment) || executable == "" {
+			return fail(fmt.Errorf("Flatpak application command/deployment not independently resolved"))
+		}
+		info, err := os.Stat(executable)
+		if err != nil || !info.Mode().IsRegular() || info.Mode()&0111 == 0 {
+			return fail(fmt.Errorf("Flatpak declared executable not present: %s", executable))
+		}
+		binaries = append(binaries, deployment, executable)
 		installedCommit, _, err := run("VERIFY_VERSION", "flatpak", "info", "--user", "--show-commit", a.Package)
 		if err != nil {
 			return fail(err)

@@ -20,7 +20,7 @@ var Candidates = []Candidate{
 	{"Telegram Desktop", "Kommunikáció", []string{"telegram-desktop"}, []string{"telegram-desktop"}, []string{"telegram-desktop"}, []string{"telegram-desktop"}, []string{"org.telegram.desktop"}},
 	{"Signal Desktop", "Kommunikáció", nil, nil, nil, nil, []string{"org.signal.Signal"}},
 	{"Element", "Kommunikáció", nil, nil, nil, nil, []string{"im.riot.Riot"}},
-	{"Mozilla Thunderbird", "Kommunikáció", []string{"thunderbird"}, []string{"thunderbird"}, []string{"thunderbird"}, []string{"MozillaThunderbird"}, []string{"org.mozilla.Thunderbird"}},
+	{"Mozilla Thunderbird", "Kommunikáció", []string{"thunderbird"}, []string{"thunderbird"}, []string{"thunderbird"}, []string{"MozillaThunderbird"}, []string{"net.thunderbird.Thunderbird", "org.mozilla.Thunderbird"}},
 	{"Pidgin", "Kommunikáció", []string{"pidgin"}, []string{"pidgin"}, []string{"pidgin"}, []string{"pidgin"}, []string{"im.pidgin.Pidgin"}},
 
 	{"VLC Media Player", "Média", []string{"vlc"}, []string{"vlc"}, []string{"vlc"}, []string{"vlc"}, []string{"org.videolan.VLC"}},
@@ -73,7 +73,7 @@ var Candidates = []Candidate{
 	{"IntelliJ IDEA Community", "Fejlesztés", nil, nil, nil, nil, []string{"com.jetbrains.IntelliJ-IDEA-Community"}},
 	{"DBeaver Community", "Fejlesztés / Adatbázis", []string{"dbeaver-ce"}, []string{"dbeaver"}, []string{"dbeaver"}, nil, []string{"io.dbeaver.DBeaverCommunity"}},
 	{"SQLite Browser", "Fejlesztés / Adatbázis", []string{"sqlitebrowser"}, []string{"sqlitebrowser"}, []string{"sqlitebrowser"}, []string{"sqlitebrowser"}, []string{"org.sqlitebrowser.sqlitebrowser"}},
-	{"pgAdmin 4", "Fejlesztés / Adatbázis", []string{"pgadmin4"}, []string{"pgadmin4"}, nil, nil, nil},
+	{"pgAdmin 4", "Fejlesztés / Adatbázis", []string{"pgadmin4-desktop", "pgadmin4"}, []string{"pgadmin4"}, nil, nil, nil},
 	{"PostgreSQL", "Adatbázis", []string{"postgresql"}, []string{"postgresql-server"}, []string{"postgresql"}, []string{"postgresql-server"}, nil},
 	{"MariaDB", "Adatbázis", []string{"mariadb-server"}, []string{"mariadb-server"}, []string{"mariadb"}, []string{"mariadb"}, nil},
 	{"SQLite", "Adatbázis", []string{"sqlite3"}, []string{"sqlite"}, []string{"sqlite"}, []string{"sqlite3"}, nil},
