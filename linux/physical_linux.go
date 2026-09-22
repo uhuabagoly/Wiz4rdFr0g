@@ -156,7 +156,18 @@ func linuxLifecycle(index int, resultPath string) int {
 	}
 	defer os.RemoveAll(work)
 	version := "Legújabb"
-	if a.Provider == "apt-get" {
+	if a.VendorDEB {
+		path, proof, err := prepareVeraCryptDeb(ctx, work)
+		for key, value := range proof {
+			r[key] = value
+		}
+		save()
+		if err != nil {
+			return fail(err)
+		}
+		a.PackageFile = path
+		version = proof["resolved_version"].(string)
+	} else if a.Provider == "apt-get" {
 		policy, _, err := run("RESOLVE_VERSION", "apt-cache", "policy", a.Package)
 		if err != nil {
 			return fail(err)

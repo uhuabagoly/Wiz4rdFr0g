@@ -125,6 +125,8 @@ type linuxApp struct {
 	Package       string
 	FlatpakRemote string
 	InstallPath   string
+	VendorDEB     bool
+	PackageFile   string
 }
 
 type rowUI struct {
@@ -448,6 +450,12 @@ func resolveLinuxApps() []linuxApp {
 			}
 			if !transitional {
 				add(linuxApp{linuxCandidate: c, Provider: packageManager, Package: p, InstallPath: "Rendszer által kezelt (/usr, /opt, ... )"})
+				continue
+			}
+		}
+		if c.Name == "VeraCrypt" && packageManager == "apt-get" {
+			if _, err := veraCryptPlatform(); err == nil {
+				add(linuxApp{linuxCandidate: c, Provider: "apt-get", Package: "veracrypt", VendorDEB: true, InstallPath: "Hivatalos, PGP-ellenőrzött VeraCrypt DEB"})
 				continue
 			}
 		}
@@ -930,6 +938,26 @@ func privilegedCommand(args ...string) ([]string, string) {
 func operationSpec(a linuxApp, version string, remove bool) (linuxpkg.Spec, error) {
 	if remove {
 		return linuxpkg.Remove(a.Provider, a.Package, a.FlatpakRemote)
+	}
+	if a.VendorDEB {
+		if a.Name != "VeraCrypt" || a.Package != "veracrypt" || a.Provider != "apt-get" {
+			return linuxpkg.Spec{}, fmt.Errorf("unsupported vendor DEB identity")
+		}
+		path := a.PackageFile
+		if path == "" {
+			directory, err := os.MkdirTemp("", "Wiz4rdFr0g-veracrypt-")
+			if err != nil {
+				return linuxpkg.Spec{}, err
+			}
+			ctx, cancel := context.WithTimeout(context.Background(), 20*time.Minute)
+			defer cancel()
+			path, _, err = prepareVeraCryptDeb(ctx, directory)
+			if err != nil {
+				os.RemoveAll(directory)
+				return linuxpkg.Spec{}, err
+			}
+		}
+		return linuxpkg.Spec{Name: "apt-get", Args: []string{"install", "-y", path}, NeedsRoot: true}, nil
 	}
 	return linuxpkg.Install(a.Provider, a.Package, a.FlatpakRemote, version)
 }
