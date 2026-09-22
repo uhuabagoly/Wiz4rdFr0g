@@ -13,7 +13,7 @@ while($true){
 $matched=@();$records=@();$failures=@()
 foreach($shard in $shards){
  $titlePart='| '+$shard.shard_id+' | attempt '+$shard.attempt
- $run=$allRuns|Where-Object{$_.display_title.Contains($titlePart)}|Sort-Object created_at -Descending|Select-Object -First 1
+ $run=$allRuns|Where-Object{$_.display_title.EndsWith($titlePart,[StringComparison]::Ordinal)}|Sort-Object created_at -Descending|Select-Object -First 1
  if(-not $run){continue}
  $matched+=,[pscustomobject]@{shard=$shard.shard_id;attempt=$shard.attempt;run_id=$run.id;url=$run.html_url;status=$run.status;conclusion=$run.conclusion;commit=$run.head_sha}
  $folder=Join-Path $root "runs/$($run.id)"
