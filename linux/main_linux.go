@@ -91,6 +91,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"sort"
 	"strings"
 	"sync"
@@ -251,6 +252,13 @@ func goClicked(id C.int) {
 }
 
 func main() {
+	if len(os.Args) >= 3 && os.Args[1] == "--vendor-ollama" {
+		if err := ollamaWorker(os.Args[2:]); err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+		return
+	}
 	if len(os.Args) == 4 && os.Args[1] == "--physical-test" {
 		os.Exit(linuxLifecycleArgs())
 	}
@@ -404,6 +412,12 @@ func resolveLinuxApps() []linuxApp {
 		out = append(out, a)
 	}
 	for _, c := range candidates {
+		if c.Name == "Ollama" {
+			if _, err := exec.LookPath("systemctl"); err == nil && (runtime.GOARCH == "amd64" || runtime.GOARCH == "arm64") {
+				add(linuxApp{linuxCandidate: c, Provider: "ollama-vendor", Package: "ollama", InstallPath: "Hivatalos Ollama csomag (/usr/local), systemd szolgáltatás"})
+			}
+			continue
+		}
 		if c.Name == "Python 3" {
 			// Manage an independent interpreter; the distribution's system
 			// Python is an OS dependency and is not an uninstallable app.
@@ -949,6 +963,32 @@ func privilegedCommand(args ...string) ([]string, string) {
 }
 
 func operationSpec(a linuxApp, version string, remove bool) (linuxpkg.Spec, error) {
+	if a.Provider == "ollama-vendor" && a.Name == "Ollama" && a.Package == "ollama" {
+		self, err := os.Executable()
+		if err != nil {
+			return linuxpkg.Spec{}, err
+		}
+		if remove {
+			return linuxpkg.Spec{Name: self, Args: []string{"--vendor-ollama", "remove"}, NeedsRoot: true}, nil
+		}
+		path := a.PackageFile
+		if path == "" {
+			directory, err := os.MkdirTemp("", "Wiz4rdFr0g-ollama-")
+			if err != nil {
+				return linuxpkg.Spec{}, err
+			}
+			ctx, cancel := context.WithTimeout(context.Background(), 30*time.Minute)
+			defer cancel()
+			var proof map[string]any
+			path, proof, err = downloadOllama(ctx, directory, version)
+			if err != nil {
+				os.RemoveAll(directory)
+				return linuxpkg.Spec{}, err
+			}
+			version = proof["resolved_version"].(string)
+		}
+		return linuxpkg.Spec{Name: self, Args: []string{"--vendor-ollama", "install", path, version}, NeedsRoot: true}, nil
+	}
 	if remove {
 		return linuxpkg.Remove(a.Provider, a.Package, a.FlatpakRemote)
 	}
@@ -984,6 +1024,9 @@ func executableSpec(spec linuxpkg.Spec) ([]string, string) {
 }
 
 func isInstalledExact(ctx context.Context, a linuxApp) (bool, error) {
+	if a.Provider == "ollama-vendor" && a.Package == "ollama" {
+		return ollamaInstalled()
+	}
 	if err := linuxpkg.Validate(a.Provider, a.Package, a.FlatpakRemote, ""); err != nil {
 		return false, err
 	}

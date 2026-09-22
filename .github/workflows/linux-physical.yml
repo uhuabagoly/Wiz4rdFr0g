@@ -84,6 +84,9 @@ jobs:
           APP_NAME=$(python3 -c 'import json,os;print(json.load(open("physical/selection.json"))["expected_apps"][int(os.environ["APP_INDEX"])] ["app_name"])')
           echo "app_name=$APP_NAME" >> "$GITHUB_OUTPUT"
           case "$APP_NAME" in
+            Ollama)
+              sudo apt-get install -y zstd
+              ;;
             'pgAdmin 4')
               # Official instructions: https://www.pgadmin.org/download/pgadmin-4-apt/
               curl -fsS https://www.pgadmin.org/static/packages_pgadmin_org.pub -o "$RUNNER_TEMP/pgadmin.pub"

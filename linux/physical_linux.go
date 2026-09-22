@@ -156,7 +156,18 @@ func linuxLifecycle(index int, resultPath string) int {
 	}
 	defer os.RemoveAll(work)
 	version := "Legújabb"
-	if a.Provider == "uv-python" {
+	if a.Provider == "ollama-vendor" {
+		path, proof, err := downloadOllama(ctx, work, version)
+		for key, value := range proof {
+			r[key] = value
+		}
+		save()
+		if err != nil {
+			return fail(err)
+		}
+		a.PackageFile = path
+		version = proof["resolved_version"].(string)
+	} else if a.Provider == "uv-python" {
 		proof, err := downloadManagedPython(ctx, a.Package, work)
 		for key, value := range proof {
 			r[key] = value
@@ -375,6 +386,10 @@ func linuxLifecycle(index int, resultPath string) int {
 	}
 	r["wiz4rd_detection"] = true
 	probe, err := linuxpkg.Detect(a.Provider, a.Package, a.FlatpakRemote)
+	if a.Provider == "ollama-vendor" {
+		probe = linuxpkg.Spec{Name: "systemctl", Args: []string{"is-active", "ollama.service"}}
+		err = nil
+	}
 	if err != nil {
 		return fail(err)
 	}
@@ -387,7 +402,17 @@ func linuxLifecycle(index int, resultPath string) int {
 	}
 	r["independent_detection"] = true
 	var binaries []string
-	if a.Provider == "uv-python" {
+	if a.Provider == "ollama-vendor" {
+		info, err := os.Stat(ollamaBinary)
+		if err != nil || !info.Mode().IsRegular() || info.Mode()&0111 == 0 {
+			return fail(fmt.Errorf("Ollama main executable missing"))
+		}
+		actual, _, err := run("INDEPENDENT_VERIFY_OLLAMA_VERSION", ollamaBinary, "--version")
+		if err != nil || !strings.Contains(actual, version) {
+			return fail(fmt.Errorf("Ollama binary/service version mismatch: %s", actual))
+		}
+		binaries = append(binaries, ollamaBinary, ollamaLibraries, ollamaUnit)
+	} else if a.Provider == "uv-python" {
 		path := strings.TrimSpace(observed)
 		info, err := os.Stat(path)
 		if err != nil || !filepath.IsAbs(path) || !info.Mode().IsRegular() || info.Mode()&0111 == 0 {
@@ -488,7 +513,16 @@ func linuxLifecycle(index int, resultPath string) int {
 	}
 	r["wiz4rd_removed_detection"] = true
 	observed, code, err = run("INDEPENDENT_VERIFY_REMOVED", probe.Name, probe.Args...)
-	if a.Provider == "uv-python" {
+	if a.Provider == "ollama-vendor" {
+		state, exitCode, stateErr := run("INDEPENDENT_VERIFY_SERVICE_REMOVED", "systemctl", "show", "-p", "LoadState", "--value", "ollama.service")
+		if stateErr != nil || exitCode != 0 || strings.TrimSpace(state) != "not-found" {
+			return fail(fmt.Errorf("Ollama systemd registration still present: %s", state))
+		}
+		_, accountCode, _ := run("INDEPENDENT_VERIFY_SERVICE_ACCOUNT_REMOVED", "getent", "passwd", "ollama")
+		if accountCode != 2 {
+			return fail(fmt.Errorf("Ollama service account absence not proven"))
+		}
+	} else if a.Provider == "uv-python" {
 		inventory, _ := linuxpkg.Inventory(a.Provider)
 		output, exitCode, inventoryErr := run("INDEPENDENT_VERIFY_MANAGED_REGISTRATION_REMOVED", inventory.Name, inventory.Args...)
 		present, parseErr := linuxpkg.InventoryContains(a.Provider, a.Package, []byte(output), exitCode)
