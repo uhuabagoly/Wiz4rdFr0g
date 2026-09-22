@@ -20,7 +20,8 @@ var Candidates = []Candidate{
 	{"Telegram Desktop", "Kommunikáció", []string{"telegram-desktop"}, []string{"telegram-desktop"}, []string{"telegram-desktop"}, []string{"telegram-desktop"}, []string{"org.telegram.desktop"}},
 	{"Signal Desktop", "Kommunikáció", nil, nil, nil, nil, []string{"org.signal.Signal"}},
 	{"Element", "Kommunikáció", nil, nil, nil, nil, []string{"im.riot.Riot"}},
-	{"Mozilla Thunderbird", "Kommunikáció", []string{"thunderbird"}, []string{"thunderbird"}, []string{"thunderbird"}, []string{"MozillaThunderbird"}, []string{"net.thunderbird.Thunderbird", "org.mozilla.Thunderbird"}},
+	// Current publisher-verified ref: https://flathub.org/apps/org.mozilla.thunderbird
+	{"Mozilla Thunderbird", "Kommunikáció", []string{"thunderbird"}, []string{"thunderbird"}, []string{"thunderbird"}, []string{"MozillaThunderbird"}, []string{"org.mozilla.thunderbird"}},
 	{"Pidgin", "Kommunikáció", []string{"pidgin"}, []string{"pidgin"}, []string{"pidgin"}, []string{"pidgin"}, []string{"im.pidgin.Pidgin"}},
 
 	{"VLC Media Player", "Média", []string{"vlc"}, []string{"vlc"}, []string{"vlc"}, []string{"vlc"}, []string{"org.videolan.VLC"}},
