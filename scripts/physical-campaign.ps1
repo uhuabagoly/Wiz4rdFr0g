@@ -5,6 +5,7 @@ param(
  [ValidateRange(1,1000)][int]$Attempt=1,
  [string]$FailedOnlyReport,
  [ValidateSet('windows','linux')][string[]]$Platforms=@('windows','linux'),
+ [int[]]$SelectedIndexes,
  [switch]$Dispatch
 )
 $ErrorActionPreference='Stop'
@@ -20,6 +21,10 @@ $shards=@()
 foreach($platform in $Platforms){
  $apps=@($catalog.rows|Where-Object platform -eq $platform)
  $indexes=@(0..($apps.Count-1))
+ if($PSBoundParameters.ContainsKey('SelectedIndexes')){
+  if($Platforms.Count -ne 1 -or $SelectedIndexes.Count -eq 0 -or @($SelectedIndexes|Sort-Object -Unique).Count -ne $SelectedIndexes.Count -or @($SelectedIndexes|Where-Object {$_ -lt 0 -or $_ -ge $apps.Count}).Count){throw 'Explicit indexes require one platform and unique valid catalog indexes'}
+  $indexes=@($SelectedIndexes)
+ }
  if($FailedOnlyReport){
   $passed=@{};foreach($row in $prior){if($row.platform -eq $platform -and $row.final_status -eq 'FULL_PASS'){$passed[$row.app_id]=$true}}
   $indexes=@($indexes|Where-Object {-not $passed.ContainsKey($apps[$_].app_id)})
