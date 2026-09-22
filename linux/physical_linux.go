@@ -132,11 +132,14 @@ func linuxLifecycle(index int, resultPath string) int {
 	defer os.RemoveAll(work)
 	version := "Legújabb"
 	if a.Provider == "apt-get" {
-		versions := loadVersions(a)
-		if len(versions) == 0 {
-			return fail(fmt.Errorf("no production version resolved"))
+		policy, _, err := run("RESOLVE_VERSION", "apt-cache", "policy", a.Package)
+		if err != nil {
+			return fail(err)
 		}
-		version = versions[0]
+		version, err = linuxpkg.APTCandidate(policy)
+		if err != nil {
+			return fail(err)
+		}
 		r["expected_version"] = version
 		r["resolved_version"] = version
 		metadata, _, err := run("RESOLVE_VERSION", "apt-cache", "show", a.Package+"="+version)
@@ -212,6 +215,15 @@ func linuxLifecycle(index int, resultPath string) int {
 		r["file_validation"] = true
 		r["download_real"] = true
 	} else if a.Provider == "flatpak" {
+		ref, _, err := run("RESOLVE_REF", "flatpak", "remote-info", "--user", "--show-ref", a.FlatpakRemote, a.Package)
+		if err != nil {
+			return fail(err)
+		}
+		refParts := strings.Split(strings.TrimSpace(ref), "/")
+		if len(refParts) != 4 || refParts[0] != "app" || refParts[1] != a.Package {
+			return fail(fmt.Errorf("Flatpak exact application ref not resolved"))
+		}
+		r["resolved_ref"] = strings.TrimSpace(ref)
 		commit, _, err := run("RESOLVE_VERSION", "flatpak", "remote-info", "--user", "--show-commit", a.FlatpakRemote, a.Package)
 		if err != nil {
 			return fail(err)
@@ -237,7 +249,7 @@ func linuxLifecycle(index int, resultPath string) int {
 			return fail(err)
 		}
 		bundle := filepath.Join(work, "application.flatpak")
-		_, _, err = run("VERIFY_FILE", "flatpak", "build-bundle", filepath.Join(home, ".local/share/flatpak/repo"), bundle, a.Package)
+		_, _, err = run("VERIFY_FILE", "flatpak", "build-bundle", "--arch="+refParts[2], filepath.Join(home, ".local/share/flatpak/repo"), bundle, a.Package, refParts[3])
 		if err != nil {
 			return fail(err)
 		}
@@ -302,7 +314,7 @@ func linuxLifecycle(index int, resultPath string) int {
 			return fail(err)
 		}
 		for _, path := range strings.Split(files, "\n") {
-			if strings.HasPrefix(path, "/usr/bin/") || strings.HasPrefix(path, "/usr/games/") || strings.HasPrefix(path, "/opt/") {
+			if strings.HasPrefix(path, "/usr/bin/") || strings.HasPrefix(path, "/usr/sbin/") || strings.HasPrefix(path, "/usr/games/") || strings.HasPrefix(path, "/opt/") {
 				info, e := os.Stat(path)
 				if e == nil && info.Mode().IsRegular() && info.Mode()&0111 != 0 {
 					binaries = append(binaries, path)
@@ -340,7 +352,7 @@ func linuxLifecycle(index int, resultPath string) int {
 	r["wiz4rd_removed_detection"] = true
 	observed, code, err = run("INDEPENDENT_VERIFY_REMOVED", probe.Name, probe.Args...)
 	if a.Provider == "apt-get" {
-		if !(code == 1 || (code == 0 && strings.TrimSpace(observed) == "deinstall ok config-files")) {
+		if !linuxpkg.DPKGRemoved(observed, code) {
 			return fail(fmt.Errorf("independent dpkg removal not proven: exit %d", code))
 		}
 	} else {

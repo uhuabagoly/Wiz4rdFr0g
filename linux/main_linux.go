@@ -414,8 +414,20 @@ func resolveLinuxApps() []linuxApp {
 			ids = c.Zypper
 		}
 		if p, ok := firstPresent(ids, packageSet); ok {
-			add(linuxApp{linuxCandidate: c, Provider: packageManager, Package: p, InstallPath: "Rendszer által kezelt (/usr, /opt, ... )"})
-			continue
+			transitional := false
+			if packageManager == "apt-get" {
+				ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+				cmd := exec.CommandContext(ctx, "apt-cache", "policy", p)
+				cmd.Env = append(os.Environ(), "LC_ALL=C")
+				policy, err := cmd.Output()
+				cancel()
+				v, candidateErr := linuxpkg.APTCandidate(string(policy))
+				transitional = err != nil || candidateErr != nil || strings.Contains(v, "snap")
+			}
+			if !transitional {
+				add(linuxApp{linuxCandidate: c, Provider: packageManager, Package: p, InstallPath: "Rendszer által kezelt (/usr, /opt, ... )"})
+				continue
+			}
 		}
 		for _, p := range c.Flatpak {
 			if remote, ok := flatpakSet[p]; ok {
