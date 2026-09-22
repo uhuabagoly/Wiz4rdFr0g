@@ -131,6 +131,11 @@ func linuxLifecycle(index int, resultPath string) int {
 		if err != nil {
 			return fail(err)
 		}
+		if a.Provider == "apt-get" && a.Package == "git" {
+			// The hosted image's Git PPA docs may be newer than the configured
+			// repository. Remove the baseline's exact companion package too.
+			cleanup.Args = append(cleanup.Args, "git-man")
+		}
 		if cleanup.NeedsRoot {
 			_, _, err = run("PREPARE_CLEAN_RUNNER", "sudo", append([]string{"-n", "--", cleanup.Name}, cleanup.Args...)...)
 		} else {
@@ -367,7 +372,7 @@ func linuxLifecycle(index int, resultPath string) int {
 			return fail(err)
 		}
 		for _, path := range strings.Split(files, "\n") {
-			if strings.HasPrefix(path, "/usr/bin/") || strings.HasPrefix(path, "/usr/sbin/") || strings.HasPrefix(path, "/usr/games/") || strings.HasPrefix(path, "/opt/") {
+			if strings.HasPrefix(path, "/usr/") || strings.HasPrefix(path, "/opt/") || strings.HasPrefix(path, "/bin/") || strings.HasPrefix(path, "/sbin/") {
 				info, e := os.Stat(path)
 				if e == nil && info.Mode().IsRegular() && info.Mode()&0111 != 0 {
 					binaries = append(binaries, path)

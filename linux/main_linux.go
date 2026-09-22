@@ -402,6 +402,21 @@ func resolveLinuxApps() []linuxApp {
 		out = append(out, a)
 	}
 	for _, c := range candidates {
+		// These suite metapackages leave the application payload installed
+		// after apt remove. Prefer their complete, self-contained provider.
+		if c.Name == "VLC Media Player" || c.Name == "LibreOffice" {
+			found := false
+			for _, id := range c.Flatpak {
+				if remote, ok := flatpakSet[id]; ok {
+					add(linuxApp{linuxCandidate: c, Provider: "flatpak", Package: id, FlatpakRemote: remote, InstallPath: "Felhasználói Flatpak (~/.local/share/flatpak)"})
+					found = true
+					break
+				}
+			}
+			if found {
+				continue
+			}
+		}
 		var ids []string
 		switch packageManager {
 		case "apt-get":
@@ -417,6 +432,13 @@ func resolveLinuxApps() []linuxApp {
 			transitional := false
 			if packageManager == "apt-get" {
 				ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+				if p == "postgresql" || p == "emacs" || p == "qemu-system" {
+					dependencies := exec.CommandContext(ctx, "apt-cache", "depends", p)
+					dependencies.Env = append(os.Environ(), "LC_ALL=C")
+					if output, err := dependencies.Output(); err == nil {
+						p = linuxpkg.APTPayloadPackage(p, string(output), packageSet)
+					}
+				}
 				cmd := exec.CommandContext(ctx, "apt-cache", "policy", p)
 				cmd.Env = append(os.Environ(), "LC_ALL=C")
 				policy, err := cmd.Output()
