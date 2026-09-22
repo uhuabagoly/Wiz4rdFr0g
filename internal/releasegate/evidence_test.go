@@ -82,6 +82,33 @@ func writeResult(t *testing.T, dir, name string, r Result) {
 		t.Fatal(err)
 	}
 }
+func TestFailureFieldsRemainInSignedStatementAfterJSON(t *testing.T) {
+	key := []byte(strings.Repeat("k", 32))
+	statement := releaseproof.EvidenceStatement{FinalStatus: "UNINSTALL_REPAIR_FAILED", FailureStage: "UNINSTALL", Failure: "registered vendor uninstall failed", SkipReason: "diagnostic reason"}
+	signature, err := releaseproof.EvidenceSignature(statement, key)
+	if err != nil {
+		t.Fatal(err)
+	}
+	data, err := json.Marshal(statement)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var decoded Result
+	if err := json.Unmarshal(data, &decoded); err != nil {
+		t.Fatal(err)
+	}
+	if decoded.EvidenceStatement != statement {
+		t.Fatalf("failure fields lost during evidence decoding: %+v", decoded.EvidenceStatement)
+	}
+	if err := releaseproof.VerifyEvidenceSignature(decoded.EvidenceStatement, signature, key); err != nil {
+		t.Fatal(err)
+	}
+	decoded.Failure = "tampered failure"
+	if err := releaseproof.VerifyEvidenceSignature(decoded.EvidenceStatement, signature, key); err == nil {
+		t.Fatal("failure mutation accepted")
+	}
+}
+
 func TestValidResultAccepted(t *testing.T) {
 	m, e, key, now := fixture(t)
 	dir := t.TempDir()

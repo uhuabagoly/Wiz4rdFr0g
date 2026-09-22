@@ -15,11 +15,8 @@ import (
 
 type Result struct {
 	releaseproof.EvidenceStatement
-	Signature    string `json:"signature"`
-	Name         string `json:"name"`
-	FailureStage string `json:"failure_stage"`
-	Failure      string `json:"failure"`
-	SkipReason   string `json:"skip_reason"`
+	Signature string `json:"signature"`
+	Name      string `json:"name"`
 }
 
 type Issue struct {
