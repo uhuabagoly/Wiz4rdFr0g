@@ -1,4 +1,4 @@
-// actions-gate validates the complete eligible Windows campaign; it never declares a full release ready.
+// actions-gate validates one explicitly selected Windows shard; it never declares a full release ready.
 package main
 
 import (
@@ -117,18 +117,12 @@ func check(manifestPath, planPath, pilotPath, dir, run string) error {
 }
 
 func validateSelection(entries []catalog.AuditEntry, selected []int) error {
-	required := map[int]bool{}
-	for _, e := range entries {
-		if !e.SystemComponent && e.UninstallStrategy != catalog.StrategyManualOnly && e.LicensePolicyOK && e.PhysicalTestRequired {
-			required[e.Index] = true
-		}
-	}
-	if len(selected) == 0 || len(selected) != len(required) {
-		return fmt.Errorf("selection must cover every eligible catalog entry")
+	if len(selected) == 0 {
+		return fmt.Errorf("shard selection cannot be empty")
 	}
 	selectedSeen := map[int]bool{}
 	for _, idx := range selected {
-		if !required[idx] || selectedSeen[idx] {
+		if idx < 0 || idx >= len(entries) || selectedSeen[idx] {
 			return fmt.Errorf("unexpected or duplicate selected index %d", idx)
 		}
 		selectedSeen[idx] = true

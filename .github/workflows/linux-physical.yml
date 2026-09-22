@@ -124,6 +124,7 @@ jobs:
           output=[]
           checks=['download_real','install_real','independent_detection','wiz4rd_detection','uninstall_real','independent_removed_detection','wiz4rd_removed_detection']
           for i,app in enumerate(selection['expected_apps']):
+              if i not in selection['selected_indexes']: continue
               r=records.get(i,{'catalog_index':i,'app_id':app['app_id'],'app_name':app['app_name'],'platform':'linux','final_status':'MISSING','failure_reason':'No physical record in this attempt'})
               if r['app_id']!=app['app_id']: raise SystemExit('Wrong application identity')
               if r['final_status']=='FULL_PASS' and not all(r.get(k) is True for k in checks): raise SystemExit('Incomplete FULL_PASS evidence')

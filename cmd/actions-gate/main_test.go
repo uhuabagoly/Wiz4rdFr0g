@@ -5,7 +5,7 @@ import (
 	"wiz4rdfr0g.local/fullcatalog/internal/catalog"
 )
 
-func TestCampaignCannotOmitEligibleEntries(t *testing.T) {
+func TestShardSelectionRejectsDuplicateAndUnknownIdentities(t *testing.T) {
 	entries := catalog.BuildAuditEntries()
 	var all []int
 	for _, e := range entries {
@@ -19,7 +19,10 @@ func TestCampaignCannotOmitEligibleEntries(t *testing.T) {
 	if err := validateSelection(entries, all); err != nil {
 		t.Fatal(err)
 	}
-	for _, bad := range [][]int{nil, all[:len(all)-1], append(append([]int{}, all...), all[0]), {-1}} {
+	if err := validateSelection(entries, all[:1]); err != nil {
+		t.Fatal("valid explicit shard rejected", err)
+	}
+	for _, bad := range [][]int{nil, append(append([]int{}, all...), all[0]), {-1}, {len(entries)}} {
 		if err := validateSelection(entries, bad); err == nil {
 			t.Fatalf("incomplete/invalid selection accepted: %v", bad)
 		}

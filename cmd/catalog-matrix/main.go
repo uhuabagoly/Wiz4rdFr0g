@@ -13,21 +13,23 @@ import (
 	"time"
 	"wiz4rdfr0g.local/fullcatalog/internal/catalog"
 	"wiz4rdfr0g.local/fullcatalog/internal/linuxcatalog"
+	"wiz4rdfr0g.local/fullcatalog/internal/releaseproof"
 )
 
 type row struct {
-	ID        string `json:"app_id"`
-	Name      string `json:"app_name"`
-	Platform  string `json:"platform"`
-	Version   string `json:"version"`
-	Download  string `json:"download_test"`
-	Install   string `json:"install_test"`
-	Detection string `json:"detection_test"`
-	Uninstall string `json:"uninstall_test"`
-	Post      string `json:"post_uninstall_test"`
-	Result    string `json:"result"`
-	Reason    string `json:"failure_reason"`
-	Evidence  string `json:"evidence"`
+	ID         string `json:"app_id"`
+	Name       string `json:"app_name"`
+	Platform   string `json:"platform"`
+	Version    string `json:"version"`
+	Download   string `json:"download_test"`
+	Install    string `json:"install_test"`
+	Detection  string `json:"detection_test"`
+	Uninstall  string `json:"uninstall_test"`
+	Post       string `json:"post_uninstall_test"`
+	Result     string `json:"result"`
+	Reason     string `json:"failure_reason"`
+	Evidence   string `json:"evidence"`
+	EvidenceID string `json:"evidence_app_id"`
 }
 
 func main() {
@@ -46,7 +48,7 @@ func main() {
 			}
 		}
 		digest := sha256.Sum256([]byte(platform + "\x00" + name))
-		rows = append(rows, row{hex.EncodeToString(digest[:]), name, platform, "", state, state, state, state, state, state, reason, ""})
+		rows = append(rows, row{hex.EncodeToString(digest[:]), name, platform, "", state, state, state, state, state, state, reason, "", hex.EncodeToString(digest[:])})
 	}
 	for _, e := range catalog.BuildAuditEntries() {
 		reason := ""
@@ -60,6 +62,7 @@ func main() {
 			reason = "Automatic lifecycle unsupported"
 		}
 		add(e.Name, "windows", reason, *win)
+		rows[len(rows)-1].EvidenceID = releaseproof.CatalogAppID(e)
 	}
 	for _, e := range linuxcatalog.Candidates {
 		reason := ""

@@ -4,6 +4,7 @@ param(
  [ValidateRange(1,128)][int]$ShardSize=32,
  [ValidateRange(1,1000)][int]$Attempt=1,
  [string]$FailedOnlyReport,
+ [ValidateSet('windows','linux')][string[]]$Platforms=@('windows','linux'),
  [switch]$Dispatch
 )
 $ErrorActionPreference='Stop'
@@ -16,7 +17,7 @@ $catalog=Get-Content (Join-Path $root 'catalog/matrix.json') -Raw|ConvertFrom-Js
 $prior=@()
 if($FailedOnlyReport){$prior=@(Get-Content -LiteralPath $FailedOnlyReport -Raw|ConvertFrom-Json)}
 $shards=@()
-foreach($platform in @('windows','linux')){
+foreach($platform in $Platforms){
  $apps=@($catalog.rows|Where-Object platform -eq $platform)
  $indexes=@(0..($apps.Count-1))
  if($FailedOnlyReport){
