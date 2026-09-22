@@ -410,6 +410,23 @@ func linuxLifecycle(index int, resultPath string) int {
 		if !filepath.IsAbs(deployment) || executable == "" {
 			return fail(fmt.Errorf("Flatpak application command/deployment not independently resolved"))
 		}
+		// Absolute /app symlinks only resolve inside the installed sandbox.
+		// Probe the declared command there, then inspect its actual deployment file.
+		sandboxCommand := "/app/bin/" + command
+		if strings.HasPrefix(command, "/app/") {
+			sandboxCommand = command
+		}
+		resolved, _, err := run("VERIFY_SANDBOX_EXECUTABLE", "flatpak", "run", "--user", "--command=sh", a.Package,
+			"-c", `test -f "$1" && test -x "$1" && readlink -f "$1"`, "physical-probe", sandboxCommand)
+		if err != nil {
+			return fail(fmt.Errorf("Flatpak declared command verification: %w", err))
+		}
+		resolved = strings.TrimSpace(resolved)
+		if !strings.HasPrefix(resolved, "/app/") || filepath.Clean(resolved) != resolved {
+			return fail(fmt.Errorf("Flatpak command does not resolve to an application-owned executable: %q", resolved))
+		}
+		r["sandbox_executable_path"] = resolved
+		executable = filepath.Join(deployment, "files", strings.TrimPrefix(resolved, "/app/"))
 		info, err := os.Stat(executable)
 		if err != nil || !info.Mode().IsRegular() || info.Mode()&0111 == 0 {
 			return fail(fmt.Errorf("Flatpak declared executable not present: %s", executable))
