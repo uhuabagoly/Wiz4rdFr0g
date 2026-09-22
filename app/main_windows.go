@@ -330,6 +330,9 @@ var (
 )
 
 func main() {
+	if len(os.Args) == 4 && os.Args[1] == "--license-source-review" {
+		os.Exit(runLicenseSourceReview(os.Args[2], os.Args[3]))
+	}
 	if vmTestRequested() {
 		os.Exit(runVMTestFromArgs())
 	}

@@ -1,0 +1,66 @@
+name: Windows catalog license source collection
+run-name: Windows official license sources
+on:
+  workflow_dispatch:
+  push:
+    branches: [codex/physical-validation-20260922]
+    paths: [.github/workflows/windows-license-review.yml]
+permissions:
+  contents: read
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    outputs:
+      shards: ${{ steps.plan.outputs.shards }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: false
+      - id: plan
+        run: |
+          mkdir -p review-build
+          GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go build -o review-build/Wiz4rdFr0g.exe ./app
+          go run ./cmd/catalog-matrix -out review-build/catalog
+          python3 - <<'PY'
+          import json,os
+          apps=[r for r in json.load(open('review-build/catalog/matrix.json'))['rows'] if r['platform']=='windows']
+          shards=[{'shard':i//32,'indexes':json.dumps(list(range(i,min(i+32,len(apps)))))} for i in range(0,len(apps),32)]
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('shards='+json.dumps(shards)+'\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: license-review-build-${{ github.run_id }}
+          path: review-build/
+  collect:
+    needs: plan
+    runs-on: windows-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        include: ${{ fromJSON(needs.plan.outputs.shards) }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: license-review-build-${{ github.run_id }}
+          path: review-build
+      - name: Retrieve official license sources without installing applications
+        shell: pwsh
+        env:
+          CATALOG_INDEXES: ${{ matrix.indexes }}
+        run: |
+          $ErrorActionPreference='Stop'
+          winget source update --name winget
+          $env:CATALOG_INDEXES | Set-Content indexes.json -Encoding utf8
+          $process=Start-Process -FilePath ./review-build/Wiz4rdFr0g.exe -ArgumentList @('--license-source-review','indexes.json','license-sources') -WindowStyle Hidden -Wait -PassThru
+          if($process.ExitCode -ne 0){throw 'Source collection interrupted'}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: license-source-${{ github.run_id }}-${{ matrix.shard }}
+          path: license-sources/
