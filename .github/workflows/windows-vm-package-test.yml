@@ -2,6 +2,11 @@ name: Windows package install-uninstall VM test
 on:
   push:
     branches: [codex/physical-validation-20260922]
+    paths:
+      - app/**
+      - internal/catalog/**
+      - test/windows-vm/**
+      - .github/workflows/windows-vm-package-test.yml
   workflow_dispatch:
 
 permissions:

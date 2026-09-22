@@ -1,0 +1,140 @@
+name: Linux physical catalog lifecycle
+on:
+  push:
+    branches: [codex/physical-validation-20260922]
+    paths:
+      - linux/**
+      - internal/linuxpkg/**
+      - internal/linuxcatalog/**
+      - .github/workflows/linux-physical.yml
+  workflow_dispatch:
+    inputs:
+      indexes:
+        description: JSON indexes to rerun; empty selects the entire current Linux catalog
+        required: false
+        default: ''
+permissions:
+  contents: read
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    outputs:
+      indexes: ${{ steps.plan.outputs.indexes }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: false
+      - run: sudo apt-get update && sudo apt-get install -y libgtk-3-dev
+      - name: Build production Linux executable and derive catalog selection
+        id: plan
+        env:
+          REQUESTED_INDEXES: ${{ inputs.indexes }}
+        run: |
+          set -euo pipefail
+          mkdir -p release/linux-physical
+          go build -trimpath -o release/linux-physical/Wiz4rdFr0g ./linux
+          go run ./cmd/catalog-matrix -out release/linux-physical/catalog
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          rows=json.loads(Path('release/linux-physical/catalog/matrix.json').read_text())['rows']
+          apps=[r for r in rows if r['platform']=='linux']
+          indexes=list(range(len(apps)))
+          if os.environ.get('REQUESTED_INDEXES'):
+              indexes=json.loads(os.environ['REQUESTED_INDEXES'])
+              if not indexes or len(set(indexes))!=len(indexes) or any(type(i)!=int or i<0 or i>=len(apps) for i in indexes):
+                  raise SystemExit('Invalid rerun indexes')
+          Path('release/linux-physical/selection.json').write_text(json.dumps({'expected_apps':apps,'selected_indexes':indexes}))
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f: f.write('indexes='+json.dumps(indexes)+'\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-physical-build-${{ github.run_id }}-${{ github.run_attempt }}
+          path: release/linux-physical/
+  lifecycle:
+    needs: plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 100
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        index: ${{ fromJSON(needs.plan.outputs.indexes) }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: linux-physical-build-${{ github.run_id }}-${{ github.run_attempt }}
+          path: physical
+      - name: Prepare package sources on disposable runner
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y flatpak libgtk-3-0
+          flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+      - name: Execute actual production lifecycle
+        env:
+          APP_INDEX: ${{ matrix.index }}
+        run: |
+          chmod +x physical/Wiz4rdFr0g
+          mkdir -p evidence
+          ./physical/Wiz4rdFr0g --physical-test "$APP_INDEX" "evidence/$APP_INDEX.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: linux-physical-result-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.index }}
+          path: evidence/
+          if-no-files-found: error
+  aggregate:
+    needs: [plan, lifecycle]
+    if: always() && needs.plan.result == 'success'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: linux-physical-build-${{ github.run_id }}-${{ github.run_attempt }}
+          path: build
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: linux-physical-result-${{ github.run_id }}-${{ github.run_attempt }}-*
+          path: evidence
+          merge-multiple: true
+      - name: Require exact catalog identity coverage
+        env:
+          EXPECTED_RUN: ${{ github.run_id }}
+          EXPECTED_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          python3 - <<'PY'
+          import csv,json,os
+          from pathlib import Path
+          selection=json.loads(Path('build/selection.json').read_text())
+          records={}
+          for p in Path('evidence').glob('*.json'):
+              r=json.loads(p.read_text()); idx=r['catalog_index']
+              if idx in records: raise SystemExit('Duplicate result identity')
+              if r['test_run_id']!=os.environ['EXPECTED_RUN'] or r['attempt']!=os.environ['EXPECTED_ATTEMPT']: raise SystemExit('Stale evidence')
+              records[idx]=r
+          output=[]
+          checks=['download_real','install_real','independent_detection','wiz4rd_detection','uninstall_real','independent_removed_detection','wiz4rd_removed_detection']
+          for i,app in enumerate(selection['expected_apps']):
+              r=records.get(i,{'catalog_index':i,'app_id':app['app_id'],'app_name':app['app_name'],'platform':'linux','final_status':'MISSING','failure_reason':'No physical record in this attempt'})
+              if r['app_id']!=app['app_id']: raise SystemExit('Wrong application identity')
+              if r['final_status']=='FULL_PASS' and not all(r.get(k) is True for k in checks): raise SystemExit('Incomplete FULL_PASS evidence')
+              output.append(r)
+          Path('physical-validation.json').write_text(json.dumps(output,indent=2))
+          with open('physical-validation.csv','w',newline='') as f:
+              columns=['app_id','app_name','platform','attempt']+checks+['final_status','failure_reason']
+              w=csv.DictWriter(f,fieldnames=columns,extrasaction='ignore');w.writeheader();w.writerows(output)
+          missing=[r['app_id'] for r in output if r['final_status']=='MISSING']
+          failed=[r['app_id'] for r in output if r['final_status'] not in ('FULL_PASS','MISSING')]
+          print(json.dumps({'expected':len(output),'full_pass':sum(r['final_status']=='FULL_PASS' for r in output),'missing':missing,'failed':failed}))
+          if missing or failed: raise SystemExit(1)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: linux-physical-report-${{ github.run_id }}-${{ github.run_attempt }}
+          path: physical-validation.*

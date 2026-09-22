@@ -249,6 +249,9 @@ func goClicked(id C.int) {
 }
 
 func main() {
+	if len(os.Args) == 4 && os.Args[1] == "--physical-test" {
+		os.Exit(linuxLifecycleArgs())
+	}
 	if len(os.Args) > 1 && os.Args[1] == "--diagnose" {
 		diagnose()
 		return
