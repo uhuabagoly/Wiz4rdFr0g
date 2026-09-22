@@ -123,7 +123,27 @@ func linuxLifecycle(index int, resultPath string) int {
 		return fail(err)
 	}
 	if before {
-		return fail(fmt.Errorf("pre-existing installation; refusing to remove runner software"))
+		// This entry point is restricted above to a disposable GitHub-hosted
+		// runner. Remove only this exact catalog package via the production
+		// package manager, preserving the preparation commands as evidence.
+		r["runner_baseline_installed"] = true
+		cleanup, err := operationSpec(a, "Legújabb", true)
+		if err != nil {
+			return fail(err)
+		}
+		if cleanup.NeedsRoot {
+			_, _, err = run("PREPARE_CLEAN_RUNNER", "sudo", append([]string{"-n", "--", cleanup.Name}, cleanup.Args...)...)
+		} else {
+			_, _, err = run("PREPARE_CLEAN_RUNNER", cleanup.Name, cleanup.Args...)
+		}
+		if err != nil {
+			return fail(fmt.Errorf("runner baseline cleanup: %w", err))
+		}
+		before, err = isInstalledExact(ctx, a)
+		if err != nil || before {
+			return fail(fmt.Errorf("runner baseline removal did not establish an absent state: %v", err))
+		}
+		r["pre_install_detection"] = false
 	}
 	work, err := os.MkdirTemp("", "Wiz4rdFr0g-linux-physical-")
 	if err != nil {
@@ -240,6 +260,27 @@ func linuxLifecycle(index int, resultPath string) int {
 				r["resolved_download_url"] = fields[1]
 			}
 		}
+		metadata, _, err := run("RESOLVE_EXTRA_DATA", "flatpak", "remote-info", "--user", "--show-metadata", a.FlatpakRemote, a.Package)
+		if err != nil {
+			return fail(err)
+		}
+		extraTransfers, err := verifyFlatpakExtraData(ctx, metadata, work)
+		r["extra_data_transfers"] = extraTransfers
+		if err != nil {
+			return fail(err)
+		}
+		origin, _ := r["resolved_download_url"].(string)
+		recorder, err := startPhysicalHTTPRecorder(origin)
+		if err != nil {
+			return fail(err)
+		}
+		defer recorder.close()
+		defer func() { r["http_transfers"] = recorder.snapshot() }()
+		_, _, err = run("ENABLE_HTTP_EVIDENCE", "flatpak", "remote-modify", "--user", "--url="+recorder.endpoint, a.FlatpakRemote)
+		if err != nil {
+			return fail(err)
+		}
+		defer run("RESTORE_ORIGINAL_REPOSITORY", "flatpak", "remote-modify", "--user", "--url="+origin, a.FlatpakRemote)
 		_, _, err = run("DOWNLOAD_REAL_FILE", "flatpak", "install", "--user", "--no-deploy", "--noninteractive", "--ostree-verbose", "-y", a.FlatpakRemote, a.Package)
 		if err != nil {
 			return fail(err)
@@ -269,8 +310,20 @@ func linuxLifecycle(index int, resultPath string) int {
 		r["downloaded_bytes"] = size
 		r["sha256"] = hex.EncodeToString(hash.Sum(nil))
 		r["file_validation"] = true
+		transfers := recorder.snapshot()
+		r["http_transfers"] = transfers
+		payloads := 0
+		for _, transfer := range transfers {
+			if transfer.Status == 200 && transfer.Bytes > 0 && transfer.Error == "" && (strings.Contains(transfer.URL, "/deltas/") || strings.Contains(transfer.URL, "/objects/")) {
+				payloads++
+			}
+		}
+		if payloads == 0 {
+			return fail(fmt.Errorf("Flatpak package built but no completed repository payload HTTP responses were recorded"))
+		}
 		r["download_real"] = true
-		r["download_http_status_note"] = "Flatpak/OSTree performs HTTP and signature verification; see DOWNLOAD_REAL_FILE command log"
+		r["download_http_status"] = http.StatusOK
+		r["download_http_status_note"] = "Actual HTTPS repository payload transfers recorded separately; sha256 identifies the verified reconstructed OSTree bundle; vendor extra-data checked separately"
 	} else {
 		return fail(fmt.Errorf("no download validation adapter for provider %s on this test image", a.Provider))
 	}
@@ -368,9 +421,6 @@ func linuxLifecycle(index int, resultPath string) int {
 	r["independent_removed_detection"] = true
 	if len(binaries) == 0 {
 		return fail(fmt.Errorf("lifecycle executed but no application executable path was independently identified"))
-	}
-	if a.Provider == "flatpak" {
-		return fail(fmt.Errorf("lifecycle executed; direct HTTP response evidence is not exposed by Flatpak backend"))
 	}
 	r["failure_reason"] = ""
 	r["final_status"] = "FULL_PASS"
