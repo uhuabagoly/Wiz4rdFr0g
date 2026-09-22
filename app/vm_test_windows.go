@@ -77,6 +77,9 @@ type vmTestResult struct {
 	DownloadOK           bool                       `json:"download_ok"`
 	DownloadArtifact     bool                       `json:"download_artifact_present"`
 	InstallExitCode      int                        `json:"install_exit_code"`
+	InstallOutput        string                     `json:"install_output,omitempty"`
+	DiagnosticInventory  string                     `json:"diagnostic_inventory,omitempty"`
+	DiagnosticRegistry   []registryPackage          `json:"diagnostic_registry,omitempty"`
 	InstallRetryCount    int                        `json:"install_retry_count"`
 	InstallOK            bool                       `json:"install_ok"`
 	InstallVerified      bool                       `json:"install_verified"`
@@ -604,6 +607,7 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 	}
 	irun := vmRunCommandWithTransientRetry(ctx, "winget.exe", iargs, campaignRetryLimitFromEnv("WIZ4RDFR0G_PACKAGE_RETRIES", 1), func() bool { return !verifyProgramInstalled(app) }, log)
 	icode, iout, ierr := irun.ExitCode, irun.Output, irun.Err
+	r.InstallOutput = iout
 	r.InstallExitCode = icode
 	r.InstallRetryCount = irun.Retries
 	if icode == 1641 || icode == 3010 {
@@ -634,6 +638,8 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 	if r.IndependentInstalled.State != "present" {
 		r.FailureStage = "INSTALL_VERIFY"
 		r.Failure = "independent exact-ID query did not confirm installation"
+		_, r.DiagnosticInventory, _ = runDirectProcess(ctx, "winget.exe", []string{"list", "--accept-source-agreements", "--disable-interactivity"})
+		r.DiagnosticRegistry = scanRegistryPackages()
 		return finish("INSTALL_VERIFY_FAIL")
 	}
 
