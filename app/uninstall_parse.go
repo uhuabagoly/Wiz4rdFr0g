@@ -51,6 +51,10 @@ func splitRegisteredCommandRaw(raw string) (string, []string, error) {
 	}
 	parts, err := splitWindowsArgs(raw)
 	if err == nil && len(parts) > 0 {
+		// WinGet registers portable packages with its extensionless alias.
+		if len(parts) == 4 && strings.EqualFold(parts[0], "winget") && parts[1] == "uninstall" && parts[2] == "--product-code" && regexp.MustCompile(`^[A-Za-z0-9_.-]+$`).MatchString(parts[3]) {
+			return "winget.exe", append(parts[1:], "--silent", "--accept-source-agreements", "--disable-interactivity"), nil
+		}
 		exe := strings.Trim(strings.TrimSpace(parts[0]), `"`)
 		if executableCandidate(exe) {
 			return exe, parts[1:], nil

@@ -34,3 +34,13 @@ func TestMSIProductCode(t *testing.T) {
 		t.Fatalf("guid = %q", got)
 	}
 }
+
+func TestWingetPortableRegisteredUninstaller(t *testing.T) {
+	exe, args, err := splitRegisteredCommandRaw("winget uninstall --product-code Kubernetes.kind_Microsoft.Winget.Source_8wekyb3d8bbwe")
+	if err != nil || exe != "winget.exe" || len(args) != 6 || args[2] != "Kubernetes.kind_Microsoft.Winget.Source_8wekyb3d8bbwe" {
+		t.Fatalf("portable registration not preserved: %q %v %v", exe, args, err)
+	}
+	if _, _, err := splitRegisteredCommandRaw("winget uninstall --all"); err == nil {
+		t.Fatal("unscoped extensionless command accepted")
+	}
+}
