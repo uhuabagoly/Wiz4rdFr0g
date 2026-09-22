@@ -112,9 +112,13 @@ func vmCaptureFilesystem(ctx context.Context, name string) (vmFilesystemProof, e
 	}
 	proof.RegistryKey = reg.RegistryKey
 	proof.Registration = reg
-	code, _, err := runDirectProcess(ctx, "reg.exe", []string{"query", reg.RegistryKey})
+	args := []string{"query", reg.RegistryKey}
+	if reg.RegistryView != "" {
+		args = append(args, reg.RegistryView)
+	}
+	code, output, err := runDirectProcess(ctx, "reg.exe", args)
 	if err != nil || code != 0 {
-		return proof, fmt.Errorf("independent registry presence query failed")
+		return proof, fmt.Errorf("independent registry presence query failed (exit %d, view %s): %s", code, reg.RegistryView, compactLog(output))
 	}
 	proof.RegistryPresent = true
 	icon := executablePathFromRegistryValue(reg.DisplayIcon)
@@ -205,7 +209,11 @@ func vmMSIExecutableComponents(ctx context.Context, productCode string) ([]strin
 }
 
 func vmVerifyFilesystemRemoved(ctx context.Context, proof *vmFilesystemProof) error {
-	code, out, err := runDirectProcess(ctx, "reg.exe", []string{"query", proof.RegistryKey})
+	args := []string{"query", proof.RegistryKey}
+	if proof.Registration.RegistryView != "" {
+		args = append(args, proof.Registration.RegistryView)
+	}
+	code, out, err := runDirectProcess(ctx, "reg.exe", args)
 	if err == nil || code != 1 || !strings.Contains(strings.ToLower(out), "unable to find") {
 		return fmt.Errorf("registry disappearance is not proven")
 	}

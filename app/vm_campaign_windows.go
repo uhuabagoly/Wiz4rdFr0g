@@ -5,7 +5,9 @@ package main
 import (
 	"context"
 	"fmt"
+	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -163,7 +165,21 @@ func vmUninstallOnce(ctx context.Context, app appDef, detected vmDetected) (code
 	switch scope {
 	case "user":
 		if elevated {
-			return uninstallCodeWrongElevation, true, "user-scope uninstall requires a standard-user test executor; current process is elevated"
+			self, err := os.Executable()
+			if err != nil {
+				return uninstallCodeWrongElevation, true, err.Error()
+			}
+			for index, candidate := range catalog {
+				if candidate.Name != app.Name {
+					continue
+				}
+				code, output, err := runStandardUserProcess(ctx, self, []string{"--uninstall-worker-user", strconv.Itoa(index)})
+				if code < 0 {
+					return uninstallCodeWrongElevation, true, fmt.Sprintf("standard-user worker could not start: %v %s", err, compactLog(output))
+				}
+				return code, false, ""
+			}
+			return uninstallCodeUnsupported, true, "exact catalog index for user worker not found"
 		}
 		return uninstallInContext(ctx, app, false), false, ""
 	case "machine":

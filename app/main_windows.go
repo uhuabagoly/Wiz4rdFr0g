@@ -101,6 +101,7 @@ type registryPackage struct {
 	QuietUninstallString string `json:"QuietUninstallString"`
 	WindowsInstaller     int    `json:"WindowsInstaller"`
 	RegistryKey          string `json:"RegistryKey"`
+	RegistryView         string `json:"RegistryView,omitempty"`
 	Scope                string `json:"Scope"`
 }
 
@@ -1052,7 +1053,8 @@ func scanRegistryPackages() []registryPackage {
 			continue
 		}
 		for _, p := range parseRegistryQuery(string(data), q[2]) {
-			key := strings.ToLower(strings.TrimSpace(p.RegistryKey))
+			p.RegistryView = q[1]
+			key := strings.ToLower(strings.Join([]string{strings.TrimSpace(p.RegistryKey), p.DisplayName, p.DisplayVersion, p.InstallLocation, p.UninstallString, p.DisplayIcon}, "\x00"))
 			if key == "" || seen[key] {
 				continue
 			}
@@ -1156,7 +1158,7 @@ func bestRegistryMatchDetailed(name string, packages []registryPackage) (registr
 			bestScore = score
 			best = p
 			ambiguous = false
-		} else if score > 0 && score == bestScore && !strings.EqualFold(strings.TrimSpace(best.RegistryKey), strings.TrimSpace(p.RegistryKey)) {
+		} else if score > 0 && score == bestScore && (!strings.EqualFold(strings.TrimSpace(best.RegistryKey), strings.TrimSpace(p.RegistryKey)) || best.RegistryView != p.RegistryView) {
 			ambiguous = true
 		}
 	}
@@ -1494,7 +1496,7 @@ func uninstallCatalogProgram(idx int) {
 
 func executeUninstallWorkerFlow(ctx context.Context, self string, idx int) (int, bool, error) {
 	app := catalog[idx]
-	code, _, err := runDirectProcess(ctx, self, []string{"--uninstall-worker-user", strconv.Itoa(idx)})
+	code, _, err := runStandardUserProcess(ctx, self, []string{"--uninstall-worker-user", strconv.Itoa(idx)})
 	code, err = normalizeWorkerExecution(code, err)
 	elevated := false
 	if err == nil && code == uninstallCodeNeedElevation {
@@ -1506,7 +1508,7 @@ func executeUninstallWorkerFlow(ctx context.Context, self string, idx int) (int,
 		uiDo(func() {
 			appendLog("INFO", app.Name+": felhasználói hatókör újrapróbálása normál jogosultsággal.")
 		})
-		code, _, err = runDirectProcess(ctx, self, []string{"--uninstall-worker-user", strconv.Itoa(idx)})
+		code, _, err = runStandardUserProcess(ctx, self, []string{"--uninstall-worker-user", strconv.Itoa(idx)})
 		code, err = normalizeWorkerExecution(code, err)
 		elevated = false
 	}
@@ -1543,6 +1545,9 @@ func requestRunningProcessClose(idx int) bool {
 }
 
 func runUninstallWorker(idx int, elevated bool) int {
+	if !elevated && vmProcessElevated() {
+		return uninstallCodeWrongElevation
+	}
 	if idx < 0 || idx >= len(catalog) {
 		workerLog("ERROR", "Érvénytelen katalógusindex az eltávolító workerben.")
 		return 2
