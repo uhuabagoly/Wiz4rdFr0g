@@ -12,8 +12,11 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"runtime"
 	"strings"
+	"syscall"
 	"time"
+	"unsafe"
 )
 
 type vmDownloadProof struct {
@@ -92,12 +95,13 @@ func vmVerifyHTTPDownload(ctx context.Context, id, source, version, workRoot str
 }
 
 type vmFilesystemProof struct {
-	RegistryKey     string   `json:"registry_key"`
-	BinaryPaths     []string `json:"binary_paths"`
-	RegistryPresent bool     `json:"registry_present"`
-	BinariesPresent bool     `json:"binaries_present"`
-	RegistryRemoved bool     `json:"registry_removed"`
-	BinariesRemoved bool     `json:"binaries_removed"`
+	Registration    registryPackage `json:"registration"`
+	RegistryKey     string          `json:"registry_key"`
+	BinaryPaths     []string        `json:"binary_paths"`
+	RegistryPresent bool            `json:"registry_present"`
+	BinariesPresent bool            `json:"binaries_present"`
+	RegistryRemoved bool            `json:"registry_removed"`
+	BinariesRemoved bool            `json:"binaries_removed"`
 }
 
 func vmCaptureFilesystem(ctx context.Context, name string) (vmFilesystemProof, error) {
@@ -107,6 +111,7 @@ func vmCaptureFilesystem(ctx context.Context, name string) (vmFilesystemProof, e
 		return proof, fmt.Errorf("no unambiguous independent uninstall registration")
 	}
 	proof.RegistryKey = reg.RegistryKey
+	proof.Registration = reg
 	code, _, err := runDirectProcess(ctx, "reg.exe", []string{"query", reg.RegistryKey})
 	if err != nil || code != 0 {
 		return proof, fmt.Errorf("independent registry presence query failed")
@@ -116,6 +121,15 @@ func vmCaptureFilesystem(ctx context.Context, name string) (vmFilesystemProof, e
 	if strings.EqualFold(filepath.Ext(icon), ".exe") {
 		if info, err := os.Stat(icon); err == nil && !info.IsDir() {
 			proof.BinaryPaths = append(proof.BinaryPaths, icon)
+		}
+	}
+	if len(proof.BinaryPaths) == 0 {
+		if reg.WindowsInstaller != 0 {
+			paths, err := vmMSIExecutableComponents(ctx, filepath.Base(reg.RegistryKey))
+			if err != nil {
+				return proof, err
+			}
+			proof.BinaryPaths = append(proof.BinaryPaths, paths...)
 		}
 	}
 	if len(proof.BinaryPaths) == 0 {
@@ -135,6 +149,59 @@ func vmCaptureFilesystem(ctx context.Context, name string) (vmFilesystemProof, e
 		return proof, fmt.Errorf("no independently observed application executable")
 	}
 	return proof, nil
+}
+
+// Query MSI's installed component key paths for this exact ProductCode. This
+// does not invoke Win32_Product or MSI repair, and never guesses an install path.
+func vmMSIExecutableComponents(ctx context.Context, productCode string) ([]string, error) {
+	if !regexp.MustCompile(`^\{[0-9A-Fa-f-]{36}\}$`).MatchString(productCode) {
+		return nil, fmt.Errorf("invalid MSI product code")
+	}
+	product, err := syscall.UTF16PtrFromString(productCode)
+	if err != nil {
+		return nil, err
+	}
+	msi := syscall.NewLazyDLL("msi.dll")
+	enumerate := msi.NewProc("MsiEnumComponentsW")
+	componentPath := msi.NewProc("MsiGetComponentPathW")
+	if err = enumerate.Find(); err != nil {
+		return nil, err
+	}
+	if err = componentPath.Find(); err != nil {
+		return nil, err
+	}
+	runtime.LockOSThread()
+	defer runtime.UnlockOSThread()
+	var component [39]uint16
+	var path [32768]uint16
+	var paths []string
+	seen := map[string]bool{}
+	for index := uint32(0); ; index++ {
+		if err = ctx.Err(); err != nil {
+			return paths, err
+		}
+		code, _, _ := enumerate.Call(uintptr(index), uintptr(unsafe.Pointer(&component[0])))
+		if code == 259 {
+			break
+		}
+		if code != 0 {
+			return paths, fmt.Errorf("MSI component enumeration returned %d", code)
+		}
+		length := uint32(len(path))
+		state, _, _ := componentPath.Call(uintptr(unsafe.Pointer(product)), uintptr(unsafe.Pointer(&component[0])), uintptr(unsafe.Pointer(&path[0])), uintptr(unsafe.Pointer(&length)))
+		if state != 3 || length == 0 || length >= uint32(len(path)) {
+			continue
+		}
+		value := syscall.UTF16ToString(path[:length])
+		if !strings.EqualFold(filepath.Ext(value), ".exe") || seen[strings.ToLower(value)] {
+			continue
+		}
+		if info, err := os.Stat(value); err == nil && info.Mode().IsRegular() {
+			paths = append(paths, value)
+			seen[strings.ToLower(value)] = true
+		}
+	}
+	return paths, nil
 }
 
 func vmVerifyFilesystemRemoved(ctx context.Context, proof *vmFilesystemProof) error {

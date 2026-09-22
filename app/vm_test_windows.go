@@ -37,6 +37,7 @@ type vmDetected struct {
 }
 
 type vmTestResult struct {
+	BaselineRemoval      *vmUninstallOutcome        `json:"runner_baseline_removal,omitempty"`
 	CampaignID           string                     `json:"campaign_id"`
 	CampaignAttempt      string                     `json:"attempt"`
 	DownloadProof        vmDownloadProof            `json:"download_proof"`
@@ -496,11 +497,26 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 		return finish("AMBIGUOUS")
 	}
 	if preState == vmDetectionFound {
-		r.Precheck = "PREEXISTING"
-		r.SkipReason = "program already existed before the test; harness refuses to remove pre-existing software"
-		r.DetectedAfterInstall = pre
-		log("SKIP", r.SkipReason)
-		return finish("SKIPPED_PREEXISTING")
+		if os.Getenv("GITHUB_ACTIONS") != "true" || os.Getenv("RUNNER_ENVIRONMENT") != "github-hosted" {
+			r.SkipReason = "baseline preparation is permitted only on a disposable GitHub-hosted runner"
+			return finish("SKIPPED_PREEXISTING")
+		}
+		log("INFO", "preparing a clean disposable runner by uninstalling the exact pre-existing catalog target")
+		cleanupContext, cleanupCancel := context.WithTimeout(context.Background(), 20*time.Minute)
+		cleanup := vmExecuteUninstallWithRepair(cleanupContext, app, pre, log)
+		cleanupCancel()
+		r.BaselineRemoval = &cleanup
+		if !cleanup.Success || !cleanup.VerifiedRemoval || cleanup.RebootRequired || cleanup.PrivilegeBlocked {
+			r.FailureStage = "RUNNER_PREPARATION"
+			r.Failure = "baseline cleanup did not establish a clean disposable runner: " + cleanup.Diagnosis
+			return finish("PRECHECK_FAIL")
+		}
+		_, preState = vmDetectInstalledState(app)
+		if preState != vmDetectionAbsent {
+			r.FailureStage = "RUNNER_PREPARATION"
+			r.Failure = "baseline application remains detected after official uninstall"
+			return finish("PRECHECK_FAIL")
+		}
 	}
 	r.Precheck = "CLEAN"
 
@@ -634,6 +650,7 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 		log("ERROR", r.Failure)
 		return finish("DETECTION_FAIL")
 	}
+	r.DetectedAfterInstall = detected
 	r.FilesystemProof, err = vmCaptureFilesystem(ctx, detected.Name)
 	if err != nil {
 		r.FailureStage = "INDEPENDENT_FILESYSTEM"
