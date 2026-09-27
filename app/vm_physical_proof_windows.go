@@ -103,6 +103,8 @@ type vmFilesystemProof struct {
 	BinariesPresent bool            `json:"binaries_present"`
 	RegistryRemoved bool            `json:"registry_removed"`
 	BinariesRemoved bool            `json:"binaries_removed"`
+	PayloadRegistry string          `json:"payload_registry,omitempty"`
+	PayloadVersion  string          `json:"payload_version,omitempty"`
 }
 
 func vmCaptureFilesystem(ctx context.Context, name string) (vmFilesystemProof, error) {
@@ -122,8 +124,35 @@ func vmCaptureFilesystem(ctx context.Context, name string) (vmFilesystemProof, e
 		return proof, fmt.Errorf("independent registry presence query failed (exit %d, view %s): %s", code, reg.RegistryView, compactLog(output))
 	}
 	proof.RegistryPresent = true
+	// Burn's DisplayIcon may be the cached installer itself. Python's PEP 514
+	// registration identifies the interpreter independently of that cache.
+	if pythonVersion := regexp.MustCompile(`^Python (\d+\.\d+\.\d+) \(64-bit\)$`).FindStringSubmatch(reg.DisplayName); len(pythonVersion) == 2 {
+		version := pythonVersion[1]
+		parts := strings.Split(version, ".")
+		hive := strings.SplitN(reg.RegistryKey, `\`, 2)[0]
+		key := hive + `\Software\Python\PythonCore\` + parts[0] + "." + parts[1] + `\InstallPath`
+		query := []string{"query", key, "/v", "ExecutablePath"}
+		if reg.RegistryView != "" {
+			query = append(query, reg.RegistryView)
+		}
+		code, output, err := runDirectProcess(ctx, "reg.exe", query)
+		match := regexp.MustCompile(`(?m)^\s*ExecutablePath\s+REG_SZ\s+(.+?)\s*$`).FindStringSubmatch(output)
+		if err != nil || code != 0 || len(match) != 2 {
+			return proof, fmt.Errorf("Python interpreter registration unavailable: %s", compactLog(output))
+		}
+		path := strings.TrimSpace(match[1])
+		if !filepath.IsAbs(path) || !strings.EqualFold(filepath.Base(path), "python.exe") || !vmApplicationPayloadPath(path) {
+			return proof, fmt.Errorf("Python registration does not identify an interpreter: %s", path)
+		}
+		code, output, err = runDirectProcess(ctx, path, []string{"-I", "--version"})
+		if err != nil || code != 0 || strings.TrimSpace(output) != "Python "+version {
+			return proof, fmt.Errorf("registered Python interpreter version mismatch: %s", compactLog(output))
+		}
+		proof.PayloadRegistry, proof.PayloadVersion = key, strings.TrimSpace(output)
+		proof.BinaryPaths = append(proof.BinaryPaths, path)
+	}
 	icon := executablePathFromRegistryValue(reg.DisplayIcon)
-	if strings.EqualFold(filepath.Ext(icon), ".exe") {
+	if len(proof.BinaryPaths) == 0 && strings.EqualFold(filepath.Ext(icon), ".exe") && vmApplicationPayloadPath(icon) {
 		if info, err := os.Stat(icon); err == nil && !info.IsDir() {
 			proof.BinaryPaths = append(proof.BinaryPaths, icon)
 		}
@@ -139,7 +168,7 @@ func vmCaptureFilesystem(ctx context.Context, name string) (vmFilesystemProof, e
 	}
 	if len(proof.BinaryPaths) == 0 {
 		root := deriveRegistryInstallLocation(reg)
-		if filepath.IsAbs(root) && filepath.Clean(root) != filepath.VolumeName(root)+string(filepath.Separator) {
+		if filepath.IsAbs(root) && vmApplicationPayloadPath(root) && filepath.Clean(root) != filepath.VolumeName(root)+string(filepath.Separator) {
 			err := filepath.WalkDir(root, func(path string, entry os.DirEntry, walkErr error) error {
 				if walkErr != nil {
 					return walkErr
@@ -155,7 +184,7 @@ func vmCaptureFilesystem(ctx context.Context, name string) (vmFilesystemProof, e
 					proof.UpdaterPaths = append(proof.UpdaterPaths, path)
 					return nil
 				}
-				if entry.Type().IsRegular() && strings.HasSuffix(lower, ".exe") && !strings.Contains(lower, "unins") && !strings.Contains(lower, "update") {
+				if entry.Type().IsRegular() && strings.HasSuffix(lower, ".exe") && vmApplicationPayloadPath(path) {
 					proof.BinaryPaths = append(proof.BinaryPaths, path)
 				}
 				return nil
@@ -214,7 +243,7 @@ func vmMSIExecutableComponents(ctx context.Context, productCode string) ([]strin
 			continue
 		}
 		value := syscall.UTF16ToString(path[:length])
-		if !strings.EqualFold(filepath.Ext(value), ".exe") || seen[strings.ToLower(value)] {
+		if !strings.EqualFold(filepath.Ext(value), ".exe") || !vmApplicationPayloadPath(value) || seen[strings.ToLower(value)] {
 			continue
 		}
 		if info, err := os.Stat(value); err == nil && info.Mode().IsRegular() {
