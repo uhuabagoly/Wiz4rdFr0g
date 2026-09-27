@@ -18,7 +18,7 @@ type vmIndependentState struct {
 	Output            string   `json:"output"`
 	Error             string   `json:"error,omitempty"`
 	InventoryCommand  []string `json:"inventory_command,omitempty"`
-	InventoryExitCode int      `json:"inventory_exit_code,omitempty"`
+	InventoryExitCode int      `json:"inventory_exit_code"`
 	InventoryOutput   string   `json:"inventory_output,omitempty"`
 }
 

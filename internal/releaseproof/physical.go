@@ -3,7 +3,32 @@ package releaseproof
 import (
 	"encoding/json"
 	"fmt"
+	"regexp"
+	"strings"
 )
+
+type installedObservation struct {
+	ID                string   `json:"id"`
+	State             string   `json:"state"`
+	ExitCode          int      `json:"exit_code"`
+	InventoryCommand  []string `json:"inventory_command"`
+	InventoryExitCode *int     `json:"inventory_exit_code"`
+	InventoryOutput   string   `json:"inventory_output"`
+}
+
+func (o installedObservation) provesPresent() bool {
+	if o.State != "present" || o.ID == "" {
+		return false
+	}
+	if o.ExitCode == 0 {
+		return true
+	}
+	// A known exact-query false negative is acceptable only when the signed
+	// successful unfiltered inventory contains this complete package ID.
+	return uint32(o.ExitCode) == 0x8a150014 && o.InventoryExitCode != nil && *o.InventoryExitCode == 0 &&
+		strings.Join(o.InventoryCommand, "\x00") == "winget.exe\x00list\x00--accept-source-agreements\x00--disable-interactivity" &&
+		regexp.MustCompile(`(?m)(?:^|\s)`+regexp.QuoteMeta(o.ID)+`(?:\s|$)`).MatchString(o.InventoryOutput)
+}
 
 // ValidatePhysicalDocument is also used by the full release gate: authenticated
 // booleans alone cannot establish a physical lifecycle.
@@ -48,12 +73,8 @@ func ValidatePhysicalDocument(b []byte, key []byte) error {
 			State    string `json:"state"`
 			ExitCode int    `json:"exit_code"`
 		} `json:"independent_before"`
-		Installed struct {
-			ID       string `json:"id"`
-			State    string `json:"state"`
-			ExitCode int    `json:"exit_code"`
-		} `json:"independent_installed"`
-		Removed struct {
+		Installed installedObservation `json:"independent_installed"`
+		Removed   struct {
 			ID       string `json:"id"`
 			State    string `json:"state"`
 			ExitCode int    `json:"exit_code"`
@@ -85,7 +106,7 @@ func ValidatePhysicalDocument(b []byte, key []byte) error {
 	if r.Precheck != "CLEAN" || r.ID == "" || !r.DownloadOK || !r.Downloaded || !r.InstallOK || !r.UninstallOK || !r.UninstallAttempted || r.Reboot || r.DownloadCode != 0 || r.InstallCode != 0 || r.UninstallCode != 0 {
 		return fmt.Errorf("incomplete physical lifecycle")
 	}
-	if r.Before.ID != r.ID || r.Installed.ID != r.ID || r.Removed.ID != r.ID || r.Before.State != "absent" || r.Installed.State != "present" || r.Removed.State != "absent" || uint32(r.Before.ExitCode) != 0x8a150014 || r.Installed.ExitCode != 0 || uint32(r.Removed.ExitCode) != 0x8a150014 {
+	if r.Before.ID != r.ID || r.Installed.ID != r.ID || r.Removed.ID != r.ID || r.Before.State != "absent" || !r.Installed.provesPresent() || r.Removed.State != "absent" || uint32(r.Before.ExitCode) != 0x8a150014 || uint32(r.Removed.ExitCode) != 0x8a150014 {
 		return fmt.Errorf("independent exact-ID lifecycle not proven")
 	}
 	return nil
