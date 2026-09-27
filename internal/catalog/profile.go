@@ -471,6 +471,8 @@ var displayAliasOverrides = map[string][]string{
 }
 
 var alternativeIDOverrides = map[string][]string{
+	"NV Access":                      {"NVAccess.NVDA"},
+	"TightVNC":                       {"GlavSoft.TightVNC"},
 	"Amazon Corretto JDK 8":          {"Amazon.Corretto.8.JDK"},
 	"Amazon Corretto JDK 11":         {"Amazon.Corretto.11.JDK"},
 	"Amazon Corretto JDK 17":         {"Amazon.Corretto.17.JDK"},
