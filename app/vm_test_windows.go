@@ -37,6 +37,7 @@ type vmDetected struct {
 }
 
 type vmTestResult struct {
+	PythonBaseline         *vmPythonBaseline          `json:"python_baseline,omitempty"`
 	BaselineRemoval        *vmUninstallOutcome        `json:"runner_baseline_removal,omitempty"`
 	CampaignID             string                     `json:"campaign_id"`
 	CampaignAttempt        string                     `json:"attempt"`
@@ -622,6 +623,13 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 		return finish("DOWNLOAD_FAIL")
 	}
 	iargs := packageInstallArgs(id, source)
+	if id == "Python.Python.3.13" && r.InstallScope == "machine" {
+		r.PythonBaseline, err = vmPreparePythonBaseline(ctx, r.ResolvedVersion, workRoot, r.StartedAt, r.DownloadProof)
+		if err != nil {
+			r.FailureStage, r.Failure = "RUNNER_PREPARATION", err.Error()
+			return finish("PRECHECK_FAIL")
+		}
+	}
 	iargs = append(iargs, "--version", r.ResolvedVersion)
 	if id == "Python.Python.3.13" {
 		iargs = append(iargs, "--log", filepath.Join(workRoot, "python-install.log"))
