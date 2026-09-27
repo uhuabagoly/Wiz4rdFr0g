@@ -26,6 +26,13 @@ func executeInstalledUninstall(ctx context.Context, app appDef, pkg installedPac
 	}
 	strategy := installedUninstallStrategy(app, pkg)
 	workerLog("INFO", fmt.Sprintf("%s: uninstall target id=%q name=%q scope=%q strategy=%q registry=%q", app.Name, pkg.ID, pkg.Name, scope, strategy, pkg.RegistryKey))
+	if reg, requiresAdmin := codeBlocksMachinePayload(app, pkg, registryPackages); requiresAdmin {
+		if !elevated {
+			return uninstallCodeNeedElevation
+		}
+		workerLog("INFO", "Code::Blocks 25.03 has a protected Program Files payload despite its HKCU registration; running its verified vendor uninstaller elevated.")
+		return uninstallAttemptCode(app, runRegisteredUninstaller(ctx, app, reg))
+	}
 	if scope == "user" && elevated {
 		return uninstallCodeWrongElevation
 	}

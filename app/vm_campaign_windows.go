@@ -177,6 +177,11 @@ func vmUninstallOnce(ctx context.Context, app appDef, detected vmDetected) (code
 				if code < 0 {
 					return uninstallCodeWrongElevation, true, fmt.Sprintf("standard-user worker could not start: %v %s", err, compactLog(output))
 				}
+				if code == uninstallCodeNeedElevation {
+					// Mirror the GUI's elevation retry on this already elevated,
+					// disposable runner. Production re-resolves the exact target.
+					return uninstallInContext(ctx, app, true), true, ""
+				}
 				return code, false, ""
 			}
 			return uninstallCodeUnsupported, true, "exact catalog index for user worker not found"
