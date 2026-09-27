@@ -1822,6 +1822,18 @@ func runRegisteredUninstaller(ctx context.Context, app appDef, reg registryPacka
 	}
 	var inno bool
 	args, inno = innoUninstallArgs(exe, args)
+	if !inno && nsisUninstallerFile(exe) {
+		silent := false
+		for _, arg := range args {
+			if arg == "/S" {
+				silent = true
+			}
+		}
+		if !silent {
+			args = append(args, "/S")
+		}
+		workerLog("INFO", app.Name+": verified NSIS uninstaller header; using documented /S switch.")
+	}
 	var vendorLog string
 	if inno {
 		file, createErr := os.CreateTemp("", "Wiz4rdFr0g-uninstall-*.log")
