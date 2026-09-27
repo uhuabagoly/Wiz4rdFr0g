@@ -1655,7 +1655,7 @@ func uninstallInContext(ctx context.Context, app appDef, elevated bool) int {
 	if elevated {
 		if userPkg, userFound := resolveInstalledPackage(app, userPackages, userRegs); userFound {
 			userPkg.Scope = "user"
-			if _, requiresAdmin := codeBlocksMachinePayload(app, userPkg, userRegs); requiresAdmin {
+			if _, requiresAdmin := protectedUserPayload(ctx, app, userPkg, userRegs); requiresAdmin {
 				return executeInstalledUninstall(ctx, app, userPkg, userRegs, true)
 			}
 			if _, machineFound := resolveInstalledPackage(app, machinePackages, machineRegs); !machineFound {
