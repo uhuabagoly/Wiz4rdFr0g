@@ -11,12 +11,15 @@ import (
 )
 
 type vmIndependentState struct {
-	ID       string   `json:"id"`
-	State    string   `json:"state"`
-	Command  []string `json:"command"`
-	ExitCode int      `json:"exit_code"`
-	Output   string   `json:"output"`
-	Error    string   `json:"error,omitempty"`
+	ID                string   `json:"id"`
+	State             string   `json:"state"`
+	Command           []string `json:"command"`
+	ExitCode          int      `json:"exit_code"`
+	Output            string   `json:"output"`
+	Error             string   `json:"error,omitempty"`
+	InventoryCommand  []string `json:"inventory_command,omitempty"`
+	InventoryExitCode int      `json:"inventory_exit_code,omitempty"`
+	InventoryOutput   string   `json:"inventory_output,omitempty"`
 }
 
 // This exact-ID observation deliberately does not use production matching/parsing.
@@ -37,6 +40,19 @@ func vmIndependentProbe(id, _ string) vmIndependentState {
 		return r
 	}
 	r.State = independentWingetState(id, code, out, err != nil)
+	if r.State == "absent" {
+		// WinGet's exact query can miss a freshly registered portable package
+		// that the installed inventory already exposes under the identical ID.
+		inventoryArgs := []string{"list", "--accept-source-agreements", "--disable-interactivity"}
+		r.InventoryCommand = append([]string{"winget.exe"}, inventoryArgs...)
+		inventoryCode, inventoryOutput, inventoryErr := runDirectProcess(ctx, "winget.exe", inventoryArgs)
+		r.InventoryExitCode, r.InventoryOutput = inventoryCode, inventoryOutput
+		if ctx.Err() != nil || inventoryErr != nil || inventoryCode != 0 {
+			r.State = "unknown"
+		} else if independentWingetState(id, inventoryCode, inventoryOutput, false) == "present" {
+			r.State = "present"
+		}
+	}
 	return r
 }
 
