@@ -450,6 +450,7 @@ var exactNameVerified20260905 = map[string]bool{
 }
 
 var displayAliasOverrides = map[string][]string{
+	"Persepolis Download Manager":       {"Persepolis Download Manager", "Persepolis Download Manager version"},
 	"Mozilla Firefox":                   {"Mozilla Firefox", "Firefox"},
 	"Zoom":                              {"Zoom", "Zoom Workplace"},
 	"Mozilla Thunderbird":               {"Mozilla Thunderbird", "Thunderbird"},
@@ -474,11 +475,14 @@ var alternativeIDOverrides = map[string][]string{
 	// Exact IDs observed after real installation in physical run 36304661281.
 	// Prefer these identities over display names (WinMerge also registers a
 	// separate shell-extension MSIX with the bare display name "WinMerge").
-	"WinMerge":  {"WinMerge.WinMerge"},
-	"ComfyUI":   {"Comfy.ComfyUI-Desktop"},
-	"OpenSCAD":  {"OpenSCAD.OpenSCAD"},
-	"GDevelop":  {"GDevelop.GDevelop"},
-	"MuseScore": {"Musescore.Musescore"},
+	"WinMerge":                    {"WinMerge.WinMerge"},
+	"ComfyUI":                     {"Comfy.ComfyUI-Desktop"},
+	"OpenSCAD":                    {"OpenSCAD.OpenSCAD"},
+	"GDevelop":                    {"GDevelop.GDevelop"},
+	"MuseScore":                   {"Musescore.Musescore"},
+	"Xtreme Download Manager":     {"subhra74.XtremeDownloadManager"},
+	"Persepolis Download Manager": {"PersepolisDownloadManager.Persepolis"},
+	"Transmission":                {"Transmission.Transmission"},
 }
 
 var aliasOfOverrides = map[string]string{
