@@ -5,8 +5,24 @@ package main
 import (
 	"os"
 	"path/filepath"
+	"reflect"
 	"testing"
 )
+
+func TestChromiumSilentPreservesProfileAndExactTarget(t *testing.T) {
+	local := t.TempDir()
+	t.Setenv("LOCALAPPDATA", local)
+	root := filepath.Join(local, "Chromium", "Application")
+	r := registryPackage{DisplayName: "Chromium", DisplayVersion: "153.0.8010.53", Scope: "user", InstallLocation: root, RegistryKey: `HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Chromium`, UninstallString: `"` + filepath.Join(root, "153.0.8010.53", "Installer", "setup.exe") + `" --uninstall`}
+	args, ok := observedVendorSilentArgs(appDef{Name: "Chromium"}, r)
+	if !ok || !reflect.DeepEqual(args, []string{"--uninstall", "--force-uninstall"}) {
+		t.Fatal("silent mode must not request profile deletion", args)
+	}
+	r.UninstallString += " --delete-profile"
+	if _, ok := observedVendorSilentArgs(appDef{Name: "Chromium"}, r); ok {
+		t.Fatal("unexpected command accepted")
+	}
+}
 
 func TestObservedVendorSilentRejectsUnboundExecutable(t *testing.T) {
 	root := t.TempDir()

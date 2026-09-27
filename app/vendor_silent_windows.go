@@ -5,6 +5,7 @@ package main
 import (
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 )
 
@@ -18,6 +19,20 @@ func observedVendorSilentArgs(app appDef, reg registryPackage) ([]string, bool) 
 	}
 	exe, args, err := splitRegisteredCommandRaw(reg.UninstallString)
 	root := filepath.Clean(strings.Trim(reg.InstallLocation, `"`))
+	// Chromium's --force-uninstall is its documented silent mode; profile
+	// deletion is a separate switch, deliberately never supplied here.
+	// https://github.com/chromium/chromium/blob/main/chrome/installer/setup/uninstall.cc
+	if (app.Name == "Brave" || app.Name == "Chromium") && err == nil && reg.DisplayName == app.Name && reg.Scope == "user" && len(args) == 1 && args[0] == "--uninstall" && regexp.MustCompile(`^\d+\.\d+\.\d+\.\d+$`).MatchString(reg.DisplayVersion) {
+		name, relative := "Chromium", filepath.Join("Chromium", "Application")
+		if app.Name == "Brave" {
+			name, relative = "BraveSoftware Brave-Browser", filepath.Join("BraveSoftware", "Brave-Browser", "Application")
+		}
+		local := os.Getenv("LOCALAPPDATA")
+		key := `HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\` + name
+		if filepath.IsAbs(local) && strings.EqualFold(root, filepath.Join(local, relative)) && strings.EqualFold(reg.RegistryKey, key) && strings.EqualFold(exe, filepath.Join(root, reg.DisplayVersion, "Installer", "setup.exe")) {
+			return []string{"--uninstall", "--force-uninstall"}, true
+		}
+	}
 	if err != nil || !filepath.IsAbs(root) || !strings.EqualFold(filepath.Dir(exe), root) {
 		return nil, false
 	}
