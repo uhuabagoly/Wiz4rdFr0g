@@ -280,10 +280,12 @@ func vmVerifyFilesystemRemoved(ctx context.Context, proof *vmFilesystemProof) er
 		return fmt.Errorf("registry disappearance is not proven")
 	}
 	proof.RegistryRemoved = true
-	for _, path := range proof.BinaryPaths {
-		if _, err := os.Stat(path); !os.IsNotExist(err) {
-			return fmt.Errorf("application executable still exists or cannot be checked: %s", path)
-		}
+	// Self-relocating uninstallers can remove registration before their child
+	// finishes deleting payloads. Observe bounded completion; never delete here.
+	waitCtx, cancel := context.WithTimeout(ctx, 2*time.Minute)
+	defer cancel()
+	if err := awaitApplicationFilesRemoved(waitCtx, proof.BinaryPaths, time.Second); err != nil {
+		return err
 	}
 	proof.BinariesRemoved = true
 	return nil
