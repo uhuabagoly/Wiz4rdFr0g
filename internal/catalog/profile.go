@@ -471,6 +471,11 @@ var displayAliasOverrides = map[string][]string{
 }
 
 var alternativeIDOverrides = map[string][]string{
+	"TortoiseGit":                    {"TortoiseGit.TortoiseGit"},
+	"Lazygit":                        {"JesseDuffield.lazygit"},
+	"FreeCAD":                        {"FreeCAD.FreeCAD"},
+	"RawTherapee":                    {"RawTherapee.RawTherapee"},
+	"nomacs":                         {"nomacs.nomacs"},
 	"Lite XL":                        {"LiteXLTeam.LiteXL"},
 	"Neovim":                         {"Neovim.Neovim"},
 	"Vim":                            {"vim.vim"},
