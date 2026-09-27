@@ -1780,6 +1780,9 @@ func resolveInstalledPackage(app appDef, packages []installedPackage, registryPa
 }
 
 func resolveRegistryForInstalled(app appDef, pkg installedPackage, registryPackages []registryPackage) (registryPackage, bool) {
+	if reg, state := registryForTruncatedPackage(pkg, registryPackages); state != registryMatchNone {
+		return reg, state == registryMatchFound
+	}
 	if strings.TrimSpace(pkg.Name) != "" {
 		if reg, ok := bestRegistryMatch(pkg.Name, registryPackages); ok {
 			return reg, true

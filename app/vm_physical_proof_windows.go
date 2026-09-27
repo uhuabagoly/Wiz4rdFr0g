@@ -130,10 +130,14 @@ type vmFilesystemProof struct {
 	PayloadVersion       string                  `json:"payload_version,omitempty"`
 }
 
-func vmCaptureFilesystem(ctx context.Context, name string, catalogName string) (vmFilesystemProof, error) {
+func vmCaptureFilesystem(ctx context.Context, detected vmDetected, catalogName string) (vmFilesystemProof, error) {
 	var proof vmFilesystemProof
+	name := detected.Name
 	registrations := scanRegistryPackages()
 	reg, state := bestRegistryMatchDetailed(name, registrations)
+	if state == registryMatchNone {
+		reg, state = registryForTruncatedPackage(installedPackage{Name: name, Version: detected.Version, Scope: detected.Scope}, registrations)
+	}
 	if state == registryMatchNone {
 		for _, alias := range candidateQueries(catalogName) {
 			reg, state = bestRegistryMatchDetailed(alias, registrations)
