@@ -579,7 +579,7 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 
 	dargs := []string{"download", "--id", id, "--exact", "--source", source, "--download-directory", downloadDir, "--accept-package-agreements", "--accept-source-agreements", "--disable-interactivity"}
 	dargs = append(dargs, "--version", r.ResolvedVersion)
-	r.InstallScope = vmObservedUserInstallScope(id)
+	r.InstallScope = vmPhysicalInstallScope(id)
 	if r.InstallScope != "" {
 		dargs = append(dargs, "--scope", r.InstallScope)
 	}
@@ -614,14 +614,14 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 	iargs := packageInstallArgs(id, source)
 	iargs = append(iargs, "--version", r.ResolvedVersion)
 	if id == "Python.Python.3.13" {
-		// Python defaults its separate launcher to all-users even when the
-		// interpreter is per-user. Keep both components in the requested scope.
-		iargs = append(iargs, "--log", filepath.Join(workRoot, "python-install.log"), "--custom", "InstallLauncherAllUsers=0")
+		iargs = append(iargs, "--log", filepath.Join(workRoot, "python-install.log"))
 	}
 	runInstall := runDirectProcess
 	r.InstallContext = "runner"
+	if r.InstallScope != "" {
+		iargs = append(iargs, "--scope", r.InstallScope)
+	}
 	if r.InstallScope == "user" {
-		iargs = append(iargs, "--scope", "user")
 		runInstall = runStandardUserProcess
 		r.InstallContext = "same-user standard token"
 	}
