@@ -20,6 +20,13 @@ func runStandardUserProcess(ctx context.Context, executable string, args []strin
 	if !vmProcessElevated() {
 		return runDirectProcess(ctx, executable, args)
 	}
+	if token, err := sameUserLinkedStandardToken(); err == nil {
+		defer token.Close()
+		workerLog("INFO", "Using the same user's verified non-elevated UAC linked token.")
+		return runProcessWithUserToken(ctx, executable, args, token)
+	} else {
+		workerLog("INFO", "UAC linked token unavailable; using reduced token: "+err.Error())
+	}
 	api := syscall.NewLazyDLL("advapi32.dll")
 	create := api.NewProc("SaferCreateLevel")
 	compute := api.NewProc("SaferComputeTokenFromLevel")
@@ -52,6 +59,51 @@ func runStandardUserProcess(ctx context.Context, executable string, args []strin
 	if ok == 0 {
 		return -1, "", fmt.Errorf("set standard-user integrity: %w", err)
 	}
+	return runProcessWithUserToken(ctx, executable, args, token)
+}
+
+func sameUserLinkedStandardToken() (syscall.Token, error) {
+	current, err := syscall.OpenCurrentProcessToken()
+	if err != nil {
+		return 0, err
+	}
+	defer current.Close()
+	var linked syscall.Token
+	var size uint32
+	if err := syscall.GetTokenInformation(current, syscall.TokenLinkedToken, (*byte)(unsafe.Pointer(&linked)), uint32(unsafe.Sizeof(linked)), &size); err != nil {
+		return 0, err
+	}
+	valid := false
+	defer func() {
+		if !valid {
+			linked.Close()
+		}
+	}()
+	var elevated uint32
+	if err := syscall.GetTokenInformation(linked, syscall.TokenElevation, (*byte)(unsafe.Pointer(&elevated)), 4, &size); err != nil || elevated != 0 {
+		return 0, fmt.Errorf("linked token is not verified non-elevated: %v", err)
+	}
+	owner, err := current.GetTokenUser()
+	if err != nil {
+		return 0, err
+	}
+	other, err := linked.GetTokenUser()
+	if err != nil {
+		return 0, err
+	}
+	ownerSID, err := owner.User.Sid.String()
+	if err != nil {
+		return 0, err
+	}
+	otherSID, err := other.User.Sid.String()
+	if err != nil || ownerSID == "" || ownerSID != otherSID {
+		return 0, fmt.Errorf("linked token owner mismatch")
+	}
+	valid = true
+	return linked, nil
+}
+
+func runProcessWithUserToken(ctx context.Context, executable string, args []string, token syscall.Token) (int, string, error) {
 	command := exec.CommandContext(ctx, executable, args...)
 	command.WaitDelay = 10 * time.Second
 	command.SysProcAttr = &syscall.SysProcAttr{HideWindow: true, Token: token}
