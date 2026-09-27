@@ -471,6 +471,11 @@ var displayAliasOverrides = map[string][]string{
 }
 
 var alternativeIDOverrides = map[string][]string{
+	"Lite XL":                        {"LiteXLTeam.LiteXL"},
+	"Neovim":                         {"Neovim.Neovim"},
+	"Vim":                            {"vim.vim"},
+	"Lapce":                          {"Lapce.Lapce"},
+	"Pulsar":                         {"Pulsar-Edit.Pulsar"},
 	"Sysinternals Suite":             {"Microsoft.Sysinternals.Suite"},
 	"Process Explorer":               {"Microsoft.Sysinternals.ProcessExplorer"},
 	"Process Monitor":                {"Microsoft.Sysinternals.ProcessMonitor"},
