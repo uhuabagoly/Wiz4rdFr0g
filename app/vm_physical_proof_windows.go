@@ -52,6 +52,22 @@ func vmVerifyHTTPDownload(ctx context.Context, id, source, version, workRoot str
 	if err != nil {
 		return proof, err
 	}
+	if response.StatusCode == 200 && response.Request.URL.Host == "sourceforge.net" && strings.Contains(strings.ToLower(response.Header.Get("Content-Type")), "text/html") {
+		page, readErr := io.ReadAll(io.LimitReader(response.Body, 1<<20))
+		response.Body.Close()
+		redirect := sourceForgeDownloadRedirect(proof.URL, page)
+		if readErr != nil || redirect == "" {
+			return proof, fmt.Errorf("SourceForge download page has no verified exact-file redirect")
+		}
+		request, err = http.NewRequestWithContext(ctx, http.MethodGet, redirect, nil)
+		if err != nil {
+			return proof, err
+		}
+		response, err = (&http.Client{Timeout: 20 * time.Minute}).Do(request)
+		if err != nil {
+			return proof, err
+		}
+	}
 	defer response.Body.Close()
 	proof.HTTPStatus = response.StatusCode
 	proof.FinalURL = response.Request.URL.String()
