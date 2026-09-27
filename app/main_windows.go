@@ -1836,7 +1836,8 @@ func runRegisteredUninstaller(ctx context.Context, app appDef, reg registryPacka
 		workerLog("INFO", app.Name+": verified NSIS uninstaller header; using documented /S switch.")
 	}
 	var vendorLog string
-	if inno {
+	pythonBundle := regexp.MustCompile(`^Python \d+\.\d+\.\d+ \(64-bit\)$`).MatchString(reg.DisplayName) && strings.HasPrefix(strings.ToLower(filepath.Base(exe)), "python-")
+	if inno || pythonBundle {
 		file, createErr := os.CreateTemp("", "Wiz4rdFr0g-uninstall-*.log")
 		if createErr != nil {
 			return uninstallAttempt{ExitCode: -1, Err: createErr}
@@ -1844,7 +1845,11 @@ func runRegisteredUninstaller(ctx context.Context, app appDef, reg registryPacka
 		vendorLog = file.Name()
 		file.Close()
 		defer os.Remove(vendorLog)
-		args = append(args, "/LOG="+vendorLog)
+		if inno {
+			args = append(args, "/LOG="+vendorLog)
+		} else {
+			args = append(args, "/log", vendorLog)
+		}
 	}
 	workerLog("SYSTEM", "Regisztrált eltávolító: "+formatCommand(exe, args))
 	var code int
