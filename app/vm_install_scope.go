@@ -7,7 +7,8 @@ package main
 // then execute in the same ordinary-user context as the production GUI.
 func vmObservedUserInstallScope(id string) string {
 	switch id {
-	case "Telegram.TelegramDesktop", "GIMP.GIMP", "Greenshot.Greenshot", "WinSCP.WinSCP", "Python.Python.3.13":
+	case "Telegram.TelegramDesktop", "GIMP.GIMP", "Greenshot.Greenshot", "WinSCP.WinSCP", "Python.Python.3.13",
+		"Playnite.Playnite", "Ollama.Ollama", "HeidiSQL.HeidiSQL", "ZedIndustries.Zed", "darktable.darktable", "Meltytech.Shotcut":
 		return "user"
 	}
 	return ""
