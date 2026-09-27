@@ -1895,6 +1895,9 @@ func runRegisteredUninstaller(ctx context.Context, app appDef, reg registryPacka
 				data = data[len(data)-6000:]
 			}
 			workerLog("VENDOR", string(data))
+			// Classify the vendor's actual reason (e.g. a running application),
+			// not just an otherwise empty stdout with exit code 1.
+			out = strings.TrimSpace(out + "\n" + string(data))
 		}
 	}
 	attempt := makeUninstallAttempt(code, out, err)

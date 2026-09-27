@@ -799,10 +799,10 @@ func vmDetectInstalledState(app appDef) (vmDetected, vmDetectionState) {
 		return vmDetected{}, vmDetectionAmbiguous
 	}
 	if ustate == installedResolveFound {
-		return vmDetectedFrom(app, upkg, "user"), vmDetectionFound
+		return vmDetectedFrom(app, upkg, "user", userRegs), vmDetectionFound
 	}
 	if mstate == installedResolveFound {
-		return vmDetectedFrom(app, mpkg, "machine"), vmDetectionFound
+		return vmDetectedFrom(app, mpkg, "machine", machineRegs), vmDetectionFound
 	}
 	allPkgs := append(append([]installedPackage(nil), userPkgs...), machinePkgs...)
 	pkg, state := resolveInstalledPackageDetailed(app, allPkgs, regs)
@@ -810,7 +810,7 @@ func vmDetectInstalledState(app appDef) (vmDetected, vmDetectionState) {
 		return vmDetected{}, vmDetectionAmbiguous
 	}
 	if state == installedResolveFound {
-		return vmDetectedFrom(app, pkg, pkg.Scope), vmDetectionFound
+		return vmDetectedFrom(app, pkg, pkg.Scope, regs), vmDetectionFound
 	}
 	return vmDetected{}, vmDetectionAbsent
 }
@@ -820,7 +820,15 @@ func vmDetectInstalled(app appDef) (vmDetected, bool) {
 	return d, state == vmDetectionFound
 }
 
-func vmDetectedFrom(app appDef, pkg installedPackage, scope string) vmDetected {
+func vmDetectedFrom(app appDef, pkg installedPackage, scope string, regs []registryPackage) vmDetected {
+	if reg, ok := resolveRegistryForInstalled(app, pkg, regs); ok {
+		root := deriveRegistryInstallLocation(reg)
+		if vmApplicationPayloadPath(root) {
+			pkg.InstallLocation = root
+		}
+		pkg.RegistryKey = reg.RegistryKey
+		pkg.WindowsInstaller = reg.WindowsInstaller != 0
+	}
 	if pkg.Scope != "" {
 		scope = pkg.Scope
 	}
