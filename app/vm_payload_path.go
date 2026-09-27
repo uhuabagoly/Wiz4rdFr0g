@@ -5,6 +5,9 @@ import "strings"
 // Installer caches and maintenance tools are not application payload proof.
 func vmApplicationPayloadPath(path string) bool {
 	path = strings.ToLower(strings.ReplaceAll(path, `/`, `\`))
+	if strings.Contains(path, `\windows\installer\`) {
+		return false
+	}
 	parts := strings.Split(path, `\`)
 	for _, part := range parts {
 		if part == "package cache" {

@@ -1128,7 +1128,13 @@ func bestRegistryMatchDetailed(name string, packages []registryPackage) (registr
 			best = p
 			ambiguous = false
 		} else if score > 0 && score == bestScore && (!strings.EqualFold(strings.TrimSpace(best.RegistryKey), strings.TrimSpace(p.RegistryKey)) || best.RegistryView != p.RegistryView) {
-			ambiguous = true
+			if sameRegisteredProduct(best, p) {
+				if p.WindowsInstaller != 0 {
+					best = p
+				}
+			} else {
+				ambiguous = true
+			}
 		}
 	}
 	if bestScore < 96 {
