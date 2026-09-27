@@ -649,10 +649,10 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 		r.RebootRequired = true
 	}
 	r.InstallOK = ctx.Err() == nil && (icode == 0 || icode == 1641 || icode == 3010)
+	if id == "Python.Python.3.13" {
+		r.InstallerDiagnostics = vmPythonInstallerLogs(r.StartedAt, filepath.Join(workRoot, "python-install.log"))
+	}
 	if !r.InstallOK {
-		if id == "Python.Python.3.13" {
-			r.InstallerDiagnostics = vmPythonInstallerLogs(r.StartedAt, filepath.Join(workRoot, "python-install.log"))
-		}
 		r.FailureStage = "INSTALL"
 		r.Failure = fmt.Sprintf("winget install failed: exit=%d err=%s out=%s", icode, errorText(ierr), compactLog(iout))
 		log("ERROR", r.Failure)

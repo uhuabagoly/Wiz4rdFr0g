@@ -222,6 +222,9 @@ func vmCaptureFilesystem(ctx context.Context, detected vmDetected, catalogName, 
 			return proof, fmt.Errorf("Python interpreter registration unavailable: %s", compactLog(output))
 		}
 		path := strings.TrimSpace(match[1])
+		if strings.Contains(strings.ToLower(path), `\hostedtoolcache\`) {
+			return proof, fmt.Errorf("Python registration refers to the runner's pre-existing tool cache, not an independently established fresh installation: %s", path)
+		}
 		if !filepath.IsAbs(path) || !strings.EqualFold(filepath.Base(path), "python.exe") || !vmApplicationPayloadPath(path) {
 			return proof, fmt.Errorf("Python registration does not identify an interpreter: %s", path)
 		}
