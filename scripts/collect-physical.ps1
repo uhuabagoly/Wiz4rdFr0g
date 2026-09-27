@@ -54,7 +54,12 @@ foreach($shard in $shards){
    if(-not $want.evidence_app_id -or $actualID -cne $want.evidence_app_id){throw 'Evidence app ID mismatch'}
    $expectedRun=if($platform -eq 'linux'){[string]$run.id}else{"github-$($run.id)-$($run.run_attempt)"}
    $actualAttempt=if($platform -eq 'linux'){$r.campaign_attempt}else{$r.attempt}
-   if($r.test_run_id -cne $expectedRun -or [string]$actualAttempt -cne [string]$shard.attempt -or $r.campaign_id -cne $shard.shard_id){throw 'Evidence run/campaign/attempt mismatch'}
+   if($r.test_run_id -cne $expectedRun -or [string]$actualAttempt -cne [string]$shard.attempt -or $r.campaign_id -cne $shard.shard_id){
+    $reason="Rejected evidence: run/campaign/attempt mismatch; actual=$($r.test_run_id)/$($r.campaign_id)/$actualAttempt; expected=$expectedRun/$($shard.shard_id)/$($shard.attempt)"
+    $failures+=,[pscustomobject]@{app_id=$want.app_id;attempt=$shard.attempt;file=$file.FullName;reason=$reason}
+    $records+=,[pscustomobject]@{app_id=$want.app_id;app_name=$want.app_name;platform=$platform;catalog_index=$index;attempt=$shard.attempt;test_run_id=$run.id;git_commit=$run.head_sha;download_test='FAIL';install_test='FAIL';detection_test='FAIL';uninstall_test='FAIL';post_uninstall_test='FAIL';final_status='FAIL';failure_reason=$reason;evidence=$file.FullName;ci_run=$run.html_url;source_status='REJECTED_EVIDENCE';physical_started=$false}
+    continue
+   }
    $row=[ordered]@{app_id=$want.app_id;app_name=$want.app_name;platform=$platform;catalog_index=$index;attempt=$shard.attempt;test_run_id=$run.id;git_commit=$r.git_commit;version=$r.resolved_version;download_test='FAIL';install_test='FAIL';detection_test='FAIL';uninstall_test='FAIL';post_uninstall_test='FAIL';final_status='FAIL';failure_reason=$r.failure_reason;evidence=$file.FullName;ci_run=$run.html_url;source_status=$r.final_status}
    if($platform -eq 'linux'){
     if($r.download_real -and $r.file_validation -and $r.download_http_status -eq 200 -and $r.downloaded_bytes -gt 0 -and $r.sha256 -cmatch '^[a-f0-9]{64}$'){$row.download_test='PASS'}
@@ -111,6 +116,7 @@ foreach($app in $expected){
  if($matches.Count){$output+=,$matches[0]}else{$output+=,[pscustomobject]@{app_id=$app.app_id;app_name=$app.app_name;platform=$app.platform;catalog_index=([array]@($expected|Where-Object platform -eq $app.platform)).IndexOf($app);attempt=$null;test_run_id=$null;git_commit=$null;version=$null;download_test='MISSING';install_test='MISSING';detection_test='MISSING';uninstall_test='MISSING';post_uninstall_test='MISSING';final_status='MISSING';failure_reason='No collected physical evidence';evidence=$null;ci_run=$null;source_status=$null}}
 }
 $matched|ConvertTo-Json -Depth 8|Set-Content (Join-Path $root 'runs.json')
+ConvertTo-Json -InputObject @($failures) -Depth 8|Set-Content (Join-Path $root 'rejected-evidence.json')
  $allColumns=@($output|ForEach-Object {$_.PSObject.Properties.Name}|Select-Object -Unique)
  $output=@($output|Select-Object $allColumns)
 ConvertTo-Json -InputObject $output -Depth 10|Set-Content (Join-Path $root 'physical-validation.json')

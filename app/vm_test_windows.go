@@ -419,6 +419,8 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 	app := catalog[idx]
 	profile := catalogpkg.ProfileFor(app)
 	r := vmTestResult{
+		CampaignID:        os.Getenv("WIZ4RDFR0G_CAMPAIGN_ID"),
+		CampaignAttempt:   os.Getenv("WIZ4RDFR0G_CAMPAIGN_ATTEMPT"),
 		SchemaVersion:     releaseproof.EvidenceSchemaVersion,
 		AppVersion:        appVersion,
 		CatalogIndex:      idx,
