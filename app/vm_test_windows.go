@@ -37,72 +37,73 @@ type vmDetected struct {
 }
 
 type vmTestResult struct {
-	BaselineRemoval      *vmUninstallOutcome        `json:"runner_baseline_removal,omitempty"`
-	CampaignID           string                     `json:"campaign_id"`
-	CampaignAttempt      string                     `json:"attempt"`
-	DownloadProof        vmDownloadProof            `json:"download_proof"`
-	FilesystemProof      vmFilesystemProof          `json:"filesystem_proof"`
-	Phase                string                     `json:"phase"`
-	Environment          json.RawMessage            `json:"environment"`
-	IndependentBefore    vmIndependentState         `json:"independent_before"`
-	IndependentInstalled vmIndependentState         `json:"independent_installed"`
-	IndependentRemoved   vmIndependentState         `json:"independent_removed"`
-	DocumentSignature    string                     `json:"document_signature"`
-	SchemaVersion        int                        `json:"schema_version"`
-	BuildID              string                     `json:"build_id"`
-	AppVersion           string                     `json:"app_version"`
-	GitCommit            string                     `json:"git_commit"`
-	CatalogFingerprint   string                     `json:"catalog_fingerprint"`
-	ArtifactSHA256       string                     `json:"artifact_sha256"`
-	TestRunID            string                     `json:"test_run_id"`
-	CatalogIndex         int                        `json:"catalog_index"`
-	CatalogAppID         string                     `json:"catalog_app_id"`
-	CatalogAppName       string                     `json:"catalog_app_name"`
-	Name                 string                     `json:"name"`
-	Category             string                     `json:"category"`
-	Profile              any                        `json:"profile"`
-	StartedAt            string                     `json:"started_at"`
-	FinishedAt           string                     `json:"finished_at"`
-	DurationSeconds      float64                    `json:"duration_seconds"`
-	VMID                 string                     `json:"vm_id"`
-	MachineID            string                     `json:"machine_id"`
-	Executor             string                     `json:"executor"`
-	Precheck             string                     `json:"precheck"`
-	ResolvedID           string                     `json:"resolved_id,omitempty"`
-	ResolvedSource       string                     `json:"resolved_source,omitempty"`
-	ResolvedVersion      string                     `json:"resolved_version,omitempty"`
-	ResolutionError      string                     `json:"resolution_error,omitempty"`
-	DownloadExitCode     int                        `json:"download_exit_code"`
-	DownloadRetryCount   int                        `json:"download_retry_count"`
-	DownloadOK           bool                       `json:"download_ok"`
-	DownloadArtifact     bool                       `json:"download_artifact_present"`
-	InstallExitCode      int                        `json:"install_exit_code"`
-	InstallOutput        string                     `json:"install_output,omitempty"`
-	InstallScope         string                     `json:"install_scope,omitempty"`
-	InstallContext       string                     `json:"install_context,omitempty"`
-	InstallerDiagnostics map[string]string          `json:"installer_diagnostics,omitempty"`
-	DiagnosticInventory  string                     `json:"diagnostic_inventory,omitempty"`
-	DiagnosticRegistry   []registryPackage          `json:"diagnostic_registry,omitempty"`
-	DiagnosticAppx       string                     `json:"diagnostic_appx,omitempty"`
-	InstallRetryCount    int                        `json:"install_retry_count"`
-	InstallOK            bool                       `json:"install_ok"`
-	InstallVerified      bool                       `json:"install_verified"`
-	DetectedAfterInstall vmDetected                 `json:"detected_after_install"`
-	UninstallAttempted   bool                       `json:"uninstall_attempted"`
-	UninstallExitCode    int                        `json:"uninstall_exit_code"`
-	UninstallOK          bool                       `json:"uninstall_ok"`
-	UninstallVerified    bool                       `json:"uninstall_verified"`
-	UninstallDiagnosis   string                     `json:"uninstall_diagnosis,omitempty"`
-	UninstallAttempts    []vmUninstallAttemptRecord `json:"uninstall_attempts,omitempty"`
-	FinalStatus          string                     `json:"final_status"`
-	RootCause            string                     `json:"root_cause"`
-	CoverageStatus       string                     `json:"coverage_status"`
-	SkipReason           string                     `json:"skip_reason,omitempty"`
-	FailureStage         string                     `json:"failure_stage,omitempty"`
-	Failure              string                     `json:"failure,omitempty"`
-	RebootRequired       bool                       `json:"reboot_required"`
-	Events               []vmTestEvent              `json:"events"`
-	Signature            string                     `json:"signature"`
+	BaselineRemoval        *vmUninstallOutcome        `json:"runner_baseline_removal,omitempty"`
+	CampaignID             string                     `json:"campaign_id"`
+	CampaignAttempt        string                     `json:"attempt"`
+	DownloadProof          vmDownloadProof            `json:"download_proof"`
+	FilesystemProof        vmFilesystemProof          `json:"filesystem_proof"`
+	Phase                  string                     `json:"phase"`
+	Environment            json.RawMessage            `json:"environment"`
+	IndependentBefore      vmIndependentState         `json:"independent_before"`
+	IndependentInstalled   vmIndependentState         `json:"independent_installed"`
+	IndependentRemoved     vmIndependentState         `json:"independent_removed"`
+	DocumentSignature      string                     `json:"document_signature"`
+	SchemaVersion          int                        `json:"schema_version"`
+	BuildID                string                     `json:"build_id"`
+	AppVersion             string                     `json:"app_version"`
+	GitCommit              string                     `json:"git_commit"`
+	CatalogFingerprint     string                     `json:"catalog_fingerprint"`
+	ArtifactSHA256         string                     `json:"artifact_sha256"`
+	TestRunID              string                     `json:"test_run_id"`
+	CatalogIndex           int                        `json:"catalog_index"`
+	CatalogAppID           string                     `json:"catalog_app_id"`
+	CatalogAppName         string                     `json:"catalog_app_name"`
+	Name                   string                     `json:"name"`
+	Category               string                     `json:"category"`
+	Profile                any                        `json:"profile"`
+	StartedAt              string                     `json:"started_at"`
+	FinishedAt             string                     `json:"finished_at"`
+	DurationSeconds        float64                    `json:"duration_seconds"`
+	VMID                   string                     `json:"vm_id"`
+	MachineID              string                     `json:"machine_id"`
+	Executor               string                     `json:"executor"`
+	Precheck               string                     `json:"precheck"`
+	ResolvedID             string                     `json:"resolved_id,omitempty"`
+	ResolvedSource         string                     `json:"resolved_source,omitempty"`
+	ResolvedVersion        string                     `json:"resolved_version,omitempty"`
+	ResolutionError        string                     `json:"resolution_error,omitempty"`
+	DownloadExitCode       int                        `json:"download_exit_code"`
+	DownloadRetryCount     int                        `json:"download_retry_count"`
+	DownloadOK             bool                       `json:"download_ok"`
+	DownloadArtifact       bool                       `json:"download_artifact_present"`
+	InstallExitCode        int                        `json:"install_exit_code"`
+	InstallOutput          string                     `json:"install_output,omitempty"`
+	InstallScope           string                     `json:"install_scope,omitempty"`
+	InstallContext         string                     `json:"install_context,omitempty"`
+	InstallerDiagnostics   map[string]string          `json:"installer_diagnostics,omitempty"`
+	DiagnosticInventory    string                     `json:"diagnostic_inventory,omitempty"`
+	DiagnosticRegistry     []registryPackage          `json:"diagnostic_registry,omitempty"`
+	DiagnosticAppx         string                     `json:"diagnostic_appx,omitempty"`
+	DiagnosticDependencies map[string]string          `json:"diagnostic_dependencies,omitempty"`
+	InstallRetryCount      int                        `json:"install_retry_count"`
+	InstallOK              bool                       `json:"install_ok"`
+	InstallVerified        bool                       `json:"install_verified"`
+	DetectedAfterInstall   vmDetected                 `json:"detected_after_install"`
+	UninstallAttempted     bool                       `json:"uninstall_attempted"`
+	UninstallExitCode      int                        `json:"uninstall_exit_code"`
+	UninstallOK            bool                       `json:"uninstall_ok"`
+	UninstallVerified      bool                       `json:"uninstall_verified"`
+	UninstallDiagnosis     string                     `json:"uninstall_diagnosis,omitempty"`
+	UninstallAttempts      []vmUninstallAttemptRecord `json:"uninstall_attempts,omitempty"`
+	FinalStatus            string                     `json:"final_status"`
+	RootCause              string                     `json:"root_cause"`
+	CoverageStatus         string                     `json:"coverage_status"`
+	SkipReason             string                     `json:"skip_reason,omitempty"`
+	FailureStage           string                     `json:"failure_stage,omitempty"`
+	Failure                string                     `json:"failure,omitempty"`
+	RebootRequired         bool                       `json:"reboot_required"`
+	Events                 []vmTestEvent              `json:"events"`
+	Signature              string                     `json:"signature"`
 }
 
 func (r vmTestResult) evidenceStatement() releaseproof.EvidenceStatement {
@@ -261,6 +262,15 @@ func runVMTestFromArgs() int {
 	result.CampaignID = os.Getenv("WIZ4RDFR0G_CAMPAIGN_ID")
 	result.CampaignAttempt = os.Getenv("WIZ4RDFR0G_CAMPAIGN_ATTEMPT")
 	result.Environment = environment
+	if result.FinalStatus != "FULL_PASS" && (result.ResolvedID == "Tailscale.Tailscale" || result.ResolvedID == "iterate.Cyberduck" || result.ResolvedID == "MoonlightGameStreamingProject.Moonlight") {
+		result.DiagnosticDependencies = make(map[string]string)
+		ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+		for _, view := range []string{"/reg:64", "/reg:32"} {
+			code, out, err := runDirectProcess(ctx, "reg.exe", []string{"query", `HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Installer\Dependencies`, "/s", view})
+			result.DiagnosticDependencies[view] = fmt.Sprintf("exit=%d error=%v\n%s", code, err, out)
+		}
+		cancel()
+	}
 	if result.UninstallAttempted && result.FinalStatus != "FULL_PASS" {
 		vmCaptureRemovalDiagnostics(&result.FilesystemProof)
 	}

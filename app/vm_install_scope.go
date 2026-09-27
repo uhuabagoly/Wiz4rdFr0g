@@ -13,7 +13,7 @@ func vmPhysicalInstallScope(id string) string {
 		// creating vendor logs on hosted runners; validate the machine variant
 		// explicitly without claiming that the user variant has been repaired.
 		return "machine"
-	case "Telegram.TelegramDesktop", "GIMP.GIMP", "Greenshot.Greenshot", "WinSCP.WinSCP", "Microsoft.VisualStudioCode", "WinMerge.WinMerge",
+	case "Telegram.TelegramDesktop", "GIMP.GIMP", "Greenshot.Greenshot", "WinSCP.WinSCP", "Microsoft.VisualStudioCode", "WinMerge.WinMerge", "Jan.Jan",
 		"Playnite.Playnite", "Ollama.Ollama", "HeidiSQL.HeidiSQL", "ZedIndustries.Zed", "darktable.darktable", "Meltytech.Shotcut":
 		return "user"
 	}
