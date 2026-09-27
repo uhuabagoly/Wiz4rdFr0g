@@ -17,6 +17,7 @@ import (
 	"syscall"
 	"time"
 	"unsafe"
+	"wiz4rdfr0g.local/fullcatalog/internal/releaseproof"
 )
 
 type vmDownloadProof struct {
@@ -111,23 +112,24 @@ func vmVerifyHTTPDownload(ctx context.Context, id, source, version, workRoot str
 }
 
 type vmFilesystemProof struct {
-	Registration    registryPackage `json:"registration"`
-	RegistryKey     string          `json:"registry_key"`
-	BinaryPaths     []string        `json:"binary_paths"`
-	UpdaterPaths    []string        `json:"updater_paths,omitempty"`
-	RegistryPresent bool            `json:"registry_present"`
-	BinariesPresent bool            `json:"binaries_present"`
-	RegistryRemoved bool            `json:"registry_removed"`
-	BinariesRemoved bool            `json:"binaries_removed"`
-	PayloadRegistry string          `json:"payload_registry,omitempty"`
-	PayloadVersion  string          `json:"payload_version,omitempty"`
+	Appx            *releaseproof.AppxProof `json:"appx,omitempty"`
+	Registration    registryPackage         `json:"registration"`
+	RegistryKey     string                  `json:"registry_key"`
+	BinaryPaths     []string                `json:"binary_paths"`
+	UpdaterPaths    []string                `json:"updater_paths,omitempty"`
+	RegistryPresent bool                    `json:"registry_present"`
+	BinariesPresent bool                    `json:"binaries_present"`
+	RegistryRemoved bool                    `json:"registry_removed"`
+	BinariesRemoved bool                    `json:"binaries_removed"`
+	PayloadRegistry string                  `json:"payload_registry,omitempty"`
+	PayloadVersion  string                  `json:"payload_version,omitempty"`
 }
 
 func vmCaptureFilesystem(ctx context.Context, name string) (vmFilesystemProof, error) {
 	var proof vmFilesystemProof
 	reg, ok := bestRegistryMatch(name, scanRegistryPackages())
 	if !ok {
-		return proof, fmt.Errorf("no unambiguous independent uninstall registration")
+		return vmCaptureAppx(ctx, name)
 	}
 	proof.RegistryKey = reg.RegistryKey
 	proof.Registration = reg
@@ -271,15 +273,26 @@ func vmMSIExecutableComponents(ctx context.Context, productCode string) ([]strin
 }
 
 func vmVerifyFilesystemRemoved(ctx context.Context, proof *vmFilesystemProof) error {
-	args := []string{"query", proof.RegistryKey}
-	if proof.Registration.RegistryView != "" {
-		args = append(args, proof.Registration.RegistryView)
+	if proof.Appx != nil {
+		items, err := vmReadAppxFamily(ctx, proof.Appx.Family)
+		if err != nil {
+			return err
+		}
+		if len(items) != 0 {
+			return fmt.Errorf("Appx deployment registration remains")
+		}
+		proof.Appx.Removed = true
+	} else {
+		args := []string{"query", proof.RegistryKey}
+		if proof.Registration.RegistryView != "" {
+			args = append(args, proof.Registration.RegistryView)
+		}
+		code, out, err := runDirectProcess(ctx, "reg.exe", args)
+		if err == nil || code != 1 || !strings.Contains(strings.ToLower(out), "unable to find") {
+			return fmt.Errorf("registry disappearance is not proven")
+		}
+		proof.RegistryRemoved = true
 	}
-	code, out, err := runDirectProcess(ctx, "reg.exe", args)
-	if err == nil || code != 1 || !strings.Contains(strings.ToLower(out), "unable to find") {
-		return fmt.Errorf("registry disappearance is not proven")
-	}
-	proof.RegistryRemoved = true
 	// Self-relocating uninstallers can remove registration before their child
 	// finishes deleting payloads. Observe bounded completion; never delete here.
 	waitCtx, cancel := context.WithTimeout(ctx, 2*time.Minute)

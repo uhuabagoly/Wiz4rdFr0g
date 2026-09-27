@@ -72,9 +72,9 @@ foreach($shard in $shards){
     $d=$r.download_proof;$f=$r.filesystem_proof
     if($r.download_ok -and $d.file_validation -and $d.download_http_status -eq 200 -and $d.downloaded_bytes -gt 0 -and $d.sha256 -cmatch '^[a-f0-9]{64}$' -and $d.sha256 -ceq $d.expected_sha256){$row.download_test='PASS'}
     if($r.install_ok -and $r.install_exit_code -eq 0){$row.install_test='PASS'}
-    if($r.install_verified -and $r.independent_installed.state -eq 'present' -and $f.registry_present -and $f.binaries_present){$row.detection_test='PASS'}
+    if($r.install_verified -and $r.independent_installed.state -eq 'present' -and ($f.registry_present -or $f.appx.present) -and $f.binaries_present){$row.detection_test='PASS'}
     if($r.uninstall_ok -and $r.uninstall_exit_code -eq 0){$row.uninstall_test='PASS'}
-    if($r.uninstall_verified -and $r.independent_removed.state -eq 'absent' -and $f.registry_removed -and $f.binaries_removed){$row.post_uninstall_test='PASS'}
+    if($r.uninstall_verified -and $r.independent_removed.state -eq 'absent' -and ($f.registry_removed -or $f.appx.removed) -and $f.binaries_removed){$row.post_uninstall_test='PASS'}
    }
    if($r.final_status -eq 'FULL_PASS' -and $row.download_test -eq 'PASS' -and $row.install_test -eq 'PASS' -and $row.detection_test -eq 'PASS' -and $row.uninstall_test -eq 'PASS' -and $row.post_uninstall_test -eq 'PASS'){$row.final_status='FULL_PASS'}
    $jobName=if($platform -eq 'linux'){"lifecycle ($index)"}else{"package-test ($index)"}

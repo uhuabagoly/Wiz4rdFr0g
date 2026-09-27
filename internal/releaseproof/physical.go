@@ -46,12 +46,13 @@ func ValidatePhysicalDocument(b []byte, key []byte) error {
 			Valid    bool   `json:"file_validation"`
 		} `json:"download_proof"`
 		FilesystemProof struct {
-			Key             string   `json:"registry_key"`
-			Paths           []string `json:"binary_paths"`
-			Present         bool     `json:"registry_present"`
-			BinariesPresent bool     `json:"binaries_present"`
-			Removed         bool     `json:"registry_removed"`
-			BinariesRemoved bool     `json:"binaries_removed"`
+			Appx            *AppxProof `json:"appx"`
+			Key             string     `json:"registry_key"`
+			Paths           []string   `json:"binary_paths"`
+			Present         bool       `json:"registry_present"`
+			BinariesPresent bool       `json:"binaries_present"`
+			Removed         bool       `json:"registry_removed"`
+			BinariesRemoved bool       `json:"binaries_removed"`
 		} `json:"filesystem_proof"`
 		FinalStatus        string `json:"final_status"`
 		Executor           string `json:"executor"`
@@ -97,7 +98,11 @@ func ValidatePhysicalDocument(b []byte, key []byte) error {
 	if r.DownloadProof.URL == "" || r.DownloadProof.HTTP != 200 || r.DownloadProof.Bytes <= 0 || len(r.DownloadProof.SHA) != 64 || r.DownloadProof.SHA != r.DownloadProof.Expected || !r.DownloadProof.Valid {
 		return fmt.Errorf("verified physical HTTP download evidence missing")
 	}
-	if r.FilesystemProof.Key == "" || len(r.FilesystemProof.Paths) == 0 || !r.FilesystemProof.Present || !r.FilesystemProof.BinariesPresent || !r.FilesystemProof.Removed || !r.FilesystemProof.BinariesRemoved {
+	registrationProven := r.FilesystemProof.Key != "" && r.FilesystemProof.Present && r.FilesystemProof.Removed
+	if a := r.FilesystemProof.Appx; a != nil {
+		registrationProven = validAppxLifecycle(r.ID, a, r.FilesystemProof.Paths)
+	}
+	if !registrationProven || len(r.FilesystemProof.Paths) == 0 || !r.FilesystemProof.BinariesPresent || !r.FilesystemProof.BinariesRemoved {
 		return fmt.Errorf("independent registry/binary lifecycle evidence missing")
 	}
 	if r.Executor != "github-actions/windows" || r.Environment.Status != "READY" || r.Environment.Runner != "github-hosted" || r.Environment.OS == "" || r.Environment.Arch != "X64" || r.Environment.VMID != r.VMID || r.Environment.Commit != r.Commit {
