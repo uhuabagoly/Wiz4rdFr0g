@@ -261,6 +261,9 @@ func runVMTestFromArgs() int {
 	result.CampaignID = os.Getenv("WIZ4RDFR0G_CAMPAIGN_ID")
 	result.CampaignAttempt = os.Getenv("WIZ4RDFR0G_CAMPAIGN_ATTEMPT")
 	result.Environment = environment
+	if result.UninstallAttempted && result.FinalStatus != "FULL_PASS" {
+		vmCaptureRemovalDiagnostics(&result.FilesystemProof)
+	}
 	if err := os.MkdirAll(filepath.Dir(resultPath), 0755); err != nil {
 		return 93
 	}

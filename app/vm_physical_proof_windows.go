@@ -116,6 +116,7 @@ func vmVerifyHTTPDownload(ctx context.Context, id, source, version, workRoot, sc
 }
 
 type vmFilesystemProof struct {
+	RemovalDiagnostics   map[string]string       `json:"removal_diagnostics,omitempty"`
 	RelatedRegistrations []registryPackage       `json:"related_registrations,omitempty"`
 	Appx                 *releaseproof.AppxProof `json:"appx,omitempty"`
 	Registration         registryPackage         `json:"registration"`
@@ -128,6 +129,37 @@ type vmFilesystemProof struct {
 	BinariesRemoved      bool                    `json:"binaries_removed"`
 	PayloadRegistry      string                  `json:"payload_registry,omitempty"`
 	PayloadVersion       string                  `json:"payload_version,omitempty"`
+}
+
+// Record observations even when the production uninstaller fails before the
+// independent removal gate. These diagnostics never set any PASS flags.
+func vmCaptureRemovalDiagnostics(proof *vmFilesystemProof) {
+	proof.RemovalDiagnostics = make(map[string]string)
+	for _, path := range proof.BinaryPaths {
+		info, err := os.Stat(path)
+		switch {
+		case os.IsNotExist(err):
+			proof.RemovalDiagnostics[path] = "absent"
+		case err != nil:
+			proof.RemovalDiagnostics[path] = "unknown: " + err.Error()
+		default:
+			proof.RemovalDiagnostics[path] = fmt.Sprintf("present: size=%d regular=%t", info.Size(), info.Mode().IsRegular())
+		}
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	regs := append([]registryPackage{proof.Registration}, proof.RelatedRegistrations...)
+	for _, reg := range regs {
+		if reg.RegistryKey == "" {
+			continue
+		}
+		args := []string{"query", reg.RegistryKey}
+		if reg.RegistryView != "" {
+			args = append(args, reg.RegistryView)
+		}
+		code, out, err := runDirectProcess(ctx, "reg.exe", args)
+		proof.RemovalDiagnostics[reg.RegistryKey+" "+reg.RegistryView] = fmt.Sprintf("exit=%d error=%v output=%s", code, err, strings.TrimSpace(out))
+	}
 }
 
 func vmCaptureFilesystem(ctx context.Context, detected vmDetected, catalogName string) (vmFilesystemProof, error) {
