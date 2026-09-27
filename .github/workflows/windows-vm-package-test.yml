@@ -64,10 +64,6 @@ jobs:
         index: ${{ fromJson(needs.plan.outputs.matrix) }}
     env:
       WIZ4RDFR0G_CAMPAIGN_ID: ${{ inputs.campaign_id }}
-      # NSIS System.dll can crash when its installer path contains an 8.3
-      # alias. Use the job's owned, ordinary temporary directory.
-      TEMP: ${{ runner.temp }}
-      TMP: ${{ runner.temp }}
       WIZ4RDFR0G_CAMPAIGN_ATTEMPT: ${{ inputs.attempt || '1' }}
       WIZ4RDFR0G_VM_TEST: '1'
       WIZ4RDFR0G_VM_ID: github-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.index }}
@@ -92,6 +88,14 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           go vet ./...
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Use ordinary temporary paths for vendor installers
+        shell: pwsh
+        run: |
+          # Avoid the hosted profile's 8.3 alias in NSIS installer paths.
+          $tempPath = (Resolve-Path -LiteralPath $env:RUNNER_TEMP).Path
+          if (-not [IO.Path]::IsPathRooted($tempPath) -or $tempPath -match '~') { throw 'Ordinary runner temp path required' }
+          "TEMP=$tempPath" | Add-Content -LiteralPath $env:GITHUB_ENV
+          "TMP=$tempPath" | Add-Content -LiteralPath $env:GITHUB_ENV
       - name: Verify hosted runner and package sources
         shell: pwsh
         env:
