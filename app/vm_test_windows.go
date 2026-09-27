@@ -78,6 +78,8 @@ type vmTestResult struct {
 	DownloadArtifact     bool                       `json:"download_artifact_present"`
 	InstallExitCode      int                        `json:"install_exit_code"`
 	InstallOutput        string                     `json:"install_output,omitempty"`
+	InstallScope         string                     `json:"install_scope,omitempty"`
+	InstallContext       string                     `json:"install_context,omitempty"`
 	DiagnosticInventory  string                     `json:"diagnostic_inventory,omitempty"`
 	DiagnosticRegistry   []registryPackage          `json:"diagnostic_registry,omitempty"`
 	DiagnosticAppx       string                     `json:"diagnostic_appx,omitempty"`
@@ -573,6 +575,10 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 
 	dargs := []string{"download", "--id", id, "--exact", "--source", source, "--download-directory", downloadDir, "--accept-package-agreements", "--accept-source-agreements", "--disable-interactivity"}
 	dargs = append(dargs, "--version", r.ResolvedVersion)
+	r.InstallScope = vmObservedUserInstallScope(id)
+	if r.InstallScope != "" {
+		dargs = append(dargs, "--scope", r.InstallScope)
+	}
 	log("CMD", formatCommand("winget.exe", dargs))
 	if err := checkpoint("DOWNLOAD_PENDING"); err != nil {
 		r.Failure = err.Error()
@@ -594,7 +600,7 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 	}
 
 	var proofErr error
-	r.DownloadProof, proofErr = vmVerifyHTTPDownload(ctx, id, source, r.ResolvedVersion, workRoot)
+	r.DownloadProof, proofErr = vmVerifyHTTPDownload(ctx, id, source, r.ResolvedVersion, workRoot, r.InstallScope)
 	if proofErr != nil {
 		r.DownloadOK = false
 		r.FailureStage = "DOWNLOAD_VALIDATION"
@@ -603,12 +609,19 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 	}
 	iargs := packageInstallArgs(id, source)
 	iargs = append(iargs, "--version", r.ResolvedVersion)
+	runInstall := runDirectProcess
+	r.InstallContext = "runner"
+	if r.InstallScope == "user" {
+		iargs = append(iargs, "--scope", "user")
+		runInstall = runStandardUserProcess
+		r.InstallContext = "same-user standard token"
+	}
 	log("CMD", formatCommand("winget.exe", iargs))
 	if err := checkpoint("INSTALL_PENDING"); err != nil {
 		r.Failure = err.Error()
 		return finish("CHECKPOINT_FAIL")
 	}
-	irun := vmRunCommandWithTransientRetry(ctx, "winget.exe", iargs, campaignRetryLimitFromEnv("WIZ4RDFR0G_PACKAGE_RETRIES", 1), func() bool { return !verifyProgramInstalled(app) }, log)
+	irun := vmRunWithTransientRetry(ctx, "winget.exe", iargs, campaignRetryLimitFromEnv("WIZ4RDFR0G_PACKAGE_RETRIES", 1), func() bool { return !verifyProgramInstalled(app) }, log, runInstall)
 	icode, iout, ierr := irun.ExitCode, irun.Output, irun.Err
 	r.InstallOutput = iout
 	r.InstallExitCode = icode

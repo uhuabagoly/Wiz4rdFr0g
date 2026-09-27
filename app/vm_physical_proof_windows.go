@@ -32,9 +32,13 @@ type vmDownloadProof struct {
 	Valid          bool   `json:"file_validation"`
 }
 
-func vmVerifyHTTPDownload(ctx context.Context, id, source, version, workRoot string) (vmDownloadProof, error) {
+func vmVerifyHTTPDownload(ctx context.Context, id, source, version, workRoot, scope string) (vmDownloadProof, error) {
 	var proof vmDownloadProof
-	code, out, err := runDirectProcess(ctx, "winget.exe", []string{"show", "--id", id, "--exact", "--source", source, "--version", version, "--accept-source-agreements", "--disable-interactivity"})
+	args := []string{"show", "--id", id, "--exact", "--source", source, "--version", version, "--accept-source-agreements", "--disable-interactivity"}
+	if scope != "" {
+		args = append(args, "--scope", scope)
+	}
+	code, out, err := runDirectProcess(ctx, "winget.exe", args)
 	if err != nil || code != 0 {
 		return proof, fmt.Errorf("exact installer metadata unavailable: exit=%d %v", code, err)
 	}

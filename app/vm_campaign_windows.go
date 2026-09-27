@@ -219,9 +219,13 @@ type vmCommandRun struct {
 }
 
 func vmRunCommandWithTransientRetry(ctx context.Context, exe string, args []string, maxRetries int, canRetry func() bool, log func(string, string)) vmCommandRun {
+	return vmRunWithTransientRetry(ctx, exe, args, maxRetries, canRetry, log, runDirectProcess)
+}
+
+func vmRunWithTransientRetry(ctx context.Context, exe string, args []string, maxRetries int, canRetry func() bool, log func(string, string), run func(context.Context, string, []string) (int, string, error)) vmCommandRun {
 	var result vmCommandRun
 	for attempt := 0; ; attempt++ {
-		code, out, err := runDirectProcess(ctx, exe, args)
+		code, out, err := run(ctx, exe, args)
 		result.ExitCode, result.Output, result.Err = code, out, err
 		if err == nil {
 			return result
