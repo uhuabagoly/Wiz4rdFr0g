@@ -21,6 +21,7 @@ import (
 )
 
 type vmDownloadProof struct {
+	UserAgent      string `json:"http_user_agent,omitempty"`
 	URL            string `json:"resolved_download_url"`
 	FinalURL       string `json:"final_download_url"`
 	HTTPStatus     int    `json:"download_http_status"`
@@ -48,11 +49,13 @@ func vmVerifyHTTPDownload(ctx context.Context, id, source, version, workRoot, sc
 		return proof, fmt.Errorf("missing exact installer URL/SHA256")
 	}
 	proof.URL = urls[1]
+	proof.UserAgent = "Wiz4rdFr0g-PhysicalValidation/1.0"
 	proof.ExpectedSHA256 = strings.ToLower(sums[1])
 	request, err := http.NewRequestWithContext(ctx, http.MethodGet, proof.URL, nil)
 	if err != nil {
 		return proof, err
 	}
+	request.Header.Set("User-Agent", proof.UserAgent)
 	response, err := (&http.Client{Timeout: 20 * time.Minute}).Do(request)
 	if err != nil {
 		return proof, err
@@ -68,6 +71,7 @@ func vmVerifyHTTPDownload(ctx context.Context, id, source, version, workRoot, sc
 		if err != nil {
 			return proof, err
 		}
+		request.Header.Set("User-Agent", proof.UserAgent)
 		response, err = (&http.Client{Timeout: 20 * time.Minute}).Do(request)
 		if err != nil {
 			return proof, err
