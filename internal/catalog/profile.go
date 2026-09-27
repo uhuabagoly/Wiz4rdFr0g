@@ -475,6 +475,8 @@ var alternativeIDOverrides = map[string][]string{
 	"Bitvise SSH Client":             {"Bitvise.SSH.Client"},
 	"MariaDB":                        {"MariaDB.Server"},
 	"Zed":                            {"ZedIndustries.Zed"},
+	"digiKam":                        {"KDE.digiKam"},
+	"Thunderbird":                    {"Mozilla.Thunderbird"},
 	"pnpm":                           {"pnpm.pnpm"},
 	"mitmproxy":                      {"mitmproxy.mitmproxy"},
 	"Kate":                           {"KDE.Kate"},
