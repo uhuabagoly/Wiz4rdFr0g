@@ -471,7 +471,8 @@ var displayAliasOverrides = map[string][]string{
 }
 
 var alternativeIDOverrides = map[string][]string{
-	"DBeaver": {"dbeaver.dbeaver"},
+	"TortoiseSVN": {"TortoiseSVN.TortoiseSVN"},
+	"DBeaver":     {"dbeaver.dbeaver"},
 	// Exact IDs observed after real installation in physical run 36304661281.
 	// Prefer these identities over display names (WinMerge also registers a
 	// separate shell-extension MSIX with the bare display name "WinMerge").

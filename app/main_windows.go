@@ -1719,7 +1719,8 @@ const (
 )
 
 func resolveInstalledPackageDetailed(app appDef, packages []installedPackage, registryPackages []registryPackage) (installedPackage, installedResolveState) {
-	for _, wantID := range catalogIDs(app) {
+	knownIDs := catalogIDs(app)
+	for _, wantID := range knownIDs {
 		for _, p := range packages {
 			if strings.EqualFold(strings.TrimSpace(p.ID), strings.TrimSpace(wantID)) {
 				return p, installedResolveFound
@@ -1731,6 +1732,11 @@ func resolveInstalledPackageDetailed(app appDef, packages []installedPackage, re
 		var matches []installedPackage
 		seenIDs := map[string]bool{}
 		for _, p := range packages {
+			// A shell-extension MSIX can share the desktop product's display
+			// name. It cannot substitute for a known exact desktop package ID.
+			if len(knownIDs) > 0 && strings.HasPrefix(strings.ToUpper(strings.TrimSpace(p.ID)), `MSIX\`) {
+				continue
+			}
 			if normalizeSearch(p.Name) != want {
 				continue
 			}
