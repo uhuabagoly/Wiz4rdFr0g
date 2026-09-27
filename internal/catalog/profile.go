@@ -471,6 +471,9 @@ var displayAliasOverrides = map[string][]string{
 }
 
 var alternativeIDOverrides = map[string][]string{
+	"Go":                             {"GoLang.Go"},
+	"pgAdmin":                        {"PostgreSQL.pgAdmin"},
+	"curl":                           {"cURL.cURL"},
 	"Moonlight":                      {"MoonlightGameStreamingProject.Moonlight"},
 	"Podman Desktop":                 {"RedHat.Podman-Desktop"},
 	"Rancher Desktop":                {"SUSE.RancherDesktop"},
