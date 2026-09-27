@@ -471,6 +471,11 @@ var displayAliasOverrides = map[string][]string{
 }
 
 var alternativeIDOverrides = map[string][]string{
+	"Sysinternals Suite":             {"Microsoft.Sysinternals.Suite"},
+	"Process Explorer":               {"Microsoft.Sysinternals.ProcessExplorer"},
+	"Process Monitor":                {"Microsoft.Sysinternals.ProcessMonitor"},
+	"Autoruns":                       {"Microsoft.Sysinternals.Autoruns"},
+	"TCPView":                        {"Microsoft.Sysinternals.TCPView"},
 	"Go":                             {"GoLang.Go"},
 	"pgAdmin":                        {"PostgreSQL.pgAdmin"},
 	"curl":                           {"cURL.cURL"},
