@@ -162,7 +162,7 @@ func vmCaptureRemovalDiagnostics(proof *vmFilesystemProof) {
 	}
 }
 
-func vmCaptureFilesystem(ctx context.Context, detected vmDetected, catalogName string) (vmFilesystemProof, error) {
+func vmCaptureFilesystem(ctx context.Context, detected vmDetected, catalogName, requestedScope string) (vmFilesystemProof, error) {
 	var proof vmFilesystemProof
 	name := detected.Name
 	registrations := scanRegistryPackages()
@@ -203,6 +203,14 @@ func vmCaptureFilesystem(ctx context.Context, detected vmDetected, catalogName s
 		version := pythonVersion[1]
 		parts := strings.Split(version, ".")
 		hive := strings.SplitN(reg.RegistryKey, `\`, 2)[0]
+		// The Burn bundle can register in HKCU while its explicitly requested
+		// all-users MSI payload is registered in HKLM. Keep the bundle proof
+		// intact and inspect PEP 514 in the actual requested payload scope.
+		if requestedScope == "machine" {
+			hive = "HKEY_LOCAL_MACHINE"
+		} else if requestedScope == "user" {
+			hive = "HKEY_CURRENT_USER"
+		}
 		key := hive + `\Software\Python\PythonCore\` + parts[0] + "." + parts[1] + `\InstallPath`
 		query := []string{"query", key, "/v", "ExecutablePath"}
 		if reg.RegistryView != "" {
