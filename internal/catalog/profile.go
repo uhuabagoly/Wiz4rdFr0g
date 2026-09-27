@@ -471,6 +471,10 @@ var displayAliasOverrides = map[string][]string{
 }
 
 var alternativeIDOverrides = map[string][]string{
+	"Moonlight":                      {"MoonlightGameStreamingProject.Moonlight"},
+	"Podman Desktop":                 {"RedHat.Podman-Desktop"},
+	"Rancher Desktop":                {"SUSE.RancherDesktop"},
+	"NetBird":                        {"Netbird.Netbird"},
 	"NV Access":                      {"NVAccess.NVDA"},
 	"TightVNC":                       {"GlavSoft.TightVNC"},
 	"Amazon Corretto JDK 8":          {"Amazon.Corretto.8.JDK"},
