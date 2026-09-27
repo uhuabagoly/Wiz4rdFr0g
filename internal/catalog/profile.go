@@ -474,6 +474,7 @@ var alternativeIDOverrides = map[string][]string{
 	"VSCodium":                       {"VSCodium.VSCodium"},
 	"Bitvise SSH Client":             {"Bitvise.SSH.Client"},
 	"MariaDB":                        {"MariaDB.Server"},
+	"Zed":                            {"ZedIndustries.Zed"},
 	"Apache JMeter":                  {"DEVCOM.JMeter"},
 	"TortoiseGit":                    {"TortoiseGit.TortoiseGit"},
 	"Lazygit":                        {"JesseDuffield.lazygit"},
