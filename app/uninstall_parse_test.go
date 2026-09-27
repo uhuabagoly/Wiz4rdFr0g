@@ -2,6 +2,19 @@ package main
 
 import "testing"
 
+func TestInnoQuietCommandSuppressesDialogsAndRestart(t *testing.T) {
+	args, ok := innoUninstallArgs(`C:\Users\runneradmin\Telegram Desktop\unins000.exe`, []string{"/SILENT"})
+	if !ok || len(args) != 4 || args[1] != "/VERYSILENT" || args[2] != "/SUPPRESSMSGBOXES" || args[3] != "/NORESTART" {
+		t.Fatalf("incomplete unattended arguments: %v", args)
+	}
+	if again, _ := innoUninstallArgs("unins000.exe", args); len(again) != len(args) {
+		t.Fatal("duplicate switches appended")
+	}
+	if other, ok := innoUninstallArgs("vendor.exe", []string{"/SILENT"}); ok || len(other) != 1 {
+		t.Fatal("non-Inno vendor command modified")
+	}
+}
+
 func TestSplitRegisteredCommandQuoted(t *testing.T) {
 	exe, args, err := splitRegisteredCommandRaw(`"C:\\Program Files\\Vendor App\\uninstall.exe" /S /norestart`)
 	if err != nil {

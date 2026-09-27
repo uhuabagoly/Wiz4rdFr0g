@@ -56,7 +56,7 @@ func vmExecuteUninstallWithRepair(parent context.Context, app appDef, initial vm
 			Attempt: attemptNo, Scope: current.Scope, Strategy: current.Strategy, Elevated: elevated,
 			ExitCode: code, DetectedBefore: current,
 		}
-		record.WorkerLog = compactLog(readLogSince(logOffset, 12000))
+		record.WorkerLog = readLogSince(logOffset, 16000)
 		if skipReason != "" {
 			record.Diagnosis = skipReason
 			outcome.Code = code

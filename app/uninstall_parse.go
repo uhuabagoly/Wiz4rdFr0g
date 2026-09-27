@@ -44,6 +44,29 @@ func executableCandidate(v string) bool {
 	return false
 }
 
+func innoUninstallArgs(executable string, args []string) ([]string, bool) {
+	base := strings.ToLower(executable)
+	if at := strings.LastIndexAny(base, `/\`); at >= 0 {
+		base = base[at+1:]
+	}
+	if !regexp.MustCompile(`^unins[0-9]*\.exe$`).MatchString(base) {
+		return args, false
+	}
+	result := append([]string(nil), args...)
+	for _, flag := range []string{"/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART"} {
+		found := false
+		for _, arg := range result {
+			if strings.EqualFold(arg, flag) {
+				found = true
+			}
+		}
+		if !found {
+			result = append(result, flag)
+		}
+	}
+	return result, true
+}
+
 func splitRegisteredCommandRaw(raw string) (string, []string, error) {
 	raw = strings.TrimSpace(raw)
 	if raw == "" {

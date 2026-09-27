@@ -1783,7 +1783,6 @@ func resolveRegistryForInstalled(app appDef, pkg installedPackage, registryPacka
 
 func runRegisteredUninstaller(ctx context.Context, app appDef, reg registryPackage) uninstallAttempt {
 	raw := strings.TrimSpace(reg.QuietUninstallString)
-	quiet := raw != ""
 	if raw == "" {
 		raw = strings.TrimSpace(reg.UninstallString)
 	}
@@ -1821,15 +1820,29 @@ func runRegisteredUninstaller(ctx context.Context, app appDef, reg registryPacka
 		workerLog("WARN", app.Name+": Registry UninstallString nem dolgozható fel: "+err.Error())
 		return uninstallAttempt{ExitCode: -1, Err: err, Output: err.Error()}
 	}
-	if !quiet {
-		lower := strings.ToLower(filepath.Base(exe))
-		joined := strings.ToLower(strings.Join(args, " "))
-		if regexp.MustCompile(`unins\d*\.exe`).MatchString(lower) && !strings.Contains(joined, "/verysilent") {
-			args = append(args, "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART")
+	var inno bool
+	args, inno = innoUninstallArgs(exe, args)
+	var vendorLog string
+	if inno {
+		file, createErr := os.CreateTemp("", "Wiz4rdFr0g-uninstall-*.log")
+		if createErr != nil {
+			return uninstallAttempt{ExitCode: -1, Err: createErr}
 		}
+		vendorLog = file.Name()
+		file.Close()
+		defer os.Remove(vendorLog)
+		args = append(args, "/LOG="+vendorLog)
 	}
 	workerLog("SYSTEM", "Regisztrált eltávolító: "+formatCommand(exe, args))
 	code, out, err := runDirectProcess(ctx, exe, args)
+	if vendorLog != "" {
+		if data, readErr := os.ReadFile(vendorLog); readErr == nil && len(data) > 0 {
+			if len(data) > 6000 {
+				data = data[len(data)-6000:]
+			}
+			workerLog("VENDOR", string(data))
+		}
+	}
 	attempt := makeUninstallAttempt(code, out, err)
 	if !attempt.Success {
 		workerLog("WARN", app.Name+": regisztrált eltávolító sikertelen: "+compactFailure(out, err)+fmt.Sprintf(" (exit=%d)", code))
@@ -1930,6 +1943,7 @@ func runDirectProcess(ctx context.Context, exe string, args []string) (int, stri
 		return runDirectProcess(ctx, comspec, cmdArgs)
 	}
 	cmd := exec.CommandContext(ctx, exe, args...)
+	cmd.WaitDelay = 10 * time.Second
 	if filepath.IsAbs(exe) {
 		cmd.Dir = filepath.Dir(exe)
 	}

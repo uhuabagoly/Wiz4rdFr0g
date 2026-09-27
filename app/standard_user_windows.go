@@ -10,6 +10,7 @@ import (
 	"runtime"
 	"strings"
 	"syscall"
+	"time"
 	"unsafe"
 )
 
@@ -52,6 +53,7 @@ func runStandardUserProcess(ctx context.Context, executable string, args []strin
 		return -1, "", fmt.Errorf("set standard-user integrity: %w", err)
 	}
 	command := exec.CommandContext(ctx, executable, args...)
+	command.WaitDelay = 10 * time.Second
 	command.SysProcAttr = &syscall.SysProcAttr{HideWindow: true, Token: token}
 	for _, entry := range os.Environ() {
 		if !strings.HasPrefix(entry, "WIZ4RDFR0G_EVIDENCE_HMAC_KEY=") {
