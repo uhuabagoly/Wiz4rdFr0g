@@ -611,7 +611,9 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 	iargs := packageInstallArgs(id, source)
 	iargs = append(iargs, "--version", r.ResolvedVersion)
 	if id == "Python.Python.3.13" {
-		iargs = append(iargs, "--log", filepath.Join(workRoot, "python-install.log"))
+		// Python defaults its separate launcher to all-users even when the
+		// interpreter is per-user. Keep both components in the requested scope.
+		iargs = append(iargs, "--log", filepath.Join(workRoot, "python-install.log"), "--custom", "InstallLauncherAllUsers=0")
 	}
 	runInstall := runDirectProcess
 	r.InstallContext = "runner"
