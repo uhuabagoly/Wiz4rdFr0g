@@ -4,6 +4,28 @@ package main
 
 import "testing"
 
+func TestBurnDependencyNeedsExactProductBundleVersionAndScope(t *testing.T) {
+	msi := registryPackage{DisplayName: "Tailscale", DisplayVersion: "1.102.4", Scope: "machine", WindowsInstaller: 1, RegistryKey: `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{AABAAA70-B2CD-5043-9922-0B190DC6D677}`, UninstallString: `MsiExec.exe /I{AABAAA70-B2CD-5043-9922-0B190DC6D677}`}
+	bundle := registryPackage{DisplayName: "Tailscale", DisplayVersion: "1.102.4", Scope: "machine", RegistryKey: `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{5C82A34F-5306-4179-998A-2A45679B4809}`, UninstallString: `"C:\ProgramData\Package Cache\tailscale.exe" /uninstall`}
+	want := `HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Installer\Dependencies\{AABAAA70-B2CD-5043-9922-0B190DC6D677}_v1.102.4\Dependents\{5C82A34F-5306-4179-998A-2A45679B4809}`
+	if burnDependencyKey(msi, bundle) != want || burnDependencyKey(bundle, msi) != want {
+		t.Fatal("observed dependency identity mismatch")
+	}
+	for _, mutate := range []func(*registryPackage){
+		func(r *registryPackage) { r.DisplayVersion = "1.102.5" },
+		func(r *registryPackage) { r.Scope = "user" },
+		func(r *registryPackage) { r.DisplayName = "Other" },
+		func(r *registryPackage) { r.RegistryKey = `HKLM\NotAGuid` },
+		func(r *registryPackage) { r.UninstallString = `other.exe` },
+	} {
+		other := bundle
+		mutate(&other)
+		if burnDependencyKey(msi, other) != "" {
+			t.Fatal("unrelated record accepted")
+		}
+	}
+}
+
 func TestTruncatedInventoryNeedsUniqueSameVersionAndScope(t *testing.T) {
 	pkg := installedPackage{Name: "Eclipse Temurin JDK with Hotspot 8u504-…", Version: "8.0.504.1", Scope: "machine"}
 	reg := registryPackage{DisplayName: "Eclipse Temurin JDK with Hotspot 8u504-b01 (x64)", DisplayVersion: "8.0.504.1", Scope: "machine"}

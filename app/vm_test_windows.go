@@ -262,7 +262,7 @@ func runVMTestFromArgs() int {
 	result.CampaignID = os.Getenv("WIZ4RDFR0G_CAMPAIGN_ID")
 	result.CampaignAttempt = os.Getenv("WIZ4RDFR0G_CAMPAIGN_ATTEMPT")
 	result.Environment = environment
-	if result.FinalStatus != "FULL_PASS" && (result.ResolvedID == "Tailscale.Tailscale" || result.ResolvedID == "iterate.Cyberduck" || result.ResolvedID == "MoonlightGameStreamingProject.Moonlight") {
+	if result.FinalStatus != "FULL_PASS" && (result.ResolvedID == "Tailscale.Tailscale" || strings.EqualFold(result.ResolvedID, "Iterate.Cyberduck") || result.ResolvedID == "MoonlightGameStreamingProject.Moonlight") {
 		result.DiagnosticDependencies = make(map[string]string)
 		ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 		for _, view := range []string{"/reg:64", "/reg:32"} {

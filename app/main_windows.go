@@ -1128,7 +1128,12 @@ func bestRegistryMatchDetailed(name string, packages []registryPackage) (registr
 			best = p
 			ambiguous = false
 		} else if score > 0 && score == bestScore && (!strings.EqualFold(strings.TrimSpace(best.RegistryKey), strings.TrimSpace(p.RegistryKey)) || best.RegistryView != p.RegistryView) {
-			if sameRegisteredProduct(best, p) {
+			if sameBurnProduct(best, p) {
+				// The bundle owns the complete uninstall chain, including its MSI.
+				if p.WindowsInstaller == 0 {
+					best = p
+				}
+			} else if sameRegisteredProduct(best, p) {
 				if p.WindowsInstaller != 0 {
 					best = p
 				}

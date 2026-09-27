@@ -184,7 +184,7 @@ func vmCaptureFilesystem(ctx context.Context, detected vmDetected, catalogName, 
 	proof.RegistryKey = reg.RegistryKey
 	proof.Registration = reg
 	for _, related := range registrations {
-		if sameRegisteredProduct(reg, related) {
+		if sameRegisteredProduct(reg, related) || sameBurnProduct(reg, related) {
 			proof.RelatedRegistrations = append(proof.RelatedRegistrations, related)
 		}
 	}
@@ -248,6 +248,17 @@ func vmCaptureFilesystem(ctx context.Context, detected vmDetected, catalogName, 
 				return proof, err
 			}
 			proof.BinaryPaths = append(proof.BinaryPaths, paths...)
+		}
+	}
+	if len(proof.BinaryPaths) == 0 {
+		for _, related := range proof.RelatedRegistrations {
+			if related.WindowsInstaller != 0 {
+				paths, err := vmMSIExecutableComponents(ctx, filepath.Base(related.RegistryKey))
+				if err != nil {
+					return proof, err
+				}
+				proof.BinaryPaths = append(proof.BinaryPaths, paths...)
+			}
 		}
 	}
 	if len(proof.BinaryPaths) == 0 {
