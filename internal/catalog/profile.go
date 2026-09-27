@@ -471,8 +471,18 @@ var displayAliasOverrides = map[string][]string{
 }
 
 var alternativeIDOverrides = map[string][]string{
-	"TortoiseSVN": {"TortoiseSVN.TortoiseSVN"},
-	"DBeaver":     {"dbeaver.dbeaver"},
+	"Amazon Corretto JDK 8":          {"Amazon.Corretto.8.JDK"},
+	"Amazon Corretto JDK 11":         {"Amazon.Corretto.11.JDK"},
+	"Amazon Corretto JDK 17":         {"Amazon.Corretto.17.JDK"},
+	"Amazon Corretto JDK 21":         {"Amazon.Corretto.21.JDK"},
+	"Amazon Corretto JDK 25":         {"Amazon.Corretto.25.JDK"},
+	"Adoptium / AdoptOpenJDK JDK 8":  {"EclipseAdoptium.Temurin.8.JDK"},
+	"Adoptium / AdoptOpenJDK JDK 11": {"EclipseAdoptium.Temurin.11.JDK"},
+	"Adoptium / AdoptOpenJDK JDK 17": {"EclipseAdoptium.Temurin.17.JDK"},
+	"Adoptium / AdoptOpenJDK JDK 21": {"EclipseAdoptium.Temurin.21.JDK"},
+	"Adoptium / AdoptOpenJDK JDK 25": {"EclipseAdoptium.Temurin.25.JDK"},
+	"TortoiseSVN":                    {"TortoiseSVN.TortoiseSVN"},
+	"DBeaver":                        {"dbeaver.dbeaver"},
 	// Exact IDs observed after real installation in physical run 36304661281.
 	// Prefer these identities over display names (WinMerge also registers a
 	// separate shell-extension MSIX with the bare display name "WinMerge").
