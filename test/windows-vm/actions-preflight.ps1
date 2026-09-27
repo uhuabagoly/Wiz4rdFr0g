@@ -50,9 +50,22 @@ try {
         }
     }
     foreach ($arguments in @(@('--version'), @('source','list'), @('source','update','--name','winget'), @('show','--id','Microsoft.PowerToys','--exact','--source','winget','--accept-source-agreements','--disable-interactivity'))) {
-        $output = (& winget @arguments 2>&1 | Out-String)
-        $proof.commands += @{command=@('winget')+$arguments; exit_code=$LASTEXITCODE; output=$output}
-        if ($LASTEXITCODE -ne 0) { throw "Winget preflight failed: $arguments" }
+        $ready = $false
+        for($attempt=1; $attempt -le 3; $attempt++) {
+            $output = (& winget @arguments 2>&1 | Out-String)
+            $code = $LASTEXITCODE
+            $proof.commands += @{command=@('winget')+$arguments; attempt=$attempt; exit_code=$code; output=$output}
+            $ready = $code -eq 0 -and $output -notmatch '(?im)^\s*Cancelled\s*$'
+            if($ready){break}
+            if($attempt -lt 3){
+                if($output -match '0x8a15000f|Data required by the source is missing') {
+                    $repair = (& winget source update --name winget 2>&1 | Out-String)
+                    $proof.commands += @{command=@('winget','source','update','--name','winget'); attempt=$attempt; exit_code=$LASTEXITCODE; output=$repair}
+                }
+                Start-Sleep -Seconds 2
+            }
+        }
+        if (-not $ready) { throw "Winget preflight failed after bounded retries: $arguments" }
     }
     $proof.status = 'READY'
 } catch {
