@@ -80,6 +80,7 @@ type vmTestResult struct {
 	InstallOutput        string                     `json:"install_output,omitempty"`
 	InstallScope         string                     `json:"install_scope,omitempty"`
 	InstallContext       string                     `json:"install_context,omitempty"`
+	InstallerDiagnostics map[string]string          `json:"installer_diagnostics,omitempty"`
 	DiagnosticInventory  string                     `json:"diagnostic_inventory,omitempty"`
 	DiagnosticRegistry   []registryPackage          `json:"diagnostic_registry,omitempty"`
 	DiagnosticAppx       string                     `json:"diagnostic_appx,omitempty"`
@@ -609,6 +610,9 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 	}
 	iargs := packageInstallArgs(id, source)
 	iargs = append(iargs, "--version", r.ResolvedVersion)
+	if id == "Python.Python.3.13" {
+		iargs = append(iargs, "--log", filepath.Join(workRoot, "python-install.log"))
+	}
 	runInstall := runDirectProcess
 	r.InstallContext = "runner"
 	if r.InstallScope == "user" {
@@ -631,6 +635,9 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 	}
 	r.InstallOK = ctx.Err() == nil && (icode == 0 || icode == 1641 || icode == 3010)
 	if !r.InstallOK {
+		if id == "Python.Python.3.13" {
+			r.InstallerDiagnostics = vmPythonInstallerLogs(r.StartedAt, filepath.Join(workRoot, "python-install.log"))
+		}
 		r.FailureStage = "INSTALL"
 		r.Failure = fmt.Sprintf("winget install failed: exit=%d err=%s out=%s", icode, errorText(ierr), compactLog(iout))
 		log("ERROR", r.Failure)
