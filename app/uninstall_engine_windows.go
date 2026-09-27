@@ -113,6 +113,9 @@ func uninstallAttemptCode(app appDef, attempt uninstallAttempt) int {
 	if repairOpenSCADOrphan(app) && verifyProgramRemoved(app) {
 		return uninstallCodeOK
 	}
+	if repairEmacsOrphan(app) && verifyProgramRemoved(app) {
+		return uninstallCodeOK
+	}
 	workerLog("WARN", app.Name+": uninstall command reported success but independent detector still finds the target.")
 	return uninstallCodeFailed
 }
