@@ -1822,7 +1822,8 @@ func runRegisteredUninstaller(ctx context.Context, app appDef, reg registryPacka
 	}
 	var inno bool
 	args, inno = innoUninstallArgs(exe, args)
-	if !inno && nsisUninstallerFile(exe) {
+	nsis := !inno && nsisUninstallerFile(exe)
+	if nsis {
 		silent := false
 		for _, arg := range args {
 			if arg == "/S" {
@@ -1830,7 +1831,7 @@ func runRegisteredUninstaller(ctx context.Context, app appDef, reg registryPacka
 			}
 		}
 		if !silent {
-			args = append(args, "/S")
+			args = append([]string{"/S"}, args...)
 		}
 		workerLog("INFO", app.Name+": verified NSIS uninstaller header; using documented /S switch.")
 	}
@@ -1846,7 +1847,19 @@ func runRegisteredUninstaller(ctx context.Context, app appDef, reg registryPacka
 		args = append(args, "/LOG="+vendorLog)
 	}
 	workerLog("SYSTEM", "Regisztrált eltávolító: "+formatCommand(exe, args))
-	code, out, err := runDirectProcess(ctx, exe, args)
+	var code int
+	var out string
+	if nsis && strings.Contains(raw, " _?=") {
+		// NSIS consumes the entire final unquoted _?= tail as its install path.
+		// Standard Windows argv quoting would corrupt a path containing spaces.
+		commandLine, lineErr := nsisRegisteredCommandLine(exe, raw)
+		if lineErr != nil {
+			return uninstallAttempt{ExitCode: -1, Err: lineErr}
+		}
+		code, out, err = runDirectProcessCommandLine(ctx, exe, nil, commandLine)
+	} else {
+		code, out, err = runDirectProcess(ctx, exe, args)
+	}
 	if vendorLog != "" {
 		if data, readErr := os.ReadFile(vendorLog); readErr == nil && len(data) > 0 {
 			if len(data) > 6000 {
@@ -1954,12 +1967,16 @@ func runDirectProcess(ctx context.Context, exe string, args []string) (int, stri
 		cmdArgs := append([]string{"/D", "/S", "/C", exe}, args...)
 		return runDirectProcess(ctx, comspec, cmdArgs)
 	}
+	return runDirectProcessCommandLine(ctx, exe, args, "")
+}
+
+func runDirectProcessCommandLine(ctx context.Context, exe string, args []string, commandLine string) (int, string, error) {
 	cmd := exec.CommandContext(ctx, exe, args...)
 	cmd.WaitDelay = 10 * time.Second
 	if filepath.IsAbs(exe) {
 		cmd.Dir = filepath.Dir(exe)
 	}
-	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
+	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true, CmdLine: commandLine}
 	data, err := cmd.CombinedOutput()
 	if ctx.Err() != nil {
 		return -1, string(data), ctx.Err()
