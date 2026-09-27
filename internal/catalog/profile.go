@@ -471,6 +471,14 @@ var displayAliasOverrides = map[string][]string{
 
 var alternativeIDOverrides = map[string][]string{
 	"DBeaver": {"dbeaver.dbeaver"},
+	// Exact IDs observed after real installation in physical run 36304661281.
+	// Prefer these identities over display names (WinMerge also registers a
+	// separate shell-extension MSIX with the bare display name "WinMerge").
+	"WinMerge":  {"WinMerge.WinMerge"},
+	"ComfyUI":   {"Comfy.ComfyUI-Desktop"},
+	"OpenSCAD":  {"OpenSCAD.OpenSCAD"},
+	"GDevelop":  {"GDevelop.GDevelop"},
+	"MuseScore": {"Musescore.Musescore"},
 }
 
 var aliasOfOverrides = map[string]string{
