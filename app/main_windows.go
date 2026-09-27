@@ -1845,6 +1845,9 @@ func runRegisteredUninstaller(ctx context.Context, app appDef, reg registryPacka
 		return uninstallAttempt{ExitCode: -1, Err: err, Output: err.Error()}
 	}
 	var inno bool
+	if sqliteStudioUnattended(app, reg) {
+		args = []string{"--mode", "unattended"}
+	}
 	args, inno = innoUninstallArgs(exe, args)
 	nsis := !inno && nsisUninstallerFile(exe)
 	if nsis {

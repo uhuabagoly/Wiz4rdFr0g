@@ -39,6 +39,9 @@ func executeInstalledUninstall(ctx context.Context, app appDef, pkg installedPac
 	if scope == "machine" && !elevated {
 		return uninstallCodeNeedElevation
 	}
+	if reg, ok := resolveRegistryForInstalled(app, pkg, registryPackages); ok && sqliteStudioUnattended(app, reg) {
+		return uninstallAttemptCode(app, runRegisteredUninstaller(ctx, app, reg))
+	}
 	switch strategy {
 	case catalogpkg.StrategySystemComponentUnsupported, catalogpkg.StrategyManualOnly, catalogpkg.StrategyUnresolved:
 		return uninstallCodeUnsupported
