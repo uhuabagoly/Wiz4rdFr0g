@@ -64,6 +64,10 @@ jobs:
         index: ${{ fromJson(needs.plan.outputs.matrix) }}
     env:
       WIZ4RDFR0G_CAMPAIGN_ID: ${{ inputs.campaign_id }}
+      # NSIS System.dll can crash when its installer path contains an 8.3
+      # alias. Use the job's owned, ordinary temporary directory.
+      TEMP: ${{ runner.temp }}
+      TMP: ${{ runner.temp }}
       WIZ4RDFR0G_CAMPAIGN_ATTEMPT: ${{ inputs.attempt || '1' }}
       WIZ4RDFR0G_VM_TEST: '1'
       WIZ4RDFR0G_VM_ID: github-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.index }}
