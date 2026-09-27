@@ -80,6 +80,7 @@ type vmTestResult struct {
 	InstallOutput        string                     `json:"install_output,omitempty"`
 	DiagnosticInventory  string                     `json:"diagnostic_inventory,omitempty"`
 	DiagnosticRegistry   []registryPackage          `json:"diagnostic_registry,omitempty"`
+	DiagnosticAppx       string                     `json:"diagnostic_appx,omitempty"`
 	InstallRetryCount    int                        `json:"install_retry_count"`
 	InstallOK            bool                       `json:"install_ok"`
 	InstallVerified      bool                       `json:"install_verified"`
@@ -629,7 +630,13 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 	}
 
 	r.InstallVerified = verifyProgramInstalled(app)
+	captureDetectionDiagnostics := func() {
+		_, r.DiagnosticInventory, _ = runDirectProcess(ctx, "winget.exe", []string{"list", "--accept-source-agreements", "--disable-interactivity"})
+		r.DiagnosticRegistry = scanRegistryPackages()
+		_, r.DiagnosticAppx, _ = runDirectProcess(ctx, "powershell.exe", []string{"-NoProfile", "-NonInteractive", "-Command", "Get-AppxPackage | Select-Object Name,PackageFullName,PackageFamilyName,InstallLocation,Publisher | ConvertTo-Json -Depth 3 -Compress"})
+	}
 	if !r.InstallVerified {
+		captureDetectionDiagnostics()
 		r.FailureStage = "INSTALL_VERIFY"
 		r.Failure = "installer returned success but production detector could not verify installed state"
 		log("ERROR", r.Failure)
@@ -640,19 +647,20 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 	if r.IndependentInstalled.State != "present" {
 		r.FailureStage = "INSTALL_VERIFY"
 		r.Failure = "independent exact-ID query did not confirm installation"
-		_, r.DiagnosticInventory, _ = runDirectProcess(ctx, "winget.exe", []string{"list", "--accept-source-agreements", "--disable-interactivity"})
-		r.DiagnosticRegistry = scanRegistryPackages()
+		captureDetectionDiagnostics()
 		return finish("INSTALL_VERIFY_FAIL")
 	}
 
 	detected, detectState := vmDetectInstalledState(app)
 	if detectState == vmDetectionAmbiguous {
+		captureDetectionDiagnostics()
 		r.FailureStage = "DETECTION"
 		r.Failure = "post-install detection is ambiguous; multiple equally valid target identities exist"
 		log("ERROR", r.Failure)
 		return finish("AMBIGUOUS")
 	}
 	if detectState != vmDetectionFound {
+		captureDetectionDiagnostics()
 		r.FailureStage = "DETECTION"
 		r.Failure = "production detector failed after installation"
 		log("ERROR", r.Failure)
@@ -661,6 +669,7 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 	r.DetectedAfterInstall = detected
 	r.FilesystemProof, err = vmCaptureFilesystem(ctx, detected.Name)
 	if err != nil {
+		captureDetectionDiagnostics()
 		r.FailureStage = "INDEPENDENT_FILESYSTEM"
 		r.Failure = err.Error()
 		return finish("INSTALL_VERIFY_FAIL")
