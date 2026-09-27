@@ -46,6 +46,12 @@ func protectedUserPayload(ctx context.Context, app appDef, pkg installedPackage,
 	if info, err := os.Stat(path); err != nil || !info.Mode().IsRegular() {
 		return registryPackage{}, false
 	}
+	// A standard worker only requests the existing UAC retry; it never runs
+	// this command. Verify the publisher again in the elevated worker before
+	// execution, where the signature module can load on hosted runners.
+	if !vmProcessElevated() {
+		return reg, true
+	}
 	quoted := "'" + strings.ReplaceAll(exe, "'", "''") + "'"
 	script := "$s=Get-AuthenticodeSignature -LiteralPath " + quoted + "; if($s.Status -eq 'Valid' -and $s.SignerCertificate.Subject -match '(^|, )CN=Python Software Foundation(,|$)'){ 'VERIFIED_PSF' }else{ $s | Select-Object Status,StatusMessage,@{n='Subject';e={$_.SignerCertificate.Subject}} | ConvertTo-Json -Compress; exit 1 }"
 	code, out, err := runDirectProcess(ctx, "powershell.exe", []string{"-NoProfile", "-NonInteractive", "-Command", script})

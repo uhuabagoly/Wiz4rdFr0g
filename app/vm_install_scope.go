@@ -7,6 +7,8 @@ package main
 // then execute in the same ordinary-user context as the production GUI.
 func vmPhysicalInstallScope(id string) string {
 	switch id {
+	case "Microsoft.PowerToys":
+		return "machine"
 	case "Python.Python.3.13":
 		// The publisher supports InstallAllUsers=1 and WinGet declares a
 		// machine installer. The reduced-token user installer fails before
