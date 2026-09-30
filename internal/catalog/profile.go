@@ -471,6 +471,7 @@ var displayAliasOverrides = map[string][]string{
 }
 
 var alternativeIDOverrides = map[string][]string{
+	"Insomnia":                       {"Insomnia.Insomnia"},
 	"ExifTool":                       {"OliverBetz.ExifTool"},
 	"InfluxDB":                       {"InfluxData.InfluxDB.OSS"},
 	"PostgreSQL":                     {"PostgreSQL.PostgreSQL.18"},
