@@ -471,6 +471,9 @@ var displayAliasOverrides = map[string][]string{
 }
 
 var alternativeIDOverrides = map[string][]string{
+	"SQLite":                         {"SQLite.SQLite"},
+	"Nginx":                          {"nginxinc.nginx"},
+	"Lando":                          {"Lando.Lando"},
 	"Minikube":                       {"Kubernetes.minikube"},
 	"Kubernetes kubectl":             {"Kubernetes.kubectl"},
 	"Floorp":                         {"Ablaze.Floorp"},
