@@ -1809,6 +1809,9 @@ func resolveRegistryForInstalled(app appDef, pkg installedPackage, registryPacka
 }
 
 func runRegisteredUninstaller(ctx context.Context, app appDef, reg registryPackage) uninstallAttempt {
+	if app.Name == "Multipass" && !multipassPreserveDataRegistration(reg) {
+		return uninstallAttempt{ExitCode: -1, Err: fmt.Errorf("Multipass data-retention mode is not verified for this installed identity")}
+	}
 	raw := strings.TrimSpace(reg.QuietUninstallString)
 	if raw == "" {
 		raw = strings.TrimSpace(reg.UninstallString)
@@ -1822,6 +1825,9 @@ func runRegisteredUninstaller(ctx context.Context, app appDef, reg registryPacka
 			return uninstallAttempt{ExitCode: -1, Err: fmt.Errorf("MSI ProductCode nem található")}
 		}
 		args := []string{"/x", guid, "/qn", "/norestart"}
+		if app.Name == "Multipass" {
+			args = append(args, "REMOVE_DATA=no")
+		}
 		// MSI 1603 alone does not identify a failed custom action. Keep a
 		// temporary vendor log and report bounded failure context on error.
 		logFile, logErr := os.CreateTemp("", "Wiz4rdFr0g-msi-uninstall-*.log")
@@ -1845,6 +1851,9 @@ func runRegisteredUninstaller(ctx context.Context, app appDef, reg registryPacka
 		}
 		workerLog("WARN", app.Name+": csendes MSI eltávolítás sikertelen: "+compactFailure(out, err)+fmt.Sprintf(" (exit=%d)", code))
 		args = []string{"/x", guid, "/norestart"}
+		if app.Name == "Multipass" {
+			args = append(args, "REMOVE_DATA=no")
+		}
 		code2, out2, err2 := runDirectProcess(ctx, "msiexec.exe", args)
 		attempt2 := makeUninstallAttempt(code2, strings.TrimSpace(out+"\n"+out2), err2)
 		if attempt2.Success {

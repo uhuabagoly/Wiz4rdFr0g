@@ -124,6 +124,7 @@ func vmVerifyHTTPDownload(ctx context.Context, id, source, version, workRoot, sc
 }
 
 type vmFilesystemProof struct {
+	PreservedData        []vmPreservedDataProof  `json:"preserved_data,omitempty"`
 	InstallerCaches      []vmInstallerCacheProof `json:"installer_caches,omitempty"`
 	VendorDiagnostics    map[string]string       `json:"vendor_diagnostics,omitempty"`
 	RemovalDiagnostics   map[string]string       `json:"removal_diagnostics,omitempty"`
@@ -383,6 +384,9 @@ func vmMSIExecutableComponents(ctx context.Context, productCode string) ([]strin
 }
 
 func vmVerifyFilesystemRemoved(ctx context.Context, proof *vmFilesystemProof) error {
+	if err := vmVerifyDataRetention(proof); err != nil {
+		return err
+	}
 	for _, cache := range proof.InstallerCaches {
 		n, digest, err := vmFileDigest(cache.Path)
 		if os.IsNotExist(err) {

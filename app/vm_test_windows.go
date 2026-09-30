@@ -383,6 +383,9 @@ func resumeVMTestOne(idx int, resultPath string) vmTestResult {
 	defer probeCancel()
 	r.FilesystemProof, err = vmCaptureFilesystem(probeCtx, detected, app.Name, r.InstallScope)
 	vmSeparateBitviseInstallerCache(&r.FilesystemProof, r.DownloadProof)
+	if err == nil {
+		err = vmCaptureDataRetention(app.Name, &r.FilesystemProof)
+	}
 	if err != nil {
 		r.FailureStage = "INDEPENDENT_FILESYSTEM"
 		r.Failure = err.Error()
@@ -728,6 +731,9 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 	r.DetectedAfterInstall = detected
 	r.FilesystemProof, err = vmCaptureFilesystem(ctx, detected, app.Name, r.InstallScope)
 	vmSeparateBitviseInstallerCache(&r.FilesystemProof, r.DownloadProof)
+	if err == nil {
+		err = vmCaptureDataRetention(app.Name, &r.FilesystemProof)
+	}
 	if err != nil {
 		captureDetectionDiagnostics()
 		r.FailureStage = "INDEPENDENT_FILESYSTEM"

@@ -58,6 +58,12 @@ func ValidatePhysicalDocument(b []byte, key []byte) error {
 			Valid    bool   `json:"file_validation"`
 		} `json:"download_proof"`
 		FilesystemProof struct {
+			PreservedData []struct {
+				Path      string `json:"path"`
+				Bytes     int64  `json:"bytes"`
+				SHA256    string `json:"sha256"`
+				Preserved bool   `json:"preserved"`
+			} `json:"preserved_data"`
 			Appx            *AppxProof `json:"appx"`
 			Key             string     `json:"registry_key"`
 			Paths           []string   `json:"binary_paths"`
@@ -108,6 +114,12 @@ func ValidatePhysicalDocument(b []byte, key []byte) error {
 	}
 	if !registrationProven || len(r.FilesystemProof.Paths) == 0 || !r.FilesystemProof.BinariesPresent || !r.FilesystemProof.BinariesRemoved {
 		return fmt.Errorf("independent registry/binary lifecycle evidence missing")
+	}
+	if r.ID == "Canonical.Multipass" {
+		p := r.FilesystemProof.PreservedData
+		if len(p) != 1 || !p[0].Preserved || p[0].Bytes <= 0 || !regexp.MustCompile(`^[0-9a-f]{64}$`).MatchString(p[0].SHA256) || !regexp.MustCompile(`(?i)^[a-z]:\\ProgramData\\Multipass\\Wiz4rdFr0g-retention-[a-z0-9]+\.txt$`).MatchString(p[0].Path) {
+			return fmt.Errorf("Multipass data-retention witness missing or altered")
+		}
 	}
 	if r.Executor != "github-actions/windows" || r.Environment.Status != "READY" || r.Environment.Runner != "github-hosted" || r.Environment.OS == "" || r.Environment.Arch != "X64" || r.Environment.VMID != r.VMID || r.Environment.Commit != r.Commit {
 		return fmt.Errorf("FULL_PASS requires matching hosted Windows Actions environment")

@@ -39,6 +39,15 @@ func executeInstalledUninstall(ctx context.Context, app appDef, pkg installedPac
 	if scope == "machine" && !elevated {
 		return uninstallCodeNeedElevation
 	}
+	if app.Name == "Multipass" {
+		reg, ok := resolveRegistryForInstalled(app, pkg, registryPackages)
+		if !ok || !multipassPreserveDataRegistration(reg) {
+			workerLog("WARN", "Multipass: data-preserving vendor mode is not verified for this installed identity")
+			return uninstallCodeUnsupported
+		}
+		// Never fall back to WinGet without the publisher's data-retention flag.
+		return uninstallAttemptCode(app, runRegisteredUninstaller(ctx, app, reg))
+	}
 	if reg, ok := resolveRegistryForInstalled(app, pkg, registryPackages); ok && sqliteStudioUnattended(app, reg) {
 		return uninstallAttemptCode(app, runRegisteredUninstaller(ctx, app, reg))
 	}
