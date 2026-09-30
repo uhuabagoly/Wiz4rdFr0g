@@ -25,6 +25,9 @@ type vmIndependentState struct {
 // This exact-ID observation deliberately does not use production matching/parsing.
 // A source/query failure is UNKNOWN, never evidence that an application is absent.
 func vmIndependentProbe(id, _ string) vmIndependentState {
+	if id == "Cockos.LICEcap" {
+		return vmIndependentLICEcapProbe()
+	}
 	// Inspect the installed inventory by exact identity. A repository source
 	// filter can exclude a registered portable package without source correlation.
 	a := []string{"list", "--id", id, "--exact", "--accept-source-agreements", "--disable-interactivity"}
