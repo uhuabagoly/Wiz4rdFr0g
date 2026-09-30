@@ -1847,6 +1847,14 @@ func runRegisteredUninstaller(ctx context.Context, app appDef, reg registryPacka
 	var inno bool
 	if silentArgs, ok := observedVendorSilentArgs(app, reg); ok {
 		args = silentArgs
+		if app.Name == "Bitvise SSH Client" {
+			copied, cleanup, copyErr := copyBitviseUninstaller(exe)
+			if copyErr != nil {
+				return uninstallAttempt{ExitCode: -1, Err: copyErr}
+			}
+			defer cleanup()
+			exe = copied
+		}
 	}
 	if sqliteStudioUnattended(app, reg) {
 		args = []string{"--mode", "unattended"}
