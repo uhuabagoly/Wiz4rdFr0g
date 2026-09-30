@@ -471,6 +471,8 @@ var displayAliasOverrides = map[string][]string{
 }
 
 var alternativeIDOverrides = map[string][]string{
+	"Panda3D":                        {"Panda3D.Panda3D"},
+	"Love2D":                         {"Love2d.Love2d"},
 	"Tiled Map Editor":               {"Tiled.Tiled"},
 	"VSCodium":                       {"VSCodium.VSCodium"},
 	"Bitvise SSH Client":             {"Bitvise.SSH.Client"},
