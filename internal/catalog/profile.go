@@ -471,6 +471,9 @@ var displayAliasOverrides = map[string][]string{
 }
 
 var alternativeIDOverrides = map[string][]string{
+	"Nextcloud Desktop":              {"Nextcloud.NextcloudDesktop"},
+	"Syncthing":                      {"Syncthing.Syncthing"},
+	"Trilium Notes":                  {"TriliumNext.Notes"},
 	"Okular":                         {"KDE.Okular"},
 	"Joplin":                         {"Joplin.Joplin"},
 	"rclone":                         {"Rclone.Rclone"},
