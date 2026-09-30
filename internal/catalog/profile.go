@@ -471,6 +471,8 @@ var displayAliasOverrides = map[string][]string{
 }
 
 var alternativeIDOverrides = map[string][]string{
+	"InfluxDB":                       {"InfluxData.InfluxDB.OSS"},
+	"PostgreSQL":                     {"PostgreSQL.PostgreSQL.18"},
 	"SQLite":                         {"SQLite.SQLite"},
 	"Nginx":                          {"nginxinc.nginx"},
 	"Lando":                          {"Lando.Lando"},
