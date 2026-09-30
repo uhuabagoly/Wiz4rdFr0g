@@ -58,7 +58,8 @@ func ValidatePhysicalDocument(b []byte, key []byte) error {
 			Valid    bool   `json:"file_validation"`
 		} `json:"download_proof"`
 		FilesystemProof struct {
-			PreservedData []struct {
+			SeafileRetention *SeafileRetentionProof `json:"seafile_retention"`
+			PreservedData    []struct {
 				Path      string `json:"path"`
 				Bytes     int64  `json:"bytes"`
 				SHA256    string `json:"sha256"`
@@ -120,6 +121,9 @@ func ValidatePhysicalDocument(b []byte, key []byte) error {
 		if len(p) != 1 || !p[0].Preserved || p[0].Bytes <= 0 || !regexp.MustCompile(`^[0-9a-f]{64}$`).MatchString(p[0].SHA256) || !regexp.MustCompile(`(?i)^[a-z]:\\ProgramData\\Multipass\\Wiz4rdFr0g-retention-[a-z0-9]+\.txt$`).MatchString(p[0].Path) {
 			return fmt.Errorf("Multipass data-retention witness missing or altered")
 		}
+	}
+	if r.ID == "Seafile.Seafile" && !r.FilesystemProof.SeafileRetention.valid() {
+		return fmt.Errorf("Seafile settings-retention witness missing or altered")
 	}
 	if r.Executor != "github-actions/windows" || r.Environment.Status != "READY" || r.Environment.Runner != "github-hosted" || r.Environment.OS == "" || r.Environment.Arch != "X64" || r.Environment.VMID != r.VMID || r.Environment.Commit != r.Commit {
 		return fmt.Errorf("FULL_PASS requires matching hosted Windows Actions environment")

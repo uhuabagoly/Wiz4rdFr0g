@@ -39,6 +39,14 @@ func executeInstalledUninstall(ctx context.Context, app appDef, pkg installedPac
 	if scope == "machine" && !elevated {
 		return uninstallCodeNeedElevation
 	}
+	if app.Name == "Seafile Client" {
+		reg, ok := resolveRegistryForInstalled(app, pkg, registryPackages)
+		if !ok || !seafilePreserveDataRegistration(reg) {
+			workerLog("WARN", "Seafile: data-preserving vendor mode is not verified for this installed identity")
+			return uninstallCodeUnsupported
+		}
+		return uninstallAttemptCode(app, runRegisteredUninstaller(ctx, app, reg))
+	}
 	if app.Name == "Multipass" {
 		reg, ok := resolveRegistryForInstalled(app, pkg, registryPackages)
 		if !ok || !multipassPreserveDataRegistration(reg) {

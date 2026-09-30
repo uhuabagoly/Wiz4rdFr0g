@@ -1808,7 +1808,23 @@ func resolveRegistryForInstalled(app appDef, pkg installedPackage, registryPacka
 	return registryPackage{}, false
 }
 
-func runRegisteredUninstaller(ctx context.Context, app appDef, reg registryPackage) uninstallAttempt {
+func runRegisteredUninstaller(ctx context.Context, app appDef, reg registryPackage) (result uninstallAttempt) {
+	if app.Name == "Seafile Client" {
+		if !seafilePreserveDataRegistration(reg) {
+			return uninstallAttempt{ExitCode: -1, Err: fmt.Errorf("Seafile data-retention mode is not verified for this installed identity")}
+		}
+		restore, err := prepareSeafileDataRetention()
+		if err != nil {
+			return uninstallAttempt{ExitCode: -1, Err: err}
+		}
+		defer func() {
+			if err := restore(); err != nil {
+				workerLog("WARN", "Seafile retention setting restoration failed: "+err.Error())
+				result = uninstallAttempt{ExitCode: -1, Err: err}
+			}
+		}()
+		workerLog("INFO", "Seafile: temporarily enabled publisher configuration retention before registered MSI removal")
+	}
 	if app.Name == "Multipass" && !multipassPreserveDataRegistration(reg) {
 		return uninstallAttempt{ExitCode: -1, Err: fmt.Errorf("Multipass data-retention mode is not verified for this installed identity")}
 	}

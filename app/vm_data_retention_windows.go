@@ -16,6 +16,11 @@ type vmPreservedDataProof struct {
 }
 
 func vmVerifyDataRetention(proof *vmFilesystemProof) error {
+	if proof.SeafileRetention != nil {
+		if err := vmVerifySeafileRetention(proof.SeafileRetention); err != nil {
+			return err
+		}
+	}
 	for i := range proof.PreservedData {
 		p := &proof.PreservedData[i]
 		n, digest, err := vmFileDigest(p.Path)
@@ -30,6 +35,9 @@ func vmVerifyDataRetention(proof *vmFilesystemProof) error {
 // Only the physical VM harness creates this new owned witness, never a user
 // configuration or VM disk. The vendor's data-purge action would delete it.
 func vmCaptureDataRetention(name string, proof *vmFilesystemProof) error {
+	if name == "Seafile Client" {
+		return vmCaptureSeafileRetention(proof)
+	}
 	if name != "Multipass" {
 		return nil
 	}

@@ -124,22 +124,23 @@ func vmVerifyHTTPDownload(ctx context.Context, id, source, version, workRoot, sc
 }
 
 type vmFilesystemProof struct {
-	PreservedData        []vmPreservedDataProof  `json:"preserved_data,omitempty"`
-	InstallerCaches      []vmInstallerCacheProof `json:"installer_caches,omitempty"`
-	VendorDiagnostics    map[string]string       `json:"vendor_diagnostics,omitempty"`
-	RemovalDiagnostics   map[string]string       `json:"removal_diagnostics,omitempty"`
-	RelatedRegistrations []registryPackage       `json:"related_registrations,omitempty"`
-	Appx                 *releaseproof.AppxProof `json:"appx,omitempty"`
-	Registration         registryPackage         `json:"registration"`
-	RegistryKey          string                  `json:"registry_key"`
-	BinaryPaths          []string                `json:"binary_paths"`
-	UpdaterPaths         []string                `json:"updater_paths,omitempty"`
-	RegistryPresent      bool                    `json:"registry_present"`
-	BinariesPresent      bool                    `json:"binaries_present"`
-	RegistryRemoved      bool                    `json:"registry_removed"`
-	BinariesRemoved      bool                    `json:"binaries_removed"`
-	PayloadRegistry      string                  `json:"payload_registry,omitempty"`
-	PayloadVersion       string                  `json:"payload_version,omitempty"`
+	SeafileRetention     *releaseproof.SeafileRetentionProof `json:"seafile_retention,omitempty"`
+	PreservedData        []vmPreservedDataProof              `json:"preserved_data,omitempty"`
+	InstallerCaches      []vmInstallerCacheProof             `json:"installer_caches,omitempty"`
+	VendorDiagnostics    map[string]string                   `json:"vendor_diagnostics,omitempty"`
+	RemovalDiagnostics   map[string]string                   `json:"removal_diagnostics,omitempty"`
+	RelatedRegistrations []registryPackage                   `json:"related_registrations,omitempty"`
+	Appx                 *releaseproof.AppxProof             `json:"appx,omitempty"`
+	Registration         registryPackage                     `json:"registration"`
+	RegistryKey          string                              `json:"registry_key"`
+	BinaryPaths          []string                            `json:"binary_paths"`
+	UpdaterPaths         []string                            `json:"updater_paths,omitempty"`
+	RegistryPresent      bool                                `json:"registry_present"`
+	BinariesPresent      bool                                `json:"binaries_present"`
+	RegistryRemoved      bool                                `json:"registry_removed"`
+	BinariesRemoved      bool                                `json:"binaries_removed"`
+	PayloadRegistry      string                              `json:"payload_registry,omitempty"`
+	PayloadVersion       string                              `json:"payload_version,omitempty"`
 }
 
 // Record observations even when the production uninstaller fails before the
