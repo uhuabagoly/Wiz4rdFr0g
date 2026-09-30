@@ -471,6 +471,10 @@ var displayAliasOverrides = map[string][]string{
 }
 
 var alternativeIDOverrides = map[string][]string{
+	"SimpleWall":                     {"Henry++.simplewall"},
+	"Libre Hardware Monitor":         {"LibreHardwareMonitor.LibreHardwareMonitor"},
+	"Gallery-dl":                     {"mikf.gallery-dl"},
+	"Deluge":                         {"DelugeTeam.Deluge"},
 	"Nextcloud Desktop":              {"Nextcloud.NextcloudDesktop"},
 	"Syncthing":                      {"Syncthing.Syncthing"},
 	"Trilium Notes":                  {"TriliumNext.Notes"},
