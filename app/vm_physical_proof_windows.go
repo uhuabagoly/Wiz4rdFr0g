@@ -120,6 +120,7 @@ func vmVerifyHTTPDownload(ctx context.Context, id, source, version, workRoot, sc
 }
 
 type vmFilesystemProof struct {
+	VendorDiagnostics    map[string]string       `json:"vendor_diagnostics,omitempty"`
 	RemovalDiagnostics   map[string]string       `json:"removal_diagnostics,omitempty"`
 	RelatedRegistrations []registryPackage       `json:"related_registrations,omitempty"`
 	Appx                 *releaseproof.AppxProof `json:"appx,omitempty"`
@@ -187,6 +188,29 @@ func vmCaptureFilesystem(ctx context.Context, detected vmDetected, catalogName, 
 	}
 	proof.RegistryKey = reg.RegistryKey
 	proof.Registration = reg
+	if catalogName == "Bitvise SSH Client" {
+		if _, ok := observedVendorSilentArgs(appDef{Name: catalogName}, reg); ok {
+			proof.VendorDiagnostics = make(map[string]string)
+			if exe, _, err := splitRegisteredCommand(reg.UninstallString); err == nil {
+				helperCtx, cancel := context.WithTimeout(ctx, 20*time.Second)
+				code, help, helpErr := runDirectProcess(helperCtx, exe, []string{"-?"})
+				cancel()
+				if len(help) > 16000 {
+					help = help[:16000]
+				}
+				proof.VendorDiagnostics["uninstaller_help"] = fmt.Sprintf("exit=%d error=%v\n%s", code, helpErr, help)
+				cache := filepath.Join(filepath.Dir(exe), "Updates", "BvSshClient-966.exe")
+				if file, err := os.Open(cache); err == nil {
+					hash := sha256.New()
+					n, readErr := io.Copy(hash, file)
+					file.Close()
+					proof.VendorDiagnostics[cache] = fmt.Sprintf("bytes=%d sha256=%x error=%v", n, hash.Sum(nil), readErr)
+				} else {
+					proof.VendorDiagnostics[cache] = err.Error()
+				}
+			}
+		}
+	}
 	for _, related := range registrations {
 		if sameRegisteredProduct(reg, related) || sameBurnProduct(reg, related) {
 			proof.RelatedRegistrations = append(proof.RelatedRegistrations, related)
