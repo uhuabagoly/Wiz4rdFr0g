@@ -19,6 +19,14 @@ func observedVendorSilentArgs(app appDef, reg registryPackage) ([]string, bool) 
 	}
 	exe, args, err := splitRegisteredCommandRaw(reg.UninstallString)
 	root := filepath.Clean(strings.Trim(reg.InstallLocation, `"`))
+	// The publisher documents -unat for the client instance BvSshClient.
+	// https://bitvise.com/ssh-server-guide-installing
+	if app.Name == "Bitvise SSH Client" && err == nil && reg.DisplayName == "Bitvise SSH Client 9.66 (remove only)" && reg.DisplayVersion == "9.66" && reg.Scope == "machine" && reg.RegistryView == "/reg:32" && len(args) == 1 && args[0] == "BvSshClient" {
+		programFiles := os.Getenv("ProgramFiles(x86)")
+		if filepath.IsAbs(programFiles) && strings.EqualFold(exe, filepath.Join(programFiles, "Bitvise SSH Client", "uninst.exe")) && strings.EqualFold(reg.RegistryKey, `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\BvSshClient`) {
+			return []string{"BvSshClient", "-unat"}, true
+		}
+	}
 	// Chromium's --force-uninstall is its documented silent mode; profile
 	// deletion is a separate switch, deliberately never supplied here.
 	// https://github.com/chromium/chromium/blob/main/chrome/installer/setup/uninstall.cc

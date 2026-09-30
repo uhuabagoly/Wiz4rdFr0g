@@ -9,6 +9,20 @@ import (
 	"testing"
 )
 
+func TestBitviseSilentBindsClientInstance(t *testing.T) {
+	root := t.TempDir()
+	t.Setenv("ProgramFiles(x86)", root)
+	r := registryPackage{DisplayName: "Bitvise SSH Client 9.66 (remove only)", DisplayVersion: "9.66", Scope: "machine", RegistryView: "/reg:32", RegistryKey: `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\BvSshClient`, UninstallString: `"` + filepath.Join(root, "Bitvise SSH Client", "uninst.exe") + `" "BvSshClient"`}
+	args, ok := observedVendorSilentArgs(appDef{Name: "Bitvise SSH Client"}, r)
+	if !ok || !reflect.DeepEqual(args, []string{"BvSshClient", "-unat"}) {
+		t.Fatal("documented client uninstall rejected", args)
+	}
+	r.UninstallString = `"` + filepath.Join(root, "Bitvise SSH Client", "uninst.exe") + `" "Bitvise SSH Server"`
+	if _, ok := observedVendorSilentArgs(appDef{Name: "Bitvise SSH Client"}, r); ok {
+		t.Fatal("server instance must never match the client")
+	}
+}
+
 func TestChromiumSilentPreservesProfileAndExactTarget(t *testing.T) {
 	local := t.TempDir()
 	t.Setenv("LOCALAPPDATA", local)
