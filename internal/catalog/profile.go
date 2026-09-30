@@ -471,6 +471,9 @@ var displayAliasOverrides = map[string][]string{
 }
 
 var alternativeIDOverrides = map[string][]string{
+	"LICEcap":                        {"Cockos.LICEcap"},
+	"Mattermost Desktop":             {"Mattermost.MattermostDesktop"},
+	"Rocket.Chat Desktop":            {"RocketChat.RocketChat"},
 	"SimpleWall":                     {"Henry++.simplewall"},
 	"Libre Hardware Monitor":         {"LibreHardwareMonitor.LibreHardwareMonitor"},
 	"Gallery-dl":                     {"mikf.gallery-dl"},
