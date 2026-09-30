@@ -45,6 +45,11 @@ func observedVendorSilentArgs(app appDef, reg registryPackage) ([]string, bool) 
 		return nil, false
 	}
 	switch app.Name {
+	case "Windscribe":
+		// v2.24.13 uninstaller/main.cpp recognizes /VERYSILENT, not /SILENT.
+		if reg.DisplayName == "Windscribe" && reg.DisplayVersion == "2.24.13" && reg.Scope == "machine" && reg.RegistryView == "/reg:64" && len(args) == 0 && strings.EqualFold(filepath.Base(exe), "uninstall.exe") && strings.EqualFold(root, filepath.Join(os.Getenv("ProgramFiles"), "Windscribe")) && strings.EqualFold(reg.RegistryKey, `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{fa690e90-ddb0-4f0c-b3f1-136c084e5fc7}_is1`) {
+			return []string{"/VERYSILENT"}, true
+		}
 	case "Apache NetBeans":
 		// Apache release250 nbi/engine/.../cli/options/SilentOption.java.
 		if reg.DisplayName == "Apache NetBeans IDE 25" && reg.DisplayVersion == "25" && reg.Scope == "machine" && reg.QuietUninstallString == "" && len(args) == 0 && strings.EqualFold(filepath.Base(exe), "uninstall.exe") && strings.EqualFold(root, filepath.Join(os.Getenv("ProgramFiles"), "NetBeans-25")) && strings.EqualFold(reg.RegistryKey, `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\nbi-nb-all-25.0.0.250214.0`) {

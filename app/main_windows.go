@@ -1902,6 +1902,8 @@ func runRegisteredUninstaller(ctx context.Context, app appDef, reg registryPacka
 		code, out, err = runDirectProcessCommandLine(ctx, exe, nil, commandLine)
 	} else if _, browser := observedVendorSilentArgs(app, reg); browser && (app.Name == "Brave" || app.Name == "Chromium") {
 		code, out, err = runChromiumVendorUninstaller(ctx, exe, args, reg.InstallLocation)
+	} else if _, supported := observedVendorSilentArgs(app, reg); supported && app.Name == "Windscribe" {
+		code, out, err = runWindscribeVendorUninstaller(ctx, exe, args)
 	} else {
 		code, out, err = runDirectProcess(ctx, exe, args)
 	}
