@@ -471,6 +471,7 @@ var displayAliasOverrides = map[string][]string{
 }
 
 var alternativeIDOverrides = map[string][]string{
+	"GitLab CLI":                     {"GLab.GLab"},
 	"Panda3D":                        {"Panda3D.Panda3D"},
 	"Love2D":                         {"Love2d.Love2d"},
 	"Tiled Map Editor":               {"Tiled.Tiled"},
