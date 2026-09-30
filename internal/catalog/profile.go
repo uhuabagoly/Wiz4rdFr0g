@@ -450,6 +450,7 @@ var exactNameVerified20260905 = map[string]bool{
 }
 
 var displayAliasOverrides = map[string][]string{
+	"Chatbox":                           {"Chatbox CE"},
 	"Persepolis Download Manager":       {"Persepolis Download Manager", "Persepolis Download Manager version"},
 	"Mozilla Firefox":                   {"Mozilla Firefox", "Firefox"},
 	"Zoom":                              {"Zoom", "Zoom Workplace"},
@@ -471,6 +472,9 @@ var displayAliasOverrides = map[string][]string{
 }
 
 var alternativeIDOverrides = map[string][]string{
+	"Launchy":                        {"CodeJelly.Launchy"},
+	"InfraRecorder":                  {"ChristianKindahl.InfraRecorder"},
+	"Chatbox":                        {"Bin-Huang.Chatbox.CommunityEdition"},
 	"Files App":                      {"FilesCommunity.Files"},
 	"UNetbootin":                     {"unetbootin.unetbootin"},
 	"Insomnia":                       {"Insomnia.Insomnia"},
