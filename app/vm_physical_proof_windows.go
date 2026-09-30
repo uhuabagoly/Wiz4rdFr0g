@@ -56,7 +56,11 @@ func vmVerifyHTTPDownload(ctx context.Context, id, source, version, workRoot, sc
 		return proof, err
 	}
 	request.Header.Set("User-Agent", proof.UserAgent)
-	response, err := (&http.Client{Timeout: 20 * time.Minute}).Do(request)
+	downloadTimeout := 20 * time.Minute
+	if id == "Apache.NetBeans" {
+		downloadTimeout = 60 * time.Minute
+	}
+	response, err := (&http.Client{Timeout: downloadTimeout}).Do(request)
 	if err != nil {
 		return proof, err
 	}
@@ -72,7 +76,7 @@ func vmVerifyHTTPDownload(ctx context.Context, id, source, version, workRoot, sc
 			return proof, err
 		}
 		request.Header.Set("User-Agent", proof.UserAgent)
-		response, err = (&http.Client{Timeout: 20 * time.Minute}).Do(request)
+		response, err = (&http.Client{Timeout: downloadTimeout}).Do(request)
 		if err != nil {
 			return proof, err
 		}

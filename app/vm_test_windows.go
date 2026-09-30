@@ -587,7 +587,14 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 	downloadDir := filepath.Join(workRoot, "download")
 	_ = os.MkdirAll(downloadDir, 0755)
 
-	ctx, cancel := context.WithTimeout(context.Background(), campaignDurationFromEnv("WIZ4RDFR0G_INSTALL_TIMEOUT_MINUTES", 35*time.Minute, 5*time.Minute, 120*time.Minute))
+	installBudget := 35 * time.Minute
+	if id == "Apache.NetBeans" {
+		// The observed 517 MB Apache archive was slow from the runner: an HTTP
+		// 200 response delivered only 196 MB in 20 minutes. Allow the complete
+		// download and checksum validation without accepting partial bytes.
+		installBudget = 75 * time.Minute
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), campaignDurationFromEnv("WIZ4RDFR0G_INSTALL_TIMEOUT_MINUTES", installBudget, 5*time.Minute, 120*time.Minute))
 	defer cancel()
 
 	dargs := []string{"download", "--id", id, "--exact", "--source", source, "--download-directory", downloadDir, "--accept-package-agreements", "--accept-source-agreements", "--disable-interactivity"}
