@@ -45,6 +45,12 @@ func observedVendorSilentArgs(app appDef, reg registryPackage) ([]string, bool) 
 		return nil, false
 	}
 	switch app.Name {
+	case "mitmproxy":
+		// Publisher installer project: release/installbuilder/mitmproxy.xml.
+		// InstallBuilder documents --mode unattended for its uninstaller too.
+		if reg.DisplayName == "mitmproxy" && reg.DisplayVersion == "12.2.3" && reg.Scope == "machine" && reg.QuietUninstallString == "" && len(args) == 0 && strings.EqualFold(filepath.Base(exe), "uninstall.exe") && strings.EqualFold(root, filepath.Join(os.Getenv("ProgramFiles"), "mitmproxy")) && strings.EqualFold(reg.RegistryKey, `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\mitmproxy 12.2.3`) {
+			return []string{"--mode", "unattended"}, true
+		}
 	case "GPT4All":
 		if reg.DisplayName == "GPT4All" && reg.DisplayVersion == "3.10.0" && reg.Scope == "user" && strings.EqualFold(filepath.Base(exe), "maintenancetool.exe") && len(args) == 1 && args[0] == "--start-uninstaller" {
 			return []string{"--confirm-command", "--default-answer", "purge"}, true

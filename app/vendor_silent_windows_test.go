@@ -23,6 +23,21 @@ func TestBitviseSilentBindsClientInstance(t *testing.T) {
 	}
 }
 
+func TestMitmproxySilentRejectsDifferentInstallRoot(t *testing.T) {
+	programFiles := t.TempDir()
+	t.Setenv("ProgramFiles", programFiles)
+	root := filepath.Join(programFiles, "mitmproxy")
+	r := registryPackage{DisplayName: "mitmproxy", DisplayVersion: "12.2.3", Scope: "machine", InstallLocation: root, RegistryKey: `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\mitmproxy 12.2.3`, UninstallString: `"` + filepath.Join(root, "uninstall.exe") + `"`}
+	args, ok := observedVendorSilentArgs(appDef{Name: "mitmproxy"}, r)
+	if !ok || !reflect.DeepEqual(args, []string{"--mode", "unattended"}) {
+		t.Fatal("observed InstallBuilder registration rejected", args)
+	}
+	r.InstallLocation = t.TempDir()
+	if _, ok := observedVendorSilentArgs(appDef{Name: "mitmproxy"}, r); ok {
+		t.Fatal("unrelated installation root accepted")
+	}
+}
+
 func TestChromiumSilentPreservesProfileAndExactTarget(t *testing.T) {
 	local := t.TempDir()
 	t.Setenv("LOCALAPPDATA", local)
