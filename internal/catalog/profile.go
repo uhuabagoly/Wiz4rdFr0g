@@ -471,6 +471,9 @@ var displayAliasOverrides = map[string][]string{
 }
 
 var alternativeIDOverrides = map[string][]string{
+	"Minikube":                       {"Kubernetes.minikube"},
+	"Kubernetes kubectl":             {"Kubernetes.kubectl"},
+	"Floorp":                         {"Ablaze.Floorp"},
 	"Apache OpenOffice":              {"Apache.OpenOffice"},
 	"Heroic Games Launcher":          {"HeroicGamesLauncher.HeroicGamesLauncher"},
 	"OnlyOffice Desktop Editors":     {"ONLYOFFICE.DesktopEditors"},
