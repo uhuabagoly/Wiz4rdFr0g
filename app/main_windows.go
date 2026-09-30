@@ -1900,6 +1900,8 @@ func runRegisteredUninstaller(ctx context.Context, app appDef, reg registryPacka
 			return uninstallAttempt{ExitCode: -1, Err: lineErr}
 		}
 		code, out, err = runDirectProcessCommandLine(ctx, exe, nil, commandLine)
+	} else if _, browser := observedVendorSilentArgs(app, reg); browser && (app.Name == "Brave" || app.Name == "Chromium") {
+		code, out, err = runChromiumVendorUninstaller(ctx, exe, args, reg.InstallLocation)
 	} else {
 		code, out, err = runDirectProcess(ctx, exe, args)
 	}
@@ -2017,11 +2019,18 @@ func runDirectProcess(ctx context.Context, exe string, args []string) (int, stri
 }
 
 func runDirectProcessCommandLine(ctx context.Context, exe string, args []string, commandLine string) (int, string, error) {
+	dir := ""
+	if filepath.IsAbs(exe) {
+		dir = filepath.Dir(exe)
+	}
+	return runDirectProcessEnvironment(ctx, exe, args, commandLine, dir, nil)
+}
+
+func runDirectProcessEnvironment(ctx context.Context, exe string, args []string, commandLine, dir string, env []string) (int, string, error) {
 	cmd := exec.CommandContext(ctx, exe, args...)
 	cmd.WaitDelay = 10 * time.Second
-	if filepath.IsAbs(exe) {
-		cmd.Dir = filepath.Dir(exe)
-	}
+	cmd.Dir = dir
+	cmd.Env = env
 	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true, CmdLine: commandLine}
 	data, err := cmd.CombinedOutput()
 	if ctx.Err() != nil {
