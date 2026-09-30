@@ -58,7 +58,7 @@ func vmVerifyHTTPDownload(ctx context.Context, id, source, version, workRoot, sc
 	request.Header.Set("User-Agent", proof.UserAgent)
 	downloadTimeout := 20 * time.Minute
 	if id == "Apache.NetBeans" {
-		downloadTimeout = 60 * time.Minute
+		downloadTimeout = 75 * time.Minute
 	}
 	response, err := (&http.Client{Timeout: downloadTimeout}).Do(request)
 	if err != nil {

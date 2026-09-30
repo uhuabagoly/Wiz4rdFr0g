@@ -592,10 +592,10 @@ func runVMTestOne(idx int, workRoot, resultPath string) vmTestResult {
 
 	installBudget := 35 * time.Minute
 	if id == "Apache.NetBeans" {
-		// The observed 517 MB Apache archive was slow from the runner: an HTTP
-		// 200 response delivered only 196 MB in 20 minutes. Allow the complete
-		// download and checksum validation without accepting partial bytes.
-		installBudget = 75 * time.Minute
+		// Attempt 92 received 475,881,472 of 517,346,072 bytes in 60 minutes
+		// from the Apache archive. Budget 75 minutes for that HTTP transfer,
+		// plus WinGet download/install time; partial bytes still fail SHA256.
+		installBudget = 90 * time.Minute
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), campaignDurationFromEnv("WIZ4RDFR0G_INSTALL_TIMEOUT_MINUTES", installBudget, 5*time.Minute, 120*time.Minute))
 	defer cancel()
