@@ -471,6 +471,9 @@ var displayAliasOverrides = map[string][]string{
 }
 
 var alternativeIDOverrides = map[string][]string{
+	"Heroic Games Launcher":          {"HeroicGamesLauncher.HeroicGamesLauncher"},
+	"OnlyOffice Desktop Editors":     {"ONLYOFFICE.DesktopEditors"},
+	"Seafile Client":                 {"Seafile.Seafile"},
 	"LICEcap":                        {"Cockos.LICEcap"},
 	"Mattermost Desktop":             {"Mattermost.MattermostDesktop"},
 	"Rocket.Chat Desktop":            {"RocketChat.RocketChat"},
