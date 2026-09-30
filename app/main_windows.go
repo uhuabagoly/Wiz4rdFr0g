@@ -1822,11 +1822,26 @@ func runRegisteredUninstaller(ctx context.Context, app appDef, reg registryPacka
 			return uninstallAttempt{ExitCode: -1, Err: fmt.Errorf("MSI ProductCode nem található")}
 		}
 		args := []string{"/x", guid, "/qn", "/norestart"}
+		// MSI 1603 alone does not identify a failed custom action. Keep a
+		// temporary vendor log and report bounded failure context on error.
+		logFile, logErr := os.CreateTemp("", "Wiz4rdFr0g-msi-uninstall-*.log")
+		if logErr != nil {
+			return uninstallAttempt{ExitCode: -1, Err: logErr}
+		}
+		msiLog := logFile.Name()
+		logFile.Close()
+		defer os.Remove(msiLog)
+		args = append(args, "/L*v", msiLog)
 		workerLog("SYSTEM", "MSI eltávolítás: "+formatCommand("msiexec.exe", args))
 		code, out, err := runDirectProcess(ctx, "msiexec.exe", args)
 		attempt := makeUninstallAttempt(code, out, err)
 		if attempt.Success {
 			return attempt
+		}
+		if data, readErr := os.ReadFile(msiLog); readErr == nil {
+			if details := msiFailureContext(data); details != "" {
+				workerLog("VENDOR", details)
+			}
 		}
 		workerLog("WARN", app.Name+": csendes MSI eltávolítás sikertelen: "+compactFailure(out, err)+fmt.Sprintf(" (exit=%d)", code))
 		args = []string{"/x", guid, "/norestart"}
