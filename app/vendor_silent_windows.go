@@ -45,6 +45,11 @@ func observedVendorSilentArgs(app appDef, reg registryPackage) ([]string, bool) 
 		return nil, false
 	}
 	switch app.Name {
+	case "Apache NetBeans":
+		// Apache release250 nbi/engine/.../cli/options/SilentOption.java.
+		if reg.DisplayName == "Apache NetBeans IDE 25" && reg.DisplayVersion == "25" && reg.Scope == "machine" && reg.QuietUninstallString == "" && len(args) == 0 && strings.EqualFold(filepath.Base(exe), "uninstall.exe") && strings.EqualFold(root, filepath.Join(os.Getenv("ProgramFiles"), "NetBeans-25")) && strings.EqualFold(reg.RegistryKey, `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\nbi-nb-all-25.0.0.250214.0`) {
+			return []string{"--silent"}, true
+		}
 	case "mitmproxy":
 		// Publisher installer project: release/installbuilder/mitmproxy.xml.
 		// InstallBuilder documents --mode unattended for its uninstaller too.

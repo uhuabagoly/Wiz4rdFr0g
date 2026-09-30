@@ -38,6 +38,21 @@ func TestMitmproxySilentRejectsDifferentInstallRoot(t *testing.T) {
 	}
 }
 
+func TestNetBeansSilentBindsNBIRegistration(t *testing.T) {
+	programFiles := t.TempDir()
+	t.Setenv("ProgramFiles", programFiles)
+	root := filepath.Join(programFiles, "NetBeans-25")
+	r := registryPackage{DisplayName: "Apache NetBeans IDE 25", DisplayVersion: "25", Scope: "machine", InstallLocation: root, RegistryKey: `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\nbi-nb-all-25.0.0.250214.0`, UninstallString: `"` + filepath.Join(root, "uninstall.exe") + `"`}
+	args, ok := observedVendorSilentArgs(appDef{Name: "Apache NetBeans"}, r)
+	if !ok || !reflect.DeepEqual(args, []string{"--silent"}) {
+		t.Fatal("observed NBI registration rejected", args)
+	}
+	r.RegistryKey = `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Other`
+	if _, ok := observedVendorSilentArgs(appDef{Name: "Apache NetBeans"}, r); ok {
+		t.Fatal("unrelated registration accepted")
+	}
+}
+
 func TestChromiumSilentPreservesProfileAndExactTarget(t *testing.T) {
 	local := t.TempDir()
 	t.Setenv("LOCALAPPDATA", local)
