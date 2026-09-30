@@ -4,11 +4,35 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
 )
+
+func TestChromiumVendorStatusDoesNotRelaxOtherUninstallers(t *testing.T) {
+	local := t.TempDir()
+	t.Setenv("LOCALAPPDATA", local)
+	root := filepath.Join(local, "Chromium", "Application")
+	r := registryPackage{DisplayName: "Chromium", DisplayVersion: "154.0.8037.58", Scope: "user", InstallLocation: root, RegistryKey: `HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Chromium`, UninstallString: `"` + filepath.Join(root, "154.0.8037.58", "Installer", "setup.exe") + `" --uninstall`}
+	for _, tc := range []struct {
+		code            int
+		success, reboot bool
+	}{{19, true, false}, {20, false, false}, {21, false, false}, {29, true, true}} {
+		got := chromiumUninstallAttempt(appDef{Name: "Chromium"}, r, tc.code, "", fmt.Errorf("exit status %d", tc.code))
+		if got.ExitCode != tc.code || got.Success != tc.success || got.RebootRequired != tc.reboot {
+			t.Fatalf("status %d incorrectly classified: %+v", tc.code, got)
+		}
+	}
+	if chromiumUninstallAttempt(appDef{Name: "Other"}, r, 19, "", nil).Success {
+		t.Fatal("code 19 accepted for an unrelated application")
+	}
+	r.RegistryKey += "-unrelated"
+	if chromiumUninstallAttempt(appDef{Name: "Chromium"}, r, 19, "", nil).Success {
+		t.Fatal("code 19 accepted without the exact browser registration")
+	}
+}
 
 func TestChromiumUninstallerUsesChildOnlySameVolumeTemp(t *testing.T) {
 	parent := t.TempDir()

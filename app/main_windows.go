@@ -1916,7 +1916,7 @@ func runRegisteredUninstaller(ctx context.Context, app appDef, reg registryPacka
 			out = strings.TrimSpace(out + "\n" + string(data))
 		}
 	}
-	attempt := makeUninstallAttempt(code, out, err)
+	attempt := chromiumUninstallAttempt(app, reg, code, out, err)
 	if !attempt.Success {
 		workerLog("WARN", app.Name+": regisztrált eltávolító sikertelen: "+compactFailure(out, err)+fmt.Sprintf(" (exit=%d)", code))
 	}
