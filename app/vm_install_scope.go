@@ -16,7 +16,7 @@ func vmPhysicalInstallScope(id string) string {
 		// explicitly without claiming that the user variant has been repaired.
 		return "machine"
 	case "Telegram.TelegramDesktop", "GIMP.GIMP", "Greenshot.Greenshot", "WinSCP.WinSCP", "Microsoft.VisualStudioCode", "VSCodium.VSCodium", "WinMerge.WinMerge", "Jan.Jan",
-		"Playnite.Playnite", "Ollama.Ollama", "HeidiSQL.HeidiSQL", "darktable.darktable", "Meltytech.Shotcut", "PostgreSQL.pgAdmin", "LiteXLTeam.LiteXL", "Brave.Brave", "Hibbiki.Chromium", "GLab.GLab":
+		"Playnite.Playnite", "Ollama.Ollama", "HeidiSQL.HeidiSQL", "darktable.darktable", "Meltytech.Shotcut", "PostgreSQL.pgAdmin", "LiteXLTeam.LiteXL", "Brave.Brave", "Hibbiki.Chromium", "GLab.GLab", "TenacityTeam.Tenacity":
 		return "user"
 	}
 	return ""
