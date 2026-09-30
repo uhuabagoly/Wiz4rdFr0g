@@ -471,6 +471,7 @@ var displayAliasOverrides = map[string][]string{
 }
 
 var alternativeIDOverrides = map[string][]string{
+	"Apache OpenOffice":              {"Apache.OpenOffice"},
 	"Heroic Games Launcher":          {"HeroicGamesLauncher.HeroicGamesLauncher"},
 	"OnlyOffice Desktop Editors":     {"ONLYOFFICE.DesktopEditors"},
 	"Seafile Client":                 {"Seafile.Seafile"},
