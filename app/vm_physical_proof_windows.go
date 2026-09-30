@@ -120,6 +120,7 @@ func vmVerifyHTTPDownload(ctx context.Context, id, source, version, workRoot, sc
 }
 
 type vmFilesystemProof struct {
+	InstallerCaches      []vmInstallerCacheProof `json:"installer_caches,omitempty"`
 	VendorDiagnostics    map[string]string       `json:"vendor_diagnostics,omitempty"`
 	RemovalDiagnostics   map[string]string       `json:"removal_diagnostics,omitempty"`
 	RelatedRegistrations []registryPackage       `json:"related_registrations,omitempty"`
@@ -378,6 +379,15 @@ func vmMSIExecutableComponents(ctx context.Context, productCode string) ([]strin
 }
 
 func vmVerifyFilesystemRemoved(ctx context.Context, proof *vmFilesystemProof) error {
+	for _, cache := range proof.InstallerCaches {
+		n, digest, err := vmFileDigest(cache.Path)
+		if os.IsNotExist(err) {
+			continue
+		}
+		if err != nil || n != cache.Bytes || digest != cache.SHA256 {
+			return fmt.Errorf("retained installer cache changed or is inaccessible: %s", cache.Path)
+		}
+	}
 	if proof.Appx != nil {
 		items, err := vmReadAppxFamily(ctx, proof.Appx.Family)
 		if err != nil {
