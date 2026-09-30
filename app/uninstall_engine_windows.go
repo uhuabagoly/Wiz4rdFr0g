@@ -51,6 +51,10 @@ func executeInstalledUninstall(ctx context.Context, app appDef, pkg installedPac
 	if reg, ok := resolveRegistryForInstalled(app, pkg, registryPackages); ok && sqliteStudioUnattended(app, reg) {
 		return uninstallAttemptCode(app, runRegisteredUninstaller(ctx, app, reg))
 	}
+	if reg, ok := resolveRegistryForInstalled(app, pkg, registryPackages); ok && protonBridgeDirectMSI(app, reg) {
+		workerLog("INFO", "Proton Mail Bridge: using the bound registered MSI directly; the observed WinGet wrapper exhausted the uninstall timeout")
+		return uninstallAttemptCode(app, runRegisteredUninstaller(ctx, app, reg))
+	}
 	if reg, ok := resolveRegistryForInstalled(app, pkg, registryPackages); ok {
 		if _, supported := observedVendorSilentArgs(app, reg); supported {
 			return uninstallAttemptCode(app, runRegisteredUninstaller(ctx, app, reg))
