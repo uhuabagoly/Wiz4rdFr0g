@@ -53,8 +53,15 @@ func protectedUserPayload(ctx context.Context, app appDef, pkg installedPackage,
 		return reg, true
 	}
 	quoted := "'" + strings.ReplaceAll(exe, "'", "''") + "'"
-	script := "$s=Get-AuthenticodeSignature -LiteralPath " + quoted + "; if($s.Status -eq 'Valid' -and $s.SignerCertificate.Subject -match '(^|, )CN=Python Software Foundation(,|$)'){ 'VERIFIED_PSF' }else{ $s | Select-Object Status,StatusMessage,@{n='Subject';e={$_.SignerCertificate.Subject}} | ConvertTo-Json -Compress; exit 1 }"
-	code, out, err := runDirectProcess(ctx, "powershell.exe", []string{"-NoProfile", "-NonInteractive", "-Command", script})
+	// Hosted PowerShell 7 sessions can pass an incompatible PSModulePath to
+	// Windows PowerShell. Load its own security module by absolute path instead
+	// of allowing module discovery to choose a different runtime's assembly.
+	script := "try { Import-Module ($PSHOME + '\\Modules\\Microsoft.PowerShell.Security\\Microsoft.PowerShell.Security.psd1') -ErrorAction Stop; $s=Microsoft.PowerShell.Security\\Get-AuthenticodeSignature -LiteralPath " + quoted + " -ErrorAction Stop; if($s.Status -eq 'Valid' -and $s.SignerCertificate.Subject -match '(^|, )CN=Python Software Foundation(,|$)'){ 'VERIFIED_PSF' }else{ 'Signature rejected: ' + $s.Status + ' / ' + $s.StatusMessage; exit 1 } } catch { $_.Exception.ToString(); exit 1 }"
+	powershell := filepath.Join(os.Getenv("SystemRoot"), "System32", "WindowsPowerShell", "v1.0", "powershell.exe")
+	if !filepath.IsAbs(powershell) {
+		return registryPackage{}, false
+	}
+	code, out, err := runDirectProcess(ctx, powershell, []string{"-NoProfile", "-NonInteractive", "-Command", script})
 	if err != nil || code != 0 || strings.TrimSpace(out) != "VERIFIED_PSF" {
 		workerLog("WARN", fmt.Sprintf("Python publisher verification: exit=%d error=%v output=%s", code, err, compactLog(out)))
 		return registryPackage{}, false

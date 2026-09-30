@@ -471,6 +471,7 @@ var displayAliasOverrides = map[string][]string{
 }
 
 var alternativeIDOverrides = map[string][]string{
+	"Tiled Map Editor":               {"Tiled.Tiled"},
 	"VSCodium":                       {"VSCodium.VSCodium"},
 	"Bitvise SSH Client":             {"Bitvise.SSH.Client"},
 	"MariaDB":                        {"MariaDB.Server"},
