@@ -471,6 +471,7 @@ var displayAliasOverrides = map[string][]string{
 }
 
 var alternativeIDOverrides = map[string][]string{
+	"Files App":                      {"FilesCommunity.Files"},
 	"UNetbootin":                     {"unetbootin.unetbootin"},
 	"Insomnia":                       {"Insomnia.Insomnia"},
 	"ExifTool":                       {"OliverBetz.ExifTool"},

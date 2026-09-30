@@ -14,7 +14,7 @@ import (
 
 func vmReadAppxFamily(ctx context.Context, family string) ([]releaseproof.AppxProof, error) {
 	// Family comes exclusively from the publisher-bound allowlist above.
-	if family != releaseproof.ExpectedAppxFamily("Proton.ProtonPass") && family != releaseproof.ExpectedAppxFamily("M2Team.NanaZip") {
+	if family != releaseproof.ExpectedAppxFamily("Proton.ProtonPass") && family != releaseproof.ExpectedAppxFamily("M2Team.NanaZip") && family != releaseproof.ExpectedAppxFamily("FilesCommunity.Files") {
 		return nil, fmt.Errorf("unreviewed Appx identity")
 	}
 	script := `[Console]::OutputEncoding=[Text.UTF8Encoding]::new(); $ErrorActionPreference='Stop'; $items=@(Get-AppxPackage | Where-Object { $_.PackageFamilyName -ceq '` + family + `' } | ForEach-Object { $p=$_; $m=Get-AppxPackageManifest -Package $p.PackageFullName; [pscustomobject]@{family=$p.PackageFamilyName;full_name=$p.PackageFullName;install_location=$p.InstallLocation;executables=@($m.Package.Applications.Application | ForEach-Object { [string]$_.Executable })} }); ConvertTo-Json -InputObject $items -Depth 5 -Compress`
@@ -33,6 +33,8 @@ func vmCaptureAppx(ctx context.Context, name string) (vmFilesystemProof, error) 
 	var proof vmFilesystemProof
 	id := ""
 	switch name {
+	case "Files App":
+		id = "FilesCommunity.Files"
 	case "Proton Pass":
 		id = "Proton.ProtonPass"
 	case "NanaZip":

@@ -5,6 +5,9 @@ import "strings"
 // Publisher-bound package families observed in physical run 36304661281.
 func ExpectedAppxFamily(id string) string {
 	switch id {
+	case "FilesCommunity.Files":
+		// Stable 4.2.9.0 publisher CDN package, exact WinGet installer manifest.
+		return "Files_1y0xx7n9077q4"
 	case "Proton.ProtonPass":
 		return "ProtonPass_158qdr94jw63p"
 	case "M2Team.NanaZip":
