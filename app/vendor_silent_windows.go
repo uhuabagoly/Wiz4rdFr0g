@@ -14,6 +14,9 @@ import (
 // Qt: https://doc.qt.io/qtinstallerframework/ifw-use-cases-cli.html
 // install4j: https://www.ej-technologies.com/resources/install4j/help/doc/installers/installerModes.html
 func observedVendorSilentArgs(app appDef, reg registryPackage) ([]string, bool) {
+	if args, ok := vivaldiSilentArgs(app, reg); ok {
+		return args, true
+	}
 	if reg.WindowsInstaller != 0 {
 		return nil, false
 	}

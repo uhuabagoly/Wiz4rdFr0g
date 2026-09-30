@@ -7,6 +7,9 @@ package main
 // then execute in the same ordinary-user context as the production GUI.
 func vmPhysicalInstallScope(id string) string {
 	switch id {
+	case "Vivaldi.Vivaldi":
+		// Observed HKCU installation; manifest declares the user installer.
+		return "user"
 	case "OliverBetz.ExifTool":
 		// Publisher manifest declares /CURRENTUSER. Use an ordinary token so
 		// Inno does not record an admin requirement in this user installation.
