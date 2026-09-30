@@ -1031,6 +1031,9 @@ func scanRegistryPackages() []registryPackage {
 			out = append(out, p)
 		}
 	}
+	if p, ok := scanLICEcapVendorRegistration(); ok {
+		out = append(out, p)
+	}
 	return out
 }
 
